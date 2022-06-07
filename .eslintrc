@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "plugin:flowtype/recommended"
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "flowtype"
+  ],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "rules": {
+    "arrow-parens": "off",
+    "import/no-named-as-default": 0,
+    "no-bitwise": ["error", { "allow": ["<<"] }],
+    "no-param-reassign": 0,
+    "react/no-danger": "off",
+    "react/prefer-stateless-function": "off",
+    "react/prop-types": "off",
+    "react/sort-comp": [0, {}],
+  }
+}
