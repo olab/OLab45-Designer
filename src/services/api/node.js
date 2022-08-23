@@ -4,7 +4,7 @@ import { nodeToServer, nodeFromServer } from '../../helpers/applyAPIMapping';
 const API = createInstance();
 
 export const getNode = (mapId, nodeId) => API
-  .get(`/maps/${mapId}/node/${nodeId}`)
+  .get(`/designer/maps/${mapId}/node/${nodeId}`)
   .then(({ data: { data: node } }) => nodeFromServer(node))
   .catch((error) => {
     throw error;
