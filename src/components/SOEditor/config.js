@@ -33,6 +33,7 @@ export const EDITORS_FIELDS = {
   QUESTION_TYPES: 'Question Type',
   RESOURCE_URL: 'Resource Url',
   RESPONSE: 'Response',
+  ROOM_NAME: 'Room Name',
   RESPONSES: 'Responses',
   SCOPE_LEVEL: 'Scope Level',
   SCOPED_OBJECT_STATUS: 'Status',
@@ -69,10 +70,11 @@ export const QUESTION_TYPES = {
   8: 'Situational Judgement Testing',
   // 9: 'Cumulative',
   // 10: 'Rich Text',
-  // 11: 'Turk Talk',
+  11: 'Turk Talk Moderator',
   12: 'Drop Down',
   // 13: 'Multiple-choice grid',
   // 14: 'Pick-choice grid',
+  15: 'Turk Talk Participant',
 };
 
 export const CHOICE_QUESTION_TYPES = {
@@ -87,6 +89,11 @@ export const CHOICE_QUESTION_TYPES = {
 export const TEXTENTRY_QUESTION_TYPES = {
   1: 'Single Line Text',
   2: 'Multi-Line Text',
+};
+
+export const TTALK_QUESTION_TYPES = {
+  11: 'Turk Talk Moderator',
+  15: 'Turk Talk Participant'
 };
 
 export const SCOPED_OBJECTS_MAPPING = {

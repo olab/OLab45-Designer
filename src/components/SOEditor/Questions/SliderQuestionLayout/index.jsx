@@ -24,11 +24,11 @@ function SliderQuestionLayout({
     feedback,
     isFieldsDisabled,
     name,
+    questionType,
+    settings,
     showAnswer,
     showSubmit,
-    settings,
     stem,
-    questionType,
   } = state;
 
   const questionTypes = [QUESTION_TYPES[5]];

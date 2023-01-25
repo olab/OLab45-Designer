@@ -4,7 +4,7 @@ import { BLUE, WHITE } from '../../colors';
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing(),
+    margin: theme.spacing.unit,
   },
   styleTooltip: {
     backgroundColor: BLUE,

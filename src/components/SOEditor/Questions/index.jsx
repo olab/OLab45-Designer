@@ -18,7 +18,9 @@ import {
   TEXTENTRY_QUESTION_TYPES,
   CHOICE_QUESTION_TYPES,
   EDITORS_FIELDS,
+  TTALK_QUESTION_TYPES  
 } from '../config';
+
 import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../config';
 import EditorWrapper from '../../../shared/components/EditorWrapper';
 import OutlinedInput from '../../../shared/components/OutlinedInput';
@@ -27,6 +29,7 @@ import ScopedObjectService, { withSORedux } from '../index.service';
 import SearchModal from '../../../shared/components/SearchModal';
 import ChoiceQuestionLayout from './ChoiceQuestionLayout';
 import TextQuestionLayout from './TextQuestionLayout';
+import TTalkQuestionLayout from './TTalkQuestionLayout';
 import SliderQuestionLayout from './SliderQuestionLayout';
 import type { IScopedObjectProps } from '../types';
 
@@ -101,6 +104,7 @@ class Questions extends ScopedObjectService {
     const isChoiceQuestion = (questionType in CHOICE_QUESTION_TYPES);
     const isSliderQuestion = QUESTION_TYPES[questionType] === QUESTION_TYPES[5];
     const isTextQuestion = (questionType in TEXTENTRY_QUESTION_TYPES);
+    const isTTalkQuestion = (questionType in TTALK_QUESTION_TYPES);
 
     const idInfo = ` (Id: ${id})`;
 
@@ -156,6 +160,17 @@ class Questions extends ScopedObjectService {
 
         {(isSliderQuestion) && (
           <SliderQuestionLayout
+            onInputChange={this.onInputChange}
+            onQuestionTypeChange={this.onQuestionTypeChange}
+            onSettingsChange={this.onSettingsChange}
+            onSwitchChange={this.onSliderOrSwitchChange}
+            props={this.props}
+            state={this.state}
+          />
+        )}
+
+        {(isTTalkQuestion) && (
+          <TTalkQuestionLayout
             onInputChange={this.onInputChange}
             onQuestionTypeChange={this.onQuestionTypeChange}
             onSettingsChange={this.onSettingsChange}
