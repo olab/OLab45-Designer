@@ -167,6 +167,5 @@
       "node"
     ],
     "setupTestFrameworkScriptFile": "<rootDir>/config/jest/jestSetup.js"
-  },
-  "proxy": "https://dev.olab.ca"
+  }
 }
