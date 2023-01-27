@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Grid, Button, Paper, Typography, Divider,
+  Grid, Button, Paper, Typography, Divider, Tooltip,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -16,7 +16,7 @@ import CircularSpinnerWithText from '../../../shared/components/CircularSpinnerW
 import filterByName from '../../../helpers/filterByName';
 import filterByIndex from '../../../helpers/filterByIndex';
 import filterByParent from '../../../helpers/filterByParent';
-import { getIconType, getQuestionIconType } from '../../../helpers/getIconType';
+import { getIconType, getQuestionIconType, getQuestionIconTooltip } from '../../../helpers/getIconType';
 import ListWithSearch from '../../../shared/components/ListWithSearch';
 import styles, { HeaderWrapper, ProgressWrapper } from './styles';
 import type { ISOListProps, ISOListState } from './types';
@@ -88,11 +88,26 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
     document.title = PAGE_TITLES.SO_LIST(capitalizeFirstLetter(scopedObjectType));
   }
 
+  getIconTooltip = (showIcons, scopedObject) => {
+
+    if (showIcons) {
+      if (Object.prototype.hasOwnProperty.call(scopedObject, 'questionType')) {
+        return getQuestionIconTooltip(scopedObject.questionType);
+      }
+    }
+
+    return '';
+  };
+
   getIcon = (showIcons, scopedObject) => {
     if (showIcons) {
       if (Object.prototype.hasOwnProperty.call(scopedObject, 'questionType')) {
         const MediaIconContent = getQuestionIconType(scopedObject.questionType);
-        return <MediaIconContent />;
+        return ( 
+          <Tooltip title={this.getIconTooltip(showIcons, scopedObject)} placement='top'>
+            <MediaIconContent /> 
+          </Tooltip>
+        );
       }
 
       if (Object.prototype.hasOwnProperty.call(scopedObject, 'resourceUrl')) {
@@ -225,13 +240,13 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
               isMedia={isMedia}
               isWithSpinner={false}
               label={searchLabel}
-              primarytext={this.primarytext}
-              secondarytext={this.secondarytext}
               list={scopedObjectsFiltered}
               onClear={this.clearSearchInput}
               onItemClick={this.onObjectClick}
               onItemDelete={this.onClickObjectDelete}
               onSearch={this.searchObjectList}
+              primarytext={this.primarytext}
+              secondarytext={this.secondarytext}
             />
           </ListWithSearchWrapper>
         </Grid>
