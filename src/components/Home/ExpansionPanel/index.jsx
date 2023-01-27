@@ -7,7 +7,7 @@ import {
   Grid,
   LinearProgress,
   Typography,
-  ExpansionPanel as ExpansionPanelMaterialUI,
+  Accordion as ExpansionPanelMaterialUI,
   AccordionDetails,
   ExpansionPanelSummary,
 } from '@material-ui/core';

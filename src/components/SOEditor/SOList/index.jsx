@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Grid, Button, Paper, Typography, Divider,
+  Grid, Button, Paper, Typography, Divider, Tooltip,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -15,7 +15,8 @@ import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
 import CircularSpinnerWithText from '../../../shared/components/CircularSpinnerWithText';
 import filterByName from '../../../helpers/filterByName';
 import filterByIndex from '../../../helpers/filterByIndex';
-import { getIconType, getQuestionIconType } from '../../../helpers/getIconType';
+import filterByParent from '../../../helpers/filterByParent';
+import { getIconType, getQuestionIconType, getQuestionIconTooltip } from '../../../helpers/getIconType';
 import ListWithSearch from '../../../shared/components/ListWithSearch';
 import styles, { HeaderWrapper, ProgressWrapper } from './styles';
 import type { ISOListProps, ISOListState } from './types';
@@ -70,12 +71,14 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
     if (scopedObjects !== scopedObjectsPrev) {
       const scopedObjectsNameFiltered = filterByName(scopedObjects, query);
       const scopedObjectsIndexFiltered = filterByIndex(scopedObjects, query);
-      const scopedObjectsFiltered = [...scopedObjectsNameFiltered, ...scopedObjectsIndexFiltered];
+      const scopedObjectsFiltered = [
+        ...scopedObjectsNameFiltered, 
+        ...scopedObjectsIndexFiltered
+      ];
 
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ scopedObjectsFiltered });
-    }
-  }
+    }  }
 
   setPageTitle = (): void => {
     const {
@@ -85,11 +88,26 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
     document.title = PAGE_TITLES.SO_LIST(capitalizeFirstLetter(scopedObjectType));
   }
 
+  getIconTooltip = (showIcons, scopedObject) => {
+
+    if (showIcons) {
+      if (Object.prototype.hasOwnProperty.call(scopedObject, 'questionType')) {
+        return getQuestionIconTooltip(scopedObject.questionType);
+      }
+    }
+
+    return '';
+  };
+
   getIcon = (showIcons, scopedObject) => {
     if (showIcons) {
       if (Object.prototype.hasOwnProperty.call(scopedObject, 'questionType')) {
         const MediaIconContent = getQuestionIconType(scopedObject.questionType);
-        return <MediaIconContent />;
+        return ( 
+          <Tooltip title={this.getIconTooltip(showIcons, scopedObject)} placement='top'>
+            <MediaIconContent /> 
+          </Tooltip>
+        );
       }
 
       if (Object.prototype.hasOwnProperty.call(scopedObject, 'resourceUrl')) {
@@ -106,7 +124,15 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
     const { scopedObjects } = this.props;
     const scopedObjectsNameFiltered = filterByName(scopedObjects, query);
     const scopedObjectsIndexFiltered = filterByIndex(scopedObjects, query);
-    const scopedObjectsFiltered = [...scopedObjectsNameFiltered, ...scopedObjectsIndexFiltered];
+    const scopedObjectsParentFiltered = filterByParent(scopedObjects, query);
+
+    let allObjects = [
+      ...scopedObjectsNameFiltered, 
+      ...scopedObjectsIndexFiltered, 
+      ...scopedObjectsParentFiltered
+    ];
+
+    let scopedObjectsFiltered = [...new Set(allObjects)];
 
     this.setState({ scopedObjectsFiltered });
   }
@@ -141,9 +167,13 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
     } = this.props;
 
     if (scopedObjectType === 'question') {
-      if ((!scopedObject.name) || (scopedObject.name.length === 0)) {
+      if ( scopedObject.stem )
         return scopedObject.stem;
-      }
+
+      if ( scopedObject.name )
+        return scopedObject.name;
+
+      return scopedObject.id;
     }
 
     return scopedObject.name;
@@ -155,10 +185,10 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
     } = this.props;
 
     if (scopedObjectType === 'question') {
-      return `Id: ${scopedObject.id}`;
+      return `${scopedObject.scopeLevel}: '${scopedObject.scopeLevelObj.name}`;
     }
 
-    return `Id: ${scopedObject.id}`;
+    return `${scopedObject.scopeLevel}: '${scopedObject.scopeLevelObj.name}'`;
   }
 
   handleRedirect = () => {
@@ -210,13 +240,13 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
               isMedia={isMedia}
               isWithSpinner={false}
               label={searchLabel}
-              primarytext={this.primarytext}
-              secondarytext={this.secondarytext}
               list={scopedObjectsFiltered}
               onClear={this.clearSearchInput}
               onItemClick={this.onObjectClick}
               onItemDelete={this.onClickObjectDelete}
               onSearch={this.searchObjectList}
+              primarytext={this.primarytext}
+              secondarytext={this.secondarytext}
             />
           </ListWithSearchWrapper>
         </Grid>

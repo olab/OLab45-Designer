@@ -3,6 +3,11 @@ import { isPositiveInteger } from './dataTypes';
 
 const filterByIndex = (items: Array<any>, queryStr: string): Array<any> => {
   let itemsFiltered = [];
+
+  if ( !isNaN( queryStr )) {
+    return itemsFiltered;
+  }
+
   if (isPositiveInteger(queryStr)) {
     itemsFiltered = items.filter(({ id }) => (
       Number(id) === Number(queryStr)
