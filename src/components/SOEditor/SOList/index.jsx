@@ -15,6 +15,7 @@ import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
 import CircularSpinnerWithText from '../../../shared/components/CircularSpinnerWithText';
 import filterByName from '../../../helpers/filterByName';
 import filterByIndex from '../../../helpers/filterByIndex';
+import filterByParent from '../../../helpers/filterByParent';
 import { getIconType, getQuestionIconType } from '../../../helpers/getIconType';
 import ListWithSearch from '../../../shared/components/ListWithSearch';
 import styles, { HeaderWrapper, ProgressWrapper } from './styles';
@@ -70,12 +71,14 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
     if (scopedObjects !== scopedObjectsPrev) {
       const scopedObjectsNameFiltered = filterByName(scopedObjects, query);
       const scopedObjectsIndexFiltered = filterByIndex(scopedObjects, query);
-      const scopedObjectsFiltered = [...scopedObjectsNameFiltered, ...scopedObjectsIndexFiltered];
+      const scopedObjectsFiltered = [
+        ...scopedObjectsNameFiltered, 
+        ...scopedObjectsIndexFiltered
+      ];
 
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ scopedObjectsFiltered });
-    }
-  }
+    }  }
 
   setPageTitle = (): void => {
     const {
@@ -106,7 +109,15 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
     const { scopedObjects } = this.props;
     const scopedObjectsNameFiltered = filterByName(scopedObjects, query);
     const scopedObjectsIndexFiltered = filterByIndex(scopedObjects, query);
-    const scopedObjectsFiltered = [...scopedObjectsNameFiltered, ...scopedObjectsIndexFiltered];
+    const scopedObjectsParentFiltered = filterByParent(scopedObjects, query);
+
+    let allObjects = [
+      ...scopedObjectsNameFiltered, 
+      ...scopedObjectsIndexFiltered, 
+      ...scopedObjectsParentFiltered
+    ];
+
+    let scopedObjectsFiltered = [...new Set(allObjects)];
 
     this.setState({ scopedObjectsFiltered });
   }
@@ -141,9 +152,13 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
     } = this.props;
 
     if (scopedObjectType === 'question') {
-      if ((!scopedObject.name) || (scopedObject.name.length === 0)) {
+      if ( scopedObject.stem )
         return scopedObject.stem;
-      }
+
+      if ( scopedObject.name )
+        return scopedObject.name;
+
+      return scopedObject.id;
     }
 
     return scopedObject.name;
@@ -155,10 +170,10 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
     } = this.props;
 
     if (scopedObjectType === 'question') {
-      return `Id: ${scopedObject.id}`;
+      return `${scopedObject.scopeLevel}: '${scopedObject.scopeLevelObj.name}`;
     }
 
-    return `Id: ${scopedObject.id}`;
+    return `${scopedObject.scopeLevel}: '${scopedObject.scopeLevelObj.name}'`;
   }
 
   handleRedirect = () => {

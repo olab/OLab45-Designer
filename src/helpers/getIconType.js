@@ -15,7 +15,8 @@ import {
   TextFields as RichTextQuestionIcon,
   Tune as SliderQuestionIcon,
   ViewHeadline as MultiLineTextQuestionIcon,
-  TextFieldsRounded as TextFieldsRoundedIcon
+  TextFieldsRounded as TextFieldsRoundedIcon,
+  Chat as ChatIcon
 } from '@material-ui/icons';
 
 export const getQuestionIconType = (questionTypeId: Number) => {
@@ -30,10 +31,11 @@ export const getQuestionIconType = (questionTypeId: Number) => {
     // case 8: 'Situational Judgement Testing',
     // case 9: 'Cumulative',
     case 10: return RichTextQuestionIcon;
-    // case 11: 'Turk Talk',
+    case 11: return ChatIcon;
     case 12: return DropDownQuestionIcon;
     // case 13: 'Multiple-choice grid',
     // case 14: 'Pick-choice grid',
+    case 15: return ChatIcon;
     default:
       return UnknownQuestionIcon;
   }
