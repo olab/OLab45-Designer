@@ -90,13 +90,21 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
 
   getIconTooltip = (showIcons, scopedObject) => {
 
-    if (showIcons) {
-      if (Object.prototype.hasOwnProperty.call(scopedObject, 'questionType')) {
-        return getQuestionIconTooltip(scopedObject.questionType);
+    let title = '';
+
+    try {
+
+      if (showIcons) {
+        if (Object.prototype.hasOwnProperty.call(scopedObject, 'questionType')) {
+          title = getQuestionIconTooltip(scopedObject.questionType);
+        }
       }
+        
+    } catch (error) {
+      console.log(`${error.message}:${JSON.stringify(scopedObject, null, 2)}`)
     }
 
-    return '';
+    return title;
   };
 
   getIcon = (showIcons, scopedObject) => {
@@ -162,33 +170,46 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
   }
 
   primarytext = (scopedObject) => {
-    const {
-      match: { params: { scopedObjectType } },
-    } = this.props;
 
-    if (scopedObjectType === 'question') {
-      if ( scopedObject.stem )
-        return scopedObject.stem;
+    try {
+      const {
+        match: { params: { scopedObjectType } },
+      } = this.props;
+  
+      if (scopedObjectType === 'question') {
+        if ( scopedObject.stem )
+          return scopedObject.stem;
+  
+        if ( scopedObject.name )
+          return scopedObject.name;
+  
+        return scopedObject.id;
+      }
+  
+      return scopedObject.name;
 
-      if ( scopedObject.name )
-        return scopedObject.name;
-
-      return scopedObject.id;
+    } catch (error) {
+      log.error(`${error.message}, ${JSON.stringify(scopedObject, null, 2)}`);
     }
 
-    return scopedObject.name;
   }
 
   secondarytext = (scopedObject) => {
-    const {
-      match: { params: { scopedObjectType } },
-    } = this.props;
 
-    if (scopedObjectType === 'question') {
-      return `${scopedObject.scopeLevel}: '${scopedObject.scopeLevelObj.name}`;
+    try {
+      const {
+        match: { params: { scopedObjectType } },
+      } = this.props;
+  
+      if (scopedObjectType === 'question') {
+        return `${scopedObject.scopeLevel}: '${scopedObject.scopeLevelObj.name}`;
+      }
+  
+      return `${scopedObject.scopeLevel}: '${scopedObject.scopeLevelObj.name}'`;
+        
+    } catch (error) {
+      return `????: '????'`;
     }
-
-    return `${scopedObject.scopeLevel}: '${scopedObject.scopeLevelObj.name}'`;
   }
 
   handleRedirect = () => {

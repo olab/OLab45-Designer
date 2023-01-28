@@ -28,8 +28,8 @@ export const getQuestionIconTooltip = (questionTypeId: Number) => {
     case 5: return `${questionTypeId}: Slider`;
     case 6: return `${questionTypeId}: Dropdown`;
     case 7: return `${questionTypeId}: SCT`;
-    // case 8: `Situational Judgement Testing`,
-    // case 9: `Cumulative`,
+    case 8: return `Unknown Question Type`;
+    case 9: return `Unknown Question Type`;
     case 10: return `${questionTypeId}: Rich Text`;
     case 11: return `${questionTypeId}: Turk Talk Participant`;
     case 12: return `${questionTypeId}: Drop Down`;
@@ -37,7 +37,7 @@ export const getQuestionIconTooltip = (questionTypeId: Number) => {
     // case 14: `Pick-choice grid`,
     case 15: return `${questionTypeId}: Turk Talk Moderator`;
     default:
-      return UnknownQuestionIcon;
+      return `Unknown Question Type '${questionTypeId}'`;
   }
 };
 
@@ -50,8 +50,8 @@ export const getQuestionIconType = (questionTypeId: Number) => {
     case 5: return SliderQuestionIcon;
     case 6: return DropDownQuestionIcon;
     case 7: return SCTQuestionIcon;
-    // case 8: 'Situational Judgement Testing',
-    // case 9: 'Cumulative',
+    case 8: UnknownQuestionIcon;
+    case 9: UnknownQuestionIcon;
     case 10: return RichTextQuestionIcon;
     case 11: return ChatIcon;
     case 12: return DropDownQuestionIcon;
