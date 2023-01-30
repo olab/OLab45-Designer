@@ -25,7 +25,6 @@ import styles, { SearchWrapper, ListItemContentWrapper } from './styles';
 class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearchState> {
   static defaultProps = {
     getIcon: () => '',
-    getIconTooltip: () => '',
     iconEven: DefaultIcon,
     iconOdd: DefaultOutlinedIcon,
     isForModal: false,
@@ -60,7 +59,6 @@ class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearch
     const {
       classes,
       getIcon,
-      getIconTooltip,
       isForModal,
       isHideSearch,
       isItemsDisabled,
@@ -125,7 +123,6 @@ class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearch
               disabled={isItemsDisabled}
             >
               <ListItemContentWrapper>
-                <Tooltip title={getIconTooltip(showIcons, listItem)}>
                   <Button
                     classes={{ text: classes.listButton }}
                     onClick={() => onItemClick(listItem)}
@@ -133,13 +130,14 @@ class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearch
                   >
                     {getIcon(showIcons, listItem)}
                     &nbsp;
+
                     <ListItemText
                       primary={primarytext(listItem)}
                       secondary={removeHTMLTags(secondarytext(listItem) || '')}
                       classes={{ secondary: classes.secondaryText }}
                     />
                   </Button>
-                </Tooltip>
+
                 {onItemDelete && (
                   <IconButton
                     size="small"

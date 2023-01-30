@@ -39,6 +39,8 @@ function ChoiceQuestionLayout({
     questionType,
   } = state;
 
+  const showSubmitBoolean = ( showSubmit == 1 );
+
   return (
     <>
       {(!isEditMode) && (
@@ -67,7 +69,7 @@ function ChoiceQuestionLayout({
           className={classes.textField}
           margin="normal"
           variant="outlined"
-          value={name}
+          value={name || ''}
           onChange={onInputChange}
           disabled={isFieldsDisabled}
           fullWidth
@@ -84,7 +86,7 @@ function ChoiceQuestionLayout({
           className={classes.textField}
           margin="normal"
           variant="outlined"
-          value={description}
+          value={description || '' }
           onChange={onInputChange}
           disabled={isFieldsDisabled}
           fullWidth
@@ -101,7 +103,7 @@ function ChoiceQuestionLayout({
           className={classes.textField}
           margin="normal"
           variant="outlined"
-          value={stem}
+          value={stem || ''}
           onChange={onInputChange}
           disabled={isFieldsDisabled}
           fullWidth
@@ -121,7 +123,7 @@ function ChoiceQuestionLayout({
           name="showSubmit"
           label={EDITORS_FIELDS.SHOW_SUBMIT}
           labelPlacement="start"
-          checked={showSubmit}
+          checked={showSubmitBoolean}
           onChange={onSwitchChange}
           disabled={isFieldsDisabled}
         />
