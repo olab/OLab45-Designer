@@ -3,3 +3,4 @@ git pull
 npm install --force
 export NODE_OPTIONS=--openssl-legacy-provider
 npm run-script build
+service apache2 restart
