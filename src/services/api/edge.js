@@ -18,7 +18,7 @@ export function createEdge(mapId, edgeData) {
 }
 
 export const deleteEdge = (mapId, edgeId, nodeId) => API
-  .delete(`/maps/${mapId}/nodes/${nodeId}/links/${edgeId}`)
+  .delete(`/designer/maps/${mapId}/links/${edgeId}`)
   .catch((error) => {
     throw error;
   });

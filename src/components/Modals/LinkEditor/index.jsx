@@ -168,6 +168,12 @@ class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
       .some(({ source, target }) => source === linkTarget && target === linkSource);
   }
 
+  deleteLink = (): void => {
+    const { id: edgeId, map_id: mapId } = this.state;
+    const { ACTION_DELETE_EDGE } = this.props;
+    ACTION_DELETE_EDGE(edgeId, mapId);
+  }
+
   render() {
     const {
       label, color, variant, thickness, linkStyle, isHidden, isFollowOnce,
@@ -272,6 +278,16 @@ class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
         <ModalFooter>
           <Button
             variant="contained"
+            color="default"
+            onClick={this.deleteLink}
+          >
+            Delete
+          </Button>
+
+          <span style={{ flex: 1 }}></span>
+
+          <Button
+            variant="contained"
             color="primary"
             onClick={this.applyChanges}
           >
@@ -295,6 +311,9 @@ const mapDispatchToProps = dispatch => ({
   },
   ACTION_DESELECT_EDGE: () => {
     dispatch(mapActions.ACTION_SELECT_EDGE(null));
+  },
+  ACTION_DELETE_EDGE: (edgeId: number, linkId: number) => {
+    dispatch(mapActions.ACTION_DELETE_EDGE(edgeId, linkId));
   },
   ACTION_ADJUST_POSITION_MODAL: (offsetX: number, offsetY: number) => {
     dispatch(modalActions.ACTION_ADJUST_POSITION_MODAL(
