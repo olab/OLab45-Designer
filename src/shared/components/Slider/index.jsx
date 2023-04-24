@@ -15,7 +15,7 @@ const Slider = ({
     <SliderWrapper>
       <MaterialSlider
         name={name || ''}
-        classes={{ container: classes.slider }}
+        classes={{ root: classes.slider }}
         value={value}
         onChange={(e: Event, val: number) => onChange(e, val, name)}
         min={min}
