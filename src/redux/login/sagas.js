@@ -8,7 +8,7 @@ import { ACTION_USER_AUTH_SUCCEEDED, ACTION_USER_AUTH_FAILED } from './action';
 function* loginUserSaga({ userLoginData }) {
   try {
     const data = yield call(loginUser, userLoginData);
-    const { authInfo: { token } } = data.data;
+    const { authInfo: { token } } = data.data; 
 
     localStorage.setItem('token', token);
 
