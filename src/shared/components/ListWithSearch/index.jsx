@@ -21,6 +21,13 @@ import removeHTMLTags from '../../../helpers/removeHTMLTags';
 import type { IListWithSearchProps, IListWithSearchState } from './types';
 
 import styles, { SearchWrapper, ListItemContentWrapper } from './styles';
+import styled from "styled-components";
+
+const MapListWrapper = styled.div`
+  max-height: 75vh;
+  overflow: auto;
+  padding-right: 5px;
+`;
 
 class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearchState> {
   static defaultProps = {
@@ -112,56 +119,58 @@ class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearch
           </SearchWrapper>
         )}
 
-        <List
-          classes={{ root: listClassNames }}
-          disablePadding
-        >
-          {list.map((listItem) => (
-            <ListItem
-              key={listItem.id}
-              classes={{ root: classes.listItem }}
-              disabled={isItemsDisabled}
-            >
-              <ListItemContentWrapper>
-                  <Button
-                    classes={{ text: classes.listButton }}
-                    onClick={() => onItemClick(listItem)}
-                    disabled={isItemsDisabled}
-                  >
-                    {getIcon(showIcons, listItem)}
-                    &nbsp;
+        <MapListWrapper>
+          <List
+            classes={{ root: listClassNames }}
+            disablePadding
+          >
+            {list.map((listItem) => (
+              <ListItem
+                key={listItem.id}
+                classes={{ root: classes.listItem }}
+                disabled={isItemsDisabled}
+              >
+                <ListItemContentWrapper>
+                    <Button
+                      classes={{ text: classes.listButton }}
+                      onClick={() => onItemClick(listItem)}
+                      disabled={isItemsDisabled}
+                    >
+                      {getIcon(showIcons, listItem)}
+                      &nbsp;
 
-                    <ListItemText
-                      primary={primarytext(listItem)}
-                      secondary={removeHTMLTags(secondarytext(listItem) || '')}
-                      classes={{ secondary: classes.secondaryText }}
-                    />
-                  </Button>
+                      <ListItemText
+                        primary={primarytext(listItem)}
+                        secondary={removeHTMLTags(secondarytext(listItem) || '')}
+                        classes={{ secondary: classes.secondaryText }}
+                      />
+                    </Button>
 
-                {onItemDelete && (
-                  <IconButton
-                    size="small"
-                    title={`Delete ${listItem.name}`}
-                    aria-label="Delete Scoped Object"
-                    onClick={() => onItemDelete(listItem.id)}
-                    classes={{ root: classes.deleteIcon }}
-                    disabled={isItemsDisabled}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                )}
-              </ListItemContentWrapper>
-            </ListItem>
-          ))}
+                  {onItemDelete && (
+                    <IconButton
+                      size="small"
+                      title={`Delete ${listItem.name}`}
+                      aria-label="Delete Scoped Object"
+                      onClick={() => onItemDelete(listItem.id)}
+                      classes={{ root: classes.deleteIcon }}
+                      disabled={isItemsDisabled}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
+                </ListItemContentWrapper>
+              </ListItem>
+            ))}
 
-          {!list.length && (
-            <ListItem classes={{ root: classes.listItem }}>
-              <Typography align="right" variant="caption">
-                Empty list...
-              </Typography>
-            </ListItem>
-          )}
-        </List>
+            {!list.length && (
+              <ListItem classes={{ root: classes.listItem }}>
+                <Typography align="right" variant="caption">
+                  Empty list...
+                </Typography>
+              </ListItem>
+            )}
+          </List>
+        </MapListWrapper>
 
         {isShowSpinner && <CircularSpinnerWithText text="Updating list from the server..." centered large />}
       </div>
