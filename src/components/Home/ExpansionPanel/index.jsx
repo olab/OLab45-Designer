@@ -7,9 +7,9 @@ import {
   Grid,
   LinearProgress,
   Typography,
-  ExpansionPanel as ExpansionPanelMaterialUI,
+  Accordion as ExpansionPanelMaterialUI,
   AccordionDetails,
-  ExpansionPanelSummary,
+  AccordionSummary as ExpansionPanelSummary,
 } from '@material-ui/core';
 import {
   ExpandMore as ExpandMoreIcon,
