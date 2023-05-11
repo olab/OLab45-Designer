@@ -5,7 +5,10 @@ export type ISOListProps = {
   classes: {
     [props: string]: any,
   },
-  ACTION_SCOPED_OBJECT_DELETE_REQUESTED: (scopedObjectId: number, scopedObjectType: string) => void,
+  ACTION_SCOPED_OBJECT_DELETE_REQUESTED: (
+    scopedObjectId: number,
+    scopedObjectType: string,
+  ) => void,
   ACTION_SCOPED_OBJECTS_TYPED_REQUESTED: (scopedObjectType: string) => void,
   history: any,
   isScopedObjectsFetching: boolean,

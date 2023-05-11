@@ -18,26 +18,30 @@ export const ACTION_UPDATE_NODE_GRID_FAILED = () => ({
 });
 
 export const ACTION_UPDATE_NODE_GRID_SUCCEEDED = (nodes: Node) => {
-  const { map: { nodes: stateNodes } } = store.getState();
+  const {
+    map: { nodes: stateNodes },
+  } = store.getState();
 
   const updatedNodes = stateNodes.map((stateNode: Node): Node => ({
     ...stateNode,
-    ...nodes.find(node => node.id === stateNode.id),
+    ...nodes.find((node) => node.id === stateNode.id),
   }));
 
-  return ({
+  return {
     type: UPDATE_NODE_GRID_SUCCEEDED,
     nodes: updatedNodes,
-  });
+  };
 };
 
 export const ACTION_UPDATE_NODE_GRID_REQUESTED = (nodes: Array<Node>) => {
-  const { map: { nodes: storeNodes } } = store.getState();
+  const {
+    map: { nodes: storeNodes },
+  } = store.getState();
   const { nodes: reducedStoreNodes } = getNodesReduced(storeNodes);
   const diffNodes = differenceWith(nodes, reducedStoreNodes, isEqual);
 
-  return ({
+  return {
     type: UPDATE_NODE_GRID_REQUESTED,
     nodes: diffNodes,
-  });
+  };
 };

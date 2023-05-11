@@ -1,12 +1,16 @@
-import {
-  put, call, takeLatest, select,
-} from 'redux-saga/effects';
+import { put, call, takeLatest, select } from 'redux-saga/effects';
 import { updateNodeGrid } from '../../services/api/nodeGrid';
 
 import { UPDATE_NODE_GRID_REQUESTED } from './types';
 
-import { ACTION_NOTIFICATION_ERROR, ACTION_NOTIFICATION_SUCCESS } from '../notifications/action';
-import { ACTION_UPDATE_NODE_GRID_FAILED, ACTION_UPDATE_NODE_GRID_SUCCEEDED } from './action';
+import {
+  ACTION_NOTIFICATION_ERROR,
+  ACTION_NOTIFICATION_SUCCESS,
+} from '../notifications/action';
+import {
+  ACTION_UPDATE_NODE_GRID_FAILED,
+  ACTION_UPDATE_NODE_GRID_SUCCEEDED,
+} from './action';
 
 import { MESSAGES } from '../notifications/config';
 

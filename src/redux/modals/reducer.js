@@ -1,8 +1,5 @@
 // @flow
-import {
-  type ModalsActions,
-  UPDATE_MODAL,
-} from './types';
+import { type ModalsActions, UPDATE_MODAL } from './types';
 import type { Modals as ModalsType } from '../../components/Modals/types';
 
 import {
@@ -29,7 +26,10 @@ export const initialModalsState: ModalsType = {
   },
 };
 
-const modals = (state: ModalsType = initialModalsState, action: ModalsActions) => {
+const modals = (
+  state: ModalsType = initialModalsState,
+  action: ModalsActions,
+) => {
   switch (action.type) {
     case UPDATE_MODAL: {
       const { modalName, modalValue } = action;

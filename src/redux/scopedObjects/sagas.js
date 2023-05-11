@@ -1,6 +1,4 @@
-import {
-  call, put, select, takeLatest, takeEvery,
-} from 'redux-saga/effects';
+import { call, put, select, takeLatest, takeEvery } from 'redux-saga/effects';
 import {
   createScopedObject,
   deleteScopedObject,
@@ -22,7 +20,10 @@ import {
 } from './types';
 import { GET_MAP_DETAILS_SUCCEEDED } from '../mapDetails/types';
 
-import { ACTION_NOTIFICATION_ERROR, ACTION_NOTIFICATION_SUCCESS } from '../notifications/action';
+import {
+  ACTION_NOTIFICATION_ERROR,
+  ACTION_NOTIFICATION_SUCCESS,
+} from '../notifications/action';
 import {
   ACTION_SCOPED_OBJECTS_REQUEST_SUCCEEDED,
   ACTION_SCOPED_OBJECTS_REQUEST_FAILED,
@@ -58,7 +59,9 @@ function* getScopedObjectsByTypeSaga({ scopedObjectType }) {
   try {
     const scopedObjects = yield call(getScopedObjectsByType, scopedObjectType);
 
-    yield put(ACTION_SCOPED_OBJECTS_TYPED_SUCCEEDED(scopedObjectType, scopedObjects));
+    yield put(
+      ACTION_SCOPED_OBJECTS_TYPED_SUCCEEDED(scopedObjectType, scopedObjects),
+    );
   } catch (error) {
     const { response, message } = error;
     const errorMessage = response ? response.statusText : message;
@@ -76,16 +79,20 @@ function* getScopedObjectDetailsSaga({ scopedObjectId, scopedObjectType }) {
       scopedObjectType,
     );
 
-    yield put(ACTION_SCOPED_OBJECT_DETAILS_SUCCEEDED(
-      scopedObjectId,
-      scopedObjectType,
-      scopedObjectDetails,
-    ));
+    yield put(
+      ACTION_SCOPED_OBJECT_DETAILS_SUCCEEDED(
+        scopedObjectId,
+        scopedObjectType,
+        scopedObjectDetails,
+      ),
+    );
   } catch (error) {
     const { response, message } = error;
     const errorMessage = response ? response.statusText : message;
 
-    yield put(ACTION_SCOPED_OBJECT_DETAILS_FAILED(scopedObjectId, scopedObjectType));
+    yield put(
+      ACTION_SCOPED_OBJECT_DETAILS_FAILED(scopedObjectId, scopedObjectType),
+    );
     yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
   }
 }
@@ -98,11 +105,13 @@ function* createScopedObjectSaga({ scopedObjectType, scopedObjectData }) {
       scopedObjectData,
     );
 
-    yield put(ACTION_SCOPED_OBJECT_CREATE_SUCCEEDED(
-      scopedObjectId,
-      scopedObjectType,
-      scopedObjectData,
-    ));
+    yield put(
+      ACTION_SCOPED_OBJECT_CREATE_SUCCEEDED(
+        scopedObjectId,
+        scopedObjectType,
+        scopedObjectData,
+      ),
+    );
     yield put(ACTION_NOTIFICATION_SUCCESS(MESSAGES.ON_CREATE.SCOPED_OBJECT));
   } catch (error) {
     const { response, message } = error;
@@ -113,7 +122,11 @@ function* createScopedObjectSaga({ scopedObjectType, scopedObjectData }) {
   }
 }
 
-function* updateScopedObjectSaga({ scopedObjectId, scopedObjectType, scopedObjectData }) {
+function* updateScopedObjectSaga({
+  scopedObjectId,
+  scopedObjectType,
+  scopedObjectData,
+}) {
   try {
     yield call(
       editScopedObject,
@@ -137,7 +150,9 @@ function* deleteScopedObjectSaga({ scopedObjectId, scopedObjectType }) {
   try {
     yield call(deleteScopedObject, scopedObjectId, scopedObjectType);
 
-    yield put(ACTION_SCOPED_OBJECT_DELETE_SUCCEEDED(scopedObjectId, scopedObjectType));
+    yield put(
+      ACTION_SCOPED_OBJECT_DELETE_SUCCEEDED(scopedObjectId, scopedObjectType),
+    );
     yield put(ACTION_NOTIFICATION_SUCCESS(MESSAGES.ON_DELETE.SCOPED_OBJECT));
   } catch (error) {
     const { response, message } = error;
@@ -161,7 +176,9 @@ function* getScopedObjectsByParentSaga({
       scopedObjectType,
     );
 
-    yield put(ACTION_SCOPED_OBJECTS_TYPED_SUCCEEDED(scopedObjectType, scopedObjects));
+    yield put(
+      ACTION_SCOPED_OBJECTS_TYPED_SUCCEEDED(scopedObjectType, scopedObjects),
+    );
   } catch (error) {
     const { response, message } = error;
     const errorMessage = response ? response.statusText : message;
@@ -172,13 +189,16 @@ function* getScopedObjectsByParentSaga({
 }
 
 function* scopedObjectsSaga() {
-  yield takeLatest([
-    GET_MAP_DETAILS_SUCCEEDED,
-    SCOPED_OBJECTS_REQUESTED,
-  ], getScopedObjectsSaga);
+  yield takeLatest(
+    [GET_MAP_DETAILS_SUCCEEDED, SCOPED_OBJECTS_REQUESTED],
+    getScopedObjectsSaga,
+  );
 
   yield takeLatest(SCOPED_OBJECTS_TYPED_REQUESTED, getScopedObjectsByTypeSaga);
-  yield takeLatest(SCOPED_OBJECTS_PARENT_TYPED_REQUESTED, getScopedObjectsByParentSaga);
+  yield takeLatest(
+    SCOPED_OBJECTS_PARENT_TYPED_REQUESTED,
+    getScopedObjectsByParentSaga,
+  );
   yield takeLatest(SCOPED_OBJECT_CREATE_REQUESTED, createScopedObjectSaga);
   yield takeLatest(SCOPED_OBJECT_UPDATE_REQUESTED, updateScopedObjectSaga);
   yield takeLatest(SCOPED_OBJECT_DELETE_REQUESTED, deleteScopedObjectSaga);

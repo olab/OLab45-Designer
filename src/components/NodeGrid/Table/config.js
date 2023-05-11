@@ -1,4 +1,3 @@
-
 export const TABLE_HEAD_CELLS = {
   id: {
     label: 'Node ID',

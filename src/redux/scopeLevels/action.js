@@ -20,11 +20,11 @@ export function ACTION_SCOPE_LEVELS_REQUEST_SUCCEEDED(
   level: string,
   levelList: Array<ScopeLevelType>,
 ) {
-  return ({
+  return {
     type: SCOPE_LEVELS_REQUEST_SUCCEEDED,
     level,
     levelList,
-  });
+  };
 }
 
 export const ACTION_SCOPE_LEVELS_CLEAR = () => ({

@@ -4,8 +4,8 @@ import type { Node as NodeType } from '../../Node/types';
 import SnapToGrid from './snap-to-grid';
 
 type MapNodes = {
-  [key: string]: any;
-}
+  [key: string]: any,
+};
 class VerticalTree extends SnapToGrid {
   // eslint-disable-next-line class-methods-use-this
   adjustNodes(nodes: Array<NodeType>, nodesMap?: MapNodes): Array<NodeType> {
@@ -24,7 +24,10 @@ class VerticalTree extends SnapToGrid {
       const nodesMapNode = nodesMap[nodeKeyId];
 
       // prevent disconnected nodes from being part of the graph
-      if (nodesMapNode.incomingEdges.length === 0 && nodesMapNode.outgoingEdges.length === 0) {
+      if (
+        nodesMapNode.incomingEdges.length === 0 &&
+        nodesMapNode.outgoingEdges.length === 0
+      ) {
         return;
       }
       g.setNode(nodeKeyId, { width: size, height: size });

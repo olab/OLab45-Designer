@@ -38,17 +38,21 @@ describe('VerticalTree', () => {
       const nodesMap = {
         'key-test': {
           incomingEdges: [],
-          outgoingEdges: [{
-            source: 'test',
-            target: 'test1',
-          }],
+          outgoingEdges: [
+            {
+              source: 'test',
+              target: 'test1',
+            },
+          ],
           node: nodes[0],
         },
         'key-test1': {
-          incomingEdges: [{
-            source: 'test1',
-            target: 'test',
-          }],
+          incomingEdges: [
+            {
+              source: 'test1',
+              target: 'test',
+            },
+          ],
           outgoingEdges: [],
           node: nodes[1],
         },
@@ -63,21 +67,15 @@ describe('VerticalTree', () => {
 
     it('does nothing when there is no nodeMap', () => {
       const verticalTree = new VerticalTree(snapToGrid);
-      const nodes = [
-        { id: 'test', x: 9, y: 8 },
-      ];
+      const nodes = [{ id: 'test', x: 9, y: 8 }];
       const newNodes = verticalTree.adjustNodes(nodes);
-      const expected = [
-        { id: 'test', x: 9, y: 8 },
-      ];
+      const expected = [{ id: 'test', x: 9, y: 8 }];
       expect(JSON.stringify(newNodes)).toEqual(JSON.stringify(expected));
     });
 
     it('does nothing on disconnected nodes', () => {
       const verticalTree = new VerticalTree(snapToGrid);
-      const nodes = [
-        { id: 'test', x: 9, y: 8 },
-      ];
+      const nodes = [{ id: 'test', x: 9, y: 8 }];
       const nodesMap = {
         'key-test': {
           incomingEdges: [],
@@ -86,9 +84,7 @@ describe('VerticalTree', () => {
         },
       };
       const newNodes = verticalTree.adjustNodes(nodes, nodesMap);
-      const expected = [
-        { id: 'test', x: 9, y: 8 },
-      ];
+      const expected = [{ id: 'test', x: 9, y: 8 }];
       expect(JSON.stringify(newNodes)).toEqual(JSON.stringify(expected));
     });
 
@@ -101,17 +97,21 @@ describe('VerticalTree', () => {
       const nodesMap = {
         'key-test': {
           incomingEdges: [],
-          outgoingEdges: [{
-            source: 'test',
-            target: 'test1',
-          }],
+          outgoingEdges: [
+            {
+              source: 'test',
+              target: 'test1',
+            },
+          ],
           node: nodes[0],
         },
         'key-test1': {
-          incomingEdges: [{
-            source: 'test1',
-            target: 'test',
-          }],
+          incomingEdges: [
+            {
+              source: 'test1',
+              target: 'test',
+            },
+          ],
           outgoingEdges: [],
           node: nodes[1],
         },

@@ -31,7 +31,10 @@ export const initialDefaultsState: DefaultsType = {
   },
 };
 
-const defaults = (state: DefaultsType = initialDefaultsState, action: DefaultsActions) => {
+const defaults = (
+  state: DefaultsType = initialDefaultsState,
+  action: DefaultsActions,
+) => {
   switch (action.type) {
     case SET_DEFAULTS: {
       const { edgeBody, nodeBody } = action;

@@ -46,7 +46,7 @@ export type ScopedObjectDetails = {
 export type ScopedObjectListItem = {
   id: number,
   ...ScopedObjectBase,
-}
+};
 
 export type ScopedObject = {
   id: number,
@@ -138,13 +138,15 @@ type ScopedObjectUpdateFulfilled = {
   type: 'SCOPED_OBJECT_UPDATE_FULFILLED',
 };
 
-const SCOPED_OBJECTS_PARENT_TYPED_REQUESTED = 'SCOPED_OBJECTS_PARENT_TYPED_REQUESTED';
+const SCOPED_OBJECTS_PARENT_TYPED_REQUESTED =
+  'SCOPED_OBJECTS_PARENT_TYPED_REQUESTED';
 type ScopedObjectsParentTypedRequested = {
   type: 'SCOPED_OBJECTS_PARENT_TYPED_REQUESTED',
   scopedObjectType: string,
 };
 
-const SCOPED_OBJECTS_PARENT_TYPED_SUCCEEDED = 'SCOPED_OBJECTS_PARENT_TYPED_SUCCEEDED';
+const SCOPED_OBJECTS_PARENT_TYPED_SUCCEEDED =
+  'SCOPED_OBJECTS_PARENT_TYPED_SUCCEEDED';
 type ScopedObjectsParentTypedSucceeded = {
   type: 'SCOPED_OBJECTS_PARENT_TYPED_SUCCEEDED',
   scopedObjectType: string,
@@ -198,17 +200,27 @@ type ScopedObjectDeleteFailed = {
   type: 'SCOPED_OBJECT_DELETE_FAILED',
 };
 
-export type ScopedObjectsActions = ScopedObjectsRequestSucceeded |
-  ScopedObjectsRequested | ScopedObjectsRequestFailed |
-  ScopedObjectsDetailsRequested | ScopedObjectsDetailsFulfilled |
-  ScopedObjectsCreateFailed | ScopedObjectsCreateSucceeded |
-  ScopedObjectsCreateRequested | ScopedObjectUpdateRequested |
-  ScopedObjectUpdateFulfilled | ScopedObjectsTypedRequested |
-  ScopedObjectsTypedSucceeded | ScopedObjectsTypedFailed |
-  ScopedObjectsClear | ScopedObjectDeleteRequested |
-  ScopedObjectDeleteSucceeded | ScopedObjectDeleteFailed |
-  ScopedObjectsParentTypedRequested | ScopedObjectsParentTypedSucceeded |
-  ScopedObjectsParentTypedFailed;
+export type ScopedObjectsActions =
+  | ScopedObjectsRequestSucceeded
+  | ScopedObjectsRequested
+  | ScopedObjectsRequestFailed
+  | ScopedObjectsDetailsRequested
+  | ScopedObjectsDetailsFulfilled
+  | ScopedObjectsCreateFailed
+  | ScopedObjectsCreateSucceeded
+  | ScopedObjectsCreateRequested
+  | ScopedObjectUpdateRequested
+  | ScopedObjectUpdateFulfilled
+  | ScopedObjectsTypedRequested
+  | ScopedObjectsTypedSucceeded
+  | ScopedObjectsTypedFailed
+  | ScopedObjectsClear
+  | ScopedObjectDeleteRequested
+  | ScopedObjectDeleteSucceeded
+  | ScopedObjectDeleteFailed
+  | ScopedObjectsParentTypedRequested
+  | ScopedObjectsParentTypedSucceeded
+  | ScopedObjectsParentTypedFailed;
 
 export {
   SCOPED_OBJECTS_REQUEST_FAILED,

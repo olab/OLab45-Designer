@@ -18,7 +18,7 @@ export const ZoomWrapper = styled.span`
   align-items: center;
 `;
 
-const styles = theme => ({
+const styles = (theme) => ({
   arrow: {
     position: 'absolute',
     fontSize: 7,

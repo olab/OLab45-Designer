@@ -1,4 +1,4 @@
 // @flow
 export type ICircleProps = {
-  gridDotSize?: number;
+  gridDotSize?: number,
 };

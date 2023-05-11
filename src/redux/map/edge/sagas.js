@@ -1,13 +1,14 @@
-import {
-  call, put, select, takeEvery,
-} from 'redux-saga/effects';
+import { call, put, select, takeEvery } from 'redux-saga/effects';
 
 import { createEdge, deleteEdge, updateEdge } from '../../../services/api/edge';
 
 import { CREATE_EDGE, DELETE_EDGE, UPDATE_EDGE } from '../types';
 
 import { ACTION_EXCHANGE_EDGE_ID } from '../action';
-import { ACTION_NOTIFICATION_ERROR, ACTION_NOTIFICATION_SUCCESS } from '../../notifications/action';
+import {
+  ACTION_NOTIFICATION_ERROR,
+  ACTION_NOTIFICATION_SUCCESS,
+} from '../../notifications/action';
 
 import { MESSAGES } from '../../notifications/config';
 

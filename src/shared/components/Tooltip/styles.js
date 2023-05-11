@@ -2,7 +2,7 @@ import arrowGenerator from '../../../helpers/arrowGenerator';
 
 import { BLUE, WHITE } from '../../colors';
 
-const styles = theme => ({
+const styles = (theme) => ({
   button: {
     margin: theme.spacing.unit,
   },

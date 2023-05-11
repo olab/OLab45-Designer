@@ -17,7 +17,10 @@ import * as notificationActions from '../../redux/notifications/action';
 
 import styles from './styles';
 
-class ScopedObjectService extends PureComponent<IScopedObjectProps, IScopedObjectState> {
+class ScopedObjectService extends PureComponent<
+  IScopedObjectProps,
+  IScopedObjectState,
+> {
   parentIdRef: HTMLElement | null;
   isEditMode: boolean = false;
   scopeLevelObj: ScopeLevelType | null;
@@ -33,15 +36,21 @@ class ScopedObjectService extends PureComponent<IScopedObjectProps, IScopedObjec
     this.icons = getIconsByScopeLevel(SCOPE_LEVELS[0]);
   }
 
-  componentDidUpdate(prevProps: IScopedObjectProps, prevState: IScopedObjectState) {
+  componentDidUpdate(
+    prevProps: IScopedObjectProps,
+    prevState: IScopedObjectState,
+  ) {
     const { scopeLevel, isShowModal } = this.state;
-    const { scopeLevel: scopeLevelPrev, isShowModal: isShowModalPrev } = prevState;
+    const { scopeLevel: scopeLevelPrev, isShowModal: isShowModalPrev } =
+      prevState;
     const {
       history,
       scopedObjects,
       isScopedObjectCreating,
       isScopedObjectUpdating,
-      match: { params: { scopedObjectId } },
+      match: {
+        params: { scopedObjectId },
+      },
     } = this.props;
     const {
       scopedObjects: scopedObjectsPrev,
@@ -50,11 +59,16 @@ class ScopedObjectService extends PureComponent<IScopedObjectProps, IScopedObjec
     } = prevProps;
 
     const isScopeLevelChanged = scopeLevel !== scopeLevelPrev;
-    const isCreatingStarted = !isScopedObjectCreatingPrev && isScopedObjectCreating;
-    const isCreatingEnded = isScopedObjectCreatingPrev && !isScopedObjectCreating;
-    const isUpdatingStarted = !isScopedObjectUpdatingPrev && isScopedObjectUpdating;
-    const isUpdatingEnded = isScopedObjectUpdatingPrev && !isScopedObjectUpdating;
-    const isScopedObjectCreated = scopedObjectsPrev.length < scopedObjects.length;
+    const isCreatingStarted =
+      !isScopedObjectCreatingPrev && isScopedObjectCreating;
+    const isCreatingEnded =
+      isScopedObjectCreatingPrev && !isScopedObjectCreating;
+    const isUpdatingStarted =
+      !isScopedObjectUpdatingPrev && isScopedObjectUpdating;
+    const isUpdatingEnded =
+      isScopedObjectUpdatingPrev && !isScopedObjectUpdating;
+    const isScopedObjectCreated =
+      scopedObjectsPrev.length < scopedObjects.length;
     const isModalClosed = isShowModalPrev && !isShowModal;
     const isScopedObjectsUpdated = scopedObjectsPrev !== scopedObjects;
 
@@ -80,7 +94,9 @@ class ScopedObjectService extends PureComponent<IScopedObjectProps, IScopedObjec
     }
 
     if (isScopedObjectsUpdated && scopedObjectId) {
-      const scopedObject = scopedObjects.find(({ id }) => id === Number(scopedObjectId));
+      const scopedObject = scopedObjects.find(
+        ({ id }) => id === Number(scopedObjectId),
+      );
 
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ ...scopedObject });
@@ -89,7 +105,9 @@ class ScopedObjectService extends PureComponent<IScopedObjectProps, IScopedObjec
 
   checkIfEditMode = (): void => {
     const {
-      match: { params: { scopedObjectId } },
+      match: {
+        params: { scopedObjectId },
+      },
       ACTION_SCOPED_OBJECT_DETAILS_REQUESTED,
     } = this.props;
 
@@ -99,74 +117,78 @@ class ScopedObjectService extends PureComponent<IScopedObjectProps, IScopedObjec
         this.isEditMode = true;
       }
     }
-  }
+  };
 
   setPageTitle = (): void => {
     const title = this.isEditMode ? PAGE_TITLES.EDIT_SO : PAGE_TITLES.ADD_SO;
     document.title = title(this.scopedObjectType);
-  }
+  };
 
   blurParentInput = (): void => {
     this.parentIdRef.blur();
-  }
+  };
 
   setParentRef = (ref: HTMLElement): void => {
     this.parentIdRef = ref;
-  }
+  };
 
   onSelectChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
     this.setState({ [name]: value });
-  }
+  };
 
   onInputChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
     this.setState({
-      [name]: value
+      [name]: value,
     });
-  }
+  };
 
   onToggleButtonChange = (e: Event): void => {
     let { value } = (e.target.parentNode: window.HTMLInputElement);
-    const { attributes } = (
-      e.target.parentNode.parentNode: window.HTMLInputElement
-    );
+    const { attributes } = (e.target.parentNode
+      .parentNode: window.HTMLInputElement);
     const { value: name } = attributes.name;
     value = Number(value);
     this.setState({ [name]: value });
-  }
+  };
 
   toggleDisableFields = (): void => {
     this.setState(({ isFieldsDisabled }) => ({
       isFieldsDisabled: !isFieldsDisabled,
     }));
-  }
+  };
 
-  onSliderOrSwitchChange = (e: Event, value: number | boolean, name: string): void => {
+  onSliderOrSwitchChange = (
+    e: Event,
+    value: number | boolean,
+    name: string,
+  ): void => {
     this.setState({ [name]: value });
   };
 
   onClickUpdate = (): void => {
+    const { isFieldsDisabled, isShowModal, ...scopedObjectData } = this.state;
     const {
-      isFieldsDisabled,
-      isShowModal,
-      ...scopedObjectData
-    } = this.state;
-    const {
-      match: { params: { scopedObjectId } },
+      match: {
+        params: { scopedObjectId },
+      },
       ACTION_SCOPED_OBJECT_CREATE_REQUESTED,
       ACTION_SCOPED_OBJECT_UPDATE_REQUESTED,
     } = this.props;
 
     if (this.isEditMode) {
-      ACTION_SCOPED_OBJECT_UPDATE_REQUESTED(Number(scopedObjectId), scopedObjectData);
+      ACTION_SCOPED_OBJECT_UPDATE_REQUESTED(
+        Number(scopedObjectId),
+        scopedObjectData,
+      );
     } else if (scopedObjectData.scopeLevelObj) {
       const { id: parentId } = scopedObjectData.scopeLevelObj;
       Object.assign(scopedObjectData, { parentId });
 
       ACTION_SCOPED_OBJECT_CREATE_REQUESTED(scopedObjectData);
     }
-  }
+  };
 
   showModal = (): void => {
     const { scopeLevel } = this.state;
@@ -175,32 +197,32 @@ class ScopedObjectService extends PureComponent<IScopedObjectProps, IScopedObjec
     ACTION_SCOPE_LEVELS_REQUESTED(scopeLevel.toLowerCase());
 
     this.setState({ isShowModal: true });
-  }
+  };
 
   hideModal = (): void => {
     this.setState({ isShowModal: false });
-  }
+  };
 
   handleLevelObjChoose = (level: ScopeLevelType): void => {
     // this.scopeLevelObj = level;
     this.setState({
       scopeLevelObj: level,
-      isShowModal: false
+      isShowModal: false,
     });
-  }
+  };
 
   handleParentRemove = (): void => {
     // this.scopeLevelObj = null;
     this.setState({
-      scopeLevelObj: null
+      scopeLevelObj: null,
     });
     // this.forceUpdate();
-  }
+  };
 
   displayNotificationInfo = (message: string) => {
     const { ACTION_NOTIFICATION_INFO } = this.props;
     ACTION_NOTIFICATION_INFO(message);
-  }
+  };
 }
 
 export const withSORedux = (
@@ -214,7 +236,7 @@ export const withSORedux = (
     scopeLevels,
   });
 
-  const mapDispatchToProps = dispatch => ({
+  const mapDispatchToProps = (dispatch) => ({
     ACTION_NOTIFICATION_INFO: (message: string) => {
       dispatch(notificationActions.ACTION_NOTIFICATION_INFO(message));
     },
@@ -222,37 +244,41 @@ export const withSORedux = (
       dispatch(scopeLevelsActions.ACTION_SCOPE_LEVELS_REQUESTED(scopeLevel));
     },
     ACTION_SCOPED_OBJECT_DETAILS_REQUESTED: (scopedObjectId: number) => {
-      dispatch(scopedObjectsActions.ACTION_SCOPED_OBJECT_DETAILS_REQUESTED(
-        scopedObjectId,
-        toLowerCaseAndPlural(scopedObjectType),
-      ));
+      dispatch(
+        scopedObjectsActions.ACTION_SCOPED_OBJECT_DETAILS_REQUESTED(
+          scopedObjectId,
+          toLowerCaseAndPlural(scopedObjectType),
+        ),
+      );
     },
-    ACTION_SCOPED_OBJECT_CREATE_REQUESTED: (scopedObjectData: ScopedObjectBaseType) => {
-      dispatch(scopedObjectsActions.ACTION_SCOPED_OBJECT_CREATE_REQUESTED(
-        toLowerCaseAndPlural(scopedObjectType),
-        scopedObjectData,
-      ));
+    ACTION_SCOPED_OBJECT_CREATE_REQUESTED: (
+      scopedObjectData: ScopedObjectBaseType,
+    ) => {
+      dispatch(
+        scopedObjectsActions.ACTION_SCOPED_OBJECT_CREATE_REQUESTED(
+          toLowerCaseAndPlural(scopedObjectType),
+          scopedObjectData,
+        ),
+      );
     },
     ACTION_SCOPED_OBJECT_UPDATE_REQUESTED: (
       scopedObjectId: number,
       scopedObjectData: ScopedObjectBaseType,
     ) => {
-      dispatch(scopedObjectsActions.ACTION_SCOPED_OBJECT_UPDATE_REQUESTED(
-        scopedObjectId,
-        toLowerCaseAndPlural(scopedObjectType),
-        scopedObjectData,
-      ));
+      dispatch(
+        scopedObjectsActions.ACTION_SCOPED_OBJECT_UPDATE_REQUESTED(
+          scopedObjectId,
+          toLowerCaseAndPlural(scopedObjectType),
+          scopedObjectData,
+        ),
+      );
     },
   });
 
   return connect(
     mapStateToProps,
     mapDispatchToProps,
-  )(
-    withStyles(styles)(
-      withRouter(Component),
-    ),
-  );
+  )(withStyles(styles)(withRouter(Component)));
 };
 
 export default ScopedObjectService;

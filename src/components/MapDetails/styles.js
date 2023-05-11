@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import {
-  DARK_BLUE, BLUE_GREY, WHITE, LIGHT_GREY,
-} from '../../shared/colors';
+import { DARK_BLUE, BLUE_GREY, WHITE, LIGHT_GREY } from '../../shared/colors';
 
 export const ScrollingContainer = styled.div`
   flex: 1 1 100%;

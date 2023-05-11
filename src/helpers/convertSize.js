@@ -1,9 +1,6 @@
 // @flow
-const convert = (
-  size: number,
-  degree: number,
-  dimension: string,
-): string => `${(size / degree).toFixed(1)}${dimension}`;
+const convert = (size: number, degree: number, dimension: string): string =>
+  `${(size / degree).toFixed(1)}${dimension}`;
 
 const convertSize = (size: number): string => {
   const TB = { name: ' TB', value: 2 ** 40 };

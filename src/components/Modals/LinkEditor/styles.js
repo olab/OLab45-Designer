@@ -7,10 +7,10 @@ export const SwitchArticle = styled.article`
 
 export const MenusArticle = styled(SwitchArticle)`
   > div:first-of-type {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 
   > div:last-of-type {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
   }
 `;

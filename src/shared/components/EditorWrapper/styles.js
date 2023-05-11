@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import {
-  LIGHT_BLUE, DARK_BLUE, WHITE, MIDDLE_GREY,
-} from '../../colors';
+import { LIGHT_BLUE, DARK_BLUE, WHITE, MIDDLE_GREY } from '../../colors';
 
 export const HeadingWrapper = styled.div`
   display: flex;
@@ -22,7 +20,7 @@ export const Paper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 12px 18px;
-  boxShadow: none;
+  boxshadow: none;
   width: 100%;
 
   @media only screen and (max-width: 1099px) {

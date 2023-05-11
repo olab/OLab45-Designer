@@ -53,7 +53,10 @@ describe('SnapToGrid', () => {
         },
         ACTION_SAVE_MAP_TO_UNDO: jest.fn(),
       });
-      const newPosition = snapToGridWithoutSpacing.calculatePosition({ x: 9, y: 8 });
+      const newPosition = snapToGridWithoutSpacing.calculatePosition({
+        x: 9,
+        y: 8,
+      });
       const expected = { x: 5, y: 5 };
       expect(JSON.stringify(newPosition)).toEqual(JSON.stringify(expected));
     });

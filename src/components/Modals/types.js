@@ -18,6 +18,5 @@ export type SOPickerModal = {
 };
 
 export type Modals = {
-  [modalName: string]: SOPickerModal |
-    LinkEditorModal | NodeEditorModal,
+  [modalName: string]: SOPickerModal | LinkEditorModal | NodeEditorModal,
 };

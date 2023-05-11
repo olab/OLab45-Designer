@@ -1,22 +1,29 @@
 {
-    "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#c67c8f",
-        "activityBar.activeBorder": "#c6e2bc",
-        "activityBar.background": "#c67c8f",
-        "activityBar.foreground": "#15202b",
-        "activityBar.inactiveForeground": "#15202b99",
-        "activityBarBadge.background": "#c6e2bc",
-        "activityBarBadge.foreground": "#15202b",
-        "sash.hoverBorder": "#c67c8f",
-        "statusBar.background": "#b75871",
-        "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#c67c8f",
-        "statusBarItem.remoteBackground": "#b75871",
-        "statusBarItem.remoteForeground": "#e7e7e7",
-        "titleBar.activeBackground": "#b75871",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveBackground": "#b7587199",
-        "titleBar.inactiveForeground": "#e7e7e799"
-    },
-    "peacock.color": "#b75871"
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#c67c8f",
+    "activityBar.activeBorder": "#c6e2bc",
+    "activityBar.background": "#c67c8f",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#c6e2bc",
+    "activityBarBadge.foreground": "#15202b",
+    "sash.hoverBorder": "#c67c8f",
+    "statusBar.background": "#b75871",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#c67c8f",
+    "statusBarItem.remoteBackground": "#b75871",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#b75871",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#b7587199",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#b75871",
+  "editor.codeActionsOnSave": { "source.fixAll": true },
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  // please install and enable Prettier official extension
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // using eslint with flow instead of typescript, discard editor validation errors
+  "javascript.validate.enable": false
 }

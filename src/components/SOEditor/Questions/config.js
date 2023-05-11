@@ -1,7 +1,4 @@
-export const LAYOUT_TYPES = [
-  'Vertical',
-  'Horizontal',
-];
+export const LAYOUT_TYPES = ['Vertical', 'Horizontal'];
 
 export const PICKER_QUESTION_TYPES = {
   3: 'Multiple Choice',

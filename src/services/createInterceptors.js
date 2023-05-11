@@ -31,7 +31,9 @@ const authResponseRejectInterceptor = (error) => {
  * @throws Error
  */
 const errorSpecificResponseInterceptor = (response) => {
-  const { data: { error_code: errorCode, message } } = response;
+  const {
+    data: { error_code: errorCode, message },
+  } = response;
   if (errorCode > 400) {
     throw new Error(message);
   }
@@ -47,7 +49,9 @@ const errorSpecificResponseInterceptor = (response) => {
  * @throws Error
  */
 const refreshTokenResponseInterceptor = (response) => {
-  const { headers: { authorization } } = response;
+  const {
+    headers: { authorization },
+  } = response;
   if (authorization) {
     const [, token] = authorization.split(' ');
     localStorage.setItem(TOKEN_LOCAL_STORAGE_KEY, token);
@@ -74,7 +78,9 @@ const addInterceptors = (instance) => {
   /**
    * Request Interceptors
    */
-  instance.interceptors.request.use(setAuthTokenRequestInterceptor, (error) => { throw error; });
+  instance.interceptors.request.use(setAuthTokenRequestInterceptor, (error) => {
+    throw error;
+  });
 
   /**
    * Response Interceptors

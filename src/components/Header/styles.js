@@ -1,13 +1,11 @@
 import styled from 'styled-components';
-import {
-  DARK_BLUE, WHITE, BLUE, BLUE_GREY,
-} from '../../shared/colors';
+import { DARK_BLUE, WHITE, BLUE, BLUE_GREY } from '../../shared/colors';
 
 export const VersionWrapper = styled.div`
-    font-size: 16px;
-    color: #0089EC;
-    align-items: right;
-    min-width: 100px;
+  font-size: 16px;
+  color: #0089ec;
+  align-items: right;
+  min-width: 100px;
 `;
 
 export const HeaderWrapper = styled.header`

@@ -1,14 +1,21 @@
-import {
-  call, put, select, takeLatest,
-} from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getMapDetails, updateMapDetails } from '../../services/api/mapDetails';
 
-import { ACTION_GET_MAP_DETAILS_FAILED, ACTION_GET_MAP_DETAILS_SUCCEEDED } from './action';
-import { ACTION_NOTIFICATION_ERROR, ACTION_NOTIFICATION_SUCCESS } from '../notifications/action';
+import {
+  ACTION_GET_MAP_DETAILS_FAILED,
+  ACTION_GET_MAP_DETAILS_SUCCEEDED,
+} from './action';
+import {
+  ACTION_NOTIFICATION_ERROR,
+  ACTION_NOTIFICATION_SUCCESS,
+} from '../notifications/action';
 
 import { MESSAGES } from '../notifications/config';
 
-import { GET_MAP_DETAILS_REQUESTED, UPDATE_MAP_DETAILS_REQUESTED } from './types';
+import {
+  GET_MAP_DETAILS_REQUESTED,
+  UPDATE_MAP_DETAILS_REQUESTED,
+} from './types';
 
 function* getMapDetailsSaga({ mapId }) {
   try {

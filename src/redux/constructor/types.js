@@ -22,13 +22,10 @@ type ToggleFullscreen = {
   type: 'TOGGLE_FULLSCREEN',
 };
 
-export type ConstructorActions = SetFullscreen |
-  ToggleFullscreen | SetCursor |
-  SetLayoutEngine;
+export type ConstructorActions =
+  | SetFullscreen
+  | ToggleFullscreen
+  | SetCursor
+  | SetLayoutEngine;
 
-export {
-  SET_CURSOR,
-  SET_FULLSCREEN,
-  SET_LAYOUT_ENGINE,
-  TOGGLE_FULLSCREEN,
-};
+export { SET_CURSOR, SET_FULLSCREEN, SET_LAYOUT_ENGINE, TOGGLE_FULLSCREEN };

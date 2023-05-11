@@ -112,9 +112,7 @@ const scopedObjects = (
 
       return {
         ...state,
-        [scopedObjectType]: [
-          ...scopedObjectsTyped,
-        ],
+        [scopedObjectType]: [...scopedObjectsTyped],
         isFetching: false,
       };
     }
