@@ -17,6 +17,9 @@ export type ILoginProps = {
 
 export type PropsAuthAction = {
   props: {
-    ACTION_USER_AUTH_REQUESTED: ({ username: string, password: string }) => void,
+    ACTION_USER_AUTH_REQUESTED: ({
+      username: string,
+      password: string,
+    }) => void,
   },
 };

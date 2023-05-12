@@ -1,5 +1,6 @@
 export const EDITOR_OPTIONS = {
-  toolbar: 'styleselect | bold italic strikethrough | image link | bullist numlist',
+  toolbar:
+    'styleselect | bold italic strikethrough | image link | bullist numlist',
   style_formats: [
     {
       title: 'Headings',

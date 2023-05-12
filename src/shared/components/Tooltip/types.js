@@ -4,7 +4,7 @@ import type { Element } from 'react';
 export type State = {
   arrowRef: HTMLSpanElement | null,
   open: boolean,
-}
+};
 
 export type Props = {
   classes: {
@@ -16,4 +16,4 @@ export type Props = {
   tooltipText: string,
   arrow: boolean,
   isClickable: boolean,
-}
+};

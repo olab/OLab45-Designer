@@ -1,6 +1,6 @@
 import { GREEN } from '../../colors';
 
-const styles = theme => ({
+const styles = (theme) => ({
   formControlRoot: {
     margin: '0',
   },

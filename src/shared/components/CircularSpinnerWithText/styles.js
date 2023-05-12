@@ -7,13 +7,15 @@ export const ProgressWrapper = styled.div`
   position: absolute;
   bottom: 0;
 
-  ${({ centered }) => centered && css`
-    flex-direction: column;
-    left: 50%;
-    top: 50%;
-    height: 10vh;
-    transform: translate(-50%, -50%);
-  `}
+  ${({ centered }) =>
+    centered &&
+    css`
+      flex-direction: column;
+      left: 50%;
+      top: 50%;
+      height: 10vh;
+      transform: translate(-50%, -50%);
+    `}
 `;
 
 const styles = () => ({

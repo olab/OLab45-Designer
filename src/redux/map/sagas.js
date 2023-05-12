@@ -1,10 +1,12 @@
-import {
-  call, put, select, takeLatest,
-} from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getMapLinks, createMap, extendMap } from '../../services/api/map';
 import { getNodesRaw } from '../../services/api/node';
 
-import { GET_MAP_REQUESTED, CREATE_MAP_REQUESTED, EXTEND_MAP_REQUESTED } from './types';
+import {
+  GET_MAP_REQUESTED,
+  CREATE_MAP_REQUESTED,
+  EXTEND_MAP_REQUESTED,
+} from './types';
 
 import {
   ACTION_CREATE_MAP_FAILED,
@@ -55,7 +57,11 @@ function* createMapSaga({ templateId }) {
 function* extendMapSaga({ templateId }) {
   try {
     const mapId = yield select(({ mapDetails }) => mapDetails.id);
-    const { extendedNodes, extendedEdges } = yield call(extendMap, mapId, templateId);
+    const { extendedNodes, extendedEdges } = yield call(
+      extendMap,
+      mapId,
+      templateId,
+    );
 
     yield put(ACTION_EXTEND_MAP_SUCCEEDED(extendedNodes, extendedEdges));
   } catch (error) {

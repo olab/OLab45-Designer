@@ -2,7 +2,6 @@
 import { isBoolean, isNumber } from './dataTypes';
 import { QUESTION_TYPES } from '../components/SOEditor/config';
 
-
 import type { QuestionResponse } from '../redux/questionResponses/types';
 import type { MapItem } from '../redux/map/types';
 import type { MapDetails } from '../redux/mapDetails/types';
@@ -10,7 +9,11 @@ import type { CounterActions } from '../redux/counterGrid/types';
 import type { Edge } from '../components/Constructor/Graph/Edge/types';
 import type { Node } from '../components/Constructor/Graph/Node/types';
 import type { DefaultNode, DefaultEdge } from '../redux/defaults/types';
-import type { ScopedObject, ScopedObjectListItem, ScopedObjectBase } from '../redux/scopedObjects/types';
+import type {
+  ScopedObject,
+  ScopedObjectListItem,
+  ScopedObjectBase,
+} from '../redux/scopedObjects/types';
 
 export const edgeToServer = (edgeData: Edge): Edge => ({
   color: edgeData.color,
@@ -41,7 +44,9 @@ export const edgeFromServer = (edgeData: Edge): Edge => ({
   variant: edgeData.lineType,
 });
 
-export const edgeDefaultsFromServer = (edgeDefault: DefaultEdge): DefaultEdge => ({
+export const edgeDefaultsFromServer = (
+  edgeDefault: DefaultEdge,
+): DefaultEdge => ({
   label: edgeDefault.text,
   color: edgeDefault.color,
   variant: edgeDefault.lineType,
@@ -133,7 +138,9 @@ export const nodeFromServer = (data: Node): Node => ({
   info: data.info,
 });
 
-export const nodeDefaultsFromServer = (nodeDefault: DefaultNode): DefaultNode => ({
+export const nodeDefaultsFromServer = (
+  nodeDefault: DefaultNode,
+): DefaultNode => ({
   title: nodeDefault.title,
   text: nodeDefault.text,
   x: nodeDefault.x,
@@ -208,34 +215,33 @@ export const mapDetailsToServer = (mapData: MapDetails): MapDetails => ({
 });
 
 export const mapFromServer = (mapData: MapItem): MapItem => ({
-  nodes: mapData.nodes
-    ? mapData.nodes.map(node => nodeFromServer(node))
-    : [],
-  edges: mapData.edges
-    ? mapData.edges.map(edge => edgeFromServer(edge))
-    : [],
+  nodes: mapData.nodes ? mapData.nodes.map((node) => nodeFromServer(node)) : [],
+  edges: mapData.edges ? mapData.edges.map((edge) => edgeFromServer(edge)) : [],
 });
 
-export const mapFromServerOnCreate = (
-  { nodes, edges, mapDetails }: { nodes: Node, edges: Edge, mapDetails: MapDetails },
-) => ({
+export const mapFromServerOnCreate = ({
+  nodes,
+  edges,
+  mapDetails,
+}: {
+  nodes: Node,
+  edges: Edge,
+  mapDetails: MapDetails,
+}) => ({
   ...mapDetailsFromServer(mapDetails),
   ...mapFromServer({ nodes, edges }),
 });
 
-export const mapFromServerOnExtend = (
-  { nodes, links },
-) => {
+export const mapFromServerOnExtend = ({ nodes, links }) => {
   const payload = {
-    extendedNodes: nodes.map(node => nodeFromServer(node)),
-    extendedEdges: links.map(edge => edgeFromServer(edge)),
+    extendedNodes: nodes.map((node) => nodeFromServer(node)),
+    extendedEdges: links.map((edge) => edgeFromServer(edge)),
   };
 
   return payload;
 };
 
 export const templateFromServer = mapFromServer;
-
 
 export const scopedObjectByTypeFromServer = ({
   url,
@@ -254,9 +260,10 @@ export const scopedObjectByTypeFromServer = ({
   return objectPayload;
 };
 
-export const scopedObjectFromServer = (
-  { url, ...restSO }: ScopedObject | ScopedObjectListItem,
-): ScopedObject => {
+export const scopedObjectFromServer = ({
+  url,
+  ...restSO
+}: ScopedObject | ScopedObjectListItem): ScopedObject => {
   const objectPayload = {
     ...restSO,
     details: null,
@@ -268,18 +275,24 @@ export const scopedObjectFromServer = (
 };
 
 export const fileObjectToServer = (SO: ScopedObjectBase): ScopedObjectBase => {
-
   var form_data = new FormData();
-  for ( var key in SO ) {
-      form_data.append(key, SO[key]);
+  for (var key in SO) {
+    form_data.append(key, SO[key]);
   }
   return form_data;
 };
 
-export const scopedObjectToServer = (SO: ScopedObjectBase): ScopedObjectBase => {
+export const scopedObjectToServer = (
+  SO: ScopedObjectBase,
+): ScopedObjectBase => {
   if (Number(Object.keys(QUESTION_TYPES)[0]) === SO.questionType) {
     const {
-      feedback, layoutType, isPrivate, showAnswer, showSubmit, ...restSO
+      feedback,
+      layoutType,
+      isPrivate,
+      showAnswer,
+      showSubmit,
+      ...restSO
     } = SO;
 
     const serverObject = {
@@ -290,7 +303,13 @@ export const scopedObjectToServer = (SO: ScopedObjectBase): ScopedObjectBase => 
   }
 
   const {
-    width, height, placeholder, isPrivate, showAnswer, showSubmit, ...restSO
+    width,
+    height,
+    placeholder,
+    isPrivate,
+    showAnswer,
+    showSubmit,
+    ...restSO
   } = SO;
 
   const serverPayload = {
@@ -317,16 +336,18 @@ export const scopedObjectDetailsFromServer = ({
   ...(url && { isShowEyeIcon: Boolean(url) }),
 });
 
-export const counterGridActionsFromServer = (
-  { visible, ...restActions }: CounterActions,
-): CounterActions => ({
+export const counterGridActionsFromServer = ({
+  visible,
+  ...restActions
+}: CounterActions): CounterActions => ({
   ...restActions,
   isVisible: Boolean(visible),
 });
 
-export const counterGridActionsToServer = (
-  { isVisible, ...restActions }: CounterActions,
-): CounterActions => ({
+export const counterGridActionsToServer = ({
+  isVisible,
+  ...restActions
+}: CounterActions): CounterActions => ({
   ...restActions,
   visible: Number(isVisible),
 });

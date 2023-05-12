@@ -48,19 +48,13 @@ const questionResponses = (
     }
 
     case RESPONSE_DELETE_SUCCEEDED: {
-      const {
-        scopedObjectType,
-        scopedObjectIndex,
-        scopedObject,
-      } = action;
+      const { scopedObjectType, scopedObjectIndex, scopedObject } = action;
 
       scopedObject.responses.splice(scopedObjectIndex, 1);
 
       const response = {
         ...state,
-        [scopedObjectType]: [
-          scopedObject,
-        ],
+        [scopedObjectType]: [scopedObject],
         isDeleting: false,
       };
       return response;

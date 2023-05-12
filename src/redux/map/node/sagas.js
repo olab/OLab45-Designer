@@ -1,6 +1,4 @@
-import {
-  call, put, select, takeEvery,
-} from 'redux-saga/effects';
+import { call, put, select, takeEvery } from 'redux-saga/effects';
 
 import {
   createNode,
@@ -66,7 +64,12 @@ function* createNodeWithEdgeSaga({
 }) {
   try {
     const mapId = yield select(({ mapDetails }) => mapDetails.id);
-    const { newNodeId, newEdgeId } = yield call(createNode, mapId, { x, y }, sourceNodeId);
+    const { newNodeId, newEdgeId } = yield call(
+      createNode,
+      mapId,
+      { x, y },
+      sourceNodeId,
+    );
 
     yield put(ACTION_EXCHANGE_NODE_ID(oldNodeId, newNodeId));
     yield put(ACTION_EXCHANGE_EDGE_ID(oldEdgeId, newEdgeId));
@@ -79,7 +82,10 @@ function* createNodeWithEdgeSaga({
 }
 
 function* updateNodeSaga({
-  node, isShowNotification, mapIdFromURL, type: actionType,
+  node,
+  isShowNotification,
+  mapIdFromURL,
+  type: actionType,
 }) {
   try {
     const mapIdFromStore = yield select(({ mapDetails }) => mapDetails.id);
@@ -104,7 +110,9 @@ function* updateNodeSaga({
     const errorMessage = response ? response.statusText : message;
 
     if (name === 'QuotaExceededError') {
-      yield put(ACTION_NOTIFICATION_ERROR(ERROR_MESSAGES.LOCAL_STORAGE.FULL_MEMORY));
+      yield put(
+        ACTION_NOTIFICATION_ERROR(ERROR_MESSAGES.LOCAL_STORAGE.FULL_MEMORY),
+      );
 
       return;
     }

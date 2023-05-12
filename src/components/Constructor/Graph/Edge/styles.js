@@ -9,7 +9,8 @@ export const EdgeWrapper = styled.g`
   & > use {
     stroke: none;
     marker-end: url(#end-arrow);
-    cursor: ${({ isLinkingStarted }) => (isLinkingStarted ? 'inherit' : 'pointer')};
+    cursor: ${({ isLinkingStarted }) =>
+      isLinkingStarted ? 'inherit' : 'pointer'};
     pointer-events: all;
   }
 `;

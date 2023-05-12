@@ -56,6 +56,6 @@ export const spec = {
   },
 };
 
-export const collect = conn => ({
+export const collect = (conn) => ({
   connectDropTarget: conn.dropTarget(),
 });

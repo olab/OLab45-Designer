@@ -1,8 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 
-import {
-  GREY, GREEN, LIGHT_BLUE, DARK_GREY,
-} from '../../../shared/colors';
+import { GREY, GREEN, LIGHT_BLUE, DARK_GREY } from '../../../shared/colors';
 
 const colorDark = 'rgba(36,68,106, 1)';
 const colorDarkWithOpacity = 'rgba(36,68,106,.7)';
@@ -11,20 +9,23 @@ const colorDarkBorder = 'rgba(36,68,106,.16)';
 export const ModalBody = styled.div`
   height: 260px;
   padding-left: 1rem;
-  padding-right: ${({ isScrollbarVisible }) => (isScrollbarVisible ? 'calc(1rem - 5px)' : '1rem')};
+  padding-right: ${({ isScrollbarVisible }) =>
+    isScrollbarVisible ? 'calc(1rem - 5px)' : '1rem'};
   padding-bottom: 0;
   overflow: auto;
-  ${({ isScrollbarVisible }) => (isScrollbarVisible && css`
-    margin-right: 5px;
+  ${({ isScrollbarVisible }) =>
+    isScrollbarVisible &&
+    css`
+      margin-right: 5px;
 
-    &:hover {
-      &::-webkit-scrollbar {
-        width: 7px;
+      &:hover {
+        &::-webkit-scrollbar {
+          width: 7px;
+        }
+
+        padding-right: calc(1rem - 12px);
       }
-
-      padding-right: calc(1rem - 12px);
-    }
-  `)};
+    `};
 
   &::-webkit-scrollbar {
     width: 0;
@@ -84,7 +85,7 @@ export const SOItemTitle = styled.p`
 `;
 
 export const ModalFooter = styled.div`
-  padding: .35rem 1rem;
+  padding: 0.35rem 1rem;
   margin-top: auto;
   border-top: 2px solid ${LIGHT_BLUE};
   display: flex;
@@ -128,15 +129,15 @@ export const SearchIconWrapper = styled.span`
 export const ConfigArticle = styled.article`
   display: flex;
   justify-content: space-between;
-  padding: .5rem 1rem .3rem 1rem;
+  padding: 0.5rem 1rem 0.3rem 1rem;
   border-bottom: 2px solid ${LIGHT_BLUE};
 
   > div:first-of-type {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 
   > div:last-of-type {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
   }
 `;
 

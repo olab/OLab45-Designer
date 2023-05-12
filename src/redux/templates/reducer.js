@@ -15,7 +15,10 @@ export const initialTemplatesState: TemplatesType = {
   isUploading: false,
 };
 
-const templates = (state: TemplatesType = initialTemplatesState, action: TemplatesActions) => {
+const templates = (
+  state: TemplatesType = initialTemplatesState,
+  action: TemplatesActions,
+) => {
   switch (action.type) {
     case TEMPLATES_REQUESTED:
       return {
@@ -33,10 +36,7 @@ const templates = (state: TemplatesType = initialTemplatesState, action: Templat
 
       return {
         ...restState,
-        list: [
-          ...list,
-          ...diffTemplates,
-        ],
+        list: [...list, ...diffTemplates],
         isFetching: false,
       };
     }

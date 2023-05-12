@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import SortIcon from '../../../shared/assets/icons/sort-arrows.svg';
-import { MIDDLE_DARK_GREY, WHITE, DEEP_DARK_GREY } from '../../../shared/colors';
+import {
+  MIDDLE_DARK_GREY,
+  WHITE,
+  DEEP_DARK_GREY,
+} from '../../../shared/colors';
 
 export const DefaultSortIcon = styled(SortIcon)`
   margin: 2px 5px;
@@ -11,9 +15,11 @@ export const TableCellLabel = styled.div`
   align-items: end;
   justify-content: center;
 
-  ${({ isSortable }) => (isSortable && `
+  ${({ isSortable }) =>
+    isSortable &&
+    `
     cursor: pointer;
-  `)}
+  `}
 `;
 
 const styles = () => ({

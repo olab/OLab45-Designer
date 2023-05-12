@@ -61,9 +61,14 @@ type ActionsClear = {
   type: 'COUNTER_GRID_ACTIONS_CLEAR',
 };
 
-export type CounterGridActions = GetCounterGridSucceeded | GetCounterGridFailed |
-  GetCounterGridRequested | UpdateCounterGridSucceeded | UpdateCounterGridFailed |
-  UpdateCounterGridRequested | ActionsClear;
+export type CounterGridActions =
+  | GetCounterGridSucceeded
+  | GetCounterGridFailed
+  | GetCounterGridRequested
+  | UpdateCounterGridSucceeded
+  | UpdateCounterGridFailed
+  | UpdateCounterGridRequested
+  | ActionsClear;
 
 export {
   GET_COUNTER_GRID_REQUESTED,

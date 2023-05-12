@@ -28,7 +28,9 @@ import {
   SCOPED_OBJECTS_PARENT_TYPED_FAILED,
 } from './types';
 
-export const ACTION_SCOPED_OBJECTS_REQUEST_SUCCEEDED = (scopedObjectsData: ScopedObjectsType) => ({
+export const ACTION_SCOPED_OBJECTS_REQUEST_SUCCEEDED = (
+  scopedObjectsData: ScopedObjectsType,
+) => ({
   type: SCOPED_OBJECTS_REQUEST_SUCCEEDED,
   scopedObjectsData,
 });
@@ -47,7 +49,9 @@ export const ACTION_SCOPED_OBJECT_DETAILS_REQUESTED = (
 ) => {
   const { scopedObjects } = store.getState();
   const scopedObjectsList = scopedObjects[scopedObjectType];
-  const scopedObjectIndex = scopedObjectsList.findIndex(({ id }) => id === scopedObjectId);
+  const scopedObjectIndex = scopedObjectsList.findIndex(
+    ({ id }) => id === scopedObjectId,
+  );
   const clonedScopedObject = {
     ...scopedObjectsList[scopedObjectIndex],
     isDetailsFetching: true,
@@ -68,7 +72,9 @@ export const ACTION_SCOPED_OBJECT_DETAILS_FAILED = (
 ) => {
   const { scopedObjects } = store.getState();
   const scopedObjectsList = scopedObjects[scopedObjectType];
-  const scopedObjectIndex = scopedObjectsList.findIndex(({ id }) => id === scopedObjectId);
+  const scopedObjectIndex = scopedObjectsList.findIndex(
+    ({ id }) => id === scopedObjectId,
+  );
   const clonedScopedObject = {
     ...scopedObjectsList[scopedObjectIndex],
     isDetailsFetching: false,
@@ -89,7 +95,9 @@ export const ACTION_SCOPED_OBJECT_DETAILS_SUCCEEDED = (
 ) => {
   const { scopedObjects } = store.getState();
   const scopedObjectsList = scopedObjects[scopedObjectType];
-  const scopedObjectIndex = scopedObjectsList.findIndex(({ id }) => id === scopedObjectId);
+  const scopedObjectIndex = scopedObjectsList.findIndex(
+    ({ id }) => id === scopedObjectId,
+  );
   const clonedScopedObject = {
     ...scopedObjectsList[scopedObjectIndex],
     ...scopedObjectDetails,
@@ -145,7 +153,9 @@ export const ACTION_SCOPED_OBJECT_UPDATE_FULFILLED = () => ({
   type: SCOPED_OBJECT_UPDATE_FULFILLED,
 });
 
-export const ACTION_SCOPED_OBJECTS_TYPED_REQUESTED = (scopedObjectType: string) => ({
+export const ACTION_SCOPED_OBJECTS_TYPED_REQUESTED = (
+  scopedObjectType: string,
+) => ({
   type: SCOPED_OBJECTS_TYPED_REQUESTED,
   scopedObjectType,
 });
@@ -182,7 +192,9 @@ export const ACTION_SCOPED_OBJECT_DELETE_SUCCEEDED = (
 ) => {
   const { scopedObjects } = store.getState();
   const scopedObjectsList = scopedObjects[scopedObjectType];
-  const scopedObjectIndex = scopedObjectsList.findIndex(({ id }) => id === scopedObjectId);
+  const scopedObjectIndex = scopedObjectsList.findIndex(
+    ({ id }) => id === scopedObjectId,
+  );
 
   return {
     type: SCOPED_OBJECT_DELETE_SUCCEEDED,
@@ -195,8 +207,9 @@ export const ACTION_SCOPED_OBJECT_DELETE_FAILED = () => ({
   type: SCOPED_OBJECT_DELETE_FAILED,
 });
 
-
-export const ACTION_SCOPED_PARENT_OBJECTS_TYPED_REQUESTED = (scopedObjectType: string) => ({
+export const ACTION_SCOPED_PARENT_OBJECTS_TYPED_REQUESTED = (
+  scopedObjectType: string,
+) => ({
   type: SCOPED_OBJECTS_PARENT_TYPED_REQUESTED,
   scopedObjectType,
 });

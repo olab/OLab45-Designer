@@ -4,39 +4,47 @@ import GraphUtils from '.';
 describe('GraphUtils class', () => {
   describe('getNodesMap method', () => {
     it('converts an array of nodes to a hash map', () => {
-      const nodes = [{
-        id: 'foo',
-        name: 'bar',
-      }];
+      const nodes = [
+        {
+          id: 'foo',
+          name: 'bar',
+        },
+      ];
       const nodesMap = GraphUtils.getNodesMap(nodes);
 
-      expect(JSON.stringify(nodesMap)).toEqual(JSON.stringify({
-        'key-foo': {
-          children: [],
-          incomingEdges: [],
-          node: nodes[0],
-          originalArrIndex: 0,
-          outgoingEdges: [],
-          parents: [],
-        },
-      }));
+      expect(JSON.stringify(nodesMap)).toEqual(
+        JSON.stringify({
+          'key-foo': {
+            children: [],
+            incomingEdges: [],
+            node: nodes[0],
+            originalArrIndex: 0,
+            outgoingEdges: [],
+            parents: [],
+          },
+        }),
+      );
     });
   });
 
   describe('getEdgesMap method', () => {
     it('converts an array of edges to a hash map', () => {
-      const edges = [{
-        source: 'foo',
-        target: 'bar',
-      }];
+      const edges = [
+        {
+          source: 'foo',
+          target: 'bar',
+        },
+      ];
       const edgesMap = GraphUtils.getEdgesMap(edges);
 
-      expect(JSON.stringify(edgesMap)).toEqual(JSON.stringify({
-        foo_bar: {
-          edge: edges[0],
-          originalArrIndex: 0,
-        },
-      }));
+      expect(JSON.stringify(edgesMap)).toEqual(
+        JSON.stringify({
+          foo_bar: {
+            edge: edges[0],
+            originalArrIndex: 0,
+          },
+        }),
+      );
     });
   });
 
@@ -65,10 +73,12 @@ describe('GraphUtils class', () => {
     });
 
     it('fills in various properties of a nodeMapNode', () => {
-      const edges = [{
-        source: 'foo',
-        target: 'bar',
-      }];
+      const edges = [
+        {
+          source: 'foo',
+          target: 'bar',
+        },
+      ];
       GraphUtils.linkNodesAndEdges(nodesMap, edges);
 
       expect(nodesMap['key-bar'].incomingEdges.length).toEqual(1);
@@ -82,10 +92,12 @@ describe('GraphUtils class', () => {
     });
 
     it('does not modify nodes if there is no matching target', () => {
-      const edges = [{
-        source: 'foo',
-        target: 'fake',
-      }];
+      const edges = [
+        {
+          source: 'foo',
+          target: 'fake',
+        },
+      ];
       GraphUtils.linkNodesAndEdges(nodesMap, edges);
 
       expect(nodesMap['key-foo'].outgoingEdges.length).toEqual(0);
@@ -93,10 +105,12 @@ describe('GraphUtils class', () => {
     });
 
     it('does not modify nodes if there is no matching source', () => {
-      const edges = [{
-        source: 'fake',
-        target: 'bar',
-      }];
+      const edges = [
+        {
+          source: 'fake',
+          target: 'bar',
+        },
+      ];
       GraphUtils.linkNodesAndEdges(nodesMap, edges);
 
       expect(nodesMap['key-bar'].incomingEdges.length).toEqual(0);
@@ -114,11 +128,13 @@ describe('GraphUtils class', () => {
       jest.spyOn(document, 'getElementById').mockReturnValue(fakeElement);
       const result = GraphUtils.removeElementFromDom('fake');
 
-      expect(fakeElement.parentNode.removeChild).toHaveBeenCalledWith(fakeElement);
+      expect(fakeElement.parentNode.removeChild).toHaveBeenCalledWith(
+        fakeElement,
+      );
       expect(result).toEqual(true);
     });
 
-    it('does nothing when it can\'t find the element', () => {
+    it("does nothing when it can't find the element", () => {
       jest.spyOn(document, 'getElementById').mockReturnValue(undefined);
       const result = GraphUtils.removeElementFromDom('fake');
       expect(result).toEqual(false);

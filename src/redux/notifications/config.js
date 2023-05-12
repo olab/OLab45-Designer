@@ -8,7 +8,7 @@ export const MESSAGES = {
     SCOPED_OBJECT: 'Object has been updated',
     NODE: 'Node has been updated',
     EDGE: 'Link has been updated',
-    MAP: 'Map\'s name successfully updated',
+    MAP: "Map's name successfully updated",
     MAP_DETAILS: 'Details successfully updated',
     COUNTER_ACTIONS: 'Actions have been updated',
     NODE_GRID: 'Nodes have been updated',

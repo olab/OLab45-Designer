@@ -1,9 +1,18 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { getCounterGrid, updateCounterGrid } from '../../services/api/counterGrid';
+import {
+  getCounterGrid,
+  updateCounterGrid,
+} from '../../services/api/counterGrid';
 
-import { GET_COUNTER_GRID_REQUESTED, UPDATE_COUNTER_GRID_REQUESTED } from './types';
+import {
+  GET_COUNTER_GRID_REQUESTED,
+  UPDATE_COUNTER_GRID_REQUESTED,
+} from './types';
 
-import { ACTION_NOTIFICATION_ERROR, ACTION_NOTIFICATION_SUCCESS } from '../notifications/action';
+import {
+  ACTION_NOTIFICATION_ERROR,
+  ACTION_NOTIFICATION_SUCCESS,
+} from '../notifications/action';
 
 import {
   ACTION_GET_COUNTER_GRID_FAILED,

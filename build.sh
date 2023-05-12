@@ -1,6 +1,8 @@
 #!/bin/bash
 git pull
-npm install --force
-export NODE_OPTIONS=--openssl-legacy-provider
-npm run-script build
-service nginx restart
+npm install
+test -d build && rm build -r
+npm run build
+service apache2 restart
+
+
