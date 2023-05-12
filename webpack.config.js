@@ -2,7 +2,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin'),
   CopyWebPackPlugin = require('copy-webpack-plugin'),
   webpack = require('webpack'),
   path = require('path'),
-  WorkboxPlugin = require('workbox-webpack-plugin');
+  WorkboxPlugin = require('workbox-webpack-plugin'),
+  MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // load .env variables
 require('dotenv').config({
@@ -54,7 +55,8 @@ module.exports = (env, options) => ({
   output: {
     path: path.join(__dirname, 'build'),
     publicPath: process.env.PUBLIC_URL || '/',
-    filename: '[name].[chunkhash].js',
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].bundle.js',
   },
 
   resolve: {
@@ -68,6 +70,8 @@ module.exports = (env, options) => ({
     },
     compress: true,
     port: 4000,
+    host: 'localhost',
+    allowedHosts: 'all',
     devMiddleware: {
       writeToDisk: true,
     },
@@ -77,6 +81,18 @@ module.exports = (env, options) => ({
     hints: false,
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
+  },
+
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        reactVendor: {
+          test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|@material-ui|@tinymce|classnames|connected-react-router|d3|dagre|enzyme)[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+      },
+    },
   },
 
   module: {
@@ -90,9 +106,7 @@ module.exports = (env, options) => ({
       },
       {
         test: /\.css$/,
-        use: {
-          loader: 'css-loader',
-        },
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.cur$/i,
@@ -142,7 +156,11 @@ module.exports = (env, options) => ({
       'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL),
       'process.env.API_URL': JSON.stringify(process.env.API_URL),
     }),
-
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[name].[id].css',
+      ignoreOrder: false,
+    }),
     // service-worker
     new WorkboxPlugin.GenerateSW({
       clientsClaim: true,
