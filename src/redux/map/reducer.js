@@ -57,45 +57,38 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
 
       return {
         ...restState,
-        undo: [
-          ...undo,
-          currentMap,
-        ],
+        undo: [...undo, currentMap],
         redo: [],
       };
     }
     case UNDO_MAP: {
       const { undo, redo, ...restState } = state;
-      const { currentMap, prev: { nodes, edges } } = action;
+      const {
+        currentMap,
+        prev: { nodes, edges },
+      } = action;
 
       return {
         ...restState,
         nodes,
         edges,
-        undo: [
-          ...undo.slice(0, undo.length - 1),
-        ],
-        redo: [
-          ...redo,
-          currentMap,
-        ],
+        undo: [...undo.slice(0, undo.length - 1)],
+        redo: [...redo, currentMap],
       };
     }
     case REDO_MAP: {
       const { undo, redo, ...restState } = state;
-      const { currentMap, next: { nodes, edges } } = action;
+      const {
+        currentMap,
+        next: { nodes, edges },
+      } = action;
 
       return {
         ...restState,
         nodes,
         edges,
-        redo: [
-          ...redo.slice(0, redo.length - 1),
-        ],
-        undo: [
-          ...undo,
-          currentMap,
-        ],
+        redo: [...redo.slice(0, redo.length - 1)],
+        undo: [...undo, currentMap],
       };
     }
     case GET_NODE_REQUESTED:
@@ -155,11 +148,7 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
 
       return {
         ...restState,
-        nodes: [
-          ...nodes.slice(0, index),
-          node,
-          ...nodes.slice(index + 1),
-        ],
+        nodes: [...nodes.slice(0, index), node, ...nodes.slice(index + 1)],
         isFetching: false,
       };
     }
@@ -188,11 +177,7 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
 
       return {
         ...restState,
-        nodes: [
-          ...nodes.slice(0, index),
-          node,
-          ...nodes.slice(index + 1),
-        ],
+        nodes: [...nodes.slice(0, index), node, ...nodes.slice(index + 1)],
       };
     }
     case CREATE_NODE: {
@@ -201,10 +186,7 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
 
       return {
         ...restState,
-        nodes: [
-          ...nodes,
-          node,
-        ],
+        nodes: [...nodes, node],
       };
     }
     case EXCHANGE_NODE_ID: {
@@ -227,10 +209,7 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
 
       return {
         ...restState,
-        nodes: [
-          ...nodes.slice(0, nodeIndex),
-          ...nodes.slice(nodeIndex + 1),
-        ],
+        nodes: [...nodes.slice(0, nodeIndex), ...nodes.slice(nodeIndex + 1)],
         edges,
         isDeleting: true,
       };
@@ -242,10 +221,7 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
       return {
         ...restState,
         edges,
-        nodes: [
-          ...nodes.slice(0, nodeIndex),
-          ...nodes.slice(nodeIndex + 1),
-        ],
+        nodes: [...nodes.slice(0, nodeIndex), ...nodes.slice(nodeIndex + 1)],
       };
     }
     case CREATE_NODE_WITH_EDGE: {
@@ -254,14 +230,8 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
 
       return {
         ...restState,
-        nodes: [
-          ...nodes,
-          node,
-        ],
-        edges: [
-          ...edges,
-          edge,
-        ],
+        nodes: [...nodes, node],
+        edges: [...edges, edge],
       };
     }
     case SELECT_EDGE: {
@@ -280,11 +250,7 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
 
       return {
         ...restState,
-        edges: [
-          ...edges.slice(0, index),
-          edge,
-          ...edges.slice(index + 1),
-        ],
+        edges: [...edges.slice(0, index), edge, ...edges.slice(index + 1)],
       };
     }
     case CREATE_EDGE: {
@@ -293,10 +259,7 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
 
       return {
         ...restState,
-        edges: [
-          ...edges,
-          edge,
-        ],
+        edges: [...edges, edge],
       };
     }
     case DELETE_EDGE: {
@@ -305,10 +268,7 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
 
       return {
         ...restState,
-        edges: [
-          ...edges.slice(0, index),
-          ...edges.slice(index + 1),
-        ],
+        edges: [...edges.slice(0, index), ...edges.slice(index + 1)],
       };
     }
     default:

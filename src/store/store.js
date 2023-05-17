@@ -1,6 +1,4 @@
-import {
-  createStore, applyMiddleware, compose, combineReducers,
-} from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import notifyReducer from 'react-redux-notify';
 import createSagaMiddleware from 'redux-saga';
@@ -39,10 +37,7 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
-const composedEnhancers = compose(
-  applyMiddleware(...middleware),
-  ...enhancers,
-);
+const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
 
 const reducer = combineReducers({
   router: connectRouter(history),
@@ -50,11 +45,7 @@ const reducer = combineReducers({
   ...rootReducer,
 });
 
-const store = createStore(
-  reducer,
-  initialState,
-  composedEnhancers,
-);
+const store = createStore(reducer, initialState, composedEnhancers);
 
 sagaMiddleware.run(rootSaga);
 

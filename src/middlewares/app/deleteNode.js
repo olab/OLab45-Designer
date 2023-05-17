@@ -6,7 +6,7 @@ import { ROOT_TYPE as ROOT_NODE_TYPE } from '../../components/Constructor/Graph/
 
 import { DELETE_NODE_MIDDLEWARE } from './types';
 
-const deleteNodeMiddleware = store => next => (action) => {
+const deleteNodeMiddleware = (store) => (next) => (action) => {
   if (DELETE_NODE_MIDDLEWARE === action.type) {
     const { nodeId, mapId, nodeType } = action;
     const isRootNode = nodeType === ROOT_NODE_TYPE;

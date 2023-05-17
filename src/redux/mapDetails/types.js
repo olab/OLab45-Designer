@@ -49,8 +49,11 @@ type UpdateMapDetailsRequested = {
   mapDetails: MapDetails,
 };
 
-export type MapDetailsActions = GetMapDetailsSucceeded | GetMapDetailsFailed |
-  GetMapDetailsRequested | UpdateMapDetailsRequested;
+export type MapDetailsActions =
+  | GetMapDetailsSucceeded
+  | GetMapDetailsFailed
+  | GetMapDetailsRequested
+  | UpdateMapDetailsRequested;
 
 export {
   GET_MAP_DETAILS_FAILED,

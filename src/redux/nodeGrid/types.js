@@ -18,8 +18,10 @@ type UpdateNodeGridRequested = {
   nodes: Array<Node>,
 };
 
-export type NodeGrid = UpdateNodeGridSucceeded | UpdateNodeGridFailed |
-  UpdateNodeGridRequested;
+export type NodeGrid =
+  | UpdateNodeGridSucceeded
+  | UpdateNodeGridFailed
+  | UpdateNodeGridRequested;
 
 export {
   UPDATE_NODE_GRID_REQUESTED,

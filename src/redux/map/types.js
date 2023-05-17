@@ -164,7 +164,7 @@ type UndoMap = {
   type: 'UNDO_MAP',
   currentMap: MapItem,
   prev: MapItem,
-}
+};
 
 const REDO_MAP = 'REDO_MAP';
 type RedoMap = {
@@ -216,17 +216,36 @@ type CreateMapFromTemplateRequested = {
   templateId?: number,
 };
 
-export type MapActions = SelectNode | SelectEdge |
-  CreateNode | UpdateNode | DeleteNodeRequested |
-  CreateEdge | DeleteEdge | UpdateEdge |
-  UndoMap | RedoMap | ExchangeNodeId |
-  GetMapSucceeded | GetMapFailed | GetMapRequested |
-  CreateMapFromTemplateRequested | CreateMapFromTemplateSucceeded |
-  CreateMapFromTemplateFailed | CreateNodeWithEdge | ExchangeEdgeId |
-  ExtendMapRequested | ExtendMapFailed | ExtendMapSucceeded |
-  UpdateEdgeVisual | FocusNode | UnfocusNode |
-  GetNodeRequested | GetNodeFullfilled | DeleteNodeFullFilled |
-  DeleteNodeSync;
+export type MapActions =
+  | SelectNode
+  | SelectEdge
+  | CreateNode
+  | UpdateNode
+  | DeleteNodeRequested
+  | CreateEdge
+  | DeleteEdge
+  | UpdateEdge
+  | UndoMap
+  | RedoMap
+  | ExchangeNodeId
+  | GetMapSucceeded
+  | GetMapFailed
+  | GetMapRequested
+  | CreateMapFromTemplateRequested
+  | CreateMapFromTemplateSucceeded
+  | CreateMapFromTemplateFailed
+  | CreateNodeWithEdge
+  | ExchangeEdgeId
+  | ExtendMapRequested
+  | ExtendMapFailed
+  | ExtendMapSucceeded
+  | UpdateEdgeVisual
+  | FocusNode
+  | UnfocusNode
+  | GetNodeRequested
+  | GetNodeFullfilled
+  | DeleteNodeFullFilled
+  | DeleteNodeSync;
 
 export {
   CREATE_EDGE,

@@ -21,4 +21,7 @@ type DeleteNodeMiddleware = {
   actionType: string,
 };
 
-export type WholeMapActions = GetWholeMapMiddleware | SyncNodeMiddleware | DeleteNodeMiddleware;
+export type WholeMapActions =
+  | GetWholeMapMiddleware
+  | SyncNodeMiddleware
+  | DeleteNodeMiddleware;

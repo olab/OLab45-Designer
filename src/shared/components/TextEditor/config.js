@@ -8,8 +8,8 @@ export const BASIC_TEXT_EDITOR_OPTIONS = {
     'insertdatetime media table paste code help wordcount',
   ],
   toolbar:
-    'code | undo redo | styleselect superscript strikethrough |'
-    + 'outdent indent image link | bold italic forecolor backcolor | bullist numlist',
+    'code | undo redo | styleselect superscript strikethrough |' +
+    'outdent indent image link | bold italic forecolor backcolor | bullist numlist',
   branding: false,
   paste_data_images: true,
   inline_boundaries: false,

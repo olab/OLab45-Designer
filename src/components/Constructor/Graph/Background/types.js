@@ -1,5 +1,5 @@
 // @flow
 export type IBackgroundProps = {
-  gridSize: number;
-  backgroundFillId: string;
+  gridSize: number,
+  backgroundFillId: string,
 };

@@ -17,7 +17,8 @@ class SnapToGrid extends LayoutEngine {
       if ((x - gridOffset) % gridSpacing < gridOffset) {
         multiplier = -1;
       }
-      newX = (gridSpacing * Math.round(x / gridSpacing)) + (gridOffset * multiplier);
+      newX =
+        gridSpacing * Math.round(x / gridSpacing) + gridOffset * multiplier;
     }
 
     if (y && (y - gridOffset) % gridSpacing !== 0) {
@@ -27,7 +28,8 @@ class SnapToGrid extends LayoutEngine {
       if ((y - gridOffset) % gridSpacing < gridOffset) {
         multiplier = -1;
       }
-      newY = (gridSpacing * Math.round(y / gridSpacing)) + (gridOffset * multiplier);
+      newY =
+        gridSpacing * Math.round(y / gridSpacing) + gridOffset * multiplier;
     }
     return {
       x: newX,

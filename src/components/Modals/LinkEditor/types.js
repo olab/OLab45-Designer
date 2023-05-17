@@ -6,12 +6,12 @@ export type ILinkEditorProps = {
   ...ModalPositionType,
   link: EdgeType,
   links: Array<EdgeType>,
-  isDragging: boolean;
-  connectDragSource: Function;
-  connectDragPreview: Function;
-  ACTION_UPDATE_EDGE: Function;
-  ACTION_DESELECT_EDGE: Function;
-  ACTION_ADJUST_POSITION_MODAL: Function;
+  isDragging: boolean,
+  connectDragSource: Function,
+  connectDragPreview: Function,
+  ACTION_UPDATE_EDGE: Function,
+  ACTION_DESELECT_EDGE: Function,
+  ACTION_ADJUST_POSITION_MODAL: Function,
   layoutEngine: string,
 };
 

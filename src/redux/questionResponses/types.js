@@ -77,14 +77,14 @@ type QuestionResponseUpdateFulfilled = {
 };
 
 export type QuestionResponseActions =
-  QuestionResponseCreateFailed |
-  QuestionResponseCreateRequested |
-  QuestionResponseCreateSucceeded |
-  QuestionResponseDeleteFailed |
-  QuestionResponseDeleteRequested |
-  QuestionResponseDeleteSucceeded |
-  QuestionResponseUpdateFulfilled |
-  QuestionResponseUpdateRequested;
+  | QuestionResponseCreateFailed
+  | QuestionResponseCreateRequested
+  | QuestionResponseCreateSucceeded
+  | QuestionResponseDeleteFailed
+  | QuestionResponseDeleteRequested
+  | QuestionResponseDeleteSucceeded
+  | QuestionResponseUpdateFulfilled
+  | QuestionResponseUpdateRequested;
 
 export {
   RESPONSE_CREATE_FAILED,

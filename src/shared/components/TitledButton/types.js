@@ -11,5 +11,4 @@ export type ITitledButtonProps = {
   onClick: Function,
 };
 
-export type ITitledButtonState = {
-};
+export type ITitledButtonState = {};

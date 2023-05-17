@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import {
-  DARK_BLUE, BLUE_GREY, WHITE, LIGHT_GREY,
-} from '../../shared/colors';
+import { DARK_BLUE, BLUE_GREY, WHITE, LIGHT_GREY } from '../../shared/colors';
 
 export const ControlsDeleteContainer = styled.div`
   display: flex;
@@ -28,7 +26,7 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.h2`
-  margin: .5rem 1.25rem .5rem ;
+  margin: 0.5rem 1.25rem 0.5rem;
   font-weight: 800;
   font-style: bold;
   font-size: 2rem;

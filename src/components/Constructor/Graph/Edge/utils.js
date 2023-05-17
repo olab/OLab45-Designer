@@ -32,10 +32,14 @@ export const getMinRadius = (
   targetNode: NodeType,
 ): number => {
   const {
-    width: sourceWidth, height: sourceHeight, isCollapsed: isSourceCollapsed,
+    width: sourceWidth,
+    height: sourceHeight,
+    isCollapsed: isSourceCollapsed,
   } = sourceNode;
   const {
-    width: targetWidth = 0, height: targetHeight = 0, isCollapsed: isTargetCollapsed,
+    width: targetWidth = 0,
+    height: targetHeight = 0,
+    isCollapsed: isTargetCollapsed,
   } = targetNode;
   const nodesSizes = [sourceWidth, sourceHeight, targetWidth, targetHeight];
   const isCollapsed = isSourceCollapsed || isTargetCollapsed;
@@ -63,13 +67,12 @@ export const getOffset = (
   const { x: sourceX, y: sourceY } = sourceNodeXY;
   const { x: targetX, y: targetY } = targetNodeXY;
 
-  const lineLength = Math.sqrt(((targetX - sourceX) ** 2) + ((targetY - sourceY) ** 2));
+  const lineLength = Math.sqrt(
+    (targetX - sourceX) ** 2 + (targetY - sourceY) ** 2,
+  );
   const k = offset / lineLength;
 
-  return [
-    (targetX - sourceX) * k,
-    (targetY - sourceY) * k,
-  ];
+  return [(targetX - sourceX) * k, (targetY - sourceY) * k];
 };
 
 /**
@@ -90,7 +93,7 @@ export const calculateAngle = (
   const yComp = (trg.y || 0) - (src.y || 0);
 
   const theta = Math.atan2(yComp, xComp);
-  return theta * 180 / Math.PI;
+  return (theta * 180) / Math.PI;
 };
 
 /**
@@ -103,7 +106,8 @@ export const calculateAngle = (
  * Provides API for curved lines using .curve() Example:
  * https://bl.ocks.org/d3indepth/64be9fc39a92ef074034e9a8fb29dcce
  */
-export const lineFunction = (srcTrgDataArray: any) => d3.line()(srcTrgDataArray);
+export const lineFunction = (srcTrgDataArray: any) =>
+  d3.line()(srcTrgDataArray);
 
 /**
  *
@@ -118,9 +122,10 @@ export const lineFunction = (srcTrgDataArray: any) => d3.line()(srcTrgDataArray)
 export const getEdgePathElement = (
   edge: EdgeType,
   viewWrapperElem: HTMLDivElement,
-): HTMLElement => viewWrapperElem.querySelector(
-  `#edge-${edge.source}-${edge.target}-container>.edge-container>.edge>.edge-path`,
-);
+): HTMLElement =>
+  viewWrapperElem.querySelector(
+    `#edge-${edge.source}-${edge.target}-container>.edge-container>.edge>.edge-path`,
+  );
 
 /**
  *
@@ -146,7 +151,9 @@ export const parsePathToXY = (edgePathElement: Element | null) => {
     d = d && d.replace(/L/, ',');
 
     const dArr = (d && d.split(',')) || [];
-    const [sourceX, sourceY, targetX, targetY] = dArr.map(dimension => parseFloat(dimension));
+    const [sourceX, sourceY, targetX, targetY] = dArr.map((dimension) =>
+      parseFloat(dimension),
+    );
 
     if (dArr.length === 4) {
       response.source.x = sourceX;
@@ -228,7 +235,10 @@ export const getRotatedRectIntersect = (
   const right = trgX + w / 2;
 
   const line = shape('line', {
-    x1: srcX, y1: srcY, x2: trgX, y2: trgY,
+    x1: srcX,
+    y1: srcY,
+    x2: trgX,
+    y2: trgY,
   });
 
   // define rectangle
@@ -250,18 +260,20 @@ export const getRotatedRectIntersect = (
 
   // get the rotation
   const transform = defSvgRotatedRectElement.getAttribute('transform');
-  let rotate = transform ? transform.replace(/(rotate.[0-9]*.)|[^]/g, '$1') : null;
+  let rotate = transform
+    ? transform.replace(/(rotate.[0-9]*.)|[^]/g, '$1')
+    : null;
   let angle = 0;
   if (rotate) {
     // get the number
     rotate = rotate.replace(/^rotate\(|\)$/g, '');
     // define rotation in radians
-    angle = parseFloat(rotate) * Math.PI / 180.0;
+    angle = (parseFloat(rotate) * Math.PI) / 180.0;
   }
   // create matrix for rotating around center of rectangle
   const rotation = Matrix2D.rotationAt(angle, center);
   // create new rotated polygon
-  const rotatedPoly = poly.map(p => p.transform(rotation));
+  const rotatedPoly = poly.map((p) => p.transform(rotation));
 
   // find intersections
   const pathIntersect = Intersection.intersectLinePolygon(
@@ -321,9 +333,9 @@ export const getPathIntersect = (
     }
     // items % 2 are x positions
     if (index % 2 === 0) {
-      return (parseFloat(val) + left) + (isEnd ? 'Z' : '');
+      return parseFloat(val) + left + (isEnd ? 'Z' : '');
     }
-    return (parseFloat(val) + top) + (isEnd ? 'Z' : '');
+    return parseFloat(val) + top + (isEnd ? 'Z' : '');
   });
 
   const pathIntersect = intersect(
@@ -438,31 +450,35 @@ export const calculateOffset = (
     return response;
   }
 
-  const xlinkHref = trgNode.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
+  const xlinkHref = trgNode.getAttributeNS(
+    'http://www.w3.org/1999/xlink',
+    'href',
+  );
   if (!xlinkHref) {
     return response;
   }
 
-  const defSvgRectElement = viewWrapperElem.querySelector(`defs>${xlinkHref} rect`);
+  const defSvgRectElement = viewWrapperElem.querySelector(
+    `defs>${xlinkHref} rect`,
+  );
   // Conditionally trying to select the element in other ways is faster than trying to
   // do the selection.
   const defSvgPathElement = !defSvgRectElement
     ? viewWrapperElem.querySelector(`defs>${xlinkHref} path`)
     : null;
 
-  const defSvgCircleElement = (!defSvgRectElement && !defSvgPathElement)
-    ? viewWrapperElem.querySelector(`defs>${xlinkHref} circle, defs>${xlinkHref} ellipse, defs>${xlinkHref} polygon`)
-    : null;
+  const defSvgCircleElement =
+    !defSvgRectElement && !defSvgPathElement
+      ? viewWrapperElem.querySelector(
+          `defs>${xlinkHref} circle, defs>${xlinkHref} ellipse, defs>${xlinkHref} polygon`,
+        )
+      : null;
 
   if (defSvgRectElement) {
     // it's a rectangle
     return {
       ...response,
-      ...getRotatedRectIntersect(
-        defSvgRectElement,
-        src,
-        trg,
-      ),
+      ...getRotatedRectIntersect(defSvgRectElement, src, trg),
     };
   }
 
@@ -470,22 +486,14 @@ export const calculateOffset = (
     // it's a complex path
     return {
       ...response,
-      ...getPathIntersect(
-        defSvgPathElement,
-        src,
-        trg,
-      ),
+      ...getPathIntersect(defSvgPathElement, src, trg),
     };
   }
 
   // it's a circle or some other type
   return {
     ...response,
-    ...getCircleIntersect(
-      defSvgCircleElement,
-      src,
-      trg,
-    ),
+    ...getCircleIntersect(defSvgCircleElement, src, trg),
   };
 };
 

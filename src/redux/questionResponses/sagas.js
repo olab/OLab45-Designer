@@ -1,6 +1,4 @@
-import {
-  call, put, takeLatest,
-} from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import {
   createResponse,
@@ -27,23 +25,17 @@ import {
   ACTION_NOTIFICATION_SUCCESS,
 } from '../notifications/action';
 
-import {
-  MESSAGES,
-} from '../notifications/config';
+import { MESSAGES } from '../notifications/config';
 
 // import { SCOPED_OBJECTS } from '../../components/config';
 
 function* createResponseSaga({ scopedObjectData }) {
   try {
-    const scopedObjectId = yield call(
-      createResponse,
-      scopedObjectData,
-    );
+    const scopedObjectId = yield call(createResponse, scopedObjectData);
 
-    yield put(ACTION_RESPONSE_CREATE_SUCCEEDED(
-      scopedObjectId,
-      scopedObjectData,
-    ));
+    yield put(
+      ACTION_RESPONSE_CREATE_SUCCEEDED(scopedObjectId, scopedObjectData),
+    );
     yield put(ACTION_NOTIFICATION_SUCCESS(MESSAGES.ON_CREATE.SCOPED_OBJECT));
   } catch (error) {
     const { response, message } = error;
@@ -54,16 +46,13 @@ function* createResponseSaga({ scopedObjectData }) {
   }
 }
 
-function* deleteResponseSaga({
-  scopedObjectId,
-}) {
+function* deleteResponseSaga({ scopedObjectId }) {
   try {
-    yield call(
-      deleteResponse,
-      scopedObjectId,
-    );
+    yield call(deleteResponse, scopedObjectId);
 
-    yield put(ACTION_RESPONSE_DELETE_SUCCEEDED(scopedObjectId, 'questionresponses'));
+    yield put(
+      ACTION_RESPONSE_DELETE_SUCCEEDED(scopedObjectId, 'questionresponses'),
+    );
     yield put(ACTION_NOTIFICATION_SUCCESS(MESSAGES.ON_DELETE.SCOPED_OBJECT));
   } catch (error) {
     const { response, message } = error;
@@ -74,14 +63,9 @@ function* deleteResponseSaga({
   }
 }
 
-function* updateResponseSaga({
-  scopedObjectData,
-}) {
+function* updateResponseSaga({ scopedObjectData }) {
   try {
-    yield call(
-      editResponse,
-      scopedObjectData,
-    );
+    yield call(editResponse, scopedObjectData);
 
     yield put(ACTION_NOTIFICATION_SUCCESS(MESSAGES.ON_UPDATE.SCOPED_OBJECT));
   } catch (error) {

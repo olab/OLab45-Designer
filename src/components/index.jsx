@@ -1,5 +1,5 @@
 // @flow
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Suspense, lazy } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
@@ -7,9 +7,11 @@ import { Notify } from 'react-redux-notify';
 
 import Login from './Login';
 import Home from './Home';
-import Constructor from './Constructor';
-import CounterGrid from './CounterGrid';
-import NodeGrid from './NodeGrid';
+
+const Constructor = lazy(() => import(/* webpackChunkName: "olab-editor" */ './Constructor'));
+const CounterGrid = lazy(() => import(/* webpackChunkName: "olab-editor" */ './CounterGrid'));
+const NodeGrid = lazy(() => import(/* webpackChunkName: "olab-editor" */ './NodeGrid'));
+
 import PageNotFound from './404';
 import Header from './Header';
 import SOEditor from './SOEditor';
@@ -81,7 +83,7 @@ export class App extends PureComponent<IAppProps> {
 
     return (
       <ConnectedRouter history={history}>
-        <>
+        <Suspense fallback={<div>Loading...</div>}>
           {isAuth && <Header handleLogout={this.handleLogout} />}
           <Switch>
             <Route exact path="/login" component={Login} />
@@ -105,7 +107,7 @@ export class App extends PureComponent<IAppProps> {
             <ProtectedRoute exact isAuth={isAuth} path="*" component={PageNotFound} />
           </Switch>
           <Notify />
-        </>
+        </Suspense>
       </ConnectedRouter>
     );
   }

@@ -36,9 +36,7 @@ const scopeLevels = (
 
       return {
         ...state,
-        [level]: [
-          ...levelList,
-        ],
+        [level]: [...levelList],
         isFetching: false,
       };
     }

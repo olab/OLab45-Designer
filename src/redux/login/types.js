@@ -29,16 +29,19 @@ type UserAuthActionFailed = {
 
 const USER_AUTH_REQUESTED = 'USER_AUTH_REQUESTED';
 type UserAuthActionRequested = {
-  type: 'USER_AUTH_REQUESTED'
+  type: 'USER_AUTH_REQUESTED',
 };
 
 const USER_AUTH_LOGOUT = 'USER_AUTH_LOGOUT';
 type UserAuthLogout = {
   type: 'USER_AUTH_LOGOUT',
-}
+};
 
-export type UserActions = UserAuthActionSucceeded |
-  UserAuthActionFailed | UserAuthActionRequested | UserAuthLogout;
+export type UserActions =
+  | UserAuthActionSucceeded
+  | UserAuthActionFailed
+  | UserAuthActionRequested
+  | UserAuthLogout;
 
 export {
   USER_AUTH_FAILED,

@@ -46,6 +46,8 @@ export const getIconsByScopeLevel = (level: string): Icons => {
   }
 };
 
-export const toLowerCaseAndPlural = (str: string): string => `${str}s`.toLowerCase();
+export const toLowerCaseAndPlural = (str: string): string =>
+  `${str}s`.toLowerCase();
 
-export const toUpperCaseAndPlural = (str: string): string => `${str}s`.toUpperCase();
+export const toUpperCaseAndPlural = (str: string): string =>
+  `${str}s`.toUpperCase();

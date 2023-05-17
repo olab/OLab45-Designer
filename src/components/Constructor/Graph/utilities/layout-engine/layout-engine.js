@@ -3,9 +3,9 @@ import type { Node as NodeType } from '../../Node/types';
 import type { IGraphViewProps } from '../../GraphView/types';
 
 export type IPosition = {
-  x: number;
-  y: number;
-  [key: string]: any;
+  x: number,
+  y: number,
+  [key: string]: any,
 };
 
 class LayoutEngine {
