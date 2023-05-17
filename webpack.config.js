@@ -54,7 +54,7 @@ module.exports = (env, options) => ({
 
   output: {
     path: path.join(__dirname, 'build'),
-    publicPath: process.env.PUBLIC_URL || '/',
+    publicPath: `${process.env.PUBLIC_URL}/` || '/',
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].bundle.js',
   },
