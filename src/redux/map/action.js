@@ -43,11 +43,11 @@ export const ACTION_GET_NODE_REQUESTED = (mapId: number, nodeId: number) => ({
 });
 
 export const ACTION_GET_NODE_FULLFILLED = (initialNode: NodeType) => {
-  const { map: { nodes } } = store.getState();
   const {
-    isFocused = false,
-    isSelected = false,
-  } = nodes.find(item => item.id === initialNode.id) || {};
+    map: { nodes },
+  } = store.getState();
+  const { isFocused = false, isSelected = false } =
+    nodes.find((item) => item.id === initialNode.id) || {};
   const index = nodes.findIndex(({ id }) => id === initialNode.id);
   const node = {
     ...initialNode,
@@ -63,7 +63,9 @@ export const ACTION_GET_NODE_FULLFILLED = (initialNode: NodeType) => {
 };
 
 export const ACTION_FOCUS_NODE = (nodeId: number) => {
-  const { map: { nodes } } = store.getState();
+  const {
+    map: { nodes },
+  } = store.getState();
   const clonedNodes = nodes.map((node) => {
     if (node.id === nodeId) {
       return {
@@ -91,7 +93,9 @@ export const ACTION_FOCUS_NODE = (nodeId: number) => {
 };
 
 export const ACTION_UNFOCUS_NODE = (nodeId: number) => {
-  const { map: { nodes } } = store.getState();
+  const {
+    map: { nodes },
+  } = store.getState();
   const index = nodes.findIndex(({ id }) => id === nodeId);
   const node = {
     ...nodes[index],
@@ -106,7 +110,9 @@ export const ACTION_UNFOCUS_NODE = (nodeId: number) => {
 };
 
 export const ACTION_SELECT_NODE = (nodeId: number | null) => {
-  const { map: { nodes } } = store.getState();
+  const {
+    map: { nodes },
+  } = store.getState();
   const clonedNodes = nodes.map((node) => {
     if (nodeId && node.id === nodeId) {
       return {
@@ -134,7 +140,9 @@ export const ACTION_SELECT_NODE = (nodeId: number | null) => {
 };
 
 export const ACTION_SELECT_EDGE = (edgeId: number | null) => {
-  const { map: { edges } } = store.getState();
+  const {
+    map: { edges },
+  } = store.getState();
   const clonedEdges = edges.map((edge) => {
     if (edgeId && edge.id === edgeId && !edge.isSelected) {
       return {
@@ -165,7 +173,9 @@ export const ACTION_CREATE_NODE = (node: NodeType) => ({
 });
 
 export const ACTION_UPDATE_NODE_COLLAPSE = (nodeId: number) => {
-  const { map: { nodes } } = store.getState();
+  const {
+    map: { nodes },
+  } = store.getState();
   const index = nodes.findIndex(({ id }) => id === nodeId);
   const node = {
     ...nodes[index],
@@ -180,7 +190,9 @@ export const ACTION_UPDATE_NODE_COLLAPSE = (nodeId: number) => {
 };
 
 export const ACTION_UPDATE_NODE_LOCK = (nodeId: number) => {
-  const { map: { nodes } } = store.getState();
+  const {
+    map: { nodes },
+  } = store.getState();
   const index = nodes.findIndex(({ id }) => id === nodeId);
   const node = {
     ...nodes[index],
@@ -205,8 +217,14 @@ export const ACTION_CREATE_NODE_WITH_EDGE = (
   sourceNodeId,
 });
 
-export const ACTION_UPDATE_NODE_RESIZE = (nodeId: number, width: number, height: number) => {
-  const { map: { nodes } } = store.getState();
+export const ACTION_UPDATE_NODE_RESIZE = (
+  nodeId: number,
+  width: number,
+  height: number,
+) => {
+  const {
+    map: { nodes },
+  } = store.getState();
   const index = nodes.findIndex(({ id }) => id === nodeId);
   const node = {
     ...nodes[index],
@@ -226,7 +244,9 @@ export const ACTION_UPDATE_NODE = (
   isShowNotification: boolean = false,
   mapIdFromURL: number,
 ) => {
-  const { map: { nodes } } = store.getState();
+  const {
+    map: { nodes },
+  } = store.getState();
   const index = nodes.findIndex(({ id }) => id === nodeData.id);
   const node = {
     ...nodes[index],
@@ -246,11 +266,13 @@ export const ACTION_DELETE_NODE_REQUESTED = (
   nodeId: number,
   mapId?: number,
 ) => {
-  const { map: { nodes, edges } } = store.getState();
+  const {
+    map: { nodes, edges },
+  } = store.getState();
   const nodeIndex = nodes.findIndex(({ id }) => id === nodeId);
-  const filteredEdges = edges.filter(({ source, target }) => (
-    source !== nodeId && target !== nodeId
-  ));
+  const filteredEdges = edges.filter(
+    ({ source, target }) => source !== nodeId && target !== nodeId,
+  );
 
   return {
     type: DELETE_NODE_REQUESTED,
@@ -265,24 +287,29 @@ export const ACTION_DELETE_NODE_FULLFILLED = () => ({
   type: DELETE_NODE_FULLFILLED,
 });
 
-export const ACTION_DELETE_NODE_SYNC = (
-  nodeId: number,
-) => {
-  const { map: { edges, nodes } } = store.getState();
+export const ACTION_DELETE_NODE_SYNC = (nodeId: number) => {
+  const {
+    map: { edges, nodes },
+  } = store.getState();
   const nodeIndex = nodes.findIndex(({ id }) => id === nodeId);
-  const filteredEdges = edges.filter(({ source, target }) => (
-    source !== nodeId && target !== nodeId
-  ));
+  const filteredEdges = edges.filter(
+    ({ source, target }) => source !== nodeId && target !== nodeId,
+  );
 
-  return ({
+  return {
     type: DELETE_NODE_SYNC,
     edges: filteredEdges,
     nodeIndex,
-  });
+  };
 };
 
-export const ACTION_EXCHANGE_NODE_ID = (oldNodeId: number | string, newNodeId: number) => {
-  const { map: { nodes, edges } } = store.getState();
+export const ACTION_EXCHANGE_NODE_ID = (
+  oldNodeId: number | string,
+  newNodeId: number,
+) => {
+  const {
+    map: { nodes, edges },
+  } = store.getState();
   const nodeIndex = nodes.findIndex(({ id }) => id === oldNodeId);
 
   const clonedNode = {
@@ -316,8 +343,13 @@ export const ACTION_EXCHANGE_NODE_ID = (oldNodeId: number | string, newNodeId: n
   };
 };
 
-export const ACTION_EXCHANGE_EDGE_ID = (oldEdgeId: number | string, newEdgeId: number) => {
-  const { map: { edges } } = store.getState();
+export const ACTION_EXCHANGE_EDGE_ID = (
+  oldEdgeId: number | string,
+  newEdgeId: number,
+) => {
+  const {
+    map: { edges },
+  } = store.getState();
   const index = edges.findIndex(({ id }) => id === oldEdgeId);
   const edge = {
     ...edges[index],
@@ -336,8 +368,13 @@ export const ACTION_CREATE_EDGE = (edge: EdgeType) => ({
   edge,
 });
 
-export const ACTION_UPDATE_EDGE = (edge: EdgeType, isVisualOnly: boolean = false) => {
-  const { map: { edges } } = store.getState();
+export const ACTION_UPDATE_EDGE = (
+  edge: EdgeType,
+  isVisualOnly: boolean = false,
+) => {
+  const {
+    map: { edges },
+  } = store.getState();
   const edgeIndex = edges.findIndex(({ id }) => id === edge.id);
   const clonedEdge = {
     ...edges[edgeIndex],
@@ -345,16 +382,16 @@ export const ACTION_UPDATE_EDGE = (edge: EdgeType, isVisualOnly: boolean = false
   };
 
   return {
-    type: isVisualOnly
-      ? UPDATE_EDGE_VISUAL
-      : UPDATE_EDGE,
+    type: isVisualOnly ? UPDATE_EDGE_VISUAL : UPDATE_EDGE,
     index: edgeIndex,
     edge: clonedEdge,
   };
 };
 
 export const ACTION_DELETE_EDGE = (edgeId: number, nodeId: number) => {
-  const { map: { edges } } = store.getState();
+  const {
+    map: { edges },
+  } = store.getState();
   const index = edges.findIndex(({ id }) => id === edgeId);
 
   return {
@@ -366,7 +403,9 @@ export const ACTION_DELETE_EDGE = (edgeId: number, nodeId: number) => {
 };
 
 export const ACTION_UNDO_MAP = () => {
-  const { map: { undo, nodes, edges } } = store.getState();
+  const {
+    map: { undo, nodes, edges },
+  } = store.getState();
   const prev = undo[undo.length - 1];
   const currentMap = cloneDeep({ nodes, edges });
 
@@ -378,7 +417,9 @@ export const ACTION_UNDO_MAP = () => {
 };
 
 export const ACTION_REDO_MAP = () => {
-  const { map: { redo, nodes, edges } } = store.getState();
+  const {
+    map: { redo, nodes, edges },
+  } = store.getState();
   const next = redo[redo.length - 1];
   const currentMap = cloneDeep({ nodes, edges });
 
@@ -393,7 +434,10 @@ export const ACTION_GET_MAP_FAILED = () => ({
   type: GET_MAP_FAILED,
 });
 
-export const ACTION_GET_MAP_SUCCEEDED = (nodes: Array<NodeType>, edges: Array<EdgeType>) => ({
+export const ACTION_GET_MAP_SUCCEEDED = (
+  nodes: Array<NodeType>,
+  edges: Array<EdgeType>,
+) => ({
   type: GET_MAP_SUCCEEDED,
   nodes,
   edges,
@@ -408,7 +452,10 @@ export const ACTION_CREATE_MAP_FAILED = () => ({
   type: CREATE_MAP_FAILED,
 });
 
-export const ACTION_CREATE_MAP_SUCCEEDED = (nodes: Array<NodeType>, edges: Array<EdgeType>) => ({
+export const ACTION_CREATE_MAP_SUCCEEDED = (
+  nodes: Array<NodeType>,
+  edges: Array<EdgeType>,
+) => ({
   type: CREATE_MAP_SUCCEEDED,
   nodes,
   edges,
@@ -428,7 +475,10 @@ export const ACTION_EXTEND_MAP_FAILED = () => ({
   type: EXTEND_MAP_FAILED,
 });
 
-export const ACTION_EXTEND_MAP_SUCCEEDED = (nodes: Array<NodeType>, edges: Array<EdgeType>) => ({
+export const ACTION_EXTEND_MAP_SUCCEEDED = (
+  nodes: Array<NodeType>,
+  edges: Array<EdgeType>,
+) => ({
   type: EXTEND_MAP_SUCCEEDED,
   nodes,
   edges,

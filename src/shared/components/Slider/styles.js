@@ -5,7 +5,7 @@ export const SliderWrapper = styled.div`
 `;
 
 export const SliderValue = styled.p`
-  color: rgba(0, 0, 0, .54);
+  color: rgba(0, 0, 0, 0.54);
   margin: 0;
   margin-left: 10px;
   margin-top: -2px;

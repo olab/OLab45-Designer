@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { WHITE, MIDDLE_GREY, MIDDLE_LIGHT_GREY } from '../../../../shared/colors';
+import {
+  WHITE,
+  MIDDLE_GREY,
+  MIDDLE_LIGHT_GREY,
+} from '../../../../shared/colors';
 
 export const Cell = styled.div`
   padding: 4px 4px 0 4px;

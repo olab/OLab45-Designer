@@ -4,4 +4,4 @@ export type IHeaderTitleProps = {
   title: string,
   isEnd: boolean,
   isLocked: boolean,
-}
+};

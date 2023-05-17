@@ -1,4 +1,4 @@
 // @flow
 export type IArrowHeadProps = {
-  edgeArrowSize: number;
+  edgeArrowSize: number,
 };

@@ -34,9 +34,11 @@ type ScopeLevelsClear = {
   type: 'SCOPE_LEVELS_CLEAR',
 };
 
-export type ScopeLevelsActions = ScopeLevelsClear |
-  ScopeLevelsRequested | ScopeLevelsRequestFailed |
-  ScopeLevelsRequestSucceeded;
+export type ScopeLevelsActions =
+  | ScopeLevelsClear
+  | ScopeLevelsRequested
+  | ScopeLevelsRequestFailed
+  | ScopeLevelsRequestSucceeded;
 
 export {
   SCOPE_LEVELS_REQUESTED,

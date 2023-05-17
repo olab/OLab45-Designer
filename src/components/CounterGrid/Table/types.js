@@ -1,5 +1,9 @@
 // @flow
-import type { CounterGridNode, Counter, CounterActions } from '../../../redux/counterGrid/types';
+import type {
+  CounterGridNode,
+  Counter,
+  CounterActions,
+} from '../../../redux/counterGrid/types';
 
 export type CounterGridTableProps = {
   classes: {

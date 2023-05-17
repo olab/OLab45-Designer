@@ -152,13 +152,19 @@ export const yieldingLoop = (
  *
  * Finds shallow differences in 2 objects.
  */
-export const hasNodeShallowChanged = (prevNode: NodeType, newNode: NodeType): boolean => {
+export const hasNodeShallowChanged = (
+  prevNode: NodeType,
+  newNode: NodeType,
+): boolean => {
   const prevNodeKeys = Object.keys(prevNode);
   const newNodeKeys = Object.keys(prevNode);
   const checkedKeys = {};
   for (let i = 0; i < prevNodeKeys.length; i += 1) {
     const key = prevNodeKeys[i];
-    if (!{}.hasOwnProperty.call(newNode, key) || prevNode[key] !== newNode[key]) {
+    if (
+      !{}.hasOwnProperty.call(newNode, key) ||
+      prevNode[key] !== newNode[key]
+    ) {
       return true;
     }
     checkedKeys[key] = true;
@@ -166,7 +172,10 @@ export const hasNodeShallowChanged = (prevNode: NodeType, newNode: NodeType): bo
   for (let i = 0; i < newNodeKeys.length; i += 1) {
     const key = newNodeKeys[i];
     if (!checkedKeys[key]) {
-      if (!{}.hasOwnProperty.call(prevNode, key) || prevNode[key] !== newNode[key]) {
+      if (
+        !{}.hasOwnProperty.call(prevNode, key) ||
+        prevNode[key] !== newNode[key]
+      ) {
         return true;
       }
     }
@@ -183,7 +192,10 @@ export const hasNodeShallowChanged = (prevNode: NodeType, newNode: NodeType): bo
  *
  * Removes Edge from DOM.
  */
-export const removeEdgeElement = (source: string | number, target: string | number) => {
+export const removeEdgeElement = (
+  source: string | number,
+  target: string | number,
+) => {
   const id = `${source}-${target}`;
   removeElementFromDom(`edge-${id}-container`);
 };
@@ -197,7 +209,8 @@ export const removeEdgeElement = (source: string | number, target: string | numb
  *
  * Checks whether clicked item is in the edge.
  */
-export const isPartOfEdge = (element: HTMLElement): boolean => !!findParent(element, '.edge-container');
+export const isPartOfEdge = (element: HTMLElement): boolean =>
+  !!findParent(element, '.edge-container');
 
 /**
  *

@@ -23,7 +23,10 @@ import React from 'react';
     ...
   }
  */
-export const processGraphConfigDefs = (typesObj: any, graphConfigDefs: Array<any>) => {
+export const processGraphConfigDefs = (
+  typesObj: any,
+  graphConfigDefs: Array<any>,
+) => {
   Object.values(typesObj).forEach((val) => {
     const safeId = val.shapeId ? val.shapeId.replace('#', '') : 'graphdef';
     graphConfigDefs.push(

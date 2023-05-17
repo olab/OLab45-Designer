@@ -22,7 +22,7 @@ export const EDITORS_FIELDS = {
   LAYOUT_TYPE: 'Layout Type',
   MAXVALUE: 'Max Value',
   MINVALUE: 'Min Value',
-  MIMETYPE: "Mime Type",
+  MIMETYPE: 'Mime Type',
   NAME: 'Name',
   ORDER: 'Order',
   ORIGIN_URL: 'Origin URL',
@@ -93,7 +93,7 @@ export const TEXTENTRY_QUESTION_TYPES = {
 
 export const TTALK_QUESTION_TYPES = {
   11: 'Turk Talk Moderator',
-  15: 'Turk Talk Participant'
+  15: 'Turk Talk Participant',
 };
 
 export const SCOPED_OBJECTS_MAPPING = {

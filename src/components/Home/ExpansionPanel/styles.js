@@ -5,7 +5,7 @@ export const ExpansionPanelWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-const styles = theme => ({
+const styles = (theme) => ({
   fab: {
     flexShrink: 0,
     alignSelf: 'flex-end',

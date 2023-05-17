@@ -1,5 +1,8 @@
 import createInstance from '../createCustomInstance';
-import { mapDetailsToServer, mapDetailsFromServer } from '../../helpers/applyAPIMapping';
+import {
+  mapDetailsToServer,
+  mapDetailsFromServer,
+} from '../../helpers/applyAPIMapping';
 
 const API = createInstance();
 
@@ -12,8 +15,9 @@ export function getMapDetails(mapId) {
 }
 
 export function updateMapDetails(mapDetails) {
-  return API.put(`/maps/${mapDetails.id}`, { ...mapDetailsToServer(mapDetails) })
-    .catch((error) => {
-      throw error;
-    });
+  return API.put(`/maps/${mapDetails.id}`, {
+    ...mapDetailsToServer(mapDetails),
+  }).catch((error) => {
+    throw error;
+  });
 }

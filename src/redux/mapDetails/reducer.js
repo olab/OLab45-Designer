@@ -7,7 +7,11 @@ import {
   GET_MAP_DETAILS_REQUESTED,
   UPDATE_MAP_DETAILS_REQUESTED,
 } from './types';
-import { CREATE_MAP_REQUESTED, CREATE_MAP_SUCCEEDED, CREATE_MAP_FAILED } from '../map/types';
+import {
+  CREATE_MAP_REQUESTED,
+  CREATE_MAP_SUCCEEDED,
+  CREATE_MAP_FAILED,
+} from '../map/types';
 
 export const initialMapDetailsState: MapDetailsType = {
   id: null,
@@ -30,7 +34,10 @@ export const initialMapDetailsState: MapDetailsType = {
   themes: [],
 };
 
-const mapDetails = (state: MapDetailsType = initialMapDetailsState, action: MapDetailsActions) => {
+const mapDetails = (
+  state: MapDetailsType = initialMapDetailsState,
+  action: MapDetailsActions,
+) => {
   switch (action.type) {
     case CREATE_MAP_REQUESTED:
     case GET_MAP_DETAILS_REQUESTED:

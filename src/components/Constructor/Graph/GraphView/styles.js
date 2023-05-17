@@ -23,7 +23,7 @@ export const GraphWrapper = styled.svg`
 `;
 
 export const View = styled.g`
-  cursor: ${({ cursor }) => setCursorCSS(cursor)}
+  cursor: ${({ cursor }) => setCursorCSS(cursor)};
 `;
 
 export default ViewWrapper;

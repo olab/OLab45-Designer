@@ -3,9 +3,7 @@ import type {
   ScopedObject as ScopedObjectType,
   ScopedObjectBase as ScopedObjectBaseType,
 } from '../../redux/scopedObjects/types';
-import type {
-  ScopeLevels as ScopeLevelsType,
-} from '../../redux/scopeLevels/types';
+import type { ScopeLevels as ScopeLevelsType } from '../../redux/scopeLevels/types';
 
 export type ISOEditorProps = {
   ACTION_SCOPE_LEVELS_CLEAR: () => void,

@@ -39,15 +39,15 @@ export const SearchIconWrapper = styled.span`
 export const ConfigArticle = styled.article`
   display: flex;
   justify-content: space-between;
-  padding: .7rem 1rem .5rem 1rem;
+  padding: 0.7rem 1rem 0.5rem 1rem;
   border-bottom: 2px solid ${LIGHT_BLUE};
 
   > div:first-of-type {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 
   > div:last-of-type {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
   }
 `;
 

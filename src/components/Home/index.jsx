@@ -148,7 +148,7 @@ class Home extends PureComponent<IHomeProps, IHomeState> {
           isDisabled={isButtonsDisabled}
         />
 
-        <MapListWrapper>
+        <div>
           <ListWithSearch
             label="Search for map by keyword or index"
             innerRef={this.setListWithSearchRef}
@@ -162,7 +162,7 @@ class Home extends PureComponent<IHomeProps, IHomeState> {
             iconOdd={MapsOutlinedIcon}
             showIcons={false}
           />
-        </MapListWrapper>
+        </div>
 
         {isShowTemplatesListModal && (
           <SearchModal

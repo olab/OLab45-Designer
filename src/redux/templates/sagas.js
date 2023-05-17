@@ -1,10 +1,11 @@
-import {
-  call, put, select, takeLatest,
-} from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getTemplates, createTemplate } from '../../services/api/templates';
 
 import { TEMPLATE_UPLOAD_REQUESTED, TEMPLATES_REQUESTED } from './types';
-import { ACTION_NOTIFICATION_ERROR, ACTION_NOTIFICATION_SUCCESS } from '../notifications/action';
+import {
+  ACTION_NOTIFICATION_ERROR,
+  ACTION_NOTIFICATION_SUCCESS,
+} from '../notifications/action';
 import {
   ACTION_TEMPLATES_REQUEST_FAILED,
   ACTION_TEMPLATES_REQUEST_SUCCEEDED,

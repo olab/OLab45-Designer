@@ -45,7 +45,9 @@ export const ACTION_UPDATE_COUNTER_GRID_REQUESTED = (
   mapId: string,
   counterValues: CounterGridActionsType,
 ) => {
-  const { counterGrid: { actions } } = store.getState();
+  const {
+    counterGrid: { actions },
+  } = store.getState();
   const counterActions = differenceWith(counterValues, actions, isEqual);
 
   return {

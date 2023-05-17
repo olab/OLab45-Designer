@@ -11,7 +11,9 @@ export const ACTION_GET_MAP_DETAILS_FAILED = () => ({
   type: GET_MAP_DETAILS_FAILED,
 });
 
-export const ACTION_GET_MAP_DETAILS_SUCCEEDED = (mapDetails: MapDetailsType) => ({
+export const ACTION_GET_MAP_DETAILS_SUCCEEDED = (
+  mapDetails: MapDetailsType,
+) => ({
   type: GET_MAP_DETAILS_SUCCEEDED,
   mapDetails,
 });
@@ -21,7 +23,9 @@ export const ACTION_GET_MAP_DETAILS_REQUESTED = (mapId: string) => ({
   mapId,
 });
 
-export const ACTION_UPDATE_MAP_DETAILS_REQUESTED = (mapDetails: MapDetailsType) => ({
+export const ACTION_UPDATE_MAP_DETAILS_REQUESTED = (
+  mapDetails: MapDetailsType,
+) => ({
   type: UPDATE_MAP_DETAILS_REQUESTED,
   mapDetails,
 });

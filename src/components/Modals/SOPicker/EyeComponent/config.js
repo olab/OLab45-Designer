@@ -3,9 +3,7 @@ export const POPOVER_ANCHOR = {
   horizontal: 'right',
 };
 
-export const FILTER_VALUES = [
-  null, '', undefined,
-];
+export const FILTER_VALUES = [null, '', undefined];
 
 export const POPOVER_TRANSFORM = {
   vertical: 'center',

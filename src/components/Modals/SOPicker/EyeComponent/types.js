@@ -1,7 +1,5 @@
 // @flow
-import type {
-  ScopedObjectDetails as ScopedObjectDetailsType,
-} from '../../../../redux/scopedObjects/types';
+import type { ScopedObjectDetails as ScopedObjectDetailsType } from '../../../../redux/scopedObjects/types';
 
 export type IEyeComponentProps = {
   classes: {

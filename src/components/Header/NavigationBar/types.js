@@ -11,4 +11,4 @@ export type INavigationState = {
   anchorEl: any,
   anchorElMapMenu: any,
   anchorElToolsMenu: any,
-}
+};

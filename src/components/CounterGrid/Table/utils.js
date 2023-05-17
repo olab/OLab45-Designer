@@ -7,10 +7,12 @@ export const getAction = (
   actions: Array<CounterActions>,
 ): CounterActions => ({
   ...actions.find(
-    (item: CounterGridNode): boolean => item.nodeId === nodeId && item.counterId === counterId,
+    (item: CounterGridNode): boolean =>
+      item.nodeId === nodeId && item.counterId === counterId,
   ),
 });
 
-export const getColumnVisibilityValues = (i: number, actions: Array<CounterGridNode>): boolean => (
-  actions.every(item => item[i].isVisible)
-);
+export const getColumnVisibilityValues = (
+  i: number,
+  actions: Array<CounterGridNode>,
+): boolean => actions.every((item) => item[i].isVisible);

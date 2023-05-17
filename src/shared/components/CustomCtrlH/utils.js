@@ -11,13 +11,14 @@ import type {
   AllMatches as AllMatchesType,
 } from './types';
 
-export const searchStringOutsideTags = (
-  search: string,
-): string => `(${search}(?!&|#|9|1|;))(?![^<]*>)`;
+export const searchStringOutsideTags = (search: string): string =>
+  `(${search}(?!&|#|9|1|;))(?![^<]*>)`;
 
-export const escapeSymbol = (data: string): string => data.replace(/\[/g, '&#91;');
+export const escapeSymbol = (data: string): string =>
+  data.replace(/\[/g, '&#91;');
 
-export const unEscapeSymbol = (data: string): string => data.replace(/&nbsp;/g, ' ');
+export const unEscapeSymbol = (data: string): string =>
+  data.replace(/&nbsp;/g, ' ');
 
 export const addMark = (search: string): string => `<mark>${search}</mark>`;
 
@@ -36,7 +37,8 @@ export const getHighlight = (
       if (isString(clonedItem[key])) {
         clonedItem[key] = escapeSymbol(clonedItem[key]);
         clonedItem[key] = clonedItem[key].replace(SEARCH_MARK, '');
-        const isSearchIncludes = Boolean(search) && clonedItem[key].includes(search);
+        const isSearchIncludes =
+          Boolean(search) && clonedItem[key].includes(search);
 
         if (isSearchIncludes) {
           const regex = new RegExp(searchStringOutsideTags(search), 'g');
@@ -92,12 +94,17 @@ export const getReplacedData = (
 ): DataType => {
   const escapingSearch = escapeSymbol(search);
   const regex = new RegExp(escapingSearch, 'gi');
-  const index = data.findIndex((element: Object<any>): boolean => element === item.itemLink);
+  const index = data.findIndex(
+    (element: Object<any>): boolean => element === item.itemLink,
+  );
   const elementData = data[index][item.key];
   const matchingElement = [...elementData.matchAll(regex)];
   const indexInString = Array(item.matchesInString)
     .fill(0)
-    .map((e: number, i: number): number => i + item.matchesAll - item.matchesInString)
+    .map(
+      (e: number, i: number): number =>
+        i + item.matchesAll - item.matchesInString,
+    )
     .indexOf(activeIndex);
 
   const { index: idx } = matchingElement[indexInString];
@@ -142,20 +149,32 @@ export const changeBackgroundInActiveElement = (
 
   if (activeItem) {
     activeItem.style.backgroundColor = ORANGE;
-    activeItem.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+    activeItem.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
   }
 };
 
-export const nextButton = (activeIndex: number, lastIndex: number): IndexesType => {
+export const nextButton = (
+  activeIndex: number,
+  lastIndex: number,
+): IndexesType => {
   const newActiveIndex = activeIndex + 1 <= lastIndex ? activeIndex + 1 : 0;
-  const oldActiveIndex = newActiveIndex - 1 >= 0 ? newActiveIndex - 1 : lastIndex;
+  const oldActiveIndex =
+    newActiveIndex - 1 >= 0 ? newActiveIndex - 1 : lastIndex;
 
   return { newActiveIndex, oldActiveIndex };
 };
 
-export const prevButton = (activeIndex: number, lastIndex: number): IndexesType => {
+export const prevButton = (
+  activeIndex: number,
+  lastIndex: number,
+): IndexesType => {
   const newActiveIndex = activeIndex - 1 >= 0 ? activeIndex - 1 : lastIndex;
-  const oldActiveIndex = newActiveIndex + 1 <= lastIndex ? newActiveIndex + 1 : 0;
+  const oldActiveIndex =
+    newActiveIndex + 1 <= lastIndex ? newActiveIndex + 1 : 0;
 
   return { newActiveIndex, oldActiveIndex };
 };

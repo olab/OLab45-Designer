@@ -51,13 +51,13 @@ export const ACTION_RESPONSE_DELETE_FAILED = () => ({
 //   scopedObjectId,
 // });
 
-export const ACTION_RESPONSE_DELETE_SUCCEEDED = (
-  scopedObjectId: number,
-) => {
+export const ACTION_RESPONSE_DELETE_SUCCEEDED = (scopedObjectId: number) => {
   const scopedObjectType = 'questions';
   const { scopedObjects } = store.getState();
   const scopedObjectsList = scopedObjects[scopedObjectType][0].responses;
-  const scopedObjectIndex = scopedObjectsList.findIndex(({ id }) => id === scopedObjectId);
+  const scopedObjectIndex = scopedObjectsList.findIndex(
+    ({ id }) => id === scopedObjectId,
+  );
 
   return {
     type: RESPONSE_DELETE_SUCCEEDED,
@@ -67,9 +67,7 @@ export const ACTION_RESPONSE_DELETE_SUCCEEDED = (
   };
 };
 
-export const ACTION_RESPONSE_UPDATE_REQUESTED = (
-  scopedObjectData: Array,
-) => ({
+export const ACTION_RESPONSE_UPDATE_REQUESTED = (scopedObjectData: Array) => ({
   type: RESPONSE_UPDATE_REQUESTED,
   scopedObjectData,
 });
