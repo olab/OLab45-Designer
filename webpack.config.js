@@ -27,25 +27,9 @@ if (isAbsoluteUrl) {
   );
 }
 
-let PUBLIC_PATHNAME;
-
 if (process.env.PUBLIC_URL) {
   process.env.PUBLIC_URL = process.env.PUBLIC_URL.replace(/\/{1,}$/g, '');
 }
-
-try {
-  PUBLIC_PATHNAME = new URL(process.env.PUBLIC_URL || '').pathname;
-} catch (err) {
-  try {
-    PUBLIC_PATHNAME = new URL(
-      `https://example.com/${process.env.PUBLIC_URL || ''}`,
-    ).pathname;
-  } catch (err) {}
-}
-
-PUBLIC_PATHNAME = (PUBLIC_PATHNAME || '/')
-  .replace(/\/{2,}/g, '/')
-  .replace(/\/$/, '');
 
 module.exports = (env, options) => ({
   entry: {
@@ -54,7 +38,7 @@ module.exports = (env, options) => ({
 
   output: {
     path: path.join(__dirname, 'build'),
-    publicPath: `${process.env.PUBLIC_URL}/` || '/',
+    publicPath: `${process.env.PUBLIC_URL || ''}/` || '/',
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].bundle.js',
   },
@@ -166,13 +150,15 @@ module.exports = (env, options) => ({
       clientsClaim: true,
       skipWaiting: true,
       swDest: path.resolve(__dirname, 'build/service-worker.js'),
-      modifyURLPrefix:
-        PUBLIC_PATHNAME != ''
-          ? {
-              [`${PUBLIC_PATHNAME}`]: `${PUBLIC_PATHNAME}/`,
-              [`${PUBLIC_PATHNAME}//`]: `${PUBLIC_PATHNAME}/`,
-            }
-          : {},
+      manifestTransforms: [
+        (entries) => ({
+          warnings: [],
+          manifest: entries.map((entry) => ({
+            ...entry,
+            url: entry.url.replace(/\/{2,}$/g, '/'),
+          })),
+        }),
+      ],
       importScripts: ['service-worker-offline.js'],
     }),
   ],
