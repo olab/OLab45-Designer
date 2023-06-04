@@ -24,14 +24,17 @@ import type { ISOPickerProps, ISOPickerState } from './types';
 import type { ScopedObject as ScopedObjectType } from '../../../redux/scopedObjects/types';
 
 import {
-  ModalBody, ModalFooter,
-  ConfigArticle, SOList, SOItem,
-  SOItemTitle, SOItemHeader,
-  EmptyList, ReloadIconWrapper,
+  ModalBody,
+  ModalFooter,
+  ConfigArticle,
+  SOList,
+  SOItem,
+  SOItemTitle,
+  SOItemHeader,
+  EmptyList,
+  ReloadIconWrapper,
 } from './styles';
-import {
-  ModalWrapper, ModalHeader, ModalHeaderButton,
-} from '../styles';
+import { ModalWrapper, ModalHeader, ModalHeaderButton } from '../styles';
 
 export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
   searchBoxRef: { current: null | Element };
@@ -57,8 +60,8 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
       const { type, level } = this.state;
       const queryStr = this.searchBoxRef.current.state.value;
       const filterCallback = getFilterCallback(level, queryStr);
-      const scopedObjectsFiltered = nextProps.scopedObjects[type.toLowerCase()]
-        .filter(filterCallback);
+      const scopedObjectsFiltered =
+        nextProps.scopedObjects[type.toLowerCase()].filter(filterCallback);
 
       this.setState({ scopedObjectsFiltered });
     }
@@ -82,23 +85,27 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
     const filterCallback = getFilterCallback(level, queryStr);
 
     return scopedObjects[type.toLowerCase()].filter(filterCallback);
-  }
+  };
 
   handleCloseModal = (): void => {
     const { ACTION_CLOSE_MODAL } = this.props;
     ACTION_CLOSE_MODAL();
-  }
+  };
 
   handleModalMove = (offsetX: number, offsetY: number): void => {
     const { ACTION_ADJUST_POSITION_MODAL } = this.props;
     ACTION_ADJUST_POSITION_MODAL(offsetX, offsetY);
-  }
+  };
 
   handleTypeChange = (e: Event): void => {
     const { level } = this.state;
     const { value: type } = (e.target: window.HTMLInputElement);
     const queryStr = this.searchBoxRef.current.state.value;
-    const scopedObjectsFiltered = this.getFilteredScopedObjects(level, type, queryStr);
+    const scopedObjectsFiltered = this.getFilteredScopedObjects(
+      level,
+      type,
+      queryStr,
+    );
 
     this.searchBoxRef.current.resetValue();
 
@@ -106,26 +113,34 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
       type,
       scopedObjectsFiltered,
     });
-  }
+  };
 
   handleLevelChange = (e: Event): void => {
     const { type } = this.state;
     const { value: level } = (e.target: window.HTMLInputElement);
     const queryStr = this.searchBoxRef.current.state.value;
-    const scopedObjectsFiltered = this.getFilteredScopedObjects(level, type, queryStr);
+    const scopedObjectsFiltered = this.getFilteredScopedObjects(
+      level,
+      type,
+      queryStr,
+    );
 
     this.setState({
       level,
       scopedObjectsFiltered,
     });
-  }
+  };
 
   handleSearch = (queryStr: string): void => {
     const { type, level } = this.state;
-    const scopedObjectsFiltered = this.getFilteredScopedObjects(level, type, queryStr);
+    const scopedObjectsFiltered = this.getFilteredScopedObjects(
+      level,
+      type,
+      queryStr,
+    );
 
     this.setState({ scopedObjectsFiltered });
-  }
+  };
 
   checkIfScrollbarVisible = (): boolean => {
     if (!this.modalBodyRef || !this.modalBodyRef.current) {
@@ -134,19 +149,23 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
 
     const { scrollHeight, clientHeight } = this.modalBodyRef.current;
     return scrollHeight > clientHeight;
-  }
+  };
 
   handleFetchScopedObjects = (): void => {
     const { ACTION_SCOPED_OBJECTS_REQUESTED } = this.props;
     ACTION_SCOPED_OBJECTS_REQUESTED();
-  }
+  };
 
   render() {
+    const { type, level, scopedObjectsFiltered, isScrollbarVisible } =
+      this.state;
     const {
-      type, level, scopedObjectsFiltered, isScrollbarVisible,
-    } = this.state;
-    const {
-      x, y, isDragging, connectDragSource, connectDragPreview, scopedObjects,
+      x,
+      y,
+      isDragging,
+      connectDragSource,
+      connectDragPreview,
+      scopedObjects,
     } = this.props;
 
     if (isDragging) {
@@ -157,9 +176,9 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
       <ModalWrapper
         x={x}
         y={y}
-        ref={instance => connectDragPreview(instance)}
+        ref={(instance) => connectDragPreview(instance)}
       >
-        <ModalHeader ref={instance => connectDragSource(instance)}>
+        <ModalHeader ref={(instance) => connectDragSource(instance)}>
           <h4>Object Picker</h4>
           <ModalHeaderButton
             type="button"
@@ -203,7 +222,7 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
           isScrollbarVisible={isScrollbarVisible}
         >
           <SOList>
-            {scopedObjectsFiltered.slice(0, SO_ITEMS_LIMIT).map(SO => (
+            {scopedObjectsFiltered.slice(0, SO_ITEMS_LIMIT).map((SO) => (
               <SOItem key={SO.id}>
                 <SOItemHeader>
                   <SOItemTitle title={SO.name}>{SO.name}</SOItemTitle>
@@ -235,26 +254,23 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
   }
 }
 
-const mapStateToProps = ({
-  modals,
-  scopedObjects,
-}) => ({
+const mapStateToProps = ({ modals, scopedObjects }) => ({
   ...modals[MODALS_NAMES.SO_PICKER_MODAL],
   scopedObjects,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_CLOSE_MODAL: () => {
-    dispatch(modalActions.ACTION_CLOSE_MODAL(
-      MODALS_NAMES.SO_PICKER_MODAL,
-    ));
+    dispatch(modalActions.ACTION_CLOSE_MODAL(MODALS_NAMES.SO_PICKER_MODAL));
   },
   ACTION_ADJUST_POSITION_MODAL: (offsetX: number, offsetY: number) => {
-    dispatch(modalActions.ACTION_ADJUST_POSITION_MODAL(
-      MODALS_NAMES.SO_PICKER_MODAL,
-      offsetX,
-      offsetY,
-    ));
+    dispatch(
+      modalActions.ACTION_ADJUST_POSITION_MODAL(
+        MODALS_NAMES.SO_PICKER_MODAL,
+        offsetX,
+        offsetY,
+      ),
+    );
   },
   ACTION_SCOPED_OBJECTS_REQUESTED: () => {
     dispatch(scopedObjectsActions.ACTION_SCOPED_OBJECTS_REQUESTED());
@@ -264,10 +280,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(
-  DragSource(
-    DND_CONTEXTS.VIEWPORT,
-    spec,
-    collect,
-  )(SOPicker),
-);
+)(DragSource(DND_CONTEXTS.VIEWPORT, spec, collect)(SOPicker));

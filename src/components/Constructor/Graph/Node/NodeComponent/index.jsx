@@ -11,7 +11,11 @@ import HeaderTitle from './HeaderTitle';
 import ResizeIcon from '../../../../../shared/assets/icons/resizer.svg';
 
 import {
-  ACTION_RESIZE, ACTION_FOCUS, ACTION_SELECT, HEADER_HEIGHT, EXTRA_PADDINGS,
+  ACTION_RESIZE,
+  ACTION_FOCUS,
+  ACTION_SELECT,
+  HEADER_HEIGHT,
+  EXTRA_PADDINGS,
 } from '../config';
 
 import type { INodeProps } from './types';
@@ -33,10 +37,9 @@ const NodeComponent = ({
   isLinked,
   isEnd,
 }: INodeProps) => {
-  const cardHeader = classNames(
-    classes.cardHeader,
-    { [classes.cardHeaderCollapsed]: isCollapsed },
-  );
+  const cardHeader = classNames(classes.cardHeader, {
+    [classes.cardHeaderCollapsed]: isCollapsed,
+  });
 
   const headerWidth = isCollapsed ? width : '';
   const cardContentHeigth = height - HEADER_HEIGHT;
@@ -55,14 +58,14 @@ const NodeComponent = ({
             width: headerWidth,
             backgroundColor: color,
           }}
-          title={(
+          title={
             <HeaderTitle
               type={type}
               isEnd={isEnd}
               isLocked={isLocked}
               title={title}
             />
-            )}
+          }
           disableTypography
           action={<ActionBar />}
           data-active="true"

@@ -3,7 +3,10 @@ import React, { PureComponent } from 'react';
 import { Button, Tooltip } from '@material-ui/core';
 import type { ITitledButtonProps, ITitledButtonState } from './types';
 
-export class TitledButton extends PureComponent<ITitledButtonProps, ITitledButtonState> {
+export class TitledButton extends PureComponent<
+  ITitledButtonProps,
+  ITitledButtonState,
+> {
   static defaultProps = {
     isDisabled: false,
     variant: 'contained',

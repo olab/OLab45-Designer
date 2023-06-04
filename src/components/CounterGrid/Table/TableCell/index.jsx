@@ -1,7 +1,11 @@
 // @flow
 import React from 'react';
 import classNames from 'classnames';
-import { TableCell as TableCellMaterial, Checkbox, TextField } from '@material-ui/core';
+import {
+  TableCell as TableCellMaterial,
+  Checkbox,
+  TextField,
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import type { TableCellProps as IProps } from './types';
@@ -21,13 +25,12 @@ const TableCell = ({
   const tableCellWrapperStyle = classNames(classes.cellContainer, isSticky);
 
   return (
-    <TableCellMaterial
-      align="left"
-      className={tableCellWrapperStyle}
-    >
+    <TableCellMaterial align="left" className={tableCellWrapperStyle}>
       {isFirstCell ? (
         <div className={classes.firstColumnContainer}>
-          <h2 className={classes.firstColumn} title={label}>{label}</h2>
+          <h2 className={classes.firstColumn} title={label}>
+            {label}
+          </h2>
           <div className={classes.verticalDivider} />
         </div>
       ) : (

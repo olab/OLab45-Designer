@@ -29,7 +29,9 @@ const Header = ({ handleLogout, isDataFetching }: IHeaderProps) => (
         color="primary"
         size="large"
         aria-label="Return to Home"
-        onClick={() => { handleLogout(); }}
+        onClick={() => {
+          handleLogout();
+        }}
       >
         &nbsp;Logout&nbsp;
       </Button>
@@ -39,17 +41,22 @@ const Header = ({ handleLogout, isDataFetching }: IHeaderProps) => (
 );
 
 const mapStateToProps = ({
-  user, map, mapDetails, scopedObjects, counterGrid,
+  user,
+  map,
+  mapDetails,
+  scopedObjects,
+  counterGrid,
 }) => ({
-  isDataFetching: user.isFetching
-    || map.isFetching
-    || map.isUpdating
-    || map.isDeleting
-    || mapDetails.isFetching
-    || counterGrid.isFetching
-    || scopedObjects.isCreating
-    || scopedObjects.isUpdating
-    || scopedObjects.isDeleting,
+  isDataFetching:
+    user.isFetching ||
+    map.isFetching ||
+    map.isUpdating ||
+    map.isDeleting ||
+    mapDetails.isFetching ||
+    counterGrid.isFetching ||
+    scopedObjects.isCreating ||
+    scopedObjects.isUpdating ||
+    scopedObjects.isDeleting,
 });
 
 export default connect(mapStateToProps)(Header);

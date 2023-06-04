@@ -22,7 +22,10 @@ import type { ExpansionPanelProps, ExpansionPanelState } from './types';
 
 import styles, { ExpansionPanelWrapper } from './styles';
 
-class ExpansionPanel extends PureComponent<ExpansionPanelProps, ExpansionPanelState> {
+class ExpansionPanel extends PureComponent<
+  ExpansionPanelProps,
+  ExpansionPanelState,
+> {
   state: ExpansionPanelState = {
     expandedPanel: null,
     selectedFile: null,
@@ -30,11 +33,13 @@ class ExpansionPanel extends PureComponent<ExpansionPanelProps, ExpansionPanelSt
     isUploadDisabled: true,
   };
 
-  handleChange = (panelName: string): Function => (event: Event, expanded: boolean): void => {
-    this.setState({
-      expandedPanel: expanded ? panelName : null,
-    });
-  }
+  handleChange =
+    (panelName: string): Function =>
+    (event: Event, expanded: boolean): void => {
+      this.setState({
+        expandedPanel: expanded ? panelName : null,
+      });
+    };
 
   onFileSelected = (event) => {
     console.log(event.target.files[0]);
@@ -43,7 +48,7 @@ class ExpansionPanel extends PureComponent<ExpansionPanelProps, ExpansionPanelSt
       loaded: 0,
       isUploadDisabled: false,
     });
-  }
+  };
 
   onFileUpload = () => {
     const { selectedFile } = this.state;
@@ -55,13 +60,11 @@ class ExpansionPanel extends PureComponent<ExpansionPanelProps, ExpansionPanelSt
       loaded: 10,
       isUploadDisabled: true,
     });
-  }
+  };
 
   render() {
     const { expandedPanel, loaded, isUploadDisabled } = this.state;
-    const {
-      classes, showModal, onChoose, isDisabled,
-    } = this.props;
+    const { classes, showModal, onChoose, isDisabled } = this.props;
 
     return (
       <ExpansionPanelWrapper>
@@ -70,16 +73,21 @@ class ExpansionPanel extends PureComponent<ExpansionPanelProps, ExpansionPanelSt
           onChange={this.handleChange(PANEL_NAMES.MANUAL)}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Manual Map Creation</Typography>
-            <Typography className={classes.secondaryHeading}>More experienced authors</Typography>
+            <Typography className={classes.heading}>
+              Manual Map Creation
+            </Typography>
+            <Typography className={classes.secondaryHeading}>
+              More experienced authors
+            </Typography>
           </ExpansionPanelSummary>
           <AccordionDetails>
             <Typography className={classes.content}>
-              A single pre-populated root node (named ‘Start node’)
-              is created and positioned in middle of Layout Editor window.
+              A single pre-populated root node (named ‘Start node’) is created
+              and positioned in middle of Layout Editor window.
               <br />
               <br />
-              Then you will be prompted for a Map name to save to before proceeding;
+              Then you will be prompted for a Map name to save to before
+              proceeding;
             </Typography>
             <Button
               variant="outlined"
@@ -103,16 +111,20 @@ class ExpansionPanel extends PureComponent<ExpansionPanelProps, ExpansionPanelSt
           onChange={this.handleChange(PANEL_NAMES.FROM_TEMPLATE)}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Create Map from Template</Typography>
-            <Typography className={classes.secondaryHeading}>General map creation</Typography>
+            <Typography className={classes.heading}>
+              Create Map from Template
+            </Typography>
+            <Typography className={classes.secondaryHeading}>
+              General map creation
+            </Typography>
           </ExpansionPanelSummary>
           <AccordionDetails>
             <Typography className={classes.content}>
               Allows for the creation of a map from a predefined template.
               <br />
               <br />
-              Once a template is selected, the Map Layout Editor window
-              appears with pre-defined nodes.
+              Once a template is selected, the Map Layout Editor window appears
+              with pre-defined nodes.
               <br />
               <br />
               The Simple Template consists of a root node (named ‘Start Node’)
@@ -173,8 +185,7 @@ class ExpansionPanel extends PureComponent<ExpansionPanelProps, ExpansionPanelSt
                     <LinearProgress variant="determinate" value={loaded} />
                   </Box>
                 </Grid>
-              )
-              }
+              )}
             </Grid>
           </AccordionDetails>
         </ExpansionPanelMaterialUI>

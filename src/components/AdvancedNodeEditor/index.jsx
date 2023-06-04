@@ -3,9 +3,7 @@ import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  Paper, Tabs, Tab, Button,
-} from '@material-ui/core';
+import { Paper, Tabs, Tab, Button } from '@material-ui/core';
 
 import MainTab from './MainTab';
 import SecondaryTab from './SecondaryTab';
@@ -27,8 +25,12 @@ import type { AdvancedNodeEditorProps as IProps } from './types';
 import type { Node as NodeType } from '../Constructor/Graph/Node/types';
 
 import styles, {
-  TabContainer, Container, ScrollingContainer, Title,
-  Header, ControlsDeleteContainer,
+  TabContainer,
+  Container,
+  ScrollingContainer,
+  Title,
+  Header,
+  ControlsDeleteContainer,
 } from './styles';
 import { Triangle } from '../Modals/NodeEditor/styles';
 
@@ -37,9 +39,7 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
 
   constructor(props) {
     super(props);
-    const {
-      mapId, nodeId, node, ACTION_GET_NODE_REQUESTED,
-    } = this.props;
+    const { mapId, nodeId, node, ACTION_GET_NODE_REQUESTED } = this.props;
 
     ACTION_GET_NODE_REQUESTED(mapId, nodeId);
 
@@ -55,11 +55,9 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
   }
 
   componentDidUpdate(prevProps: IProps) {
-    const {
-      history, nodeId: nodeIdPage, mapId, node, isDeleting,
-    } = this.props;
+    const { history, nodeId: nodeIdPage, mapId, node, isDeleting } = this.props;
     const { node: prevNode, isDeleting: isDeletingPrevious } = prevProps;
-    const isDataChanged = node && (node.id === nodeIdPage && prevNode !== node);
+    const isDataChanged = node && node.id === nodeIdPage && prevNode !== node;
     const shouldRedirectOnMap = isDeletingPrevious && !isDeleting;
     const isNodeDeleted = !node && nodeIdPage;
 
@@ -82,13 +80,19 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
 
   deleteNode = (): void => {
     const {
-      mapId, node: { id: nodeId, type: nodeType }, ACTION_DELETE_NODE_MIDDLEWARE,
+      mapId,
+      node: { id: nodeId, type: nodeType },
+      ACTION_DELETE_NODE_MIDDLEWARE,
     } = this.props;
 
     ACTION_DELETE_NODE_MIDDLEWARE(mapId, nodeId, nodeType);
-  }
+  };
 
-  handleCheckBoxChange = (e: Event, checkedVal: boolean, name: string): void => {
+  handleCheckBoxChange = (
+    e: Event,
+    checkedVal: boolean,
+    name: string,
+  ): void => {
     if (name === 'type') {
       this.setState({
         [name]: checkedVal ? ROOT_NODE_TYPE : ORDINARY_NODE_TYPE,
@@ -110,14 +114,17 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
     this.setState({ title });
   };
 
-  handleEditorChange = (text: string, { id: editorId }: { id: string }): void => {
+  handleEditorChange = (
+    text: string,
+    { id: editorId }: { id: string },
+  ): void => {
     this.setState({ [editorId]: text });
   };
 
   handleSelectChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
     const selectMenu = name === 'linkStyle' ? LINK_STYLES : NODE_PRIORITIES;
-    const index = selectMenu.findIndex(style => style === value);
+    const index = selectMenu.findIndex((style) => style === value);
 
     this.setState({ [name]: index + 1 });
   };
@@ -133,14 +140,23 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
 
   render() {
     const {
-      isVisitOnce = false, isEnd, type, title, linkStyle, priorityId,
+      isVisitOnce = false,
+      isEnd,
+      type,
+      title,
+      linkStyle,
+      priorityId,
     } = this.state;
-    const {
-      classes, nodeId, mapId, node,
-    } = this.props;
+    const { classes, nodeId, mapId, node } = this.props;
 
     if (!node) {
-      return <CircularSpinnerWithText text="Data is being fetched..." large centered />;
+      return (
+        <CircularSpinnerWithText
+          text="Data is being fetched..."
+          large
+          centered
+        />
+      );
     }
 
     // these are needed for TinyMCE to 'dis-control' the initialize
@@ -196,32 +212,34 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
         </Paper>
         <ScrollingContainer>
           <TabContainer>
-            {[
-              <MainTab
-                title={title}
-                text={initialText}
-                type={type}
-                isEnd={isEnd}
-                isVisitOnce={isVisitOnce}
-                x={node.x}
-                y={node.y}
-                id={node.id}
-                handleEditorChange={this.handleEditorChange}
-                handleCheckBoxChange={this.handleCheckBoxChange}
-                handleTitleChange={this.handleTitleChange}
-                handleKeyDown={this.handleKeyPressed}
-              />,
-              <SecondaryTab
-                nodeId={nodeId}
-                info={initialInfoText}
-                annotation={initialAnnotationText}
-                linkStyle={linkStyle}
-                priorityId={priorityId}
-                handleEditorChange={this.handleEditorChange}
-                handleSelectChange={this.handleSelectChange}
-                handleKeyDown={this.handleKeyPressed}
-              />,
-            ][this.tabNumber]}
+            {
+              [
+                <MainTab
+                  title={title}
+                  text={initialText}
+                  type={type}
+                  isEnd={isEnd}
+                  isVisitOnce={isVisitOnce}
+                  x={node.x}
+                  y={node.y}
+                  id={node.id}
+                  handleEditorChange={this.handleEditorChange}
+                  handleCheckBoxChange={this.handleCheckBoxChange}
+                  handleTitleChange={this.handleTitleChange}
+                  handleKeyDown={this.handleKeyPressed}
+                />,
+                <SecondaryTab
+                  nodeId={nodeId}
+                  info={initialInfoText}
+                  annotation={initialAnnotationText}
+                  linkStyle={linkStyle}
+                  priorityId={priorityId}
+                  handleEditorChange={this.handleEditorChange}
+                  handleSelectChange={this.handleSelectChange}
+                  handleKeyDown={this.handleKeyPressed}
+                />,
+              ][this.tabNumber]
+            }
           </TabContainer>
         </ScrollingContainer>
       </Container>
@@ -229,18 +247,21 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
   }
 }
 
-const mapStateToProps = ({
-  map: { nodes, isDeleting },
-}, {
-  match: { params: { mapId, nodeId } },
-}) => ({
+const mapStateToProps = (
+  { map: { nodes, isDeleting } },
+  {
+    match: {
+      params: { mapId, nodeId },
+    },
+  },
+) => ({
   node: nodes[0],
   mapId: Number(mapId),
   nodeId: Number(nodeId),
   isDeleting,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_GET_NODE_REQUESTED: (mapId: number, nodeId: number) => {
     dispatch(mapActions.ACTION_GET_NODE_REQUESTED(mapId, nodeId));
   },
@@ -249,10 +270,18 @@ const mapDispatchToProps = dispatch => ({
     isShowNotification: boolean,
     mapIdFromURL: number,
   ) => {
-    dispatch(mapActions.ACTION_UPDATE_NODE(nodeData, isShowNotification, mapIdFromURL));
+    dispatch(
+      mapActions.ACTION_UPDATE_NODE(nodeData, isShowNotification, mapIdFromURL),
+    );
   },
-  ACTION_DELETE_NODE_MIDDLEWARE: (mapId: number, nodeId: number, nodeType: number) => {
-    dispatch(wholeMapActions.ACTION_DELETE_NODE_MIDDLEWARE(mapId, nodeId, nodeType));
+  ACTION_DELETE_NODE_MIDDLEWARE: (
+    mapId: number,
+    nodeId: number,
+    nodeType: number,
+  ) => {
+    dispatch(
+      wholeMapActions.ACTION_DELETE_NODE_MIDDLEWARE(mapId, nodeId, nodeType),
+    );
   },
 });
 

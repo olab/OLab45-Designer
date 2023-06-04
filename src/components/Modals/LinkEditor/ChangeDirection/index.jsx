@@ -9,7 +9,11 @@ import type { IChangeDirectionProps } from './types';
 import styles from './styles';
 
 const ChangeDirection = ({
-  label, title, size, classes, onClick,
+  label,
+  title,
+  size,
+  classes,
+  onClick,
 }: IChangeDirectionProps) => (
   <div>
     <InputLabel>{label}</InputLabel>

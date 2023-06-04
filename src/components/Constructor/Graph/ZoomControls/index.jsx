@@ -18,11 +18,12 @@ import type { IGraphControlProps, IGraphControlState } from './types';
 
 import { SLIDER_STEPS } from './config';
 
-import styles, {
-  ZoomContainer, ZoomWrapper, ScaleIconWrapper,
-} from './styles';
+import styles, { ZoomContainer, ZoomWrapper, ScaleIconWrapper } from './styles';
 
-export class ZoomControls extends React.Component<IGraphControlProps, IGraphControlState> {
+export class ZoomControls extends React.Component<
+  IGraphControlProps,
+  IGraphControlState,
+> {
   constructor(props: IGraphControlProps) {
     super(props);
 
@@ -40,18 +41,16 @@ export class ZoomControls extends React.Component<IGraphControlProps, IGraphCont
   };
 
   handleToggle = () => {
-    this.setState(prevState => ({ open: !prevState.open }));
-  }
+    this.setState((prevState) => ({ open: !prevState.open }));
+  };
 
   handleClose = () => {
     this.setState({ open: false });
-  }
+  };
 
   // Modify current zoom of graph-view
   zoom = (e: any, sliderVal: number): number => {
-    const {
-      minZoom = 0, maxZoom = 0, zoomLevel, modifyZoom,
-    } = this.props;
+    const { minZoom = 0, maxZoom = 0, zoomLevel, modifyZoom } = this.props;
 
     const zoomLevelNext = this.sliderToZoom(sliderVal);
     const delta = zoomLevelNext - zoomLevel;
@@ -70,13 +69,13 @@ export class ZoomControls extends React.Component<IGraphControlProps, IGraphCont
   // Convert slider val (0-SLIDER_STEPS) to original zoom value range
   sliderToZoom(val: number) {
     const { minZoom = 0, maxZoom = 1 } = this.props;
-    return val * (maxZoom - minZoom) / SLIDER_STEPS + minZoom;
+    return (val * (maxZoom - minZoom)) / SLIDER_STEPS + minZoom;
   }
 
   // Convert zoom val (minZoom-maxZoom) to slider range
   zoomToSlider(val: number) {
     const { minZoom = 0, maxZoom = 1 } = this.props;
-    return (val - minZoom) * SLIDER_STEPS / (maxZoom - minZoom);
+    return ((val - minZoom) * SLIDER_STEPS) / (maxZoom - minZoom);
   }
 
   anchorEl: { current: null | HTMLDivElement };
@@ -86,7 +85,11 @@ export class ZoomControls extends React.Component<IGraphControlProps, IGraphCont
   render() {
     const { open } = this.state;
     const {
-      zoomToFit, maxZoom = 0, minZoom = 0, zoomLevel, classes,
+      zoomToFit,
+      maxZoom = 0,
+      minZoom = 0,
+      zoomLevel,
+      classes,
     } = this.props;
 
     return (
@@ -101,8 +104,7 @@ export class ZoomControls extends React.Component<IGraphControlProps, IGraphCont
           </ScaleIconWrapper>
           <ZoomWrapper onClick={this.handleToggle} role="none">
             <ZoomContainer>
-              {this.zoomToSlider(zoomLevel).toFixed(0)}
-              %
+              {this.zoomToSlider(zoomLevel).toFixed(0)}%
             </ZoomContainer>
             <DropDownIcon role="none" />
           </ZoomWrapper>
@@ -125,10 +127,7 @@ export class ZoomControls extends React.Component<IGraphControlProps, IGraphCont
           {({ TransitionProps }) => (
             <Fragment>
               <span ref={this.arrowRef} className={classes.arrow} />
-              <Grow
-                {...TransitionProps}
-                id="menu-list-grow"
-              >
+              <Grow {...TransitionProps} id="menu-list-grow">
                 <Paper>
                   <ClickAwayListener onClickAway={this.handleClose}>
                     <MenuList>

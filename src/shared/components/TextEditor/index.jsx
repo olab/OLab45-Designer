@@ -1,7 +1,11 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
-import { BASIC_TEXT_EDITOR_OPTIONS, EDITOR_API_KEY, EDITOR_VERSION } from './config';
+import {
+  BASIC_TEXT_EDITOR_OPTIONS,
+  EDITOR_API_KEY,
+  EDITOR_VERSION,
+} from './config';
 
 class TextEditor extends React.Component {
   render() {
