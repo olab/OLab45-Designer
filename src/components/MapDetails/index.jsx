@@ -7,6 +7,7 @@ import { Paper, Tabs, Tab, Button } from '@material-ui/core';
 import Appearance from './Appearance';
 import BasicDetails from './BasicDetails';
 import ContentDetails from './ContentDetails';
+import Permissions from './Permissions';
 import AdvancedDetails from './AdvancedDetails';
 
 import * as mapDetailsActions from '../../redux/mapDetails/action';
@@ -132,6 +133,7 @@ class AdvancedNodeEditor extends PureComponent<IProps, IState> {
             <Tab label="Basic Details" />
             <Tab label="Appearance" />
             <Tab label="Content Details" />
+            <Tab label="Permissions" />
             <Tab label="Advanced Details" />
           </Tabs>
         </Paper>
@@ -157,6 +159,7 @@ class AdvancedNodeEditor extends PureComponent<IProps, IState> {
                   handleEditorChange={this.handleEditorChange}
                   handleCheckBoxChange={this.handleCheckBoxChange}
                 />,
+                <Permissions map={this.state} />,
                 <AdvancedDetails
                   details={this.state}
                   handleCheckBoxChange={this.handleCheckBoxChange}

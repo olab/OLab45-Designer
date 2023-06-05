@@ -21,6 +21,7 @@ module.exports = {
     'react/prefer-stateless-function': 'off',
     'react/prop-types': 'off',
     'react/sort-comp': [0, {}],
+    'react/jsx-key': 'off',
   },
   settings: {
     react: {
