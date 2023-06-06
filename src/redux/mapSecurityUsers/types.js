@@ -25,13 +25,22 @@ type GetMapSecurityUsersRequested = {
   mapId: string,
 };
 
+const UPDATE_MAP_SECURITY_USERS_REQUESTED =
+  'UPDATE_MAP_SECURITY_USERS_REQUESTED';
+type UpdateMapSecurityUsersRequested = {
+  type: 'UPDATE_MAP_SECURITY_USERS_REQUESTED',
+  mapSecurityUsers: MapSecurityUsers,
+};
+
 export type MapSecurityUsersActions =
   | GetMapSecurityUsersSucceeded
   | GetMapSecurityUsersFailed
-  | GetMapSecurityUsersRequested;
+  | GetMapSecurityUsersRequested
+  | UpdateMapSecurityUsersRequested;
 
 export {
   GET_MAP_SECURITY_USERS_FAILED,
   GET_MAP_SECURITY_USERS_SUCCEEDED,
   GET_MAP_SECURITY_USERS_REQUESTED,
+  UPDATE_MAP_SECURITY_USERS_REQUESTED,
 };

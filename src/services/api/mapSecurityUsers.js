@@ -9,3 +9,11 @@ export function getMapSecurityUsers(mapId) {
       throw error;
     });
 }
+
+export function updateMapSecurityUsers(mapId, data) {
+  return API.post(`/designer/maps/${mapId}/securityusers`, data)
+    .then(({ data: { data = [] } }) => data)
+    .catch((error) => {
+      throw error;
+    });
+}

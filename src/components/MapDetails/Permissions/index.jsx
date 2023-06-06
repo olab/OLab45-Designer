@@ -6,6 +6,7 @@ import { ContentParagraph } from './styles';
 import * as mapSecurityUsersActions from '../../../redux/mapSecurityUsers/action';
 import { useDispatch, useSelector } from 'react-redux';
 import AclsTable from './AclsTable';
+import { MapSecurityUser } from '../../../redux/mapSecurityUsers/types';
 
 const Permissions = ({ map }: IProps): React$Element<any> => {
   const dispatch = useDispatch();
@@ -19,6 +20,15 @@ const Permissions = ({ map }: IProps): React$Element<any> => {
     }
   }, []);
 
+  const updateAcl = (user: MapSecurityUser) => {
+    dispatch(
+      mapSecurityUsersActions.ACTION_UPDATE_MAP_SECURITY_USERS_REQUESTED(
+        map.id,
+        { users: [user] },
+      ),
+    );
+  };
+
   return (
     <ContainerTab>
       <ContentTitle>Map Permissions Editor</ContentTitle>
@@ -26,7 +36,9 @@ const Permissions = ({ map }: IProps): React$Element<any> => {
         Invite other authors to help manage this map.
       </ContentParagraph>
 
-      {(users.length > 0 || !isFetching) && <AclsTable users={users} />}
+      {(users.length > 0 || !isFetching) && (
+        <AclsTable users={users} updateAcl={updateAcl} />
+      )}
     </ContainerTab>
   );
 };

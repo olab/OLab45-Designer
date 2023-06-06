@@ -12,6 +12,7 @@ export const MESSAGES = {
     MAP_DETAILS: 'Details successfully updated',
     COUNTER_ACTIONS: 'Actions have been updated',
     NODE_GRID: 'Nodes have been updated',
+    MAP_SECURITY_USERS: 'Security users successfully updated',
   },
   ON_CREATE: {
     TEMPLATE: 'Template has been created',
