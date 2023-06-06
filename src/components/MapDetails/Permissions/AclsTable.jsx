@@ -32,6 +32,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 export type IProps = {
   users: Array<MapSecurityUser>,
   updateAcl: (user: MapSecurityUser) => void,
+  deleteSecurityUser: (user: MapSecurityUser) => void,
 };
 
 const useStyles = makeStyles({
@@ -55,7 +56,11 @@ const aclDisplay = (acl: string) => {
   return list.join(', ').toLowerCase();
 };
 
-const AclsTable = ({ users, updateAcl }: IProps): React$Element<any> => {
+const AclsTable = ({
+  users,
+  updateAcl,
+  deleteSecurityUser,
+}: IProps): React$Element<any> => {
   const classes = useStyles();
 
   const [deleteDialogOpen, toggleDeleteDialogOpen] = React.useReducer(
@@ -114,6 +119,11 @@ const AclsTable = ({ users, updateAcl }: IProps): React$Element<any> => {
     if (sorted(newAcl) != sorted(activeUser.acl)) {
       updateAcl({ ...activeUser, acl: newAcl });
     }
+  };
+
+  const _deleteSecurityUser = () => {
+    toggleDeleteDialogOpen();
+    deleteSecurityUser(activeUser);
   };
 
   return (
@@ -186,7 +196,7 @@ const AclsTable = ({ users, updateAcl }: IProps): React$Element<any> => {
           <Button onClick={toggleDeleteDialogOpen} color="primary" autoFocus>
             Cancel
           </Button>
-          <Button onClick={toggleDeleteDialogOpen} color="secondary">
+          <Button onClick={_deleteSecurityUser} color="secondary">
             Confirm
           </Button>
         </DialogActions>

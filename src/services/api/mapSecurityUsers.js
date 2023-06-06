@@ -12,7 +12,15 @@ export function getMapSecurityUsers(mapId) {
 
 export function updateMapSecurityUsers(mapId, data) {
   return API.post(`/designer/maps/${mapId}/securityusers`, data)
-    .then(({ data: { data = [] } }) => data)
+    .then(({ data: { data = false } }) => data)
+    .catch((error) => {
+      throw error;
+    });
+}
+
+export function deleteMapSecurityUsers(mapId, userId) {
+  return API.delete(`/designer/maps/${mapId}/securityusers/${userId}`)
+    .then(({ data: { data = false } }) => data)
     .catch((error) => {
       throw error;
     });

@@ -23,6 +23,7 @@ export const MESSAGES = {
       INFO: 'Root node can not be deleted',
     },
     SCOPED_OBJECT: 'Object has been deleted',
+    MAP_SECURITY_USERS: 'Security user has been deleted',
   },
 };
 

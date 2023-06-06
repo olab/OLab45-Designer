@@ -32,15 +32,25 @@ type UpdateMapSecurityUsersRequested = {
   mapSecurityUsers: MapSecurityUsers,
 };
 
+const DELETE_MAP_SECURITY_USERS_REQUESTED =
+  'DELETE_MAP_SECURITY_USERS_REQUESTED';
+type DeleteMapSecurityUsersRequested = {
+  type: 'DELETE_MAP_SECURITY_USERS_REQUESTED',
+  userId: number,
+  mapId: number,
+};
+
 export type MapSecurityUsersActions =
   | GetMapSecurityUsersSucceeded
   | GetMapSecurityUsersFailed
   | GetMapSecurityUsersRequested
-  | UpdateMapSecurityUsersRequested;
+  | UpdateMapSecurityUsersRequested
+  | DeleteMapSecurityUsersRequested;
 
 export {
   GET_MAP_SECURITY_USERS_FAILED,
   GET_MAP_SECURITY_USERS_SUCCEEDED,
   GET_MAP_SECURITY_USERS_REQUESTED,
   UPDATE_MAP_SECURITY_USERS_REQUESTED,
+  DELETE_MAP_SECURITY_USERS_REQUESTED,
 };

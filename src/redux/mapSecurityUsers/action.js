@@ -5,6 +5,7 @@ import {
   GET_MAP_SECURITY_USERS_SUCCEEDED,
   GET_MAP_SECURITY_USERS_FAILED,
   UPDATE_MAP_SECURITY_USERS_REQUESTED,
+  DELETE_MAP_SECURITY_USERS_REQUESTED,
 } from './types';
 
 export const ACTION_GET_MAP_SECURITY_USERS_FAILED = () => ({
@@ -29,5 +30,14 @@ export const ACTION_UPDATE_MAP_SECURITY_USERS_REQUESTED = (
 ) => ({
   type: UPDATE_MAP_SECURITY_USERS_REQUESTED,
   mapSecurityUsers,
+  mapId,
+});
+
+export const ACTION_DELETE_MAP_SECURITY_USERS_REQUESTED = (
+  mapId: Number,
+  userId: Number,
+) => ({
+  type: DELETE_MAP_SECURITY_USERS_REQUESTED,
+  userId,
   mapId,
 });

@@ -6,6 +6,7 @@ import {
   GET_MAP_SECURITY_USERS_SUCCEEDED,
   GET_MAP_SECURITY_USERS_REQUESTED,
   UPDATE_MAP_SECURITY_USERS_REQUESTED,
+  DELETE_MAP_SECURITY_USERS_REQUESTED,
 } from './types';
 
 export const initialMapSecurityUsersState = {
@@ -42,6 +43,14 @@ const mapSecurityUsers = (
       return {
         ...state,
         users: state.users.map((u) => (user.userId == u.userId ? user : u)),
+        isFetching: false,
+      };
+    }
+    case DELETE_MAP_SECURITY_USERS_REQUESTED: {
+      const { userId, mapId } = action;
+      return {
+        ...state,
+        users: state.users.filter((u) => u.userId != userId),
         isFetching: false,
       };
     }

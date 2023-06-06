@@ -29,6 +29,15 @@ const Permissions = ({ map }: IProps): React$Element<any> => {
     );
   };
 
+  const deleteSecurityUser = (user: MapSecurityUser) => {
+    dispatch(
+      mapSecurityUsersActions.ACTION_DELETE_MAP_SECURITY_USERS_REQUESTED(
+        map.id,
+        user.userId,
+      ),
+    );
+  };
+
   return (
     <ContainerTab>
       <ContentTitle>Map Permissions Editor</ContentTitle>
@@ -37,7 +46,11 @@ const Permissions = ({ map }: IProps): React$Element<any> => {
       </ContentParagraph>
 
       {(users.length > 0 || !isFetching) && (
-        <AclsTable users={users} updateAcl={updateAcl} />
+        <AclsTable
+          users={users}
+          updateAcl={updateAcl}
+          deleteSecurityUser={deleteSecurityUser}
+        />
       )}
     </ContainerTab>
   );

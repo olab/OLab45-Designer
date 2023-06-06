@@ -2,6 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import {
   getMapSecurityUsers,
   updateMapSecurityUsers,
+  deleteMapSecurityUsers,
 } from '../../services/api/mapSecurityUsers';
 
 import {
@@ -18,6 +19,7 @@ import { MESSAGES } from '../notifications/config';
 import {
   GET_MAP_SECURITY_USERS_REQUESTED,
   UPDATE_MAP_SECURITY_USERS_REQUESTED,
+  DELETE_MAP_SECURITY_USERS_REQUESTED,
 } from './types';
 
 function* getMapSecurityUsersSaga({ mapId }) {
@@ -51,11 +53,30 @@ function* updateMapSecurityUsersSaga({ mapSecurityUsers, mapId }) {
   }
 }
 
+function* deleteMapSecurityUsersSaga({ userId, mapId }) {
+  try {
+    yield call(deleteMapSecurityUsers, mapId, userId);
+
+    yield put(
+      ACTION_NOTIFICATION_SUCCESS(MESSAGES.ON_DELETE.MAP_SECURITY_USERS),
+    );
+  } catch (error) {
+    const { response, message } = error;
+    const errorMessage = response ? response.statusText : message;
+
+    yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
+  }
+}
+
 function* mapSecurityUsersSaga() {
   yield takeLatest(GET_MAP_SECURITY_USERS_REQUESTED, getMapSecurityUsersSaga);
   yield takeLatest(
     UPDATE_MAP_SECURITY_USERS_REQUESTED,
     updateMapSecurityUsersSaga,
+  );
+  yield takeLatest(
+    DELETE_MAP_SECURITY_USERS_REQUESTED,
+    deleteMapSecurityUsersSaga,
   );
 }
 
