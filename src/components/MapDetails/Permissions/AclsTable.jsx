@@ -3,6 +3,7 @@ import React from 'react';
 import {
   Button,
   Checkbox,
+  CircularProgress,
   FormControlLabel,
   IconButton,
   Table,
@@ -11,6 +12,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Tooltip,
   makeStyles,
 } from '@material-ui/core';
@@ -21,6 +23,7 @@ import {
   PersonAdd,
 } from '@material-ui/icons';
 import { MapSecurityUser } from '../../../redux/mapSecurityUsers/types';
+import { muiStyles } from './styles';
 import classNames from 'classnames';
 import { DARK_BLUE, RED } from '../../../shared/colors';
 import Dialog from '@material-ui/core/Dialog';
@@ -28,22 +31,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DeleteAclPopup from './popup/DeleteAcl';
+import EditAclPopup from './popup/EditAcl';
+import CollaboratorsPopup from './popup/Collaborators';
+import NewUserPopup from './popup/NewUser';
 
 export type IProps = {
   users: Array<MapSecurityUser>,
   updateAcl: (user: MapSecurityUser) => void,
   deleteSecurityUser: (user: MapSecurityUser) => void,
 };
-
-const useStyles = makeStyles({
-  table: {
-    maxWidth: '100%',
-    width: 800,
-  },
-  dialogContent: {
-    minWidth: 350,
-  },
-});
 
 const aclDisplay = (acl: string) => {
   const list = [
@@ -61,14 +58,27 @@ const AclsTable = ({
   updateAcl,
   deleteSecurityUser,
 }: IProps): React$Element<any> => {
-  const classes = useStyles();
+  const classes = makeStyles(muiStyles)();
 
-  const [deleteDialogOpen, toggleDeleteDialogOpen] = React.useReducer(
+  const [deleteDialogOpen, toggleDeleteDialogOpen] = React.useReducer<boolean>(
     (state) => !state,
     false,
   );
 
-  const [editDialogOpen, toggleEditDialogOpen] = React.useReducer(
+  const [editDialogOpen, toggleEditDialogOpen] = React.useReducer<boolean>(
+    (state) => !state,
+    false,
+  );
+
+  const [usersDialogOpen, toggleUsersDialogOpen] = React.useReducer<boolean>(
+    (state) => !state,
+    false,
+  );
+
+  const [usersSearchLoading, toggleUsersSearchLoading] =
+    React.useReducer<boolean>((state) => !state, false);
+
+  const [newUserPopupOpen, toggleNewUserPopupOpen] = React.useReducer<boolean>(
     (state) => !state,
     false,
   );
@@ -143,6 +153,7 @@ const AclsTable = ({
                 size="medium"
                 color="primary"
                 startIcon={<PersonAdd />}
+                onClick={toggleUsersDialogOpen}
               >
                 <span>Add Users</span>
               </Button>
@@ -185,79 +196,39 @@ const AclsTable = ({
           )}
         </TableBody>
       </Table>
-      <Dialog open={deleteDialogOpen} onClose={toggleDeleteDialogOpen}>
-        <DialogTitle>Confirm Delete Action</DialogTitle>
-        <DialogContent className={classes.dialogContent}>
-          <DialogContentText>
-            Are you sure you want to delete this ACL rule?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={toggleDeleteDialogOpen} color="primary" autoFocus>
-            Cancel
-          </Button>
-          <Button onClick={_deleteSecurityUser} color="secondary">
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
 
-      <Dialog open={editDialogOpen} onClose={toggleEditDialogOpen}>
-        <DialogTitle>Edit ACL</DialogTitle>
-        <DialogContent className={classes.dialogContent}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={cbRead}
-                onChange={() => setCbRead(!cbRead)}
-                color="primary"
-              />
-            }
-            label="Read"
-          />
-          <br />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={cbPlay}
-                onChange={() => setCbPlay(!cbPlay)}
-                color="primary"
-              />
-            }
-            label="Play"
-          />
-          <br />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={cbEdit}
-                onChange={() => setCbEdit(!cbEdit)}
-                color="primary"
-              />
-            }
-            label="Edit"
-          />
-          <br />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={cbDelete}
-                onChange={() => setCbDelete(!cbDelete)}
-                color="primary"
-              />
-            }
-            label="Delete"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={toggleEditDialogOpen} autoFocus color="default">
-            Cancel
-          </Button>
-          <Button onClick={_updateAcl} color="primary">
-            Save Changes
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <DeleteAclPopup
+        onSubmit={_deleteSecurityUser}
+        isOpen={deleteDialogOpen}
+        toggleIsOpen={toggleDeleteDialogOpen}
+      />
+
+      <EditAclPopup
+        onSubmit={_updateAcl}
+        isOpen={editDialogOpen}
+        toggleIsOpen={toggleEditDialogOpen}
+        {...{
+          cbRead,
+          setCbRead,
+          cbPlay,
+          setCbPlay,
+          cbEdit,
+          setCbEdit,
+          cbDelete,
+          setCbDelete,
+        }}
+      />
+
+      <CollaboratorsPopup
+        isOpen={usersDialogOpen}
+        toggleIsOpen={toggleUsersDialogOpen}
+        toggleNewUserPopupOpen={toggleNewUserPopupOpen}
+      />
+
+      <NewUserPopup
+        isOpen={newUserPopupOpen}
+        toggleIsOpen={toggleNewUserPopupOpen}
+      />
     </TableContainer>
   );
 };
