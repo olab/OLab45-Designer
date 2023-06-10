@@ -25,3 +25,23 @@ export function deleteMapSecurityUsers(mapId, userId) {
       throw error;
     });
 }
+
+export function searchSecurityUsersCandidates(mapId, query) {
+  return API.get(
+    `/designer/maps/${mapId}/securityusers/candidates?${new URLSearchParams({
+      search: query,
+    })}`,
+  )
+    .then(({ data: { data = [] } }) => data)
+    .catch((error) => {
+      throw error;
+    });
+}
+
+export function insertSystemUser(mapId, user) {
+  return API.put(`/designer/maps/${mapId}/securityusers/candidates`, user)
+    .then(({ data: { data = false } }) => data)
+    .catch((error) => {
+      throw error;
+    });
+}

@@ -50,6 +50,7 @@ const Permissions = ({ map }: IProps): React$Element<any> => {
           users={users}
           updateAcl={updateAcl}
           deleteSecurityUser={deleteSecurityUser}
+          mapId={map.id}
         />
       )}
     </ContainerTab>

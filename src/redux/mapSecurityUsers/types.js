@@ -1,7 +1,15 @@
 // @flow
+export type OlabUserObject = {
+  id: String,
+  email: String,
+  username: String,
+  nickname: String,
+};
+
 export type MapSecurityUser = {
   userId: number,
   acl: string,
+  user?: OlabUserObject,
 };
 
 export type MapSecurityUsers = {

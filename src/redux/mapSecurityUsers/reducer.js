@@ -42,7 +42,11 @@ const mapSecurityUsers = (
       const user = mapSecurityUsers.users[0];
       return {
         ...state,
-        users: state.users.map((u) => (user.userId == u.userId ? user : u)),
+        users: state.users
+          .map((u) => (user.userId == u.userId ? user : u))
+          .concat(
+            state.users.find((u) => u.userId == user.userId) ? [] : [user],
+          ),
         isFetching: false,
       };
     }

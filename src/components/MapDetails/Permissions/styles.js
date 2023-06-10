@@ -12,6 +12,9 @@ export const muiStyles = {
   dialogContent: {
     minWidth: 350,
   },
+  dialogContentFixed: {
+    width: 350,
+  },
   dialogTitleFlex: {
     '&> h2': {
       display: 'flex',

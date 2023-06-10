@@ -22,7 +22,10 @@ import {
   Edit as EditIcon,
   PersonAdd,
 } from '@material-ui/icons';
-import { MapSecurityUser } from '../../../redux/mapSecurityUsers/types';
+import {
+  MapSecurityUser,
+  OlabUserObject,
+} from '../../../redux/mapSecurityUsers/types';
 import { muiStyles } from './styles';
 import classNames from 'classnames';
 import { DARK_BLUE, RED } from '../../../shared/colors';
@@ -40,6 +43,7 @@ export type IProps = {
   users: Array<MapSecurityUser>,
   updateAcl: (user: MapSecurityUser) => void,
   deleteSecurityUser: (user: MapSecurityUser) => void,
+  mapId: number,
 };
 
 const aclDisplay = (acl: string) => {
@@ -57,6 +61,7 @@ const AclsTable = ({
   users,
   updateAcl,
   deleteSecurityUser,
+  mapId,
 }: IProps): React$Element<any> => {
   const classes = makeStyles(muiStyles)();
 
@@ -70,18 +75,13 @@ const AclsTable = ({
     false,
   );
 
-  const [usersDialogOpen, toggleUsersDialogOpen] = React.useReducer<boolean>(
-    (state) => !state,
-    false,
-  );
-
   const [usersSearchLoading, toggleUsersSearchLoading] =
     React.useReducer<boolean>((state) => !state, false);
 
-  const [newUserPopupOpen, toggleNewUserPopupOpen] = React.useReducer<boolean>(
-    (state) => !state,
-    false,
-  );
+  const [usersDialogOpen, setUsersDialogOpen] = React.useState<boolean>(false);
+
+  const [newUserPopupOpen, setNewUserPopupOpen] =
+    React.useState<boolean>(false);
 
   const [cbRead, setCbRead] = React.useState<boolean>(false);
   const [cbPlay, setCbPlay] = React.useState<boolean>(false);
@@ -136,6 +136,23 @@ const AclsTable = ({
     deleteSecurityUser(activeUser);
   };
 
+  const selectCollaborator = (user: OlabUserObject) => {
+    const sysUser = users.find((u) => u.userId == user.id) || {
+      userId: user.id,
+      acl: '',
+      user,
+    };
+
+    setActiveUser(sysUser);
+    setCbRead(false);
+    setCbPlay(false);
+    setCbEdit(false);
+    setCbDelete(false);
+    toggleEditDialogOpen();
+    setUsersDialogOpen(false);
+    setNewUserPopupOpen(false);
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="medium" aria-label="ACLs table">
@@ -153,7 +170,7 @@ const AclsTable = ({
                 size="medium"
                 color="primary"
                 startIcon={<PersonAdd />}
-                onClick={toggleUsersDialogOpen}
+                onClick={() => setUsersDialogOpen(true)}
               >
                 <span>Add Users</span>
               </Button>
@@ -164,7 +181,17 @@ const AclsTable = ({
           {users.map((user) => (
             <TableRow key={user.userId}>
               <TableCell component="th" scope="row">
-                #{user.userId}
+                <strong>
+                  {user.user?.nickname ||
+                    user.user?.username ||
+                    `#${user.userId}`}
+                </strong>
+                <br />
+                <em>
+                  {user.user?.email || (
+                    <span style={{ opacity: 0.75 }}>(no email address)</span>
+                  )}
+                </em>
               </TableCell>
               <TableCell>{aclDisplay(user.acl)}</TableCell>
               <TableCell align="right">
@@ -221,13 +248,17 @@ const AclsTable = ({
 
       <CollaboratorsPopup
         isOpen={usersDialogOpen}
-        toggleIsOpen={toggleUsersDialogOpen}
-        toggleNewUserPopupOpen={toggleNewUserPopupOpen}
+        toggleIsOpen={() => setUsersDialogOpen(!usersDialogOpen)}
+        toggleNewUserPopupOpen={() => setNewUserPopupOpen(!newUserPopupOpen)}
+        mapId={mapId}
+        onSelect={selectCollaborator}
       />
 
       <NewUserPopup
         isOpen={newUserPopupOpen}
-        toggleIsOpen={toggleNewUserPopupOpen}
+        toggleIsOpen={() => setNewUserPopupOpen(!newUserPopupOpen)}
+        mapId={mapId}
+        onSelect={selectCollaborator}
       />
     </TableContainer>
   );
