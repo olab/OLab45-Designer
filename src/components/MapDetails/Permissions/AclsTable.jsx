@@ -144,86 +144,87 @@ const AclsTable = ({
     };
 
     setActiveUser(sysUser);
-    setCbRead(false);
-    setCbPlay(false);
-    setCbEdit(false);
-    setCbDelete(false);
+    setCbRead(sysUser.acl.includes('R'));
+    setCbPlay(sysUser.acl.includes('X'));
+    setCbEdit(sysUser.acl.includes('W'));
+    setCbDelete(sysUser.acl.includes('D'));
     toggleEditDialogOpen();
     setUsersDialogOpen(false);
     setNewUserPopupOpen(false);
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} size="medium" aria-label="ACLs table">
-        <TableHead>
-          <TableRow>
-            <TableCell style={{ width: '40%', color: DARK_BLUE }}>
-              <strong>USER</strong>
-            </TableCell>
-            <TableCell style={{ width: '30%', color: DARK_BLUE }}>
-              <strong>ACL</strong>
-            </TableCell>
-            <TableCell style={{ width: '30%' }} align="right">
-              <Button
-                variant="outlined"
-                size="medium"
-                color="primary"
-                startIcon={<PersonAdd />}
-                onClick={() => setUsersDialogOpen(true)}
-              >
-                <span>Add Users</span>
-              </Button>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map((user) => (
-            <TableRow key={user.userId}>
-              <TableCell component="th" scope="row">
-                <strong>
-                  {user.user?.nickname ||
-                    user.user?.username ||
-                    `#${user.userId}`}
-                </strong>
-                <br />
-                <em>
-                  {user.user?.email || (
-                    <span style={{ opacity: 0.75 }}>(no email address)</span>
-                  )}
-                </em>
-              </TableCell>
-              <TableCell>{aclDisplay(user.acl)}</TableCell>
-              <TableCell align="right">
-                <Tooltip
-                  title="Edit ACLs"
-                  onClick={(e) => openEditDialog(e, user)}
-                >
-                  <IconButton>
-                    <EditIcon />
-                  </IconButton>
-                </Tooltip>
-
-                <Tooltip title="Delete rule">
-                  <IconButton onClick={(e) => openDeleteDialog(e, user)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-          ))}
-          {users.length == 0 && (
+    <>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} size="medium" aria-label="ACLs table">
+          <TableHead>
             <TableRow>
-              <TableCell component="th" scope="row" colSpan={3}>
-                <center>
-                  <em>No users to show.</em>
-                </center>
+              <TableCell style={{ width: '40%', color: DARK_BLUE }}>
+                <strong>USER</strong>
+              </TableCell>
+              <TableCell style={{ width: '30%', color: DARK_BLUE }}>
+                <strong>ACL</strong>
+              </TableCell>
+              <TableCell style={{ width: '30%' }} align="right">
+                <Button
+                  variant="outlined"
+                  size="medium"
+                  color="primary"
+                  startIcon={<PersonAdd />}
+                  onClick={() => setUsersDialogOpen(true)}
+                >
+                  <span>Add Users</span>
+                </Button>
               </TableCell>
             </TableRow>
-          )}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow key={user.userId}>
+                <TableCell component="th" scope="row">
+                  <strong>
+                    {user.user?.nickname ||
+                      user.user?.username ||
+                      `#${user.userId}`}
+                  </strong>
+                  <br />
+                  <em>
+                    {user.user?.email || (
+                      <span style={{ opacity: 0.75 }}>(no email address)</span>
+                    )}
+                  </em>
+                </TableCell>
+                <TableCell>{aclDisplay(user.acl)}</TableCell>
+                <TableCell align="right">
+                  <Tooltip
+                    title="Edit ACLs"
+                    onClick={(e) => openEditDialog(e, user)}
+                  >
+                    <IconButton>
+                      <EditIcon />
+                    </IconButton>
+                  </Tooltip>
 
+                  <Tooltip title="Delete rule">
+                    <IconButton onClick={(e) => openDeleteDialog(e, user)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
+              </TableRow>
+            ))}
+            {users.length == 0 && (
+              <TableRow>
+                <TableCell component="th" scope="row" colSpan={3}>
+                  <center>
+                    <em>No users to show.</em>
+                  </center>
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <DeleteAclPopup
         onSubmit={_deleteSecurityUser}
         isOpen={deleteDialogOpen}
@@ -260,7 +261,9 @@ const AclsTable = ({
         mapId={mapId}
         onSelect={selectCollaborator}
       />
-    </TableContainer>
+
+      <p>&nbsp;</p>
+    </>
   );
 };
 

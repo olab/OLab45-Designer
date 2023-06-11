@@ -112,7 +112,7 @@ const Popup = ({
             <p>
               Search and select an existing collaborator to configure access
               permissions. You may also create a new system user by clicking the
-              user icon in the top-right of this modal.
+              user icon in the top-right corner of this dialog.
             </p>
           )}
 
