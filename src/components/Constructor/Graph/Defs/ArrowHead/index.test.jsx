@@ -10,15 +10,11 @@ describe('<ArrowHead />', () => {
 
   beforeEach(() => {
     edgeArrowSize = 0;
-    output = shallow(
-      <ArrowHead
-        edgeArrowSize={edgeArrowSize}
-      />,
-    );
+    output = shallow(<ArrowHead edgeArrowSize={edgeArrowSize} />);
   });
 
   describe('component is rendered', () => {
-    it('renders w/ \'edgeArrowSize\' = null', () => {
+    it("renders w/ 'edgeArrowSize' = null", () => {
       output.setProps({
         edgeArrowSize: null,
       });
@@ -26,7 +22,7 @@ describe('<ArrowHead />', () => {
       expect(output.getElement()).toBeNull();
     });
 
-    it('renders w/ \'edgeArrowSize\' != null', () => {
+    it("renders w/ 'edgeArrowSize' != null", () => {
       output.setProps({
         edgeArrowSize: 2,
       });

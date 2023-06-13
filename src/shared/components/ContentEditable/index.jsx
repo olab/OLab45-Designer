@@ -25,7 +25,7 @@ class ContentEditable extends Component<IProps> {
       onChange(html);
       this.lastHtml = html;
     }
-  }
+  };
 
   render() {
     const { html, onFocus } = this.props;

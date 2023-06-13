@@ -2,9 +2,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  Grid, Typography, IconButton,
-} from '@material-ui/core';
+import { Grid, Typography, IconButton } from '@material-ui/core';
 import { ArrowBackRounded as ArrowBackIcon } from '@material-ui/icons';
 import TitledButton from '../TitledButton';
 import { redirectToSO } from './utils';
@@ -26,11 +24,10 @@ const EditorWrapper = ({
 }: IEditorWrapperProps) => (
   <Grid container component="main" className={classes.root}>
     <HeadingWrapper>
-
       <Grid container spacing={3}>
         <Grid item xs={8}>
           <div className={classes.headerLabel}>
-            {(hasBackButton) && (
+            {hasBackButton && (
               <>
                 <IconButton
                   aria-label="Back To Object List"
@@ -42,12 +39,14 @@ const EditorWrapper = ({
               </>
             )}
             <Typography variant="h4" className={classes.title}>
-              {`${isEditMode ? 'EDIT' : 'ADD NEW'} ${scopedObject.toUpperCase()}`}
+              {`${
+                isEditMode ? 'EDIT' : 'ADD NEW'
+              } ${scopedObject.toUpperCase()}`}
             </Typography>
           </div>
         </Grid>
         <Grid item xs={2} style={{ minWidth: '160px' }}>
-          {(typeof onRevert !== 'undefined') && (
+          {typeof onRevert !== 'undefined' && (
             <TitledButton
               title="Reload from server"
               className={classes.submit}
@@ -70,13 +69,9 @@ const EditorWrapper = ({
       </Grid>
     </HeadingWrapper>
     <Container>
-      <Paper>
-        {children}
-      </Paper>
+      <Paper>{children}</Paper>
     </Container>
   </Grid>
 );
 
-export default withStyles(styles)(
-  withRouter(EditorWrapper),
-);
+export default withStyles(styles)(withRouter(EditorWrapper));

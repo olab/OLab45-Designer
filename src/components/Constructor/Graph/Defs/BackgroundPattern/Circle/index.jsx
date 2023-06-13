@@ -16,7 +16,7 @@ import { CircleWrapper } from './styles';
 export class Circle extends Component<ICircleProps> {
   static defaultProps: ICircleProps = {
     gridDotSize: 2,
-  }
+  };
 
   render() {
     const { gridDotSize } = this.props;

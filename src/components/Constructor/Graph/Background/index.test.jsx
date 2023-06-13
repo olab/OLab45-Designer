@@ -19,5 +19,5 @@ describe('<Background />', () => {
       expect(output.props().width).toEqual(40960);
       expect(output.props().height).toEqual(40960);
     });
-  })
+  });
 });

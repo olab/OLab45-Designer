@@ -25,9 +25,7 @@ export class CustomizedTooltip extends Component<Props, State> {
   };
 
   render() {
-    const {
-      classes, children, tooltipText, arrow, isClickable,
-    } = this.props;
+    const { classes, children, tooltipText, arrow, isClickable } = this.props;
     const { open, arrowRef } = this.state;
     const title = (
       <Fragment>
@@ -79,9 +77,13 @@ export class CustomizedTooltip extends Component<Props, State> {
       </Tooltip>
     );
 
-    return isClickable
-      ? <ClickAwayListener onClickAway={this.handleTooltipClose}>{tooltip}</ClickAwayListener>
-      : tooltip;
+    return isClickable ? (
+      <ClickAwayListener onClickAway={this.handleTooltipClose}>
+        {tooltip}
+      </ClickAwayListener>
+    ) : (
+      tooltip
+    );
   }
 }
 

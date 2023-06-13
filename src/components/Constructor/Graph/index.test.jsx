@@ -74,7 +74,7 @@ describe('<Graph />', () => {
   });
 
   describe('getSelectedItem getter method', () => {
-    it('should return \'null\'', () => {
+    it("should return 'null'", () => {
       expect(output.instance().getSelectedItem).toBeNull();
     });
 
@@ -93,7 +93,7 @@ describe('<Graph />', () => {
   });
 
   describe('getSelectedNode getter method', () => {
-    it('should return \'null\'', () => {
+    it("should return 'null'", () => {
       expect(output.instance().getSelectedNode).toBeNull();
     });
 
@@ -112,7 +112,7 @@ describe('<Graph />', () => {
   });
 
   describe('getSelectedEdge getter method', () => {
-    it('should return \'null\'', () => {
+    it("should return 'null'", () => {
       expect(output.instance().getSelectedEdge).toBeNull();
     });
 

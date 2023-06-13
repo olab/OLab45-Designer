@@ -15,7 +15,7 @@ export class Background extends Component<IBackgroundProps> {
   static defaultProps: IBackgroundProps = {
     backgroundFillId: '#grid',
     gridSize: 40960,
-  }
+  };
 
   render() {
     const { gridSize, backgroundFillId } = this.props;

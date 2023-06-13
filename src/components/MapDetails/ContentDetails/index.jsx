@@ -12,7 +12,10 @@ import { ContainerTab, ContentTitle } from '../styles';
 import { ContainerCheckBox, CheckBox } from './styles';
 
 const ContentDetails = ({
-  details, text, handleEditorChange, handleCheckBoxChange,
+  details,
+  text,
+  handleEditorChange,
+  handleCheckBoxChange,
 }: IProps): React$Element<any> => (
   <ContainerTab>
     <ContentTitle>Authoring notes</ContentTitle>

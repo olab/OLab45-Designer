@@ -2,7 +2,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { TextField, Divider } from '@material-ui/core';
-import { QUESTION_TYPES, EDITORS_FIELDS, TTALK_QUESTION_TYPES } from '../../config';
+import {
+  QUESTION_TYPES,
+  EDITORS_FIELDS,
+  TTALK_QUESTION_TYPES,
+} from '../../config';
 import OutlinedSelect from '../../../../shared/components/OutlinedSelect';
 import styles, { FieldLabel, SwitchWrapper } from '../../styles';
 import Switch from '../../../../shared/components/Switch';
@@ -18,22 +22,14 @@ function TTalkQuestionLayout({
   state,
 }: ITTalkQuestionLayoutProps) {
   const { classes } = props;
-  const {
-    description,
-    isFieldsDisabled,
-    name,
-    questionType,
-    settings,
-    stem,
-  } = state;
+  const { description, isFieldsDisabled, name, questionType, settings, stem } =
+    state;
 
   const settingsObject = JSON.parse(settings);
 
   return (
     <>
-      <FieldLabel>
-        {EDITORS_FIELDS.QUESTION_TYPES}
-      </FieldLabel>
+      <FieldLabel>{EDITORS_FIELDS.QUESTION_TYPES}</FieldLabel>
       <OutlinedSelect
         name="questionType"
         value={TTALK_QUESTION_TYPES[questionType]}

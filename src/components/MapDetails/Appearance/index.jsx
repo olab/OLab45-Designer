@@ -10,7 +10,11 @@ import type { AppearanceProps as IProps } from './types';
 import { ContainerTab } from '../styles';
 import { ContainerSelect } from './styles';
 
-const Appearance = ({ details, themes, handleSelectChange }: IProps): React$Element<any> => {
+const Appearance = ({
+  details,
+  themes,
+  handleSelectChange,
+}: IProps): React$Element<any> => {
   const selects = [
     { label: 'Theme', values: themes, name: 'themeId' },
     { label: 'Access', values: ACCESS, name: 'securityType' },
@@ -22,9 +26,13 @@ const Appearance = ({ details, themes, handleSelectChange }: IProps): React$Elem
         // TODO: When valid data arrives from the backend, it will be necessary
         //  to delete 'isValidValue' and rename 'numberValue' to 'resultValue'
         const isControlled = name === 'securityType' && details[name] === 4;
-        const isValidvalue = !isControlled && (details[name] && (details[name] <= values.length));
-        const numberValue = isControlled ? values[details[name] - 2] : values[details[name] - 1];
-        const resultValue = isValidvalue || isControlled ? numberValue : values[0];
+        const isValidvalue =
+          !isControlled && details[name] && details[name] <= values.length;
+        const numberValue = isControlled
+          ? values[details[name] - 2]
+          : values[details[name] - 1];
+        const resultValue =
+          isValidvalue || isControlled ? numberValue : values[0];
         const key = label + index;
 
         return (

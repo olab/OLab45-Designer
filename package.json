@@ -89,7 +89,8 @@
     "build:dev": "webpack --mode development",
     "lint": "eslint ./src",
     "test": "jest",
-    "test-cover": "npm test -- --coverage"
+    "test-cover": "npm test -- --coverage",
+    "format": "npx prettier --write src"
   },
   "browserslist": [
     ">0.2%",

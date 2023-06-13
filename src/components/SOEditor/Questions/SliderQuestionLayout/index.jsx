@@ -32,13 +32,10 @@ function SliderQuestionLayout({
   } = state;
 
   const questionTypes = [QUESTION_TYPES[5]];
-  const orientationTypes = [
-    'ver',
-    'hor',
-  ];
+  const orientationTypes = ['ver', 'hor'];
 
   const layoutToOrientation = (layoutType) => {
-    const index = LAYOUT_TYPES.findIndex(type => type === layoutType);
+    const index = LAYOUT_TYPES.findIndex((type) => type === layoutType);
     if (index >= 0) {
       return orientationTypes[index];
     }
@@ -46,7 +43,7 @@ function SliderQuestionLayout({
   };
 
   const orientationToLayout = (orientation) => {
-    const index = orientationTypes.findIndex(type => type === orientation);
+    const index = orientationTypes.findIndex((type) => type === orientation);
     if (index >= 0) {
       return LAYOUT_TYPES[index];
     }
@@ -66,9 +63,7 @@ function SliderQuestionLayout({
 
   return (
     <>
-      <FieldLabel>
-        {EDITORS_FIELDS.QUESTION_TYPES}
-      </FieldLabel>
+      <FieldLabel>{EDITORS_FIELDS.QUESTION_TYPES}</FieldLabel>
       <OutlinedSelect
         name="questionType"
         value={QUESTION_TYPES[questionType]}
@@ -193,9 +188,7 @@ function SliderQuestionLayout({
         />
       </FieldLabel>
 
-      <FieldLabel>
-        {EDITORS_FIELDS.LAYOUT_TYPE}
-      </FieldLabel>
+      <FieldLabel>{EDITORS_FIELDS.LAYOUT_TYPE}</FieldLabel>
       <OutlinedSelect
         name="layoutType"
         value={layoutType}

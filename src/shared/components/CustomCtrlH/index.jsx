@@ -10,8 +10,14 @@ import ReplaceIcon from '../../assets/icons/replace.svg';
 import ReplaceAllIcon from '../../assets/icons/replaceAll.svg';
 
 import {
-  getReplacedData, changeBackgroundInActiveElement, getHighlight, removeHighlight,
-  getReplacedAllData, nextButton, prevButton, escapeSymbol,
+  getReplacedData,
+  changeBackgroundInActiveElement,
+  getHighlight,
+  removeHighlight,
+  getReplacedAllData,
+  nextButton,
+  prevButton,
+  escapeSymbol,
 } from './utils';
 
 import { KEY_H, SEARCH_VALIDATE, FIELD_ERROR } from './config';
@@ -83,7 +89,7 @@ class CustomCtrlH extends Component<IProps, IState> {
 
     this.highlightRemoval(data);
     onModalShow(false);
-  }
+  };
 
   handleKeyPressed = (e: KeyboardEvent): void => {
     const { onModalShow } = this.props;
@@ -93,7 +99,7 @@ class CustomCtrlH extends Component<IProps, IState> {
       e.preventDefault();
       onModalShow();
     }
-  }
+  };
 
   highlight = (search: string): void => {
     const { data } = this.state;
@@ -105,7 +111,7 @@ class CustomCtrlH extends Component<IProps, IState> {
       activeIndex: -1,
       data: resultData,
     });
-  }
+  };
 
   highlightRemoval = (data: DataType): void => {
     const { fields, onStateChange } = this.props;
@@ -118,46 +124,59 @@ class CustomCtrlH extends Component<IProps, IState> {
       activeIndex: -1,
       data: cleanData,
     });
-  }
+  };
 
-  handleButtonClick = (isNextButton: boolean): Function => (): void => {
-    const { activeIndex, highlightedItems } = this.state;
-    const lastIndex = highlightedItems.length - 1;
+  handleButtonClick =
+    (isNextButton: boolean): Function =>
+    (): void => {
+      const { activeIndex, highlightedItems } = this.state;
+      const lastIndex = highlightedItems.length - 1;
 
-    const { newActiveIndex, oldActiveIndex } = isNextButton
-      ? nextButton(activeIndex, lastIndex)
-      : prevButton(activeIndex, lastIndex);
+      const { newActiveIndex, oldActiveIndex } = isNextButton
+        ? nextButton(activeIndex, lastIndex)
+        : prevButton(activeIndex, lastIndex);
 
-    this.changeBackgroundColor(oldActiveIndex, newActiveIndex);
-    this.setState({ activeIndex: newActiveIndex });
-  }
+      this.changeBackgroundColor(oldActiveIndex, newActiveIndex);
+      this.setState({ activeIndex: newActiveIndex });
+    };
 
-  changeBackgroundColor = (activeIndex: number, newActiveIndex: number): void => {
+  changeBackgroundColor = (
+    activeIndex: number,
+    newActiveIndex: number,
+  ): void => {
     const { highlightedItems } = this.state;
     changeBackgroundInActiveElement(
       highlightedItems[newActiveIndex],
       highlightedItems[activeIndex],
     );
-  }
+  };
 
   handleButtonReplace = (): void => {
-    const {
-      data, search, replace, activeIndex, allMatches,
-    } = this.state;
+    const { data, search, replace, activeIndex, allMatches } = this.state;
 
     const foundElement = allMatches.find((item: Object<any>): void => {
-      const isItemFound = Array(item.matchesInString).fill(0).map(
-        (e: number, index: number): number => index + item.matchesAll - item.matchesInString,
-      ).includes(activeIndex);
+      const isItemFound = Array(item.matchesInString)
+        .fill(0)
+        .map(
+          (e: number, index: number): number =>
+            index + item.matchesAll - item.matchesInString,
+        )
+        .includes(activeIndex);
 
       return isItemFound;
     });
 
     if (foundElement) {
-      const resultData = getReplacedData(data, foundElement, activeIndex, search, replace);
+      const resultData = getReplacedData(
+        data,
+        foundElement,
+        activeIndex,
+        search,
+        replace,
+      );
       this.highlightRemoval(resultData);
     }
-  }
+  };
 
   handleButtonReplaceAll = (): void => {
     const { data, search, replace } = this.state;
@@ -165,7 +184,7 @@ class CustomCtrlH extends Component<IProps, IState> {
     const replacedData = getReplacedAllData(data, fields, search, replace);
 
     this.highlightRemoval(replacedData);
-  }
+  };
 
   handleSearchChange = (e: Event): void => {
     const { value } = e.target;
@@ -179,17 +198,15 @@ class CustomCtrlH extends Component<IProps, IState> {
     }
 
     this.setState({ isInputError: true });
-  }
+  };
 
   handleReplaceChange = (e: Event): void => {
     const { value } = e.target;
     this.setState({ replace: value });
-  }
+  };
 
   render() {
-    const {
-      search, data, replace, isInputError,
-    } = this.state;
+    const { search, data, replace, isInputError } = this.state;
     const { classes, children, isShow } = this.props;
 
     return (
@@ -241,7 +258,7 @@ class CustomCtrlH extends Component<IProps, IState> {
             </Container>
           </Wrapper>
         )}
-        { children(data, this.highlightRemoval, this.handleSearchPopupClose) }
+        {children(data, this.highlightRemoval, this.handleSearchPopupClose)}
       </>
     );
   }

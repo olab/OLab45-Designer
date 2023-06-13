@@ -17,7 +17,7 @@ export class BackgroundPattern extends Component<IBackgroundPatternProps> {
   static defaultProps: IBackgroundPatternProps = {
     gridSpacing: 36,
     gridDotSize: 2,
-  }
+  };
 
   render() {
     const { gridSpacing, gridDotSize } = this.props;
@@ -30,9 +30,7 @@ export class BackgroundPattern extends Component<IBackgroundPatternProps> {
         height={gridSpacing}
         patternUnits="userSpaceOnUse"
       >
-        <Circle
-          gridDotSize={gridDotSize}
-        />
+        <Circle gridDotSize={gridDotSize} />
       </pattern>
     );
   }

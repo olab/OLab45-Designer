@@ -59,6 +59,11 @@ module.exports = (env, options) => ({
     devMiddleware: {
       writeToDisk: true,
     },
+    client: {
+      overlay: {
+        warnings: false,
+      },
+    },
   },
 
   performance: {
@@ -155,11 +160,12 @@ module.exports = (env, options) => ({
           warnings: [],
           manifest: entries.map((entry) => ({
             ...entry,
-            url: entry.url.replace(/\/{2,}$/g, '/'),
+            url: entry.url.replace(/\/{2,}/g, '/'),
           })),
         }),
       ],
       importScripts: ['service-worker-offline.js'],
+      disableDevLogs: true,
     }),
   ],
 });

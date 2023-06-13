@@ -10,7 +10,14 @@ import {
   FilterVintageOutlined as DefaultOutlinedIcon,
 } from '@material-ui/icons';
 import {
-  List, ListItem, ListItemText, Button, IconButton, TextField, Typography, Tooltip,
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+  IconButton,
+  TextField,
+  Typography,
+  Tooltip,
 } from '@material-ui/core';
 
 import CircularSpinnerWithText from '../CircularSpinnerWithText';
@@ -21,7 +28,7 @@ import removeHTMLTags from '../../../helpers/removeHTMLTags';
 import type { IListWithSearchProps, IListWithSearchState } from './types';
 
 import styles, { SearchWrapper, ListItemContentWrapper } from './styles';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const MapListWrapper = styled.div`
   max-height: 75vh;
@@ -29,7 +36,10 @@ const MapListWrapper = styled.div`
   padding-right: 5px;
 `;
 
-class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearchState> {
+class ListWithSearch extends PureComponent<
+  IListWithSearchProps,
+  IListWithSearchState,
+> {
   static defaultProps = {
     getIcon: () => '',
     iconEven: DefaultIcon,
@@ -51,7 +61,7 @@ class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearch
 
     onClear();
     this.setState({ query: '' });
-  }
+  };
 
   onInputChange = (e: Event): void => {
     const { onSearch } = this.props;
@@ -59,7 +69,7 @@ class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearch
 
     onSearch(value);
     this.setState({ [name]: value });
-  }
+  };
 
   render() {
     const { query } = this.state;
@@ -112,18 +122,13 @@ class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearch
                 <CloseIcon />
               </IconButton>
             ) : (
-              <SearchIcon
-                classes={{ root: classes.searchIcon }}
-              />
+              <SearchIcon classes={{ root: classes.searchIcon }} />
             )}
           </SearchWrapper>
         )}
 
         <MapListWrapper>
-          <List
-            classes={{ root: listClassNames }}
-            disablePadding
-          >
+          <List classes={{ root: listClassNames }} disablePadding>
             {list.map((listItem) => (
               <ListItem
                 key={listItem.id}
@@ -131,20 +136,19 @@ class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearch
                 disabled={isItemsDisabled}
               >
                 <ListItemContentWrapper>
-                    <Button
-                      classes={{ text: classes.listButton }}
-                      onClick={() => onItemClick(listItem)}
-                      disabled={isItemsDisabled}
-                    >
-                      {getIcon(showIcons, listItem)}
-                      &nbsp;
-
-                      <ListItemText
-                        primary={primarytext(listItem)}
-                        secondary={removeHTMLTags(secondarytext(listItem) || '')}
-                        classes={{ secondary: classes.secondaryText }}
-                      />
-                    </Button>
+                  <Button
+                    classes={{ text: classes.listButton }}
+                    onClick={() => onItemClick(listItem)}
+                    disabled={isItemsDisabled}
+                  >
+                    {getIcon(showIcons, listItem)}
+                    &nbsp;
+                    <ListItemText
+                      primary={primarytext(listItem)}
+                      secondary={removeHTMLTags(secondarytext(listItem) || '')}
+                      classes={{ secondary: classes.secondaryText }}
+                    />
+                  </Button>
 
                   {onItemDelete && (
                     <IconButton
@@ -172,7 +176,13 @@ class ListWithSearch extends PureComponent<IListWithSearchProps, IListWithSearch
           </List>
         </MapListWrapper>
 
-        {isShowSpinner && <CircularSpinnerWithText text="Updating list from the server..." centered large />}
+        {isShowSpinner && (
+          <CircularSpinnerWithText
+            text="Updating list from the server..."
+            centered
+            large
+          />
+        )}
       </div>
     );
   }
