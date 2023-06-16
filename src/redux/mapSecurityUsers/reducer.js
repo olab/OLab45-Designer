@@ -30,10 +30,11 @@ const mapSecurityUsers = (
         isFetching: false,
       };
     case GET_MAP_SECURITY_USERS_SUCCEEDED: {
-      const { mapSecurityUsers } = action;
+      const { mapSecurityUsers, mapId } = action;
       return {
         ...state,
         users: mapSecurityUsers,
+        mapId,
         isFetching: false,
       };
     }

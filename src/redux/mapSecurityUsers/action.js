@@ -14,9 +14,11 @@ export const ACTION_GET_MAP_SECURITY_USERS_FAILED = () => ({
 
 export const ACTION_GET_MAP_SECURITY_USERS_SUCCEEDED = (
   mapSecurityUsers: MapSecurityUsersType,
+  mapId: Number,
 ) => ({
   type: GET_MAP_SECURITY_USERS_SUCCEEDED,
   mapSecurityUsers,
+  mapId,
 });
 
 export const ACTION_GET_MAP_SECURITY_USERS_REQUESTED = (mapId: string) => ({
