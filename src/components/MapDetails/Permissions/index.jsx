@@ -10,7 +10,14 @@ import { MapSecurityUser } from '../../../redux/mapSecurityUsers/types';
 
 const Permissions = ({ map }: IProps): React$Element<any> => {
   const dispatch = useDispatch();
-  const { users, isFetching } = useSelector((state) => state.mapSecurityUsers);
+  const { users, isFetching, mapId } = useSelector(
+    ({ mapSecurityUsers: state }) => {
+      // refresh state when changing between maps
+      return !state?.mapId || map.id == state.mapId
+        ? state
+        : { isFetching: true };
+    },
+  );
 
   React.useEffect(() => {
     if (!users || 0 == users.length) {
@@ -45,7 +52,7 @@ const Permissions = ({ map }: IProps): React$Element<any> => {
         Invite other authors to help manage this map.
       </ContentParagraph>
 
-      {(users.length > 0 || !isFetching) && (
+      {(users?.length > 0 || !isFetching) && (
         <AclsTable
           users={users}
           updateAcl={updateAcl}

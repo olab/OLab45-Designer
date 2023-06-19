@@ -26,7 +26,7 @@ function* getMapSecurityUsersSaga({ mapId }) {
   try {
     const mapSecurityUsers = yield call(getMapSecurityUsers, mapId);
 
-    yield put(ACTION_GET_MAP_SECURITY_USERS_SUCCEEDED(mapSecurityUsers));
+    yield put(ACTION_GET_MAP_SECURITY_USERS_SUCCEEDED(mapSecurityUsers, mapId));
   } catch (error) {
     const { response, message } = error;
     const errorMessage = response ? response.statusText : message;
