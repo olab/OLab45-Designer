@@ -11,6 +11,7 @@ import Permissions from './Permissions';
 import AdvancedDetails from './AdvancedDetails';
 
 import * as mapDetailsActions from '../../redux/mapDetails/action';
+import * as mapActions from '../../redux/map/action';
 
 import { ACCESS } from './config';
 
@@ -20,6 +21,8 @@ import type {
   MapDetailsState as IState,
 } from './types';
 
+import type { Node as NodeType } from '../Constructor/Graph/Node/types';
+
 import styles, {
   TabContainer,
   Container,
@@ -28,17 +31,26 @@ import styles, {
   Header,
 } from './styles';
 
-class AdvancedNodeEditor extends PureComponent<IProps, IState> {
+class AdvancedNodeEditor extends PureComponent<
+  IProps & { nodes: Array<NodeType> },
+  IState,
+> {
   numberTab: number = 0;
 
   constructor(props) {
     super(props);
-    const { mapIdUrl, mapDetails, ACTION_GET_MAP_DETAILS_REQUESTED } =
-      this.props;
+    const {
+      mapIdUrl,
+      mapDetails,
+      nodes,
+      ACTION_GET_MAP_DETAILS_REQUESTED,
+      ACTION_GET_MAP_REQUESTED,
+    } = this.props;
     const isPageRefreshed = mapIdUrl && !mapDetails.id;
 
     if (isPageRefreshed) {
       ACTION_GET_MAP_DETAILS_REQUESTED(mapIdUrl);
+      ACTION_GET_MAP_REQUESTED(mapIdUrl);
     }
 
     this.state = { ...mapDetails };
@@ -156,6 +168,7 @@ class AdvancedNodeEditor extends PureComponent<IProps, IState> {
                 <ContentDetails
                   details={this.state}
                   text={mapDetails.notes}
+                  nodes={this.props.nodes}
                   handleEditorChange={this.handleEditorChange}
                   handleCheckBoxChange={this.handleCheckBoxChange}
                 />,
@@ -174,7 +187,7 @@ class AdvancedNodeEditor extends PureComponent<IProps, IState> {
 }
 
 const mapStateToProps = (
-  { mapDetails: { themes = [], ...mapDetails } },
+  { map: { nodes }, mapDetails: { themes = [], ...mapDetails } },
   {
     match: {
       params: { mapId: mapIdUrl },
@@ -187,6 +200,7 @@ const mapStateToProps = (
     themesNames,
     mapDetails,
     mapIdUrl,
+    nodes,
   };
 };
 
@@ -196,6 +210,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   ACTION_UPDATE_MAP_DETAILS_REQUESTED: (mapDetails: MapDetails) => {
     dispatch(mapDetailsActions.ACTION_UPDATE_MAP_DETAILS_REQUESTED(mapDetails));
+  },
+  ACTION_GET_MAP_REQUESTED: (mapId: string) => {
+    dispatch(mapActions.ACTION_GET_MAP_REQUESTED(mapId));
   },
 });
 
