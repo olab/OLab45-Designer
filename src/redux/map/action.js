@@ -309,6 +309,7 @@ export const ACTION_EXCHANGE_NODE_ID = (
 ) => {
   const {
     map: { nodes, edges },
+    mapDetails: { id: mapId },
   } = store.getState();
   const nodeIndex = nodes.findIndex(({ id }) => id === oldNodeId);
 
@@ -328,6 +329,8 @@ export const ACTION_EXCHANGE_NODE_ID = (
       } else if (source === oldNodeId) {
         clonedEdge.source = newNodeId;
       }
+
+      clonedEdge.map_id = clonedEdge.map_id ?? mapId;
 
       return clonedEdge;
     }
