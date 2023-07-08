@@ -37,6 +37,7 @@ import {
   ModalHeaderButton,
 } from '../styles';
 import styles, { Triangle } from './styles';
+import { NODE_EDITOR_AUTOSAVE_TIMEOUT } from '../../../services/apiConfig';
 
 class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
   constructor(props: INodeEditorProps) {
@@ -80,22 +81,22 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
 
   onInputChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, this.autosave.bind(this));
   };
 
   handleStyleChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
     const index = LINK_STYLES.findIndex((style) => style === value);
-    this.setState({ [name]: index + 1 });
+    this.setState({ [name]: index + 1 }, this.autosave.bind(this));
   };
 
   handleColorChange = (color: string): void => {
-    this.setState({ color });
+    this.setState({ color }, this.autosave.bind(this));
   };
 
   handleVisitOnceChange = (e: Event): void => {
     const { checked: isVisitOnce } = (e.target: window.HTMLInputElement);
-    this.setState({ isVisitOnce });
+    this.setState({ isVisitOnce }, this.autosave.bind(this));
   };
 
   handleModalMove = (offsetX: number, offsetY: number): void => {
@@ -110,6 +111,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
 
   applyChanges = (): void => {
     const { ACTION_UPDATE_NODE } = this.props;
+    clearTimeout(this.autosaveTimeout);
     ACTION_UPDATE_NODE(this.state, true);
   };
 
@@ -133,9 +135,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
   };
 
   handleTextChange = (text: string): void => {
-    this.setState({ text });
-    // eslint-disable-next-line
-    // console.log(text);
+    this.setState({ text }, this.autosave.bind(this));
   };
 
   handleKeyPressed = (e: KeyboardEvent): void => {
@@ -145,6 +145,29 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
       e.preventDefault();
       this.applyChanges();
     }
+  };
+
+  autosaveTimeout: number = 0;
+
+  autosave = (): void => {
+    clearTimeout(this.autosaveTimeout);
+
+    this.autosaveTimeout = setTimeout(
+      () => this.hasUnsavedChanges() && this.applyChanges(),
+      NODE_EDITOR_AUTOSAVE_TIMEOUT,
+    );
+  };
+
+  hasUnsavedChanges = (): boolean => {
+    for (const prop in this.props.node) {
+      if (prop in this.state) {
+        if (this.state[prop] !== this.props.node[prop]) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   };
 
   render() {
@@ -163,6 +186,8 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
     if (isDragging) {
       return null;
     }
+
+    const hasUnsavedChanges = this.hasUnsavedChanges();
 
     return (
       <NodeEditorWrapper
@@ -261,6 +286,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
             variant="contained"
             color="primary"
             onClick={this.applyChanges}
+            disabled={!hasUnsavedChanges}
           >
             Save
           </Button>
