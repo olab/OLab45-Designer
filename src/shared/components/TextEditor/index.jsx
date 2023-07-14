@@ -24,7 +24,7 @@ class TextEditor extends React.Component {
         id={editorId}
         cloudChannel={EDITOR_VERSION}
         // eslint-disable-next-line
-        initialValue={text}
+        value={text}
         // eslint-disable-next-line
         onEditorChange={handleEditorChange}
         init={{
