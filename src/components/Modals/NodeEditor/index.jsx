@@ -109,10 +109,10 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
     ACTION_TOGGLE_SO_PICKER_MODAL();
   };
 
-  applyChanges = (): void => {
+  applyChanges = (suppressNotifications = false): void => {
     const { ACTION_UPDATE_NODE } = this.props;
     clearTimeout(this.autosaveTimeout);
-    ACTION_UPDATE_NODE(this.state, true);
+    ACTION_UPDATE_NODE(this.state, !suppressNotifications);
   };
 
   deleteNode = (): void => {
@@ -153,7 +153,9 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
     clearTimeout(this.autosaveTimeout);
 
     this.autosaveTimeout = setTimeout(
-      () => this.hasUnsavedChanges() && this.applyChanges(),
+      () =>
+        this.hasUnsavedChanges() &&
+        (this.applyChanges(true), this.setState({ initialAutosave: true })),
       NODE_EDITOR_AUTOSAVE_TIMEOUT,
     );
   };
@@ -171,14 +173,15 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
   };
 
   render() {
-    const { color, title, isVisitOnce, linkStyle } = this.state;
+    const { color, title, isVisitOnce, linkStyle, text, initialAutosave } =
+      this.state;
     const {
       x,
       y,
       isDragging,
       connectDragSource,
       classes,
-      node: { id: nodeId, text: initialText },
+      node: { id: nodeId },
       mapId,
       isShow,
     } = this.props;
@@ -257,7 +260,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
           </ArticleItem>
           <article>
             <TextEditor
-              text={initialText}
+              text={text}
               width={440}
               height={300}
               handleEditorChange={this.handleTextChange}
@@ -288,7 +291,9 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
             onClick={this.applyChanges}
             disabled={!hasUnsavedChanges}
           >
-            Save
+            {hasUnsavedChanges || !initialAutosave
+              ? 'Save Changes'
+              : 'Auto-Saved'}
           </Button>
         </ModalFooter>
       </NodeEditorWrapper>
