@@ -123,7 +123,7 @@ class QuestionResponses extends ScopedObjectService {
       score: 0,
       order: 0,
       questionId,
-      isCorrect: 2,
+      isCorrect: 1,
     };
 
     addIndex -= 1;
@@ -284,23 +284,23 @@ class QuestionResponses extends ScopedObjectService {
                         value={1}
                         aria-label="module"
                       >
-                        {CORRECTNESS_TYPES[1]}
+                        {CORRECTNESS_TYPES['1']}
                       </ToggleButton>
                       <ToggleButton
                         name={this.buildId('neutral', i)}
                         classes={{ root: this.props.classes.toggleButton }}
-                        value={2}
+                        value={0}
                         aria-label="quilt"
                       >
-                        {CORRECTNESS_TYPES[2]}
+                        {CORRECTNESS_TYPES['0']}
                       </ToggleButton>
                       <ToggleButton
                         name={this.buildId('incorrect', i)}
                         classes={{ root: this.props.classes.toggleButton }}
-                        value={0}
+                        value={-1}
                         aria-label="list"
                       >
-                        {CORRECTNESS_TYPES[0]}
+                        {CORRECTNESS_TYPES['-1']}
                       </ToggleButton>
                     </ToggleButtonGroup>
                   </FullContainerWidth>
