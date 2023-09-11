@@ -289,7 +289,6 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
             variant="contained"
             color="primary"
             onClick={this.applyChanges}
-            disabled={!hasUnsavedChanges}
           >
             {hasUnsavedChanges || !initialAutosave
               ? 'Save Changes'
