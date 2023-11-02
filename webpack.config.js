@@ -7,7 +7,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin'),
 
 // load .env variables
 require('dotenv').config({
-  path: path.resolve(__dirname, '.env'),
+  path: path.resolve(__dirname, '.env.release'),
 });
 
 let isAbsoluteUrl = false;
@@ -15,7 +15,7 @@ let isAbsoluteUrl = false;
 try {
   new URL(process.env.PUBLIC_URL);
   isAbsoluteUrl = true;
-} catch (err) {}
+} catch (err) { }
 
 if (isAbsoluteUrl) {
   // the react router doesn't seem to work well with absolute URLs

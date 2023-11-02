@@ -7,7 +7,7 @@ if [ $# -eq 0 ]
 fi
 git pull
 if [ ! -L "build" ]; then
-        ln -s /var/www/vhosts/olab46/$1/player$1 build
+        ln -s /var/www/vhosts/olab46/$1/designer$1 build
 fi
 npm install
 npm run build
