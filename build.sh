@@ -12,11 +12,11 @@ fi
 
 npm install
 
-if [ $1 -eq "debug" ]; then
+if [ "$1" -eq "debug" ]; then
   npm run build:dev
 fi
 
-if [ $1 -eq "release" ]; then
+if [ "$1" -eq "release" ]; then
   npm run build
 fi
 
