@@ -7,10 +7,19 @@ if [ $# -eq 0 ]
 fi
 git pull
 if [ ! -L "build" ]; then
-        ln -s /var/www/vhosts/olab46/$1/designer$1 build
+  ln -s /var/www/vhosts/olab46/$1/designer$1 build
 fi
+
 npm install
-npm run build:dev
+
+if [ $1 -eq "debug" ]; then
+  npm run build:dev
+fi
+
+if [ $1 -eq "release" ]; then
+  npm run build
+fi
+
 service nginx restart
 
 
