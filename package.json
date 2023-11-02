@@ -83,6 +83,8 @@
     "d3-color": "^3.1.0"
   },
   "scripts": {
+    "version:inc": "npm --no-git-tag-version version prerelease",
+    "version:full": "npm --no-git-tag-version version `date +%y.%m.%d-0`",
     "start": "webpack serve --mode development",
     "start:prod": "webpack serve --mode production",
     "build": "webpack --mode production",
