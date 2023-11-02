@@ -5,10 +5,18 @@ const HtmlWebPackPlugin = require('html-webpack-plugin'),
   WorkboxPlugin = require('workbox-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// load .env variables
-require('dotenv').config({
-  path: path.resolve(__dirname, '.env.release'),
-});
+if (process.env.NODE_ENV == "production") {
+  // load .env variables
+  require('dotenv').config({
+    path: path.resolve(__dirname, '.env.release'),
+  });
+}
+else if (process.env.NODE_ENV == "development") {
+  // load .env variables
+  require('dotenv').config({
+    path: path.resolve(__dirname, '.env.debug'),
+  });
+}
 
 let isAbsoluteUrl = false;
 
