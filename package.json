@@ -82,16 +82,16 @@
     "d3-color": "^3.1.0"
   },
   "scripts": {
-    "version:inc": "npm --no-git-tag-version version prerelease",
-    "version:full": "npm --no-git-tag-version version `date +%y.%m.%d-0`",
-    "start": "webpack serve --mode development",
-    "start:prod": "webpack serve --mode production",
-    "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "format": "npx prettier --write src",
     "lint": "eslint ./src",
-    "test": "jest",
+    "start:prod": "webpack serve --mode production",
+    "start": "webpack serve --mode development",
     "test-cover": "npm test -- --coverage",
-    "format": "npx prettier --write src"
+    "test": "jest",
+    "version:full": "npm --no-git-tag-version version `date +%y.%m.%d-0`",
+    "version:inc": "npm --no-git-tag-version version prerelease",
   },
   "browserslist": [
     ">0.2%",
