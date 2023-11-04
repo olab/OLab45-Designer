@@ -6,16 +6,10 @@ const HtmlWebPackPlugin = require('html-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 if (process.env.NODE_ENV == "production") {
-  // load .env variables
-  require('dotenv').config({
-    path: path.resolve(__dirname, '.env.release'),
-  });
+  require('dotenv').config({ path: '.env.release' });
 }
 else if (process.env.NODE_ENV == "development") {
-  // load .env variables
-  require('dotenv').config({
-    path: path.resolve(__dirname, '.env.debug'),
-  });
+  require('dotenv').config({ path: '.env.debug' });
 }
 
 let isAbsoluteUrl = false;
@@ -145,12 +139,7 @@ module.exports = (env, options) => ({
     // use env variables in react
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env),
-      'process.env.PROJECT_VERSION': JSON.stringify(process.env.PROJECT_VERSION),
-      'process.env.PLAYER_PUBLIC_URL': JSON.stringify(process.env.PLAYER_PUBLIC_URL),
-      'process.env.npm_package_version': JSON.stringify(process.env.npm_package_version),
-      'process.env.NODE_ENV': JSON.stringify(options.mode),
-      'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL),
-      'process.env.API_URL': JSON.stringify(process.env.API_URL),
+      'process.env.npm_package_version': JSON.stringify(process.env.npm_package_version)
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
