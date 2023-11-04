@@ -23,6 +23,8 @@ const Root = (
   </Provider>
 );
 
+alert(JSON.stringify(process.env));
+
 ReactDOM.render(Root, target);
 
 if ('serviceWorker' in navigator) {

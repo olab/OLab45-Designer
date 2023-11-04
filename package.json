@@ -1,5 +1,6 @@
 {
   "name": "olab46designer",
+  "homepage": "/designerdebug",
   "version": "23.8.14-1",
   "private": true,
   "dependencies": {

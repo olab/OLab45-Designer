@@ -15,9 +15,7 @@
       "request": "attach",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
-      "env": {
-        "NODE_ENV": "development"
-      }
+      "envFile": "${workspaceFolder}/.env.debug"
     },
     {
       "name": "Firefox",
