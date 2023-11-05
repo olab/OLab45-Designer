@@ -5,13 +5,20 @@ const HtmlWebPackPlugin = require('html-webpack-plugin'),
   WorkboxPlugin = require('workbox-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
-
 if (process.env.NODE_ENV == "production") {
-  require('dotenv').config({ path: '.env.release' });
+  console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
+  require('dotenv').config({ path: '.env.production' });
 }
 else if (process.env.NODE_ENV == "development") {
-  require('dotenv').config({ path: '.env.debug' });
+  console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
+  require('dotenv').config({ path: '.env.development' });
+}
+else if (process.env.NODE_ENV == "azure") {
+  console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
+  require('dotenv').config({ path: '.env.azure' });
+}
+else {
+  console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
 }
 
 let isAbsoluteUrl = false;

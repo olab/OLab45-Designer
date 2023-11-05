@@ -13,11 +13,11 @@ fi
 npm install
 
 if [ "$1" == "debug" ]; then
-  npm run build:dev
+  npx webpack --node-env development
 fi
 
 if [ "$1" == "release" ]; then
-  npm run build
+  npx webpack --node-env production
 fi
 
 service nginx restart
