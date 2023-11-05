@@ -4,7 +4,7 @@ import defaultConfig from './apiConfig';
 import addInterceptors from './createInterceptors';
 
 const createInstance = (customConfig = {}) => {
-  alert(JSON.stringify(defaultConfig));
+  alert(JSON.stringify(process.env));
   const newConfig = merge(customConfig, defaultConfig);
   const instance = axios.create(newConfig);
 
