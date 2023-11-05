@@ -1,7 +1,7 @@
 {
   "name": "olab46designer",
   "homepage": "/designerdebug",
-  "version": "23.8.14-1",
+  "version": "23.11.05-1",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
