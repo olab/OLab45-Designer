@@ -5,6 +5,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin'),
   WorkboxPlugin = require('workbox-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
+
 if (process.env.NODE_ENV == "production") {
   require('dotenv').config({ path: '.env.release' });
 }
@@ -36,6 +38,7 @@ if (process.env.PUBLIC_URL) {
 const devServerHost = process.env.WEBPACK_HOST || 'localhost';
 
 module.exports = (env, options) => ({
+
   entry: {
     main: './src/index.jsx',
   },

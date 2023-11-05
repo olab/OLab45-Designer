@@ -32,8 +32,6 @@ const Login = ({
     return null;
   }
 
-  console.log(JSON.stringify(process.env));
-
   return (
     <main className={classes.main}>
       <Paper className={classes.paper}>
