@@ -83,6 +83,7 @@
     "d3-color": "^3.1.0"
   },
   "scripts": {
+    "build:azure": "webpack --env azure --mode development",
     "build:dev": "webpack --env debug --mode development",
     "build": "webpack --mode production",
     "format": "npx prettier --write src",
