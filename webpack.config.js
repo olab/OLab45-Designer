@@ -146,11 +146,14 @@ module.exports = (env, options) => ({
       filename: 'index.html',
       publicUrl: `${process.env.PUBLIC_URL || ''}`.replace(/\/{1,}$/g, ''),
     }),
+    new Dotenv({
+      path: `./.env.azure`,
+    })
     // use env variables in react
-    new webpack.DefinePlugin({
-      'process.env': JSON.stringify(process.env),
-      'process.env.npm_package_version': JSON.stringify(process.env.npm_package_version)
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env': JSON.stringify(process.env),
+    //   'process.env.npm_package_version': JSON.stringify(process.env.npm_package_version)
+    // }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[name].[id].css',

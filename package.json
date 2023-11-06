@@ -14,7 +14,6 @@
     "d3": "^5.9.2",
     "dagre": "^0.8.5",
     "dompurify": "^3.0.3",
-    "env-cmd": "^10.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.7",
     "formik": "^2.2.9",
@@ -84,7 +83,7 @@
     "d3-color": "^3.1.0"
   },
   "scripts": {
-    "build:azure": "env-cmd -f .env.azure npm run-script build",
+    "build:azure": "webpack --env azure --mode development",
     "build:dev": "webpack --env debug --mode development",
     "build": "webpack --mode production",
     "format": "npx prettier --write src",
