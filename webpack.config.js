@@ -4,7 +4,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin'),
   path = require('path'),
   WorkboxPlugin = require('workbox-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin');
-Dotenv = require('dotenv');
+const Dotenv = require('dotenv-webpack');
 
 // if (process.env.NODE_ENV == "production") {
 //   console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
