@@ -4,22 +4,23 @@ const HtmlWebPackPlugin = require('html-webpack-plugin'),
   path = require('path'),
   WorkboxPlugin = require('workbox-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin');
+Dotenv = require('dotenv');
 
-if (process.env.NODE_ENV == "production") {
-  console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
-  require('dotenv').config({ path: '.env.production' });
-}
-else if (process.env.NODE_ENV == "development") {
-  console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
-  require('dotenv').config({ path: '.env.development' });
-}
-else if (process.env.NODE_ENV == "azure") {
-  console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
-  require('dotenv').config({ path: '.env.azure' });
-}
-else {
-  console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
-}
+// if (process.env.NODE_ENV == "production") {
+//   console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
+//   require('dotenv').config({ path: '.env.production' });
+// }
+// else if (process.env.NODE_ENV == "development") {
+//   console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
+//   require('dotenv').config({ path: '.env.development' });
+// }
+// else if (process.env.NODE_ENV == "azure") {
+//   console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
+//   require('dotenv').config({ path: '.env.azure' });
+// }
+// else {
+//   console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
+// }
 
 let isAbsoluteUrl = false;
 
@@ -147,8 +148,8 @@ module.exports = (env, options) => ({
       publicUrl: `${process.env.PUBLIC_URL || ''}`.replace(/\/{1,}$/g, ''),
     }),
     new Dotenv({
-      path: `./.env.azure`,
-    })
+      path: `./.env.azure`
+    }),
     // use env variables in react
     // new webpack.DefinePlugin({
     //   'process.env': JSON.stringify(process.env),
