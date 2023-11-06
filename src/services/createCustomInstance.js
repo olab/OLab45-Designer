@@ -7,7 +7,7 @@ const createInstance = (customConfig = {}) => {
   const newConfig = merge(customConfig, defaultConfig);
   const instance = axios.create(newConfig);
 
-  console.log(`Axios config: ${JSON.stringify(newConfig)} `);
+  console.log(`Axios default: ${JSON.stringify(newConfig)} `);
 
   return addInterceptors(instance);
 };
