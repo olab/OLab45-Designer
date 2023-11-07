@@ -16,7 +16,7 @@ const TOKEN_LOCAL_STORAGE_KEY = 'token';
  */
 const authResponseRejectInterceptor = (error) => {
   if (error.response && error.response.status === 401) {
-    localStorage.removeItem(TOKEN_LOCAL_STORAGE_KEY);
+    localStorage.setItem(TOKEN_LOCAL_STORAGE_KEY, null);
     store.dispatch(ACTION_USER_AUTH_LOGOUT());
   }
 
