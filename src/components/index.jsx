@@ -82,14 +82,14 @@ export class App extends PureComponent<IAppProps> {
   }
 
   handleLogout(): void {
-    // TODO: move this into a saga/action
-    localStorage.setItem('token', null);
     const { ACTION_USER_AUTH_LOGOUT } = this.props;
     ACTION_USER_AUTH_LOGOUT();
   }
 
   render() {
     const { isAuth, history } = this.props;
+
+    console.log(`location: ${JSON.stringify(history)}`);
 
     return (
       <ConnectedRouter history={history}>
