@@ -41,6 +41,8 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
     super(props);
     const { mapId, nodeId, node, ACTION_GET_NODE_REQUESTED } = this.props;
 
+    console.log(`AdvancedNodeEditor ctor ${mapId} ${nodeId}`);
+
     ACTION_GET_NODE_REQUESTED(mapId, nodeId);
 
     this.state = { ...node };
