@@ -190,6 +190,8 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
       return null;
     }
 
+    console.log(`NodeEditor: ${mapId} ${nodeId}`);
+
     const hasUnsavedChanges = this.hasUnsavedChanges();
 
     return (
