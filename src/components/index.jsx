@@ -89,7 +89,8 @@ export class App extends PureComponent<IAppProps> {
   render() {
     const { isAuth, history } = this.props;
 
-    console.log(`location: ${JSON.stringify(history)}`);
+    // console.log(`this.props: ${JSON.stringify(this.props, null, 2)}`);
+    // console.log(`SCOPED_OBJECTS: ${JSON.stringify(SCOPED_OBJECTS, null, 2)}`);
 
     return (
       <ConnectedRouter history={history}>
