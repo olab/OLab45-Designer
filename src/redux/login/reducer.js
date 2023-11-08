@@ -49,7 +49,7 @@ const user = (state: UserType = initialUserState, action: UserActions) => {
       };
     case USER_AUTH_LOGOUT:
       // TODO: this needs to be moved where it 
-      // can be run on logout
+      // can be run on logout  
       localStorage.setItem("token", null);
       return {
         ...state,
