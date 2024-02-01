@@ -114,11 +114,8 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
     this.setState({ title });
   };
 
-  handleEditorChange = (
-    text: string,
-    { id: editorId }: { id: string },
-  ): void => {
-    this.setState({ [editorId]: text });
+  handleEditorChange = (text: string): void => {
+    this.setState({ text });
   };
 
   handleSelectChange = (e: Event): void => {
@@ -146,6 +143,9 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
       title,
       linkStyle,
       priorityId,
+      text,
+      info,
+      annotation
     } = this.state;
     const { classes, nodeId, mapId, node } = this.props;
 
@@ -161,9 +161,12 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
 
     // these are needed for TinyMCE to 'dis-control' the initialize
     // the editor text
-    const initialText = node.text;
-    const initialInfoText = node.info;
-    const initialAnnotationText = node.annotation;
+    const initialText = text;
+    const initialInfoText = info;
+    const initialAnnotationText = annotation;
+    // const initialText = node.text;
+    // const initialInfoText = node.info;
+    // const initialAnnotationText = node.annotation;
 
     return (
       <Container>
