@@ -48,6 +48,7 @@ const user = (state: UserType = initialUserState, action: UserActions) => {
         isFetching: false,
       };
     case USER_AUTH_LOGOUT:
+      localStorage.clear();      
       return {
         ...state,
         isAuth: false,

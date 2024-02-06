@@ -7,11 +7,7 @@ import NodeComponent from '.';
 describe('<NodeComponent />', () => {
   let output = {};
   beforeEach(() => {
-    output = shallow(
-      <NodeComponent
-        classes={{}}
-      />,
-    );
+    output = shallow(<NodeComponent classes={{}} />);
   });
 
   it('renders successfully', () => {

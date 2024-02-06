@@ -5,8 +5,12 @@ import { withRouter } from 'react-router-dom';
 import { withFormik, Form } from 'formik';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Button, FormControl, Input,
-  InputLabel, Paper, Typography,
+  Button,
+  FormControl,
+  Input,
+  InputLabel,
+  Paper,
+  Typography,
 } from '@material-ui/core';
 
 import * as authActions from '../../redux/login/action';
@@ -16,7 +20,11 @@ import type { UserLoginData, ILoginProps, PropsAuthAction } from './types';
 import styles from './styles';
 
 const Login = ({
-  classes, isAuth, values, handleChange, history,
+  classes,
+  isAuth,
+  values,
+  handleChange,
+  history,
 }: ILoginProps) => {
   if (isAuth) {
     history.goBack();
@@ -71,15 +79,14 @@ const loginFormikWrapper = withFormik({
     password,
   }),
   handleSubmit: (
-    values: UserLoginData, {
-      props: { ACTION_USER_AUTH_REQUESTED },
-    }: PropsAuthAction,
+    values: UserLoginData,
+    { props: { ACTION_USER_AUTH_REQUESTED } }: PropsAuthAction,
   ) => {
     ACTION_USER_AUTH_REQUESTED(values);
   },
 })(Login);
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_USER_AUTH_REQUESTED: (userLoginData: UserLoginData) => {
     dispatch(authActions.ACTION_USER_AUTH_REQUESTED(userLoginData));
   },
@@ -93,8 +100,4 @@ const mapStateToProps = ({ user: { isAuth, isFetching } }) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(
-  withStyles(styles)(
-    withRouter(loginFormikWrapper),
-  ),
-);
+)(withStyles(styles)(withRouter(loginFormikWrapper)));

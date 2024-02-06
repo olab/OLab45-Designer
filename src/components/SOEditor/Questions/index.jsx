@@ -4,21 +4,15 @@ import { Grid } from '@material-ui/core';
 
 // import CircularSpinnerWithText from '../../../shared/components/CircularSpinnerWithText';
 import { FieldLabel } from '../styles';
-import {
-  Title, Outlined, ContainerTitle,
-} from './styles';
+import { Title, Outlined, ContainerTitle } from './styles';
 import { getKeyByValue } from './utils';
-import {
-  DEFAULT_WIDTH,
-  DEFAULT_HEIGHT,
-  LAYOUT_TYPES,
-} from './config';
+import { DEFAULT_WIDTH, DEFAULT_HEIGHT, LAYOUT_TYPES } from './config';
 import {
   QUESTION_TYPES,
   TEXTENTRY_QUESTION_TYPES,
   CHOICE_QUESTION_TYPES,
   EDITORS_FIELDS,
-  TTALK_QUESTION_TYPES  
+  TTALK_QUESTION_TYPES,
 } from '../config';
 
 import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../config';
@@ -76,7 +70,7 @@ class Questions extends ScopedObjectService {
 
   onLayoutTypeChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
-    const index = LAYOUT_TYPES.findIndex(type => type === value);
+    const index = LAYOUT_TYPES.findIndex((type) => type === value);
     this.setState({ [name]: index });
   };
 
@@ -96,15 +90,21 @@ class Questions extends ScopedObjectService {
       scopeLevelObj,
     } = this.state;
 
-    const { classes, scopeLevels, match: { params: { scopedObjectId } } } = this.props;
+    const {
+      classes,
+      scopeLevels,
+      match: {
+        params: { scopedObjectId },
+      },
+    } = this.props;
     const isAdding = scopedObjectId === 'add';
 
     const { iconEven: IconEven, iconOdd: IconOdd } = this.icons;
 
-    const isChoiceQuestion = (questionType in CHOICE_QUESTION_TYPES);
+    const isChoiceQuestion = questionType in CHOICE_QUESTION_TYPES;
     const isSliderQuestion = QUESTION_TYPES[questionType] === QUESTION_TYPES[5];
-    const isTextQuestion = (questionType in TEXTENTRY_QUESTION_TYPES);
-    const isTTalkQuestion = (questionType in TTALK_QUESTION_TYPES);
+    const isTextQuestion = questionType in TEXTENTRY_QUESTION_TYPES;
+    const isTTalkQuestion = questionType in TTALK_QUESTION_TYPES;
 
     const idInfo = ` (Id: ${id})`;
 
@@ -115,15 +115,11 @@ class Questions extends ScopedObjectService {
         scopedObject={this.scopedObjectType}
         onSubmit={this.onClickedSave}
       >
-        {(id >= 0) && (
-          <small>{idInfo}</small>
-        )}
+        {id >= 0 && <small>{idInfo}</small>}
 
-        {(!this.isEditMode) && (questionType === 0) && (
+        {!this.isEditMode && questionType === 0 && (
           <>
-            <FieldLabel>
-              {EDITORS_FIELDS.QUESTION_TYPES}
-            </FieldLabel>
+            <FieldLabel>{EDITORS_FIELDS.QUESTION_TYPES}</FieldLabel>
             <OutlinedSelect
               name="questionType"
               value={QUESTION_TYPES[questionType]}
@@ -134,7 +130,7 @@ class Questions extends ScopedObjectService {
           </>
         )}
 
-        {(isChoiceQuestion) && (
+        {isChoiceQuestion && (
           <ChoiceQuestionLayout
             isEditMode={this.isEditMode}
             onInputChange={this.onInputChange}
@@ -146,7 +142,7 @@ class Questions extends ScopedObjectService {
           />
         )}
 
-        {(isTextQuestion) && (
+        {isTextQuestion && (
           <TextQuestionLayout
             onInputChange={this.onInputChange}
             onQuestionTypeChange={this.onQuestionTypeChange}
@@ -157,8 +153,7 @@ class Questions extends ScopedObjectService {
           />
         )}
 
-
-        {(isSliderQuestion) && (
+        {isSliderQuestion && (
           <SliderQuestionLayout
             onInputChange={this.onInputChange}
             onQuestionTypeChange={this.onQuestionTypeChange}
@@ -169,7 +164,7 @@ class Questions extends ScopedObjectService {
           />
         )}
 
-        {(isTTalkQuestion) && (
+        {isTTalkQuestion && (
           <TTalkQuestionLayout
             onInputChange={this.onInputChange}
             onQuestionTypeChange={this.onQuestionTypeChange}
@@ -181,9 +176,7 @@ class Questions extends ScopedObjectService {
         )}
 
         <ContainerTitle>
-          <Title>
-            {EDITORS_FIELDS.PARENT}
-          </Title>
+          <Title>{EDITORS_FIELDS.PARENT}</Title>
         </ContainerTitle>
 
         <Grid container spacing={3}>
@@ -218,7 +211,7 @@ class Questions extends ScopedObjectService {
           </Grid>
         </Grid>
 
-        {(isShowModal) && (
+        {isShowModal && (
           <SearchModal
             label="Parent record"
             searchLabel="Search for parent record"

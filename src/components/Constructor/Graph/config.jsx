@@ -7,7 +7,13 @@ const StandardEdgeShape = (
     <circle r="12" transform="matrix(1 0 0 -1 12 12)" />
 
     <g transform="translate(18, 11) rotate(90)">
-      <path d="M1 13L1 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M1 13L1 1"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </g>
   </symbol>
 );

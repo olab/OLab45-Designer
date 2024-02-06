@@ -3,7 +3,12 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  List, ListItem, Popover, IconButton, CircularProgress, Typography,
+  List,
+  ListItem,
+  Popover,
+  IconButton,
+  CircularProgress,
+  Typography,
 } from '@material-ui/core';
 
 import EyeIcon from '../../../../shared/assets/icons/eye.svg';
@@ -18,7 +23,10 @@ import type { IEyeComponentProps, IEyeComponentState } from './types';
 
 import styles from './styles';
 
-class EyeComponent extends PureComponent<IEyeComponentProps, IEyeComponentState> {
+class EyeComponent extends PureComponent<
+  IEyeComponentProps,
+  IEyeComponentState,
+> {
   state: IEyeComponentState = {
     isShowTooltip: false,
     eyeIconRef: null,
@@ -49,27 +57,28 @@ class EyeComponent extends PureComponent<IEyeComponentProps, IEyeComponentState>
     }
 
     this.setEyeIconRef(e.currentTarget.parentElement);
-  }
+  };
 
   setEyeIconRef = (target: any): void => {
     this.setState({ eyeIconRef: target });
-  }
+  };
 
   showTooltip = (): void => {
     this.setState({ isShowTooltip: true });
-  }
+  };
 
   closeTooltip = (): void => {
     this.setState({
       isShowTooltip: false,
       eyeIconRef: null,
     });
-  }
+  };
 
   render() {
     const { isShowTooltip, eyeIconRef } = this.state;
     const { isShowSpinner, additionalInfo, classes } = this.props;
-    const isShowPopover = isShowTooltip && !isShowSpinner && Boolean(eyeIconRef);
+    const isShowPopover =
+      isShowTooltip && !isShowSpinner && Boolean(eyeIconRef);
 
     return (
       <div>
@@ -99,12 +108,9 @@ class EyeComponent extends PureComponent<IEyeComponentProps, IEyeComponentState>
           {Boolean(additionalInfo) && (
             <List className={classes.root}>
               {Object.keys(additionalInfo)
-                .filter(key => !FILTER_VALUES.includes(additionalInfo[key]))
+                .filter((key) => !FILTER_VALUES.includes(additionalInfo[key]))
                 .map((key, i, arr) => (
-                  <ListItem
-                    key={key}
-                    divider={(i !== arr.length - 1)}
-                  >
+                  <ListItem key={key} divider={i !== arr.length - 1}>
                     <Typography
                       variant="subtitle2"
                       className={classes.typography}
@@ -122,12 +128,17 @@ class EyeComponent extends PureComponent<IEyeComponentProps, IEyeComponentState>
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  ACTION_SCOPED_OBJECT_DETAILS_REQUESTED: (scopedObjectId: number, scopedObjectType: string) => {
-    dispatch(scopedObjectsActions.ACTION_SCOPED_OBJECT_DETAILS_REQUESTED(
-      scopedObjectId,
-      scopedObjectType,
-    ));
+const mapDispatchToProps = (dispatch) => ({
+  ACTION_SCOPED_OBJECT_DETAILS_REQUESTED: (
+    scopedObjectId: number,
+    scopedObjectType: string,
+  ) => {
+    dispatch(
+      scopedObjectsActions.ACTION_SCOPED_OBJECT_DETAILS_REQUESTED(
+        scopedObjectId,
+        scopedObjectType,
+      ),
+    );
   },
 });
 

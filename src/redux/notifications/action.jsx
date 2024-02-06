@@ -16,30 +16,34 @@ import {
 
 import { DEFAULTS } from './config';
 
-export const ACTION_NOTIFICATION_SUCCESS = (message: string) => createNotification({
-  message,
-  type: NOTIFICATION_TYPE_SUCCESS,
-  icon: <SuccessIcon />,
-  ...DEFAULTS,
-});
+export const ACTION_NOTIFICATION_SUCCESS = (message: string) =>
+  createNotification({
+    message,
+    type: NOTIFICATION_TYPE_SUCCESS,
+    icon: <SuccessIcon />,
+    ...DEFAULTS,
+  });
 
-export const ACTION_NOTIFICATION_WARNING = (message: string) => createNotification({
-  message,
-  type: NOTIFICATION_TYPE_WARNING,
-  icon: <WarningIcon />,
-  ...DEFAULTS,
-});
+export const ACTION_NOTIFICATION_WARNING = (message: string) =>
+  createNotification({
+    message,
+    type: NOTIFICATION_TYPE_WARNING,
+    icon: <WarningIcon />,
+    ...DEFAULTS,
+  });
 
-export const ACTION_NOTIFICATION_ERROR = (message: string) => createNotification({
-  message,
-  type: NOTIFICATION_TYPE_ERROR,
-  icon: <ErrorIcon />,
-  ...DEFAULTS,
-});
+export const ACTION_NOTIFICATION_ERROR = (message: string) =>
+  createNotification({
+    message,
+    type: NOTIFICATION_TYPE_ERROR,
+    icon: <ErrorIcon />,
+    ...DEFAULTS,
+  });
 
-export const ACTION_NOTIFICATION_INFO = (message: string) => createNotification({
-  message,
-  type: NOTIFICATION_TYPE_INFO,
-  icon: <InfoIcon />,
-  ...DEFAULTS,
-});
+export const ACTION_NOTIFICATION_INFO = (message: string) =>
+  createNotification({
+    message,
+    type: NOTIFICATION_TYPE_INFO,
+    icon: <InfoIcon />,
+    ...DEFAULTS,
+  });

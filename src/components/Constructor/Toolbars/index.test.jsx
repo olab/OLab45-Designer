@@ -59,12 +59,14 @@ describe('<Toolbars />', () => {
       e = {
         target: {
           closest: jest.fn().mockReturnValue({
-            getClientRects: jest.fn().mockReturnValue([{
-              x: 50,
-              y: 50,
-              width: 100,
-              height: 100,
-            }]),
+            getClientRects: jest.fn().mockReturnValue([
+              {
+                x: 50,
+                y: 50,
+                width: 100,
+                height: 100,
+              },
+            ]),
           }),
         },
       };

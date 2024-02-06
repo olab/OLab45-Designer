@@ -14,10 +14,18 @@ import styles from './styles';
 
 const HeaderActionBar = ({ classes }: IHeaderActionBarProps) => (
   <>
-    <Fab data-active="true" data-action={ACTION_COLLAPSE} className={classes.actionBarButton}>
+    <Fab
+      data-active="true"
+      data-action={ACTION_COLLAPSE}
+      className={classes.actionBarButton}
+    >
       <MinimizeIcon />
     </Fab>
-    <Fab data-active="true" data-action={ACTION_LOCK} className={classes.actionBarButton}>
+    <Fab
+      data-active="true"
+      data-action={ACTION_LOCK}
+      className={classes.actionBarButton}
+    >
       <LockIcon />
     </Fab>
   </>

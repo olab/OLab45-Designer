@@ -6,3 +6,5 @@ const defaultConfig = {
 };
 
 export default defaultConfig;
+
+export const NODE_EDITOR_AUTOSAVE_TIMEOUT = 100; // in milliseconds

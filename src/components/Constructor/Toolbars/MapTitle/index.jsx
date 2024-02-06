@@ -3,7 +3,10 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  FormControl, Input, FormHelperText, InputAdornment,
+  FormControl,
+  Input,
+  FormHelperText,
+  InputAdornment,
 } from '@material-ui/core';
 
 import PencilIcon from '../../../../shared/assets/icons/pencil.svg';
@@ -49,11 +52,11 @@ class MapTitle extends PureComponent<IMapTitleProps, IMapTitleState> {
     if (!title) {
       this.focusInput();
     }
-  }
+  };
 
   handleFocus = (): void => {
     this.setState({ isFocused: true });
-  }
+  };
 
   handleBlur = (): void => {
     const { title } = this.state;
@@ -74,7 +77,7 @@ class MapTitle extends PureComponent<IMapTitleProps, IMapTitleState> {
     this.blurInput();
 
     ACTION_UPDATE_MAP_DETAILS_REQUESTED({ name: title });
-  }
+  };
 
   handleSubmit = (e: Event): void => {
     if (e.preventDefault) {
@@ -82,19 +85,19 @@ class MapTitle extends PureComponent<IMapTitleProps, IMapTitleState> {
     }
 
     this.blurInput();
-  }
+  };
 
   focusInput = (): void => {
     if (this.inputRef) {
       this.inputRef.focus();
     }
-  }
+  };
 
   blurInput = (): void => {
     if (this.inputRef) {
       this.inputRef.blur();
     }
-  }
+  };
 
   render() {
     // eslint-disable-next-line no-unused-vars
@@ -103,10 +106,7 @@ class MapTitle extends PureComponent<IMapTitleProps, IMapTitleState> {
 
     return (
       <MapTitleWrapper onSubmit={this.handleSubmit}>
-        <FormControl
-          className={classes.formControl}
-          error={isError}
-        >
+        <FormControl className={classes.formControl} error={isError}>
           <Input
             placeholder="Labyrinth name"
             classes={{
@@ -123,11 +123,11 @@ class MapTitle extends PureComponent<IMapTitleProps, IMapTitleState> {
             autoComplete="off"
             disableUnderline={!isError}
             aria-describedby="component-error-text"
-            startAdornment={(
+            startAdornment={
               <InputAdornment className={classes.pencilIcon} position="start">
                 <PencilIcon />
               </InputAdornment>
-            )}
+            }
           />
           {isError && (
             <FormHelperText
@@ -145,7 +145,7 @@ class MapTitle extends PureComponent<IMapTitleProps, IMapTitleState> {
 
 const mapStateToProps = ({ mapDetails }) => ({ title: mapDetails.name });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_UPDATE_MAP_DETAILS_REQUESTED: (mapDetails: MapDetails) => {
     dispatch(mapDetailsActions.ACTION_UPDATE_MAP_DETAILS_REQUESTED(mapDetails));
   },

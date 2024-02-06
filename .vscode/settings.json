@@ -16,10 +16,13 @@
     "titleBar.activeBackground": "#b75871",
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#b7587199",
-    "titleBar.inactiveForeground": "#e7e7e799"
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "commandCenter.border": "#e7e7e799"
   },
   "peacock.color": "#b75871",
-  "editor.codeActionsOnSave": { "source.fixAll": true },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
   "editor.formatOnSave": true,
   "editor.formatOnPaste": false,
   // please install and enable Prettier official extension

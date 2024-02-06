@@ -5,9 +5,13 @@ This component renders standalone edge.
 import React from 'react';
 
 import {
-  getVariantValueDOM, getMinRadius,
-  getEdgeHandleOffsetTranslation, getOffset,
-  calculateAngle, lineFunction, getXlinkHref,
+  getVariantValueDOM,
+  getMinRadius,
+  getEdgeHandleOffsetTranslation,
+  getOffset,
+  calculateAngle,
+  lineFunction,
+  getXlinkHref,
 } from './utils';
 import { EDGE_HANDLE_SIZE } from './config';
 
@@ -28,20 +32,22 @@ export class Edge extends React.Component<IEdgeProps> {
       .replace(/L/, ',')
       .split(',');
 
-    const diffX = parseFloat(pathDescriptionArr[2]) - parseFloat(pathDescriptionArr[0]);
-    const diffY = parseFloat(pathDescriptionArr[3]) - parseFloat(pathDescriptionArr[1]);
+    const diffX =
+      parseFloat(pathDescriptionArr[2]) - parseFloat(pathDescriptionArr[0]);
+    const diffY =
+      parseFloat(pathDescriptionArr[3]) - parseFloat(pathDescriptionArr[1]);
     const x = parseFloat(pathDescriptionArr[0]) + diffX / 2;
     const y = parseFloat(pathDescriptionArr[1]) + diffY / 2;
 
     return `translate(${x}, ${y})`;
-  }
+  };
 
   getEdgeHandleRotation = () => {
     const { sourceNode: src, targetNode: trg } = this.props;
     const theta = calculateAngle(src, trg);
 
     return `rotate(${theta})`;
-  }
+  };
 
   getEdgeHandleTransformation = () => {
     const translation = this.getEdgeHandleTranslation();
@@ -49,15 +55,15 @@ export class Edge extends React.Component<IEdgeProps> {
     const offset = getEdgeHandleOffsetTranslation();
 
     return `${translation} ${rotation} ${offset}`;
-  }
+  };
 
   getPathDescription() {
     const { sourceNode = {}, targetNode = {}, hasSibling } = this.props;
 
-    const trgX = (targetNode && targetNode.x) ? targetNode.x : 0;
-    const trgY = (targetNode && targetNode.y) ? targetNode.y : 0;
-    const srcX = (sourceNode && sourceNode.x) ? sourceNode.x : 0;
-    const srcY = (sourceNode && sourceNode.y) ? sourceNode.y : 0;
+    const trgX = targetNode && targetNode.x ? targetNode.x : 0;
+    const trgY = targetNode && targetNode.y ? targetNode.y : 0;
+    const srcX = sourceNode && sourceNode.x ? sourceNode.x : 0;
+    const srcY = sourceNode && sourceNode.y ? sourceNode.y : 0;
 
     const minRadius = getMinRadius(sourceNode, targetNode);
 
@@ -71,14 +77,8 @@ export class Edge extends React.Component<IEdgeProps> {
       const deltaY = minRadius * Math.sin(thetaRadians);
 
       linePoints = [
-        [
-          srcX - deltaX,
-          srcY - deltaY,
-        ],
-        [
-          trgX - deltaX,
-          trgY - deltaY,
-        ],
+        [srcX - deltaX, srcY - deltaY],
+        [trgX - deltaX, trgY - deltaY],
       ];
     } else {
       const [srcDeltaX, srcDeltaY] = getOffset(
@@ -94,14 +94,8 @@ export class Edge extends React.Component<IEdgeProps> {
       );
 
       linePoints = [
-        [
-          srcX + srcDeltaX,
-          srcY + srcDeltaY,
-        ],
-        [
-          trgX + trgDeltaX,
-          trgY + trgDeltaY,
-        ],
+        [srcX + srcDeltaX, srcY + srcDeltaY],
+        [trgX + trgDeltaX, trgY + trgDeltaY],
       ];
     }
 
@@ -112,7 +106,12 @@ export class Edge extends React.Component<IEdgeProps> {
 
   render() {
     const {
-      data, edgeTypes, viewWrapperElem, isSelected: selected, isLinkingStarted, edgeDefaults,
+      data,
+      edgeTypes,
+      viewWrapperElem,
+      isSelected: selected,
+      isLinkingStarted,
+      edgeDefaults,
     } = this.props;
 
     if (!viewWrapperElem) {
@@ -122,11 +121,12 @@ export class Edge extends React.Component<IEdgeProps> {
     const id = `${data.source || ''}_${data.target}`;
 
     return (
-      <g className="edge-container" data-source={data.source} data-target={data.target}>
-        <EdgeWrapper
-          selected={selected}
-          isLinkingStarted={isLinkingStarted}
-        >
+      <g
+        className="edge-container"
+        data-source={data.source}
+        data-target={data.target}
+      >
+        <EdgeWrapper selected={selected} isLinkingStarted={isLinkingStarted}>
           <path
             stroke={data.color || edgeDefaults.color}
             strokeWidth={`${data.thickness || edgeDefaults.thickness}px`}

@@ -51,9 +51,9 @@ export const EDITORS_FIELDS = {
 };
 
 export const CORRECTNESS_TYPES = {
-  0: 'Incorrect',
+  '-1': 'Incorrect',
   1: 'Correct',
-  2: 'Neutral',
+  0: 'Neutral',
 };
 
 // NOTE: as more types come online, the relative in-array

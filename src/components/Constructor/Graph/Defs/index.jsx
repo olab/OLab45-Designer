@@ -37,16 +37,12 @@ export class Defs extends React.Component<IDefsProps, IDefsState> {
 
   render() {
     const { graphConfigDefs } = this.state;
-    const {
-      edgeArrowSize, gridSpacing, gridDotSize, renderDefs,
-    } = this.props;
+    const { edgeArrowSize, gridSpacing, gridDotSize, renderDefs } = this.props;
 
     return (
       <defs>
         {graphConfigDefs}
-        <ArrowHead
-          edgeArrowSize={edgeArrowSize}
-        />
+        <ArrowHead edgeArrowSize={edgeArrowSize} />
         <BackgroundPattern
           gridSpacing={gridSpacing}
           gridDotSize={gridDotSize}

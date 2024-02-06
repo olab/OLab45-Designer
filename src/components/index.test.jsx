@@ -9,11 +9,7 @@ describe('<App />', () => {
   let isAuth;
   beforeEach(() => {
     isAuth = false;
-    output = shallow(
-      <App
-        isAuth={isAuth}
-      />,
-    );
+    output = shallow(<App isAuth={isAuth} />);
   });
 
   it('renders successfully', () => {

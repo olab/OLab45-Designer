@@ -17,7 +17,11 @@ import { getNodesReduced, unEscapeNodes } from './utils';
 import { KEY_S } from '../config';
 import { FIELDS_TO_SEARCH } from './config';
 
-import type { NodeGridProps as IProps, NodeGridState as IState, Node as NodeType } from './types';
+import type {
+  NodeGridProps as IProps,
+  NodeGridState as IState,
+  Node as NodeType,
+} from './types';
 
 import styles, { Wrapper, Header, Label } from '../CounterGrid/styles';
 
@@ -26,9 +30,7 @@ class NodeGrid extends Component<IProps, IState> {
 
   constructor(props: IProps) {
     super(props);
-    const {
-      mapId, mapIdUrl, nodes, ACTION_GET_WHOLE_MAP_MIDDLEWARE,
-    } = props;
+    const { mapId, mapIdUrl, nodes, ACTION_GET_WHOLE_MAP_MIDDLEWARE } = props;
     const isPageRefreshed = mapIdUrl && !mapId;
 
     if (isPageRefreshed) {
@@ -62,9 +64,7 @@ class NodeGrid extends Component<IProps, IState> {
   };
 
   handleModalShow = (isClosed: boolean | void): void => {
-    this.isModalOpen = isBoolean(isClosed)
-      ? isClosed
-      : !this.isModalOpen;
+    this.isModalOpen = isBoolean(isClosed) ? isClosed : !this.isModalOpen;
 
     this.forceUpdate();
   };
@@ -113,27 +113,25 @@ class NodeGrid extends Component<IProps, IState> {
           </div>
         </Header>
         <Divider />
-        {
-          isFetching
-            ? <CircularSpinnerWithText large centered />
-            : (
-              <CustomCtrlH
-                data={nodes}
-                fields={FIELDS_TO_SEARCH}
-                isShow={this.isModalOpen}
-                onModalShow={this.handleModalShow}
-                onStateChange={this.handleStateChange}
-              >
-                {(data, handleTableChange, handleSearchPopupClose) => (
-                  <NodeGridTable
-                    nodes={data}
-                    onTableChange={handleTableChange}
-                    onSearchPopupClose={handleSearchPopupClose}
-                  />
-                )}
-              </CustomCtrlH>
-            )
-        }
+        {isFetching ? (
+          <CircularSpinnerWithText large centered />
+        ) : (
+          <CustomCtrlH
+            data={nodes}
+            fields={FIELDS_TO_SEARCH}
+            isShow={this.isModalOpen}
+            onModalShow={this.handleModalShow}
+            onStateChange={this.handleStateChange}
+          >
+            {(data, handleTableChange, handleSearchPopupClose) => (
+              <NodeGridTable
+                nodes={data}
+                onTableChange={handleTableChange}
+                onSearchPopupClose={handleSearchPopupClose}
+              />
+            )}
+          </CustomCtrlH>
+        )}
       </Wrapper>
     );
   }
@@ -141,7 +139,11 @@ class NodeGrid extends Component<IProps, IState> {
 
 const mapStateToProps = (
   { map: { nodes, isFetching }, mapDetails: { id: mapId } },
-  { match: { params: { mapId: mapIdUrl } } },
+  {
+    match: {
+      params: { mapId: mapIdUrl },
+    },
+  },
 ) => ({
   mapIdUrl: Number(mapIdUrl),
   nodes,
@@ -149,7 +151,7 @@ const mapStateToProps = (
   mapId,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_GET_WHOLE_MAP_MIDDLEWARE: (mapId: number) => {
     dispatch(wholeMapActions.ACTION_GET_WHOLE_MAP_MIDDLEWARE(mapId));
   },

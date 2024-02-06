@@ -13,13 +13,24 @@ import { LINK_STYLES } from '../../config';
 import type { SecondaryTabProps as IProps } from './types';
 
 import styles, {
-  Title, TextEditorBlock, TextEditorWrapper,
-  BlockCheckbox, CheckBoxContainer, TextFieldContainer,
+  Title,
+  TextEditorBlock,
+  TextEditorWrapper,
+  BlockCheckbox,
+  CheckBoxContainer,
+  TextFieldContainer,
 } from './styles';
 
 const SecondaryTab = ({
-  classes, info = '', nodeId = 0, annotation = '', linkStyle = 1, priorityId = 1,
-  handleSelectChange, handleEditorChange, handleKeyDown,
+  classes,
+  info = '',
+  nodeId = 0,
+  annotation = '',
+  linkStyle = 1,
+  priorityId = 1,
+  handleSelectChange,
+  handleEditorChange,
+  handleKeyDown,
 }: IProps) => {
   const keyword = `[[INFO:${nodeId}]]`;
 

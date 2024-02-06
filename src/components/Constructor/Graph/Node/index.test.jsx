@@ -41,7 +41,6 @@ describe('Node component', () => {
 
     // this gets around d3 being readonly, we need to customize the event object
     let globalEvent = {
-
       sourceEvent: {},
     };
     // $flow-disable-line
@@ -169,11 +168,7 @@ describe('Node component', () => {
         },
       };
       output.instance().handleDragEnd();
-      expect(onNodeUpdate).toHaveBeenCalledWith(
-        { x: 5, y: 10 },
-        '1',
-        true,
-      );
+      expect(onNodeUpdate).toHaveBeenCalledWith({ x: 5, y: 10 }, '1', true);
       expect(onNodeSelected).toHaveBeenCalledWith(nodeData, '1', true);
     });
   });
@@ -227,11 +222,7 @@ describe('Node component', () => {
         y: 50,
       };
       output.instance().handleMouseMove();
-      expect(onNodeMove).toHaveBeenCalledWith(
-        { x: 20, y: 50 },
-        '1',
-        true,
-      );
+      expect(onNodeMove).toHaveBeenCalledWith({ x: 20, y: 50 }, '1', true);
     });
 
     it('calls the onNodeMove callback with the shiftKey not pressed', () => {
@@ -244,11 +235,7 @@ describe('Node component', () => {
         y: 50,
       };
       output.instance().handleMouseMove();
-      expect(onNodeMove).toHaveBeenCalledWith(
-        { x: 20, y: 50 },
-        '1',
-        false,
-      );
+      expect(onNodeMove).toHaveBeenCalledWith({ x: 20, y: 50 }, '1', false);
     });
 
     it('uses a layoutEngine to obtain a new position', () => {
@@ -277,11 +264,7 @@ describe('Node component', () => {
       };
       output.instance().handleMouseMove();
 
-      expect(onNodeMove).toHaveBeenCalledWith(
-        { x: 100, y: 200 },
-        '1',
-        false,
-      );
+      expect(onNodeMove).toHaveBeenCalledWith({ x: 100, y: 200 }, '1', false);
     });
   });
 });

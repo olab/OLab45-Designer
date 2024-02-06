@@ -16,9 +16,7 @@ import { EDITORS_FIELDS } from '../config';
 import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../config';
 
 import { FieldLabel } from '../styles';
-import {
-  Title, Outlined, ContainerTitle,
-} from './styles';
+import { Title, Outlined, ContainerTitle } from './styles';
 
 class Counters extends ScopedObjectService {
   constructor(props: IScopedObjectProps) {
@@ -47,13 +45,14 @@ class Counters extends ScopedObjectService {
       case 'visible':
         valuesList = VISIBILITY;
         break;
-      default: break;
+      default:
+        break;
     }
 
-    const valueNumbered = valuesList.findIndex(item => item === value);
+    const valueNumbered = valuesList.findIndex((item) => item === value);
 
     this.setState({ [name]: valueNumbered });
-  }
+  };
 
   render() {
     const {
@@ -66,9 +65,9 @@ class Counters extends ScopedObjectService {
       visible,
       isShowModal,
       isFieldsDisabled,
-      scopeLevelObj
+      scopeLevelObj,
     } = this.state;
-    
+
     const { classes, scopeLevels } = this.props;
     const { iconEven: IconEven, iconOdd: IconOdd } = this.icons;
     const idInfo = `Id: ${id}`;
@@ -80,10 +79,7 @@ class Counters extends ScopedObjectService {
         scopedObject={this.scopedObjectType}
         onSubmit={this.onClickUpdate}
       >
-
-        {(id >= 0) && (
-          <small>{idInfo}</small>
-        )}
+        {id >= 0 && <small>{idInfo}</small>}
 
         <FieldLabel>
           {EDITORS_FIELDS.NAME}
@@ -128,9 +124,7 @@ class Counters extends ScopedObjectService {
             fullWidth
           />
         </FieldLabel>
-        <FieldLabel>
-          {EDITORS_FIELDS.SCOPED_OBJECT_STATUS}
-        </FieldLabel>
+        <FieldLabel>{EDITORS_FIELDS.SCOPED_OBJECT_STATUS}</FieldLabel>
         <OutlinedSelect
           name="status"
           value={COUNTER_STATUSES[status]}
@@ -138,9 +132,7 @@ class Counters extends ScopedObjectService {
           onChange={this.handleSelectChoose}
           disabled={isFieldsDisabled}
         />
-        <FieldLabel>
-          {EDITORS_FIELDS.VISIBLE}
-        </FieldLabel>
+        <FieldLabel>{EDITORS_FIELDS.VISIBLE}</FieldLabel>
         <OutlinedSelect
           name="visible"
           value={VISIBILITY[visible]}
@@ -150,9 +142,7 @@ class Counters extends ScopedObjectService {
         />
 
         <ContainerTitle>
-          <Title>
-            {EDITORS_FIELDS.PARENT}
-          </Title>
+          <Title>{EDITORS_FIELDS.PARENT}</Title>
         </ContainerTitle>
 
         <Grid container spacing={3}>

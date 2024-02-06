@@ -7,7 +7,11 @@ import { EDITORS_FIELDS, CHOICE_QUESTION_TYPES } from '../../config';
 import { LAYOUT_TYPES } from '../config';
 import ListWithSearch from '../../../../shared/components/ListWithSearch';
 import OutlinedSelect from '../../../../shared/components/OutlinedSelect';
-import styles, { FieldLabel, SwitchWrapper, ListWithSearchWrapper } from '../../styles';
+import styles, {
+  FieldLabel,
+  SwitchWrapper,
+  ListWithSearchWrapper,
+} from '../../styles';
 import Switch from '../../../../shared/components/Switch';
 import type { IChoiceQuestionLayoutProps } from './types';
 
@@ -39,18 +43,14 @@ function ChoiceQuestionLayout({
     questionType,
   } = state;
 
-  const showSubmitBoolean = ( showSubmit == 1 );
+  const showSubmitBoolean = showSubmit == 1;
 
   return (
     <>
-      {(!isEditMode) && (
-        <center>
-          Create is required before adding Question Responses
-        </center>
+      {!isEditMode && (
+        <center>Create is required before adding Question Responses</center>
       )}
-      <FieldLabel>
-        {EDITORS_FIELDS.QUESTION_TYPES}
-      </FieldLabel>
+      <FieldLabel>{EDITORS_FIELDS.QUESTION_TYPES}</FieldLabel>
       <OutlinedSelect
         name="questionType"
         value={CHOICE_QUESTION_TYPES[questionType]}
@@ -86,7 +86,7 @@ function ChoiceQuestionLayout({
           className={classes.textField}
           margin="normal"
           variant="outlined"
-          value={description || '' }
+          value={description || ''}
           onChange={onInputChange}
           disabled={isFieldsDisabled}
           fullWidth
@@ -129,9 +129,7 @@ function ChoiceQuestionLayout({
         />
       </SwitchWrapper>
 
-      <FieldLabel>
-        {EDITORS_FIELDS.LAYOUT_TYPE}
-      </FieldLabel>
+      <FieldLabel>{EDITORS_FIELDS.LAYOUT_TYPE}</FieldLabel>
       <OutlinedSelect
         name="layoutType"
         value={LAYOUT_TYPES[layoutType]}
@@ -157,7 +155,7 @@ function ChoiceQuestionLayout({
         />
       </FieldLabel>
 
-      {(isEditMode) && (
+      {isEditMode && (
         <>
           <FieldLabel>
             {EDITORS_FIELDS.RESPONSES}

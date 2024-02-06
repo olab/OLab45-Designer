@@ -14,13 +14,15 @@ describe('<GraphUndoRedoButtons />', () => {
   beforeEach(() => {
     ACTION_UNDO_MAP = jest.fn();
     ACTION_REDO_MAP = jest.fn();
-    wrapper = mount(<GraphUndoRedoButtons
-      classes={classes}
-      ACTION_UNDO_MAP={ACTION_UNDO_MAP}
-      ACTION_REDO_MAP={ACTION_REDO_MAP}
-      isUndoAvailable
-      isRedoAvailable
-    />);
+    wrapper = mount(
+      <GraphUndoRedoButtons
+        classes={classes}
+        ACTION_UNDO_MAP={ACTION_UNDO_MAP}
+        ACTION_REDO_MAP={ACTION_REDO_MAP}
+        isUndoAvailable
+        isRedoAvailable
+      />,
+    );
   });
 
   it('renders successfully', () => {

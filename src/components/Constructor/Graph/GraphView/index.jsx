@@ -18,17 +18,28 @@ import Background from '../Background';
 import ZoomControls from '../ZoomControls';
 
 import {
-  CURSOR_DEFAULT, CURSOR_CUSTOM_CROSSHAIR, ZOOM_CONTROLS_ID,
+  CURSOR_DEFAULT,
+  CURSOR_CUSTOM_CROSSHAIR,
+  ZOOM_CONTROLS_ID,
 } from '../../config';
 
 import * as constructorActions from '../../../../redux/constructor/action';
 
 import {
-  getEdgePathElement, parsePathToXY, calculateOffset,
+  getEdgePathElement,
+  parsePathToXY,
+  calculateOffset,
 } from '../Edge/utils';
 import {
-  removeEdgeElement, isPartOfEdge, zoomFilter, getClickedDOMNodeId, yieldingLoop,
-  removeElementFromDom, linkNodesAndEdges, getEdgesMap, getNodesMap,
+  removeEdgeElement,
+  isPartOfEdge,
+  zoomFilter,
+  getClickedDOMNodeId,
+  yieldingLoop,
+  removeElementFromDom,
+  linkNodesAndEdges,
+  getEdgesMap,
+  getNodesMap,
 } from './utils';
 import LayoutEngines from '../utilities/layout-engine/layout-engine-config';
 
@@ -38,7 +49,10 @@ import type { INodeMapNode, IGraphViewState, IGraphViewProps } from './types';
 
 import { View, ViewWrapper, GraphWrapper } from './styles';
 
-export class GraphView extends React.Component<IGraphViewProps, IGraphViewState> {
+export class GraphView extends React.Component<
+  IGraphViewProps,
+  IGraphViewState,
+> {
   constructor(props: IGraphViewProps) {
     super(props);
 
@@ -82,24 +96,31 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     zoomDur: 750,
   };
 
-  static getDerivedStateFromProps(nextProps: IGraphViewProps, prevState: IGraphViewState) {
+  static getDerivedStateFromProps(
+    nextProps: IGraphViewProps,
+    prevState: IGraphViewState,
+  ) {
     let { nodes } = nextProps;
     const { edges } = nextProps;
     const nodesMap = getNodesMap(nodes);
     const edgesMap = getEdgesMap(edges);
     linkNodesAndEdges(nodesMap, edges);
 
-    const selectedNodeMap = nextProps.selected && nodesMap[`key-${nextProps.selected.id}`]
-      ? nodesMap[`key-${nextProps.selected.id}`]
-      : null;
-    const selectedEdgeMap = nextProps.selected && edgesMap[`${nextProps.selected.source}_${nextProps.selected.target}`]
-      ? edgesMap[`${nextProps.selected.source}_${nextProps.selected.target}`]
-      : null;
+    const selectedNodeMap =
+      nextProps.selected && nodesMap[`key-${nextProps.selected.id}`]
+        ? nodesMap[`key-${nextProps.selected.id}`]
+        : null;
+    const selectedEdgeMap =
+      nextProps.selected &&
+      edgesMap[`${nextProps.selected.source}_${nextProps.selected.target}`]
+        ? edgesMap[`${nextProps.selected.source}_${nextProps.selected.target}`]
+        : null;
 
     // Handle layoutEngine on initial render
-    if (prevState.nodes.length === 0
-        && nextProps.layoutEngine
-        && LayoutEngines[nextProps.layoutEngine]
+    if (
+      prevState.nodes.length === 0 &&
+      nextProps.layoutEngine &&
+      LayoutEngines[nextProps.layoutEngine]
     ) {
       const layoutEngine = new LayoutEngines[nextProps.layoutEngine](nextProps);
       nodes = layoutEngine.adjustNodes(nodes, nodesMap);
@@ -140,8 +161,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       .on('zoom', this.handleZoom)
       .on('end', this.handleZoomEnd);
 
-    d3
-      .select(this.viewWrapper.current)
+    d3.select(this.viewWrapper.current)
       .on('click', this.handleSvgClicked) // handle element click in the element components
       .on('mouseup', this.stopResizing)
       .select('svg')
@@ -155,22 +175,25 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     this.asyncHandleZoomToFit(zoomDelay);
   }
 
-  shouldComponentUpdate(nextProps: IGraphViewProps, nextState: IGraphViewState) {
+  shouldComponentUpdate(
+    nextProps: IGraphViewProps,
+    nextState: IGraphViewState,
+  ) {
     const { sourceNode, isLinkingStarted, isResizingStarted } = this.state;
-    const {
-      nodes, edges, selected, readOnly, layoutEngine, cursor,
-    } = this.props;
+    const { nodes, edges, selected, readOnly, layoutEngine, cursor } =
+      this.props;
 
-    if (nextProps.nodes !== nodes
-      || nextProps.edges !== edges
-      || !nextState.componentUpToDate
-      || nextProps.selected !== selected
-      || nextProps.readOnly !== readOnly
-      || nextProps.layoutEngine !== layoutEngine
-      || nextState.isLinkingStarted !== isLinkingStarted
-      || nextState.isResizingStarted !== isResizingStarted
-      || nextState.sourceNode !== sourceNode
-      || nextProps.cursor !== cursor
+    if (
+      nextProps.nodes !== nodes ||
+      nextProps.edges !== edges ||
+      !nextState.componentUpToDate ||
+      nextProps.selected !== selected ||
+      nextProps.readOnly !== readOnly ||
+      nextProps.layoutEngine !== layoutEngine ||
+      nextState.isLinkingStarted !== isLinkingStarted ||
+      nextState.isResizingStarted !== isResizingStarted ||
+      nextState.sourceNode !== sourceNode ||
+      nextProps.cursor !== cursor
     ) {
       return true;
     }
@@ -199,17 +222,13 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     } = this.props;
 
     if (!isLinkingStarted && prevState.isLinkingStarted) {
-      d3
-        .select(this.viewWrapper.current)
-        .on('mousemove', null);
+      d3.select(this.viewWrapper.current).on('mousemove', null);
 
       ACTION_SET_CURSOR(CURSOR_DEFAULT);
 
       removeElementFromDom('edge-custom-container');
     } else if (isLinkingStarted && !prevState.isLinkingStarted) {
-      d3
-        .select(this.viewWrapper.current)
-        .on('mousemove', this.handleMouseMove);
+      d3.select(this.viewWrapper.current).on('mousemove', this.handleMouseMove);
 
       ACTION_SET_CURSOR(CURSOR_CUSTOM_CROSSHAIR);
     }
@@ -226,16 +245,18 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       }
     }
 
-    const forceReRender = propsNodes !== prevProps.nodes
-      || propsEdges !== prevProps.edges
-      || !componentUpToDate
-      || sourceNode !== prevState.sourceNode
-      || layoutEngine !== prevProps.layoutEngine
-      || isLinkingStarted !== prevState.isLinkingStarted
-      || isResizingStarted !== prevState.isResizingStarted;
-    const shouldZoomToFit = propsEdges.length !== prevProps.edges.length
-      || propsNodes.length !== prevProps.nodes.length
-      || layoutEngine !== prevProps.layoutEngine;
+    const forceReRender =
+      propsNodes !== prevProps.nodes ||
+      propsEdges !== prevProps.edges ||
+      !componentUpToDate ||
+      sourceNode !== prevState.sourceNode ||
+      layoutEngine !== prevProps.layoutEngine ||
+      isLinkingStarted !== prevState.isLinkingStarted ||
+      isResizingStarted !== prevState.isResizingStarted;
+    const shouldZoomToFit =
+      propsEdges.length !== prevProps.edges.length ||
+      propsNodes.length !== prevProps.nodes.length ||
+      layoutEngine !== prevProps.layoutEngine;
 
     // Note: the order is intentional
     // remove old edges
@@ -281,11 +302,11 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
 
   stopResizing = (): void => {
     this.setState({ isResizingStarted: false });
-  }
+  };
 
   startResizing = (): void => {
     this.setState({ isResizingStarted: true });
-  }
+  };
 
   asyncHandleZoomToFit = (delay: number = 0): void => {
     setTimeout(() => {
@@ -293,7 +314,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
         this.handleZoomToFit();
       }
     }, delay);
-  }
+  };
 
   handleMouseMove = () => {
     const { sourceNode } = this.state;
@@ -303,7 +324,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       source: sourceNode.id,
       targetPosition: { x, y },
     });
-  }
+  };
 
   toggleDraggingEdgeByIcon = (newSourceNode?: NodeType) => {
     const { isLinkingStarted, sourceNode } = this.state;
@@ -322,9 +343,12 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
         sourceNode: newSourceNode,
       });
     }
-  }
+  };
 
-  getNodeById(id: string | number | null, nodesMap: any | null): INodeMapNode | null {
+  getNodeById(
+    id: string | number | null,
+    nodesMap: any | null,
+  ): INodeMapNode | null {
     const { nodesMap: stateNodesMap } = this.state;
     const nodesMapVar = nodesMap || stateNodesMap;
 
@@ -358,11 +382,13 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       prevNode = this.getNodeById(node.id, oldNodesMap);
 
       // if there was a previous node and it changed
-      if (prevNode != null
-        && (prevNode.node !== node
-          || (selectedNode.node !== prevSelectedNode.node
-            && ((selectedNode.node && node.id === selectedNode.node.id)
-              || (prevSelectedNode.node && node.id === prevSelectedNode.node.id))))) {
+      if (
+        prevNode != null &&
+        (prevNode.node !== node ||
+          (selectedNode.node !== prevSelectedNode.node &&
+            ((selectedNode.node && node.id === selectedNode.node.id) ||
+              (prevSelectedNode.node && node.id === prevSelectedNode.node.id))))
+      ) {
         // Updated node
         this.syncRenderNode(node);
       } else if (forceRender || !prevNode) {
@@ -419,14 +445,12 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
         }
 
         const prevEdge = oldEdgesMap[`${edge.source}_${edge.target}`];
-        if (forceRender || !prevEdge
-            || ( // selection change
-              selectedEdge !== prevSelectedEdge
-              && (
-                (selectedEdge.edge && edge === selectedEdge.edge)
-                  || (prevSelectedEdge.edge && prevSelectedEdge.edge)
-              )
-            )
+        if (
+          forceRender ||
+          !prevEdge || // selection change
+          (selectedEdge !== prevSelectedEdge &&
+            ((selectedEdge.edge && edge === selectedEdge.edge) ||
+              (prevSelectedEdge.edge && prevSelectedEdge.edge)))
         ) {
           // new edge
           this.syncRenderEdge(edge, false);
@@ -438,12 +462,16 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
   removeOldEdges = (prevEdges: Array<EdgeType>, edgesMap: any) => {
     // remove old edges
     prevEdges.forEach((edge: EdgeType) => {
-      if (!edge.source || !edge.target || !edgesMap[`${edge.source}_${edge.target}`]) {
+      if (
+        !edge.source ||
+        !edge.target ||
+        !edgesMap[`${edge.source}_${edge.target}`]
+      ) {
         // remove edge
         removeEdgeElement(edge.source, edge.target);
       }
     });
-  }
+  };
 
   deleteNode(selectedNode: NodeType) {
     const { onDeleteNode } = this.props;
@@ -463,10 +491,13 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       return;
     }
 
-    const newEdgesArr = edges.filter(edge => !(
-      edge.source === selectedEdge.source
-        && edge.target === selectedEdge.target
-    ));
+    const newEdgesArr = edges.filter(
+      (edge) =>
+        !(
+          edge.source === selectedEdge.source &&
+          edge.target === selectedEdge.target
+        ),
+    );
 
     const newEdgesMap = omit(
       edgesMap,
@@ -495,15 +526,12 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     } else {
       this.deleteNode(selected);
     }
-  }
+  };
 
   handleWrapperKeydown: KeyboardEventListener = (d) => {
-    const {
-      selectedNodeObj, isLinkingStarted, focused,
-    } = this.state;
-    const {
-      onUndo, onRedo, onCopySelected, onPasteSelected, selected,
-    } = this.props;
+    const { selectedNodeObj, isLinkingStarted, focused } = this.state;
+    const { onUndo, onRedo, onCopySelected, onPasteSelected, selected } =
+      this.props;
 
     if (!focused) {
       return;
@@ -513,13 +541,16 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
 
     switch (d.key) {
       case 'Delete':
-      case 'Backspace': {
-        const isMapItemSelected = (selectedNodeObj && selectedNodeObj.node) || selected;
+      case 'Backspace':
+        {
+          const isMapItemSelected =
+            (selectedNodeObj && selectedNodeObj.node) || selected;
 
-        if (isMapItemSelected) {
-          this.handleDelete(selectedNodeObj.node || selected);
+          if (isMapItemSelected) {
+            this.handleDelete(selectedNodeObj.node || selected);
+          }
         }
-      } break;
+        break;
       case 'Escape':
         if (isLinkingStarted) {
           this.toggleDraggingEdgeByIcon();
@@ -548,7 +579,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       default:
         break;
     }
-  }
+  };
 
   handleEdgeSelected = (e: Event) => {
     const { edges } = this.state;
@@ -575,7 +606,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     }
 
     this.setState(newState);
-  }
+  };
 
   handleSvgClicked = () => {
     const { event } = d3;
@@ -620,13 +651,15 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       focused: true,
       svgClicked: true,
     });
-  }
+  };
 
   handleDocumentClick = (e: MouseEvent) => {
     // Ignore document click if it's in the SVGElement
     const { selected: isItemSelected, focused: isNodeFocused } = this.props;
-    const isTargetEqualsToViewport = e && e.target && this.graphSvg.current.contains(e.target);
-    const shouldLeaveFocus = !isItemSelected && (isTargetEqualsToViewport || !isNodeFocused);
+    const isTargetEqualsToViewport =
+      e && e.target && this.graphSvg.current.contains(e.target);
+    const shouldLeaveFocus =
+      !isItemSelected && (isTargetEqualsToViewport || !isNodeFocused);
 
     if (shouldLeaveFocus || isTargetEqualsToViewport) {
       return;
@@ -639,7 +672,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       isLinkingStarted: false,
       sourceNode: null,
     });
-  }
+  };
 
   handleNodeMove = (position: IPoint, nodeId: number) => {
     const { readOnly } = this.props;
@@ -656,7 +689,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     // Update edges for node
     this.renderConnectedEdgesFromNode(nodeMapNode, true);
     this.syncRenderNode(nodeMapNode.node);
-  }
+  };
 
   createNewEdge() {
     const { edgesMap, sourceNode } = this.state;
@@ -670,7 +703,8 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     if (nodeDOMId) {
       const { node: targetNode } = this.getNodeById(nodeDOMId);
       const mapId = `${sourceNode.id}_${targetNode.id}`;
-      const isDrawNewEdge = edgesMap && sourceNode.id !== targetNode.id && !edgesMap[mapId];
+      const isDrawNewEdge =
+        edgesMap && sourceNode.id !== targetNode.id && !edgesMap[mapId];
 
       if (!isDrawNewEdge) {
         return;
@@ -727,7 +761,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       // fire the mouseLeave event when nodes are moved.
       svgClicked: true,
     });
-  }
+  };
 
   handleNodeSelected = (node: NodeType) => {
     const { onSelectNode } = this.props;
@@ -741,7 +775,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
         node,
       },
     });
-  }
+  };
 
   // One can't attach handlers to 'markers' or obtain them from the event.target
   // If the click occurs within a certain radius of edge target, assume the click
@@ -754,14 +788,16 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     }
 
     const source = d3.mouse(eventTarget);
-    const edgeCoords = parsePathToXY(getEdgePathElement(edge, this.viewWrapper.current));
+    const edgeCoords = parsePathToXY(
+      getEdgePathElement(edge, this.viewWrapper.current),
+    );
 
     // the arrow is clicked if the xyCoords are within edgeArrowSize of edgeCoords.target[x,y]
     return (
-      source.x < edgeCoords.target.x + edgeArrowSize
-      && source.x > edgeCoords.target.x - edgeArrowSize
-      && source.y < edgeCoords.target.y + edgeArrowSize
-      && source.y > edgeCoords.target.y - edgeArrowSize
+      source.x < edgeCoords.target.x + edgeArrowSize &&
+      source.x > edgeCoords.target.x - edgeArrowSize &&
+      source.y < edgeCoords.target.y + edgeArrowSize &&
+      source.y > edgeCoords.target.y - edgeArrowSize
     );
   }
 
@@ -774,11 +810,11 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
 
     if (
       // graph can't be modified
-      readOnly
+      readOnly ||
       // no sourceEvent, not an action on an element
-      || !sourceEvent
+      !sourceEvent ||
       // not a click event
-      || (sourceEvent && !sourceEvent.buttons)
+      (sourceEvent && !sourceEvent.buttons)
     ) {
       return;
     }
@@ -800,7 +836,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       draggingEdge: true,
       draggedEdge: edge,
     });
-  }
+  };
 
   getMouseCoordinates() {
     const mouseCoordinates = {
@@ -858,19 +894,22 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
 
       // prevent re-rendering on zoom
       if (viewTransform !== transform) {
-        this.setState({
-          viewTransform: transform,
-          draggedEdge: null,
-          draggingEdge: false,
-        }, () => {
-          // force the child components which are related to zoom level to update
-          this.renderGraphControls();
-        });
+        this.setState(
+          {
+            viewTransform: transform,
+            draggedEdge: null,
+            draggingEdge: false,
+          },
+          () => {
+            // force the child components which are related to zoom level to update
+            this.renderGraphControls();
+          },
+        );
       }
     } else if (draggingEdge) {
       this.dragEdge();
     }
-  }
+  };
 
   handleZoomEnd = () => {
     const { draggingEdge, draggedEdge } = this.state;
@@ -891,26 +930,31 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     // remove custom edge
     removeElementFromDom('edge-custom-container');
 
-    this.setState({
-      draggedEdge: null,
-      draggingEdge: false,
-    }, () => {
-      // handle creating or swapping edges
-      const sourceNodeById = this.getNodeById(draggedEdge.source);
-      const targetNodeById = this.getNodeById(draggedEdge.target);
+    this.setState(
+      {
+        draggedEdge: null,
+        draggingEdge: false,
+      },
+      () => {
+        // handle creating or swapping edges
+        const sourceNodeById = this.getNodeById(draggedEdge.source);
+        const targetNodeById = this.getNodeById(draggedEdge.target);
 
-      if (!sourceNodeById || !targetNodeById) {
-        return;
-      }
+        if (!sourceNodeById || !targetNodeById) {
+          return;
+        }
 
-      this.syncRenderEdge(draggedEdge);
-    });
-  }
+        this.syncRenderEdge(draggedEdge);
+      },
+    );
+  };
 
   // Zooms to contents of this.refs.entities
   handleZoomToFit = () => {
     const { minZoom = 0, maxZoom = 2, zoomDur } = this.props;
-    const { clientWidth: width, clientHeight: height } = d3.select(this.viewWrapper.current).node();
+    const { clientWidth: width, clientHeight: height } = d3
+      .select(this.viewWrapper.current)
+      .node();
 
     const entities = d3.select(this.entities).node();
     const viewBBox = entities.getBBox && entities.getBBox();
@@ -945,12 +989,19 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     }
 
     this.setZoom(next.k, next.x, next.y, zoomDur);
-  }
+  };
 
   // Updates current viewTransform with some delta
-  modifyZoom = (modK: number = 0, modX: number = 0, modY: number = 0, dur: number = 0) => {
+  modifyZoom = (
+    modK: number = 0,
+    modX: number = 0,
+    modY: number = 0,
+    dur: number = 0,
+  ) => {
     const { viewTransform } = this.state;
-    const { clientWidth: width, clientHeight: height } = d3.select(this.viewWrapper.current).node();
+    const { clientWidth: width, clientHeight: height } = d3
+      .select(this.viewWrapper.current)
+      .node();
     const center = {
       x: width / 2,
       y: height / 2,
@@ -984,14 +1035,13 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     next.y += center.y - l.y + modY;
 
     this.setZoom(next.k, next.x, next.y, dur);
-  }
+  };
 
   // Programmatically resets zoom
   setZoom(k: number = 1, x: number = 0, y: number = 0, dur: number = 0) {
     const t = d3.zoomIdentity.translate(x, y).scale(k);
 
-    d3
-      .select(this.viewWrapper.current)
+    d3.select(this.viewWrapper.current)
       .select('svg')
       .transition()
       .duration(dur)
@@ -1017,19 +1067,19 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     }
 
     return (
-      <Background
-        gridSize={gridSize}
-        backgroundFillId={backgroundFillId}
-      />
+      <Background gridSize={gridSize} backgroundFillId={backgroundFillId} />
     );
-  }
+  };
 
   getNodeComponent(id: string, node: NodeType) {
+    const { selectedNodeObj, sourceNode, isLinkingStarted, isResizingStarted } =
+      this.state;
     const {
-      selectedNodeObj, sourceNode, isLinkingStarted, isResizingStarted,
-    } = this.state;
-    const {
-      onCreateNodeWithEdge, onCollapseNode, onLockNode, onResizeNode, onNodeFocused,
+      onCreateNodeWithEdge,
+      onCollapseNode,
+      onLockNode,
+      onResizeNode,
+      onNodeFocused,
     } = this.props;
 
     return (
@@ -1066,7 +1116,10 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     let nodeContainer = document.getElementById(containerId);
 
     if (!nodeContainer) {
-      nodeContainer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      nodeContainer = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'g',
+      );
       nodeContainer.id = containerId;
 
       this.entities.appendChild(nodeContainer);
@@ -1075,19 +1128,20 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     // ReactDOM.render replaces the insides of an element This renders the element
     // into the nodeContainer
     ReactDOM.render(element, nodeContainer);
-  }
+  };
 
-  renderConnectedEdgesFromNode(node: INodeMapNode, nodeMoving: boolean = false) {
+  renderConnectedEdgesFromNode(
+    node: INodeMapNode,
+    nodeMoving: boolean = false,
+  ) {
     const { draggingEdge } = this.state;
 
     if (draggingEdge) {
       return;
     }
 
-    node.incomingEdges
-      .forEach(edge => this.syncRenderEdge(edge, nodeMoving));
-    node.outgoingEdges
-      .forEach(edge => this.syncRenderEdge(edge, nodeMoving));
+    node.incomingEdges.forEach((edge) => this.syncRenderEdge(edge, nodeMoving));
+    node.outgoingEdges.forEach((edge) => this.syncRenderEdge(edge, nodeMoving));
   }
 
   asyncRenderNode(node: NodeType) {
@@ -1116,17 +1170,19 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
 
     const { nodes } = this.state;
 
-    nodes.forEach(node => this.asyncRenderNode(node));
-  }
+    nodes.forEach((node) => this.asyncRenderNode(node));
+  };
 
   isEdgeSelected = (edge: EdgeType) => {
     const { selectedEdgeObj } = this.state;
 
-    return !!selectedEdgeObj
-      && !!selectedEdgeObj.edge
-      && selectedEdgeObj.edge.source === edge.source
-      && selectedEdgeObj.edge.target === edge.target;
-  }
+    return (
+      !!selectedEdgeObj &&
+      !!selectedEdgeObj.edge &&
+      selectedEdgeObj.edge.source === edge.source &&
+      selectedEdgeObj.edge.target === edge.target
+    );
+  };
 
   getEdgeComponent = (edge: EdgeType | any) => {
     const { isLinkingStarted } = this.state;
@@ -1149,16 +1205,23 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
         hasSibling={this.checkIfEdgeHasSibling(edge)}
       />
     );
-  }
+  };
 
   checkIfEdgeHasSibling = (edge: EdgeType | any) => {
     const { edges } = this.props;
     const { source: edgeSource, target: edgeTarget } = edge;
 
-    return edges.some(({ source, target }) => source === edgeTarget && target === edgeSource);
-  }
+    return edges.some(
+      ({ source, target }) => source === edgeTarget && target === edgeSource,
+    );
+  };
 
-  renderEdge(id: string, element: any, edge: EdgeType, nodeMoving: boolean = false) {
+  renderEdge(
+    id: string,
+    element: any,
+    edge: EdgeType,
+    nodeMoving: boolean = false,
+  ) {
     if (!this.entities) {
       return;
     }
@@ -1183,10 +1246,16 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     }
 
     if (!edgeContainer && edge !== draggedEdge) {
-      const newSvgEdgeContainer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      const newSvgEdgeContainer = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'g',
+      );
       newSvgEdgeContainer.id = containerId;
       if (this.entities.firstChild) {
-        this.entities.insertBefore(newSvgEdgeContainer, this.entities.firstChild);
+        this.entities.insertBefore(
+          newSvgEdgeContainer,
+          this.entities.firstChild,
+        );
       } else {
         this.entities.appendChild(newSvgEdgeContainer);
       }
@@ -1198,13 +1267,20 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     if (edgeContainer) {
       ReactDOM.render(element, edgeContainer);
       if (afterRenderEdge) {
-        afterRenderEdge(id, element, edge, edgeContainer, this.isEdgeSelected(edge));
+        afterRenderEdge(
+          id,
+          element,
+          edge,
+          edgeContainer,
+          this.isEdgeSelected(edge),
+        );
       }
     }
   }
 
   asyncRenderEdge = (edge: EdgeType | any, nodeMoving: boolean = false) => {
-    const isEdgeIncomplete = !edge.source || (!edge.target && !edge.targetPosition);
+    const isEdgeIncomplete =
+      !edge.source || (!edge.target && !edge.targetPosition);
 
     if (isEdgeIncomplete) {
       return;
@@ -1216,7 +1292,7 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
     this.edgeTimeouts[timeoutId] = requestAnimationFrame(() => {
       this.syncRenderEdge(edge, nodeMoving);
     });
-  }
+  };
 
   syncRenderEdge(edge: EdgeType | any, nodeMoving: boolean = false) {
     if (!edge.source) {
@@ -1237,8 +1313,8 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
       return;
     }
 
-    edges.forEach(edge => this.asyncRenderEdge(edge));
-  }
+    edges.forEach((edge) => this.asyncRenderEdge(edge));
+  };
 
   /*
    * ZoomControls is a special child component. To maximize responsiveness we disable
@@ -1289,7 +1365,12 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
 
   render() {
     const {
-      edgeArrowSize, gridSpacing, gridDotSize, edgeTypes, renderDefs, cursor,
+      edgeArrowSize,
+      gridSpacing,
+      gridDotSize,
+      edgeTypes,
+      renderDefs,
+      cursor,
     } = this.props;
 
     return (
@@ -1304,11 +1385,17 @@ export class GraphView extends React.Component<IGraphViewProps, IGraphViewState>
           />
           <View
             cursor={cursor}
-            ref={(el) => { this.view = el; }}
+            ref={(el) => {
+              this.view = el;
+            }}
           >
             {this.renderBackground()}
 
-            <g ref={(el) => { this.entities = el; }} />
+            <g
+              ref={(el) => {
+                this.entities = el;
+              }}
+            />
           </View>
         </GraphWrapper>
       </ViewWrapper>
@@ -1321,7 +1408,7 @@ const mapStateToProps = ({ constructor, defaults }) => ({
   edgeDefaults: defaults.edgeBody,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_SET_CURSOR: (cursor: string) => {
     dispatch(constructorActions.ACTION_SET_CURSOR(cursor));
   },

@@ -31,7 +31,10 @@ import { CONFIRMATION_MODALS } from './config';
 import type { Template as TemplateType } from '../../redux/templates/types';
 import type { IConstructorProps, IConstructorState } from './types';
 
-export class Constructor extends PureComponent<IConstructorProps, IConstructorState> {
+export class Constructor extends PureComponent<
+  IConstructorProps,
+  IConstructorState,
+> {
   templateInputName: { current: null | React$Element<any> };
 
   constructor(props: IConstructorProps) {
@@ -48,7 +51,10 @@ export class Constructor extends PureComponent<IConstructorProps, IConstructorSt
     this.validateUrl();
   }
 
-  static getDerivedStateFromProps(nextProps: IConstructorProps, state: IConstructorState) {
+  static getDerivedStateFromProps(
+    nextProps: IConstructorProps,
+    state: IConstructorState,
+  ) {
     const { nodes, edges, mapName } = nextProps;
 
     setPageTitle(mapName);
@@ -72,8 +78,13 @@ export class Constructor extends PureComponent<IConstructorProps, IConstructorSt
 
   validateUrl = (): void => {
     const {
-      mapId, history, location, mapIdUrl, nodes,
-      ACTION_GET_MAP_REQUESTED, ACTION_GET_WHOLE_MAP_MIDDLEWARE,
+      mapId,
+      history,
+      location,
+      mapIdUrl,
+      nodes,
+      ACTION_GET_MAP_REQUESTED,
+      ACTION_GET_WHOLE_MAP_MIDDLEWARE,
     } = this.props;
     const isPageRefreshed = !mapId && mapIdUrl;
     const isPageNotFound = !isPageRefreshed && !mapIdUrl;
@@ -95,7 +106,7 @@ export class Constructor extends PureComponent<IConstructorProps, IConstructorSt
     if (!isFromHomePage && !nodes.length && !isFromANEPage) {
       ACTION_GET_MAP_REQUESTED(mapIdUrl);
     }
-  }
+  };
 
   showModal = (modalName: string): void => {
     const { ACTION_TEMPLATES_REQUESTED } = this.props;
@@ -107,13 +118,13 @@ export class Constructor extends PureComponent<IConstructorProps, IConstructorSt
     this.setState({
       [`isShow${modalName}Modal`]: true,
     });
-  }
+  };
 
   closeModal = (modalName: string): void => {
     this.setState({
       [`isShow${modalName}Modal`]: false,
     });
-  }
+  };
 
   saveTemplateFromMap = (): void => {
     const { current: templateInput } = this.templateInputName;
@@ -132,22 +143,23 @@ export class Constructor extends PureComponent<IConstructorProps, IConstructorSt
     ACTION_TEMPLATE_UPLOAD_REQUESTED(templateName);
 
     this.closeModal(CONFIRMATION_MODALS.CREATE_TEMPLATE);
-  }
+  };
 
   handleTemplateChoose = (template: TemplateType): void => {
     const { ACTION_EXTEND_MAP_REQUESTED } = this.props;
     ACTION_EXTEND_MAP_REQUESTED(template.id);
 
     this.closeModal(CONFIRMATION_MODALS.PRE_BUILT_TEMPLATES);
-  }
+  };
 
   render() {
     const {
-      focusedNode, selectedLink, isShowCreateTemplateModal, isShowPreBuiltTemplatesModal,
+      focusedNode,
+      selectedLink,
+      isShowCreateTemplateModal,
+      isShowPreBuiltTemplatesModal,
     } = this.state;
-    const {
-      isShowSOPicker, templates, isTemplatesFetching,
-    } = this.props;
+    const { isShowSOPicker, templates, isTemplatesFetching } = this.props;
 
     return (
       <>
@@ -155,9 +167,9 @@ export class Constructor extends PureComponent<IConstructorProps, IConstructorSt
 
         <Graph />
 
-        { Boolean(selectedLink) && <LinkEditor link={selectedLink} /> }
+        {Boolean(selectedLink) && <LinkEditor link={selectedLink} />}
         <NodeEditor isShow={Boolean(focusedNode)} node={focusedNode || {}} />
-        { isShowSOPicker && <SOPicker /> }
+        {isShowSOPicker && <SOPicker />}
 
         {isShowCreateTemplateModal && (
           <ConfirmationModal
@@ -182,7 +194,9 @@ export class Constructor extends PureComponent<IConstructorProps, IConstructorSt
             searchLabel="Search for template"
             text="Please choose appropriate template:"
             items={templates}
-            onClose={() => this.closeModal(CONFIRMATION_MODALS.PRE_BUILT_TEMPLATES)}
+            onClose={() =>
+              this.closeModal(CONFIRMATION_MODALS.PRE_BUILT_TEMPLATES)
+            }
             onItemChoose={this.handleTemplateChoose}
             isItemsFetching={isTemplatesFetching}
             iconEven={TemplateIcon}
@@ -194,9 +208,14 @@ export class Constructor extends PureComponent<IConstructorProps, IConstructorSt
   }
 }
 
-const mapStateToProps = ({
-  map, mapDetails, modals, templates,
-}, { match: { params: { mapId: mapIdUrl } } }) => ({
+const mapStateToProps = (
+  { map, mapDetails, modals, templates },
+  {
+    match: {
+      params: { mapId: mapIdUrl },
+    },
+  },
+) => ({
   mapIdUrl,
   mapId: mapDetails.id,
   mapName: mapDetails.name,
@@ -207,7 +226,7 @@ const mapStateToProps = ({
   isTemplatesFetching: templates.isFetching,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_GET_MAP_REQUESTED: (mapId: string) => {
     dispatch(mapActions.ACTION_GET_MAP_REQUESTED(mapId));
   },
@@ -226,8 +245,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default DragDropContext(HTML5Backend)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(withRouter(Constructor)),
+  connect(mapStateToProps, mapDispatchToProps)(withRouter(Constructor)),
 );

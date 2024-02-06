@@ -35,17 +35,17 @@ class CounterGrid extends PureComponent<CounterGridProps> {
     const childComponent = this.tableRef.current;
 
     if (childComponent) {
-      const { state: { countersValues } } = childComponent;
+      const {
+        state: { countersValues },
+      } = childComponent;
       const counterActions = parseSendingData(countersValues);
 
       ACTION_UPDATE_COUNTER_GRID_REQUESTED(mapId, counterActions);
     }
-  }
+  };
 
   render() {
-    const {
-      counters, nodes, actions, classes, isFetching,
-    } = this.props;
+    const { counters, nodes, actions, classes, isFetching } = this.props;
     const isFirstLoading = isFetching && !nodes.length && !counters.length;
 
     return (
@@ -77,21 +77,34 @@ class CounterGrid extends PureComponent<CounterGridProps> {
   }
 }
 
-const mapStateToProps = ({
-  counterGrid: {
-    counters, nodes, actions, isFetching,
+const mapStateToProps = (
+  { counterGrid: { counters, nodes, actions, isFetching } },
+  {
+    match: {
+      params: { mapId },
+    },
   },
-}, { match: { params: { mapId } } }) => ({
-  counters, nodes, actions, isFetching, mapId,
+) => ({
+  counters,
+  nodes,
+  actions,
+  isFetching,
+  mapId,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_GET_COUNTER_GRID_REQUESTED: (mapId: string) => {
     dispatch(counterGridActions.ACTION_GET_COUNTER_GRID_REQUESTED(mapId));
   },
-  ACTION_UPDATE_COUNTER_GRID_REQUESTED: (mapId: string, counterActions: CounterType) => {
+  ACTION_UPDATE_COUNTER_GRID_REQUESTED: (
+    mapId: string,
+    counterActions: CounterType,
+  ) => {
     dispatch(
-      counterGridActions.ACTION_UPDATE_COUNTER_GRID_REQUESTED(mapId, counterActions),
+      counterGridActions.ACTION_UPDATE_COUNTER_GRID_REQUESTED(
+        mapId,
+        counterActions,
+      ),
     );
   },
   ACTION_CLEAR: () => {

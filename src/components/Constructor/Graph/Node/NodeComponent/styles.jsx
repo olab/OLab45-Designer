@@ -5,9 +5,11 @@ import { CardContent as CardContentMUI } from '@material-ui/core';
 import { WHITE, ORANGE, DARK_GREY } from '../../../../../shared/colors';
 import { HEADER_PADDING, HEADER_HEIGHT, BORDER_SIZE } from '../config';
 
-export const CardContent = styled(({
-  borderColor, isLocked, isSelected, ...rest
-}) => <CardContentMUI {...rest} />)`
+export const CardContent = styled(
+  ({ borderColor, isLocked, isSelected, ...rest }) => (
+    <CardContentMUI {...rest} />
+  ),
+)`
   overflow: hidden;
   position: relative;
   font-size: 16px;
@@ -21,14 +23,15 @@ export const CardContent = styled(({
   border-top: none !important;
   border: ${BORDER_SIZE}px solid transparent;
   resize: ${({ isLocked }) => (isLocked ? 'none' : 'both')}
-
-  ${({ isSelected }) => (isSelected && css`
-    border-color: ${({ borderColor }) => borderColor || DARK_GREY};
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-  `)}
-
-  & p, ul {
+      ${({ isSelected }) =>
+        isSelected &&
+        css`
+          border-color: ${({ borderColor }) => borderColor || DARK_GREY};
+          border-bottom-right-radius: 8px;
+          border-bottom-left-radius: 8px;
+        `}
+      & p,
+    ul {
     margin: 0;
   }
 

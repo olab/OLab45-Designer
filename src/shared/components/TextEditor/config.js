@@ -15,6 +15,6 @@ export const BASIC_TEXT_EDITOR_OPTIONS = {
   inline_boundaries: false,
 };
 
-export const EDITOR_API_KEY = '';
+export const EDITOR_API_KEY = 'f0hwkignm4ziwz98nanu615iurvaw66a3wl2i3o9k3z014lo';
 
 export const EDITOR_VERSION = '5-stable';

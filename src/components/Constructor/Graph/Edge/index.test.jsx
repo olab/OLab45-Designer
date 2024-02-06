@@ -10,7 +10,13 @@ const StandardEdgeShape = (
     <circle r="12" transform="matrix(1 0 0 -1 12 12)" fill="#D3DAE1" />
 
     <g transform="translate(18, 11) rotate(90)">
-      <path d="M1 13L1 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M1 13L1 1"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </g>
   </symbol>
 );
@@ -104,8 +110,9 @@ describe('<Edge />', () => {
         target: 'fake2',
       };
       Edge.getEdgePathElement(fakeEdge, viewWrapperElem);
-      expect(viewWrapperElem.querySelector)
-        .toHaveBeenCalledWith('#edge-fake1-fake2-container>.edge-container>.edge>.edge-path');
+      expect(viewWrapperElem.querySelector).toHaveBeenCalledWith(
+        '#edge-fake1-fake2-container>.edge-container>.edge>.edge-path',
+      );
     });
 
     it('returns the edge element from the document', () => {
@@ -115,8 +122,9 @@ describe('<Edge />', () => {
         target: 'fake2',
       };
       Edge.getEdgePathElement(fakeEdge);
-      expect(document.querySelector)
-        .toHaveBeenCalledWith('#edge-fake1-fake2-container>.edge-container>.edge>.edge-path');
+      expect(document.querySelector).toHaveBeenCalledWith(
+        '#edge-fake1-fake2-container>.edge-container>.edge>.edge-path',
+      );
       document.querySelector.mockRestore();
     });
   });
@@ -211,11 +219,7 @@ describe('<Edge />', () => {
     });
 
     it('gets the intersect', () => {
-      const result = Edge.getRotatedRectIntersect(
-        rectElement,
-        source,
-        target,
-      );
+      const result = Edge.getRotatedRectIntersect(rectElement, source, target);
       const expected = {
         xOff: 5,
         yOff: 5,
@@ -225,11 +229,7 @@ describe('<Edge />', () => {
     });
 
     it('does includes the arrow', () => {
-      const result = Edge.getRotatedRectIntersect(
-        rectElement,
-        source,
-        target,
-      );
+      const result = Edge.getRotatedRectIntersect(rectElement, source, target);
       const expected = {
         xOff: 5,
         yOff: 5,
@@ -241,11 +241,7 @@ describe('<Edge />', () => {
     it('uses the clientRect for width and height', () => {
       rectElement.removeAttribute('height');
       rectElement.removeAttribute('width');
-      const result = Edge.getRotatedRectIntersect(
-        rectElement,
-        source,
-        target,
-      );
+      const result = Edge.getRotatedRectIntersect(rectElement, source, target);
       const expected = {
         xOff: 7.5,
         yOff: 7.5,
@@ -257,11 +253,7 @@ describe('<Edge />', () => {
     it('uses 0 when trg and src do not have x and y', () => {
       source = new Point2D();
       target = new Point2D();
-      const result = Edge.getRotatedRectIntersect(
-        rectElement,
-        source,
-        target,
-      );
+      const result = Edge.getRotatedRectIntersect(rectElement, source, target);
       const expected = {
         xOff: 0,
         yOff: 0,
@@ -275,11 +267,7 @@ describe('<Edge />', () => {
 
     it('handles rotates rectangles', () => {
       rectElement.setAttribute('transform', 'rotate(45)');
-      const result = Edge.getRotatedRectIntersect(
-        rectElement,
-        source,
-        target,
-      );
+      const result = Edge.getRotatedRectIntersect(rectElement, source, target);
       const expected = {
         xOff: 3.535533905932736,
         yOff: 3.5355339059327378,
@@ -291,11 +279,7 @@ describe('<Edge />', () => {
     it('points at the bottom', () => {
       source = new Point2D(5, 20);
       target = new Point2D(5, 5);
-      const result = Edge.getRotatedRectIntersect(
-        rectElement,
-        source,
-        target,
-      );
+      const result = Edge.getRotatedRectIntersect(rectElement, source, target);
       const expected = {
         xOff: 0,
         yOff: -5,
@@ -307,11 +291,7 @@ describe('<Edge />', () => {
     it('points at the left', () => {
       source = new Point2D(-5, 5);
       target = new Point2D(5, 5);
-      const result = Edge.getRotatedRectIntersect(
-        rectElement,
-        source,
-        target,
-      );
+      const result = Edge.getRotatedRectIntersect(rectElement, source, target);
       const expected = {
         xOff: 5,
         yOff: 0,
@@ -359,11 +339,7 @@ describe('<Edge />', () => {
 
     it('finds the intersect', () => {
       rectElement.setAttribute('d', 'M 0 0 15 0 15 15 0 15Z');
-      const result = Edge.getPathIntersect(
-        rectElement,
-        source,
-        target,
-      );
+      const result = Edge.getPathIntersect(rectElement, source, target);
       const expected = {
         xOff: 7.5,
         yOff: 7.5,
@@ -380,7 +356,12 @@ describe('<Edge />', () => {
     let target;
     beforeEach(() => {
       const rect = {
-        bottom: 10, height: 20, left: 30, right: 40, top: 50, width: 60,
+        bottom: 10,
+        height: 20,
+        left: 30,
+        right: 40,
+        top: 50,
+        width: 60,
       };
       const boundingClientRectMock = jest.fn().mockImplementation(() => rect);
       viewWrapperElem = {
@@ -412,11 +393,7 @@ describe('<Edge />', () => {
     });
 
     it('finds the intersect', () => {
-      const result = Edge.getCircleIntersect(
-        rectElement,
-        source,
-        target,
-      );
+      const result = Edge.getCircleIntersect(rectElement, source, target);
       const expected = {
         xOff: 3.5355339059327378,
         yOff: 3.5355339059327378,
@@ -501,7 +478,10 @@ describe('<Edge />', () => {
       const result = Edge.calculateOffset(source, target, viewWrapperElem);
       const expected = defaultExpected;
       expect(document.getElementById).toHaveBeenCalledWith('node-test2');
-      expect(trgNode.getAttributeNS).toHaveBeenCalledWith('http://www.w3.org/1999/xlink', 'href');
+      expect(trgNode.getAttributeNS).toHaveBeenCalledWith(
+        'http://www.w3.org/1999/xlink',
+        'href',
+      );
       expect(JSON.stringify(result)).toEqual(JSON.stringify(expected));
 
       document.getElementById.mockRestore();
@@ -582,8 +562,12 @@ describe('<Edge />', () => {
 
   describe('getEdgeHandleTransformation method', () => {
     it('returns a translation, rotation, and offset', () => {
-      const handleTransformation = output.instance().getEdgeHandleTransformation(data);
-      expect(handleTransformation).toEqual('translate(55, 110) rotate(63.43494882292201) translate(-25, -25)');
+      const handleTransformation = output
+        .instance()
+        .getEdgeHandleTransformation(data);
+      expect(handleTransformation).toEqual(
+        'translate(55, 110) rotate(63.43494882292201) translate(-25, -25)',
+      );
     });
   });
 

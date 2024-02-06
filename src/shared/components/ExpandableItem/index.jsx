@@ -5,7 +5,10 @@ import type { IExpandableItemProps, IExpandableItemState } from './types';
 
 import { ExpandableItemStyle } from './styles';
 
-class ExpandableItem extends PureComponent<IExpandableItemProps, IExpandableItemState> {
+class ExpandableItem extends PureComponent<
+  IExpandableItemProps,
+  IExpandableItemState,
+> {
   expandableItemRef: { current: null | Element };
 
   constructor(props: IExpandableItemProps) {
@@ -32,13 +35,13 @@ class ExpandableItem extends PureComponent<IExpandableItemProps, IExpandableItem
 
   collapse = (): void => {
     this.setState({ isCollapsed: true });
-  }
+  };
 
   toggleOpen = (): void => {
     this.setState(({ isOpen }) => ({
       isOpen: !isOpen,
     }));
-  }
+  };
 
   render() {
     const { isCollapsed, isOpen } = this.state;

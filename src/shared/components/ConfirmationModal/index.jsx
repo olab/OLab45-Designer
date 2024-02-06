@@ -1,10 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react';
-import {
-  Modal,
-  Button,
-  Typography,
-} from '@material-ui/core';
+import { Modal, Button, Typography } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 
 import type { IConfirmationModalProps } from './types';
@@ -32,7 +28,7 @@ class ConfirmationModal extends PureComponent<IConfirmationModalProps> {
     if (onSave) {
       onSave();
     }
-  }
+  };
 
   render() {
     const {
@@ -58,12 +54,8 @@ class ConfirmationModal extends PureComponent<IConfirmationModalProps> {
             <CrossButtonWrapper onClick={onClose}>
               <CloseIcon />
             </CrossButtonWrapper>
-            <Typography variant="h5">
-              {label}
-            </Typography>
-            <Typography variant="subtitle1">
-              {text}
-            </Typography>
+            <Typography variant="h5">{label}</Typography>
+            <Typography variant="subtitle1">{text}</Typography>
             {children && (
               <form action="" onSubmit={this.handleSubmit}>
                 {children}
@@ -71,18 +63,10 @@ class ConfirmationModal extends PureComponent<IConfirmationModalProps> {
             )}
             {showFooterButtons && (
               <ModalFooter>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={onClose}
-                >
+                <Button variant="outlined" color="secondary" onClick={onClose}>
                   {cancelBttnLabel}
                 </Button>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={onSave}
-                >
+                <Button variant="outlined" color="primary" onClick={onSave}>
                   {saveBttnLabel}
                 </Button>
               </ModalFooter>

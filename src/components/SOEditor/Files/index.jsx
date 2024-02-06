@@ -1,6 +1,13 @@
 // @flow
 import React from 'react';
-import { Button, Grid, TextField, Checkbox, FormControlLabel, withStyles } from '@material-ui/core';
+import {
+  Button,
+  Grid,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+  withStyles,
+} from '@material-ui/core';
 
 import SearchModal from '../../../shared/components/SearchModal';
 import OutlinedInput from '../../../shared/components/OutlinedInput';
@@ -20,7 +27,12 @@ import type { IScopedObjectProps as IProps } from '../types';
 
 import styles, { FieldLabel } from '../styles';
 import {
-  Title, Field, Outlined, ContainerTitle, Preview, FieldFileType,
+  Title,
+  Field,
+  Outlined,
+  ContainerTitle,
+  Preview,
+  FieldFileType,
 } from './styles';
 import axios from 'axios';
 import { RestaurantRounded } from '@material-ui/icons';
@@ -55,40 +67,41 @@ class File extends ScopedObjectService {
 
   handleSelectChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
-    const index = TYPES.findIndex(type => type === value);
+    const index = TYPES.findIndex((type) => type === value);
 
     this.setState({ [name]: index });
   };
 
   onClickSelectFile = (event: Event): void => {
-
     // test for Cancel in file chooser dialog
     if (event.target.files.length == 0) {
       return;
     }
 
-    console.log(`files selected: ${JSON.stringify(event.target.files, null, 2)}`);
+    console.log(
+      `files selected: ${JSON.stringify(event.target.files, null, 2)}`,
+    );
     let files = event.target.files;
 
     this.setState({
       selectedFile: files[0],
       selectedFileName: event.target.files[0].name,
-      fileSize: event.target.files[0].size
+      fileSize: event.target.files[0].size,
     });
-
-  }
+  };
 
   getIcon = (showIcons, scopedObject) => {
     if (showIcons) {
       if (Object.prototype.hasOwnProperty.call(scopedObject, 'resourceUrl')) {
-        const iconType = scopedObject.resourceUrl && scopedObject.resourceUrl.split('.').pop();
+        const iconType =
+          scopedObject.resourceUrl && scopedObject.resourceUrl.split('.').pop();
         const MediaIconContent = getIconType(iconType);
         return <MediaIconContent />;
       }
     }
 
     return '';
-  }
+  };
 
   render() {
     const {
@@ -105,7 +118,10 @@ class File extends ScopedObjectService {
       isMediaResource,
       heightType,
       fileSize,
-      height, width, type, wiki,
+      height,
+      width,
+      type,
+      wiki,
       mime,
       path,
       scopeLevelObj,
@@ -127,14 +143,9 @@ class File extends ScopedObjectService {
         scopedObject={this.scopedObjectType}
         onSubmit={this.onClickUpdate}
       >
+        {id !== 0 && <small>{idInfo}</small>}
 
-        {(id !== 0) && (
-          <small>{idInfo}</small>
-        )}
-
-        {isPreviewShow && (
-          <Preview src={resourceUrl} alt={name} />
-        )}
+        {isPreviewShow && <Preview src={resourceUrl} alt={name} />}
         <Field>
           <Outlined>
             <OutlinedInput
@@ -172,15 +183,8 @@ class File extends ScopedObjectService {
         <Field>
           <Outlined>
             <ContainerTitle>
-              <Title>
-                {EDITORS_FIELDS.RESOURCE_URL}
-                :
-              </Title>
-              <a
-                href={resourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Title>{EDITORS_FIELDS.RESOURCE_URL}:</Title>
+              <a href={resourceUrl} target="_blank" rel="noopener noreferrer">
                 {resourceUrl}
               </a>
             </ContainerTitle>
@@ -228,7 +232,7 @@ class File extends ScopedObjectService {
             fullWidth
           />
         </Outlined>
-        {!path &&
+        {!path && (
           <Grid container spacing={1}>
             <Grid item xs={4}>
               <Outlined>
@@ -264,15 +268,19 @@ class File extends ScopedObjectService {
             <Grid item xs={2}>
               <Outlined>
                 <FormControlLabel
-                  control={<Checkbox checked={isMediaResource} 
-                  name="isMediaResource" />}
+                  control={
+                    <Checkbox
+                      checked={isMediaResource}
+                      name="isMediaResource"
+                    />
+                  }
                   label="Is Media Resource"
                 />
               </Outlined>
             </Grid>
             <Grid item xs={3}>
               &nbsp;
-            </Grid>            
+            </Grid>
             <Grid item xs={1}>
               <Outlined>
                 <label htmlFor="uploadFile">
@@ -290,12 +298,10 @@ class File extends ScopedObjectService {
               </Outlined>
             </Grid>
           </Grid>
-        }
+        )}
 
         <ContainerTitle>
-          <Title>
-            {EDITORS_FIELDS.PARENT}
-          </Title>
+          <Title>{EDITORS_FIELDS.PARENT}</Title>
         </ContainerTitle>
 
         <Grid container spacing={3}>
@@ -334,26 +340,17 @@ class File extends ScopedObjectService {
           <>
             <Field>
               <ContainerTitle>
-                <Title>
-                  {EDITORS_FIELDS.FILE_NAME}
-                  :
-                </Title>
+                <Title>{EDITORS_FIELDS.FILE_NAME}:</Title>
                 {path}
               </ContainerTitle>
             </Field>
             <ContainerTitle>
-              <Title>
-                {EDITORS_FIELDS.FILE_TYPE}
-                :
-              </Title>
+              <Title>{EDITORS_FIELDS.FILE_TYPE}:</Title>
               <MediaIconContent />
             </ContainerTitle>
             <Field>
               <ContainerTitle>
-                <Title>
-                  {EDITORS_FIELDS.FILE_SIZE}
-                  :
-                </Title>
+                <Title>{EDITORS_FIELDS.FILE_SIZE}:</Title>
                 {convertSize(fileSize)}
               </ContainerTitle>
             </Field>

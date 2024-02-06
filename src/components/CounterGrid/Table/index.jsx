@@ -1,8 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import {
-  Paper, Table, TableBody, TableRow,
-} from '@material-ui/core';
+import { Paper, Table, TableBody, TableRow } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import TableHeadRow from './TableHeadRow';
@@ -10,7 +8,10 @@ import TableCell from './TableCell';
 
 import { getAction } from './utils';
 
-import type { CounterGridTableProps as IProps, CounterGridTableState as IState } from './types';
+import type {
+  CounterGridTableProps as IProps,
+  CounterGridTableState as IState,
+} from './types';
 import type {
   Counter as CounterType,
   CounterGridNode as CounterGridNodeType,
@@ -26,9 +27,9 @@ class CounterGridTable extends Component<IProps, IState> {
     this.state = {
       countersValues: [
         ...nodes.map((node: CounterGridNodeType): Array<CounterType> => [
-          ...counters.map((counter: CounterType): CounterType => (
-            getAction(node.id, counter.id, actions)
-          )),
+          ...counters.map((counter: CounterType): CounterType =>
+            getAction(node.id, counter.id, actions),
+          ),
         ]),
       ],
     };
@@ -40,27 +41,28 @@ class CounterGridTable extends Component<IProps, IState> {
     checked: boolean,
   ): IState => {
     const countersValues = prevState.countersValues.map(
-      (counters: Array<CounterType>): Array<CounterType> => (
-        counters.map(
-          (counterAction: CounterType, i: number): CounterType => {
-            const isCellChoosen = i === index;
-            const isCounterVisible = counterAction.isVisible;
-            const reverseVisibleValue = isCellChoosen && { isVisible: !isCounterVisible };
-            const multipleVisibleValue = {
-              isVisible: isCellChoosen ? checked : isCounterVisible,
-            };
+      (counters: Array<CounterType>): Array<CounterType> =>
+        counters.map((counterAction: CounterType, i: number): CounterType => {
+          const isCellChoosen = i === index;
+          const isCounterVisible = counterAction.isVisible;
+          const reverseVisibleValue = isCellChoosen && {
+            isVisible: !isCounterVisible,
+          };
+          const multipleVisibleValue = {
+            isVisible: isCellChoosen ? checked : isCounterVisible,
+          };
 
-            return ({
-              ...counterAction,
-              ...(checked !== undefined ? multipleVisibleValue : reverseVisibleValue),
-            });
-          },
-        )
-      ),
+          return {
+            ...counterAction,
+            ...(checked !== undefined
+              ? multipleVisibleValue
+              : reverseVisibleValue),
+          };
+        }),
     );
 
     return { countersValues };
-  }
+  };
 
   updateStateAfterCheck = (
     prevState: IState,
@@ -76,26 +78,40 @@ class CounterGridTable extends Component<IProps, IState> {
     };
 
     return { countersValues };
-  }
+  };
 
-  handleColumnCheckReverse = (index: number): Function => (): void => {
-    this.setState(prevState => this.changeMultipleValues(prevState, index));
-  }
+  handleColumnCheckReverse =
+    (index: number): Function =>
+    (): void => {
+      this.setState((prevState) => this.changeMultipleValues(prevState, index));
+    };
 
-  handleColumnCheck = (index: number): Function => (e: Event): void => {
-    const { checked } = (e.target: window.HTMLInputElement);
-    this.setState(prevState => this.changeMultipleValues(prevState, index, checked));
-  }
+  handleColumnCheck =
+    (index: number): Function =>
+    (e: Event): void => {
+      const { checked } = (e.target: window.HTMLInputElement);
+      this.setState((prevState) =>
+        this.changeMultipleValues(prevState, index, checked),
+      );
+    };
 
-  onInputChange = (i: number, j: number): Function => (e: Event): void => {
-    const { value } = (e.target: window.HTMLInputElement);
-    this.setState(prevState => this.updateStateAfterCheck(prevState, i, j, 'expression', value));
-  }
+  onInputChange =
+    (i: number, j: number): Function =>
+    (e: Event): void => {
+      const { value } = (e.target: window.HTMLInputElement);
+      this.setState((prevState) =>
+        this.updateStateAfterCheck(prevState, i, j, 'expression', value),
+      );
+    };
 
-  handleCheckboxChange = (i: number, j: number): Function => (e: Event): void => {
-    const { checked } = (e.target: window.HTMLInputElement);
-    this.setState(prevState => this.updateStateAfterCheck(prevState, i, j, 'isVisible', checked));
-  }
+  handleCheckboxChange =
+    (i: number, j: number): Function =>
+    (e: Event): void => {
+      const { checked } = (e.target: window.HTMLInputElement);
+      this.setState((prevState) =>
+        this.updateStateAfterCheck(prevState, i, j, 'isVisible', checked),
+      );
+    };
 
   render() {
     const { countersValues } = this.state;
@@ -111,30 +127,47 @@ class CounterGridTable extends Component<IProps, IState> {
             handleColumnCheckReverse={this.handleColumnCheckReverse}
           />
           <TableBody>
-            {nodes.map((node: CounterGridNodeType, i: number): React$Element<any> => {
-              const headerCellLabel = `[${node.id}] ${node.title}`;
+            {nodes.map(
+              (node: CounterGridNodeType, i: number): React$Element<any> => {
+                const headerCellLabel = `[${node.id}] ${node.title}`;
 
-              return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={node.id} className={classes.tableRow}>
-                  {[node, ...counters].map((counter: CounterType, j: number) => {
-                    const value = j ? countersValues[i][j - 1].expression : null;
-                    const checked = j ? Boolean(countersValues[i][j - 1].isVisible) : null;
+                return (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={node.id}
+                    className={classes.tableRow}
+                  >
+                    {[node, ...counters].map(
+                      (counter: CounterType, j: number) => {
+                        const value = j
+                          ? countersValues[i][j - 1].expression
+                          : null;
+                        const checked = j
+                          ? Boolean(countersValues[i][j - 1].isVisible)
+                          : null;
 
-                    return (
-                      <TableCell
-                        key={counter.id}
-                        align="left"
-                        label={headerCellLabel}
-                        value={value}
-                        checked={checked}
-                        onCheckboxChange={this.handleCheckboxChange(i, j - 1)}
-                        onInputChange={this.onInputChange(i, j - 1)}
-                      />
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
+                        return (
+                          <TableCell
+                            key={counter.id}
+                            align="left"
+                            label={headerCellLabel}
+                            value={value}
+                            checked={checked}
+                            onCheckboxChange={this.handleCheckboxChange(
+                              i,
+                              j - 1,
+                            )}
+                            onInputChange={this.onInputChange(i, j - 1)}
+                          />
+                        );
+                      },
+                    )}
+                  </TableRow>
+                );
+              },
+            )}
           </TableBody>
         </Table>
       </Paper>

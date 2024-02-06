@@ -28,7 +28,7 @@ class SearchBox extends PureComponent<ISearchBoxProps, ISearchBoxState> {
 
     onSearch(value);
     this.setState({ value });
-  }
+  };
 
   resetValue = () => {
     const { onSearch } = this.props;
@@ -40,7 +40,7 @@ class SearchBox extends PureComponent<ISearchBoxProps, ISearchBoxState> {
     if (this.searchInputRef && this.searchInputRef.current) {
       this.searchInputRef.current.focus();
     }
-  }
+  };
 
   render() {
     const { value } = this.state;

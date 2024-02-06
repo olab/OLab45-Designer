@@ -48,7 +48,7 @@ class Input extends PureComponent<IInputProps, IInputState> {
       value,
       isShowError: !value,
     });
-  }
+  };
 
   handleBlur = (): void => {
     const { value } = this.state;
@@ -58,14 +58,19 @@ class Input extends PureComponent<IInputProps, IInputState> {
         isShowError: true,
       });
     }
-  }
+  };
 
   render() {
+    const { value, isShowError, standardErrorMessage } = this.state;
     const {
-      value, isShowError, standardErrorMessage,
-    } = this.state;
-    const {
-      label, autoComplete, disabled, errorText, fullWidth, name, placeholder, variant,
+      label,
+      autoComplete,
+      disabled,
+      errorText,
+      fullWidth,
+      name,
+      placeholder,
+      variant,
     } = this.props;
 
     return (

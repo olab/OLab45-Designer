@@ -23,16 +23,16 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
 
   handleClick = (event: Event): void => {
     this.setState({ anchorEl: event.currentTarget });
-  }
+  };
 
   handleMyMapDropdownClick = (event: Event): void => {
     event.preventDefault();
     this.setState({ anchorElMapMenu: event.currentTarget });
-  }
+  };
 
   handleToolsClick = (event: Event): void => {
     this.setState({ anchorElToolsMenu: event.currentTarget });
-  }
+  };
 
   handleClose = (): void => {
     this.setState({
@@ -40,7 +40,7 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
       anchorElMapMenu: null,
       anchorElToolsMenu: null,
     });
-  }
+  };
 
   handleClickHelp = (): void => {
     this.setState({
@@ -49,7 +49,7 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
       anchorElToolsMenu: null,
     });
     window.open('https://olab4.gitbook.io/help/', '_blank', 'noreferrer');
-  }
+  };
 
   render() {
     const { anchorEl, anchorElMapMenu, anchorElToolsMenu } = this.state;
@@ -82,7 +82,7 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
                 onClose={this.handleClose}
                 className={classes.mapMenu}
               >
-                {Object.values(MAP_MENU_ITEMS).map(item => (
+                {Object.values(MAP_MENU_ITEMS).map((item) => (
                   <MenuItem
                     key={item}
                     onClick={this.handleClose}
@@ -112,18 +112,20 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
             onClose={this.handleClose}
             className={classes.menu}
           >
-            {Object.values(SCOPED_OBJECTS).filter(item => item.showInNavBar).map(SOName => (
-              <MenuItem
-                disabled={!SOName.showInNavBar}
-                key={SOName.name}
-                onClick={this.handleClose}
-                className={classes.menuItem}
-                component={Link}
-                to={`/scopedObject/${SOName.name.toLowerCase()}`}
-              >
-                {`${SOName.name}s`}
-              </MenuItem>
-            ))}
+            {Object.values(SCOPED_OBJECTS)
+              .filter((item) => item.showInNavBar)
+              .map((SOName) => (
+                <MenuItem
+                  disabled={!SOName.showInNavBar}
+                  key={SOName.name}
+                  onClick={this.handleClose}
+                  className={classes.menuItem}
+                  component={Link}
+                  to={`/scopedObject/${SOName.name.toLowerCase()}`}
+                >
+                  {`${SOName.name}s`}
+                </MenuItem>
+              ))}
           </Menu>
 
           <Button
@@ -169,6 +171,6 @@ const mapStateToProps = ({ mapDetails }, { location: { pathname } }) => {
   return { mapId };
 };
 
-export default withRouter(connect(mapStateToProps)(
-  withStyles(styles)(NavigationBar),
-));
+export default withRouter(
+  connect(mapStateToProps)(withStyles(styles)(NavigationBar)),
+);

@@ -8,7 +8,15 @@ import type { ISliderProps } from './types';
 import styles, { SliderWrapper, SliderValue } from './styles';
 
 const Slider = ({
-  label, name, value, classes, min, max, step, disabled = false, onChange,
+  label,
+  name,
+  value,
+  classes,
+  min,
+  max,
+  step,
+  disabled = false,
+  onChange,
 }: ISliderProps) => (
   <div>
     {label && <InputLabel>{label}</InputLabel>}

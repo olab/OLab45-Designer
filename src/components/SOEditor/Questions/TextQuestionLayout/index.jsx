@@ -2,7 +2,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { TextField, Divider } from '@material-ui/core';
-import { QUESTION_TYPES, EDITORS_FIELDS, TEXTENTRY_QUESTION_TYPES } from '../../config';
+import {
+  QUESTION_TYPES,
+  EDITORS_FIELDS,
+  TEXTENTRY_QUESTION_TYPES,
+} from '../../config';
 import OutlinedSelect from '../../../../shared/components/OutlinedSelect';
 import styles, { FieldLabel, SwitchWrapper } from '../../styles';
 import Switch from '../../../../shared/components/Switch';
@@ -34,18 +38,24 @@ function TextQuestionLayout({
 
   const widthChoices = [];
   const heightChoices = [];
-  for (let i = DEFAULT_WIDTH.MIN; i <= DEFAULT_WIDTH.MAX; i += DEFAULT_WIDTH.STEP) {
+  for (
+    let i = DEFAULT_WIDTH.MIN;
+    i <= DEFAULT_WIDTH.MAX;
+    i += DEFAULT_WIDTH.STEP
+  ) {
     widthChoices.push(i);
   }
-  for (let i = DEFAULT_HEIGHT.MIN; i <= DEFAULT_HEIGHT.MAX; i += DEFAULT_HEIGHT.STEP) {
+  for (
+    let i = DEFAULT_HEIGHT.MIN;
+    i <= DEFAULT_HEIGHT.MAX;
+    i += DEFAULT_HEIGHT.STEP
+  ) {
     heightChoices.push(i);
   }
 
   return (
     <>
-      <FieldLabel>
-        {EDITORS_FIELDS.QUESTION_TYPES}
-      </FieldLabel>
+      <FieldLabel>{EDITORS_FIELDS.QUESTION_TYPES}</FieldLabel>
       <OutlinedSelect
         name="questionType"
         value={TEXTENTRY_QUESTION_TYPES[questionType]}
@@ -104,9 +114,7 @@ function TextQuestionLayout({
           fullWidth
         />
       </FieldLabel>
-      <FieldLabel>
-        {EDITORS_FIELDS.WIDTH}
-      </FieldLabel>
+      <FieldLabel>{EDITORS_FIELDS.WIDTH}</FieldLabel>
       <OutlinedSelect
         name="width"
         value={width}
@@ -114,11 +122,9 @@ function TextQuestionLayout({
         onChange={onSelectChange}
         disabled={isFieldsDisabled}
       />
-      {(QUESTION_TYPES[questionType] === QUESTION_TYPES[2]) && (
+      {QUESTION_TYPES[questionType] === QUESTION_TYPES[2] && (
         <>
-          <FieldLabel>
-            {EDITORS_FIELDS.HEIGHT}
-          </FieldLabel>
+          <FieldLabel>{EDITORS_FIELDS.HEIGHT}</FieldLabel>
           <OutlinedSelect
             name="height"
             value={height}

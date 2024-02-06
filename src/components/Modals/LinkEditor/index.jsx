@@ -23,16 +23,21 @@ import { LAYOUT_ENGINE } from '../../Constructor/config';
 import { LINK_STYLES } from '../../config';
 import { DND_CONTEXTS, MODALS_NAMES } from '../config';
 import {
-  THICKNESS_MIN, THICKNESS_MAX, THICKNESS_STEP, LINK_VARIANTS,
+  THICKNESS_MIN,
+  THICKNESS_MAX,
+  THICKNESS_STEP,
+  LINK_VARIANTS,
 } from './config';
 
 import {
-  ModalWrapper, ModalHeader, ModalBody,
-  ModalFooter, ArticleItem, ModalHeaderButton,
+  ModalWrapper,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ArticleItem,
+  ModalHeaderButton,
 } from '../styles';
-import {
-  MenusArticle, SwitchArticle,
-} from './styles';
+import { MenusArticle, SwitchArticle } from './styles';
 
 class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
   defaultLinkProps: LinkType | null;
@@ -95,24 +100,24 @@ class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
 
     ACTION_UPDATE_EDGE(this.defaultLinkProps, true);
     ACTION_DESELECT_EDGE();
-  }
+  };
 
   handleModalMove = (offsetX: number, offsetY: number): void => {
     const { ACTION_ADJUST_POSITION_MODAL } = this.props;
     ACTION_ADJUST_POSITION_MODAL(offsetX, offsetY);
-  }
+  };
 
   handleSwitchChange = (e: Event, checked: boolean, name: string): void => {
     this.setState({ [name]: checked });
     this.shouldUpdateVisual = true;
-  }
+  };
 
   onInputChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
 
     this.setState({ [name]: value });
     this.shouldUpdateVisual = true;
-  }
+  };
 
   handleSelectChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
@@ -125,11 +130,11 @@ class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
       menuItems = LINK_STYLES;
     }
 
-    const index = menuItems.findIndex(item => item === value);
+    const index = menuItems.findIndex((item) => item === value);
 
     this.setState({ [name]: index + 1 });
     this.shouldUpdateVisual = true;
-  }
+  };
 
   handleSliderChange = (e: Event, thickness: number): void => {
     this.setState({ thickness });
@@ -139,7 +144,7 @@ class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
   handleColorChange = (color: string): void => {
     this.setState({ color });
     this.shouldUpdateVisual = true;
-  }
+  };
 
   handleDirectionChange = (): void => {
     const { source, target } = this.state;
@@ -149,7 +154,7 @@ class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
       target: source,
     });
     this.shouldUpdateVisual = true;
-  }
+  };
 
   applyChanges = (): void => {
     const { ACTION_UPDATE_EDGE } = this.props;
@@ -159,30 +164,46 @@ class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
     this.defaultLinkProps = {
       ...this.state,
     };
-  }
+  };
 
-  checkIfLinkHasSibling = ({ source: linkSource, target: linkTarget }: LinkType) => {
+  checkIfLinkHasSibling = ({
+    source: linkSource,
+    target: linkTarget,
+  }: LinkType) => {
     const { links } = this.props;
 
-    return links
-      .some(({ source, target }) => source === linkTarget && target === linkSource);
-  }
+    return links.some(
+      ({ source, target }) => source === linkTarget && target === linkSource,
+    );
+  };
 
   deleteLink = (): void => {
     const { id: edgeId, map_id: mapId } = this.state;
     const { ACTION_DELETE_EDGE } = this.props;
     ACTION_DELETE_EDGE(edgeId, mapId);
-  }
+  };
 
   render() {
     const {
-      label, color, variant, thickness, linkStyle, isHidden, isFollowOnce,
+      label,
+      color,
+      variant,
+      thickness,
+      linkStyle,
+      isHidden,
+      isFollowOnce,
     } = this.state;
     const {
-      x, y, isDragging, connectDragSource, connectDragPreview, layoutEngine,
+      x,
+      y,
+      isDragging,
+      connectDragSource,
+      connectDragPreview,
+      layoutEngine,
     } = this.props;
 
-    const isShowChangeDirection = layoutEngine !== LAYOUT_ENGINE.NONE && !this.isLinkHasSibling;
+    const isShowChangeDirection =
+      layoutEngine !== LAYOUT_ENGINE.NONE && !this.isLinkHasSibling;
 
     if (isDragging) {
       return null;
@@ -192,14 +213,11 @@ class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
       <ModalWrapper
         x={x}
         y={y}
-        ref={instance => connectDragPreview(instance)}
+        ref={(instance) => connectDragPreview(instance)}
       >
-        <ModalHeader ref={instance => connectDragSource(instance)}>
+        <ModalHeader ref={(instance) => connectDragSource(instance)}>
           <h4>Link Editor</h4>
-          <ModalHeaderButton
-            type="button"
-            onClick={this.handleCloseModal}
-          >
+          <ModalHeaderButton type="button" onClick={this.handleCloseModal}>
             <ScaleIcon />
           </ModalHeaderButton>
         </ModalHeader>
@@ -276,11 +294,7 @@ class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
           </SwitchArticle>
         </ModalBody>
         <ModalFooter>
-          <Button
-            variant="contained"
-            color="default"
-            onClick={this.deleteLink}
-          >
+          <Button variant="contained" color="default" onClick={this.deleteLink}>
             Delete
           </Button>
 
@@ -305,7 +319,7 @@ const mapStateToProps = ({ map, modals, constructor }) => ({
   layoutEngine: constructor.layoutEngine,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_UPDATE_EDGE: (edge: LinkType, isVisualOnly: boolean = false) => {
     dispatch(mapActions.ACTION_UPDATE_EDGE(edge, isVisualOnly));
   },
@@ -316,21 +330,17 @@ const mapDispatchToProps = dispatch => ({
     dispatch(mapActions.ACTION_DELETE_EDGE(edgeId, linkId));
   },
   ACTION_ADJUST_POSITION_MODAL: (offsetX: number, offsetY: number) => {
-    dispatch(modalActions.ACTION_ADJUST_POSITION_MODAL(
-      MODALS_NAMES.LINK_EDITOR_MODAL,
-      offsetX,
-      offsetY,
-    ));
+    dispatch(
+      modalActions.ACTION_ADJUST_POSITION_MODAL(
+        MODALS_NAMES.LINK_EDITOR_MODAL,
+        offsetX,
+        offsetY,
+      ),
+    );
   },
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(
-  DragSource(
-    DND_CONTEXTS.VIEWPORT,
-    spec,
-    collect,
-  )(LinkEditor),
-);
+)(DragSource(DND_CONTEXTS.VIEWPORT, spec, collect)(LinkEditor));

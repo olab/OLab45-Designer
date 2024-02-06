@@ -15,20 +15,13 @@ import styles, { Wrapper } from './styles';
 
 const CardFooter = ({ classes, isLinked }: ICardFooterProps) => (
   <Wrapper className="card-footer">
-    <Fab
-      data-active="true"
-      data-action={ACTION_ADD}
-      className={classes.fab}
-    >
+    <Fab data-active="true" data-action={ACTION_ADD} className={classes.fab}>
       <AddIcon />
     </Fab>
     <Fab
       data-active="true"
       data-action={ACTION_LINK}
-      className={classNames(
-        classes.fab,
-        { [classes.linkIcon]: isLinked },
-      )}
+      className={classNames(classes.fab, { [classes.linkIcon]: isLinked })}
       disableRipple
     >
       <LinkIcon />

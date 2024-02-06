@@ -8,9 +8,7 @@ import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 import GraphView from './GraphView';
 
-import {
-  createNewEdge, createNewNode, spec, collect,
-} from './utils';
+import { createNewEdge, createNewNode, spec, collect } from './utils';
 import { EDGE_TYPES, NODE_CREATION_OFFSET } from './config';
 import { DND_CONTEXTS, MODALS_NAMES } from '../../Modals/config';
 
@@ -55,41 +53,48 @@ export class Graph extends Component<IGraphProps, IGraphState> {
   }
 
   get getFocusedNode(): NodeType | null {
-    const { map: { nodes } } = this.props;
+    const {
+      map: { nodes },
+    } = this.props;
     return nodes.find(({ isFocused }) => isFocused) || null;
   }
 
   get getSelectedNode(): NodeType | null {
-    const { map: { nodes } } = this.props;
+    const {
+      map: { nodes },
+    } = this.props;
     return nodes.find(({ isSelected }) => isSelected) || null;
   }
 
   get getSelectedEdge(): EdgeType | null {
-    const { map: { edges } } = this.props;
+    const {
+      map: { edges },
+    } = this.props;
     return edges.find(({ isSelected }) => isSelected) || null;
   }
 
   onNodeFocused = (nodeId: number) => {
     const { ACTION_FOCUS_NODE } = this.props;
     ACTION_FOCUS_NODE(nodeId);
-  }
+  };
 
   onSelectNode = (node: NodeType | null) => {
     const { ACTION_SELECT_NODE } = this.props;
     const nodeId = node ? node.id : null;
-    const shouldSelectedNode = node && !(node.isSelected);
+    const shouldSelectedNode = node && !node.isSelected;
 
     if (shouldSelectedNode) {
       ACTION_SELECT_NODE(nodeId);
     }
   };
 
-  onSelectEdge = (edge: EdgeType | null, posX: number = 0, posY: number = 0) => {
+  onSelectEdge = (
+    edge: EdgeType | null,
+    posX: number = 0,
+    posY: number = 0,
+  ) => {
     const edgeId = edge ? edge.id : null;
-    const {
-      ACTION_SELECT_EDGE,
-      ACTION_SET_POSITION_MODAL,
-    } = this.props;
+    const { ACTION_SELECT_EDGE, ACTION_SET_POSITION_MODAL } = this.props;
 
     if (edge) {
       ACTION_SET_POSITION_MODAL(MODALS_NAMES.LINK_EDITOR_MODAL, posX, posY);
@@ -106,7 +111,7 @@ export class Graph extends Component<IGraphProps, IGraphState> {
   onResizeNode = (nodeId: number, width: number, height: number) => {
     const { ACTION_UPDATE_NODE_RESIZE } = this.props;
     ACTION_UPDATE_NODE_RESIZE(nodeId, width, height);
-  }
+  };
 
   onLockNode = (nodeId: number) => {
     const { ACTION_UPDATE_NODE_LOCK } = this.props;
@@ -114,49 +119,58 @@ export class Graph extends Component<IGraphProps, IGraphState> {
   };
 
   onCreateNode = (x: number, y: number) => {
-    const { mapId, defaults: { nodeBody }, ACTION_CREATE_NODE } = this.props;
+    const {
+      mapId,
+      defaults: { nodeBody },
+      ACTION_CREATE_NODE,
+    } = this.props;
     const newNode = createNewNode(mapId, x, y, nodeBody);
 
     ACTION_CREATE_NODE(newNode);
-  }
+  };
 
   onCreateEdge = (sourceNode: NodeType, targetNode: NodeType) => {
     if (sourceNode.id === targetNode.id) {
       return;
     }
 
-    const { defaults: { edgeBody }, ACTION_CREATE_EDGE } = this.props;
+    const {
+      defaults: { edgeBody },
+      ACTION_CREATE_EDGE,
+    } = this.props;
     const newEdge = createNewEdge(sourceNode.id, targetNode.id, edgeBody);
 
     ACTION_CREATE_EDGE(newEdge);
-  }
+  };
 
   onCreateNodeWithEdge = (x: number, y: number, sourceNode: NodeType) => {
     const {
-      mapId, defaults: { edgeBody, nodeBody }, ACTION_CREATE_NODE_WITH_EDGE,
+      mapId,
+      defaults: { edgeBody, nodeBody },
+      ACTION_CREATE_NODE_WITH_EDGE,
     } = this.props;
 
     const newNode = createNewNode(mapId, x, y, nodeBody);
     const newEdge = createNewEdge(sourceNode.id, newNode.id, edgeBody);
 
     ACTION_CREATE_NODE_WITH_EDGE(newNode, newEdge, sourceNode.id);
-  }
+  };
 
   onUpdateNode = (node: NodeType) => {
     const { ACTION_UPDATE_NODE } = this.props;
     ACTION_UPDATE_NODE(node);
-  }
+  };
 
   onDeleteNode = (node: NodeType) => {
     const { mapId, ACTION_DELETE_NODE_MIDDLEWARE } = this.props;
 
     ACTION_DELETE_NODE_MIDDLEWARE(mapId, node.id, node.type);
-  }
+  };
 
   onDeleteEdge = (edge: EdgeType) => {
     const { ACTION_DELETE_EDGE } = this.props;
     ACTION_DELETE_EDGE(edge.id, edge.source);
-  }
+  };
 
   onUndo = () => {
     const { ACTION_UNDO_MAP, isUndoAvailable } = this.props;
@@ -166,7 +180,7 @@ export class Graph extends Component<IGraphProps, IGraphState> {
     }
 
     ACTION_UNDO_MAP();
-  }
+  };
 
   onRedo = () => {
     const { ACTION_REDO_MAP, isRedoAvailable } = this.props;
@@ -176,7 +190,7 @@ export class Graph extends Component<IGraphProps, IGraphState> {
     }
 
     ACTION_REDO_MAP();
-  }
+  };
 
   onCopySelected = () => {
     const selectedNode = this.getSelectedNode;
@@ -195,7 +209,7 @@ export class Graph extends Component<IGraphProps, IGraphState> {
         y,
       },
     });
-  }
+  };
 
   onPasteSelected = () => {
     const { ACTION_CREATE_NODE } = this.props;
@@ -208,7 +222,7 @@ export class Graph extends Component<IGraphProps, IGraphState> {
     };
 
     ACTION_CREATE_NODE(newNode);
-  }
+  };
 
   graphViewWrapperRef: { current: null | HTMLDivElement };
 
@@ -216,7 +230,11 @@ export class Graph extends Component<IGraphProps, IGraphState> {
 
   render() {
     const {
-      isFullScreen, map: { nodes, edges }, minZoom, maxZoom, layoutEngine,
+      isFullScreen,
+      map: { nodes, edges },
+      minZoom,
+      maxZoom,
+      layoutEngine,
     } = this.props;
 
     return (
@@ -257,9 +275,7 @@ export class Graph extends Component<IGraphProps, IGraphState> {
   }
 }
 
-const mapStateToProps = ({
-  map, mapDetails, defaults, constructor,
-}) => ({
+const mapStateToProps = ({ map, mapDetails, defaults, constructor }) => ({
   map,
   mapId: mapDetails.id,
   defaults,
@@ -271,7 +287,7 @@ const mapStateToProps = ({
   isFullScreen: constructor.isFullScreen,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_SELECT_EDGE: (edgeId: number) => {
     dispatch(mapActions.ACTION_SELECT_EDGE(edgeId));
   },
@@ -281,8 +297,14 @@ const mapDispatchToProps = dispatch => ({
   ACTION_CREATE_EDGE: (edge: EdgeType) => {
     dispatch(mapActions.ACTION_CREATE_EDGE(edge));
   },
-  ACTION_DELETE_NODE_MIDDLEWARE: (mapId: number, nodeId: number, nodeType: number) => {
-    dispatch(wholeMapActions.ACTION_DELETE_NODE_MIDDLEWARE(mapId, nodeId, nodeType));
+  ACTION_DELETE_NODE_MIDDLEWARE: (
+    mapId: number,
+    nodeId: number,
+    nodeType: number,
+  ) => {
+    dispatch(
+      wholeMapActions.ACTION_DELETE_NODE_MIDDLEWARE(mapId, nodeId, nodeType),
+    );
   },
   ACTION_UPDATE_NODE: (node: NodeType) => {
     dispatch(mapActions.ACTION_UPDATE_NODE(node));
@@ -290,7 +312,11 @@ const mapDispatchToProps = dispatch => ({
   ACTION_CREATE_NODE: (node: NodeType) => {
     dispatch(mapActions.ACTION_CREATE_NODE(node));
   },
-  ACTION_CREATE_NODE_WITH_EDGE: (node: NodeType, edge: EdgeType, sourceNodeId: number) => {
+  ACTION_CREATE_NODE_WITH_EDGE: (
+    node: NodeType,
+    edge: EdgeType,
+    sourceNodeId: number,
+  ) => {
     dispatch(mapActions.ACTION_CREATE_NODE_WITH_EDGE(node, edge, sourceNodeId));
   },
   ACTION_SELECT_NODE: (nodeId: number) => {
@@ -302,7 +328,11 @@ const mapDispatchToProps = dispatch => ({
   ACTION_UPDATE_NODE_COLLAPSE: (nodeId: number) => {
     dispatch(mapActions.ACTION_UPDATE_NODE_COLLAPSE(nodeId));
   },
-  ACTION_UPDATE_NODE_RESIZE: (nodeId: number, width: number, height: number) => {
+  ACTION_UPDATE_NODE_RESIZE: (
+    nodeId: number,
+    width: number,
+    height: number,
+  ) => {
     dispatch(mapActions.ACTION_UPDATE_NODE_RESIZE(nodeId, width, height));
   },
   ACTION_UPDATE_NODE_LOCK: (nodeId: number) => {
@@ -327,10 +357,7 @@ export default DropTarget(
   spec,
   collect,
 )(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-    null,
-    { forwardRef: true },
-  )(Graph),
+  connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(
+    Graph,
+  ),
 );

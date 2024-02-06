@@ -11,7 +11,10 @@ import styles, { ContainerKeywords } from './styles';
 import { ContainerTab, ContentTitle } from '../styles';
 
 const BasicDetails = ({
-  details, text, onInputChange, handleEditorChange,
+  details,
+  text,
+  onInputChange,
+  handleEditorChange,
 }: IProps): React$Element<any> => (
   <ContainerTab>
     <OutlinedInput

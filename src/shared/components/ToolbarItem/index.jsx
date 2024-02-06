@@ -9,19 +9,20 @@ import type { IToolbarItemProps } from './types';
 import styles from './styles';
 
 const ToolbarItem = ({
-  label, onClick, icon: Icon, classes, isActive,
+  label,
+  onClick,
+  icon: Icon,
+  classes,
+  isActive,
 }: IToolbarItemProps) => (
   <IconButton
     title={label}
     aria-label={label}
     onClick={onClick}
     disabled={isActive}
-    className={
-      classNames(
-        classes.iconButton,
-        { [classes.iconButtonActive]: isActive },
-      )
-    }
+    className={classNames(classes.iconButton, {
+      [classes.iconButtonActive]: isActive,
+    })}
   >
     <Icon />
   </IconButton>

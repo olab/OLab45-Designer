@@ -8,9 +8,15 @@ import { Notify } from 'react-redux-notify';
 import Login from './Login';
 import Home from './Home';
 
-const Constructor = lazy(() => import(/* webpackChunkName: "olab-editor" */ './Constructor'));
-const CounterGrid = lazy(() => import(/* webpackChunkName: "olab-editor" */ './CounterGrid'));
-const NodeGrid = lazy(() => import(/* webpackChunkName: "olab-editor" */ './NodeGrid'));
+const Constructor = lazy(() =>
+  import(/* webpackChunkName: "olab-editor" */ './Constructor'),
+);
+const CounterGrid = lazy(() =>
+  import(/* webpackChunkName: "olab-editor" */ './CounterGrid'),
+);
+const NodeGrid = lazy(() =>
+  import(/* webpackChunkName: "olab-editor" */ './NodeGrid'),
+);
 
 import PageNotFound from './404';
 import Header from './Header';
@@ -31,24 +37,29 @@ import type { IAppProps, IProtectedRouteProps } from './types';
 import 'react-redux-notify/dist/ReactReduxNotify.css';
 
 const ProtectedRoute = ({
-  component: Component, isAuth, path, exact, ...rest
+  component: Component,
+  isAuth,
+  path,
+  exact,
+  ...rest
 }: IProtectedRouteProps) => (
   <Route
     path={path}
     exact={exact}
-    render={props => (isAuth ? (
-      <Component {...props} {...rest} />
-    ) : (
-      <Redirect push to="/login" />
-    ))}
+    render={(props) =>
+      isAuth ? (
+        <Component {...props} {...rest} />
+      ) : (
+        <Redirect push to="/login" />
+      )
+    }
   />
 );
 
 export class App extends PureComponent<IAppProps> {
-
   constructor(props) {
     super(props);
-    this.handleLogout = this.handleLogout.bind(this);    
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentDidMount(): void {
@@ -87,24 +98,109 @@ export class App extends PureComponent<IAppProps> {
           {isAuth && <Header handleLogout={this.handleLogout} />}
           <Switch>
             <Route exact path="/login" component={Login} />
-            <ProtectedRoute exact isAuth={isAuth} path="/:mapId" component={Constructor} />
-            <ProtectedRoute exact isAuth={isAuth} path="/:mapId/:nodeId/ane" component={AdvancedNodeEditor} />
-            <ProtectedRoute exact isAuth={isAuth} path="/:mapId/countergrid" component={CounterGrid} />
-            <ProtectedRoute exact isAuth={isAuth} path="/:mapId/mapdetails" component={MapDetails} />
-            <ProtectedRoute exact isAuth={isAuth} path="/:mapId/nodegrid" component={NodeGrid} />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path="/:mapId"
+              component={Constructor}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path="/:mapId/:nodeId/ane"
+              component={AdvancedNodeEditor}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path="/:mapId/countergrid"
+              component={CounterGrid}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path="/:mapId/mapdetails"
+              component={MapDetails}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path="/:mapId/nodegrid"
+              component={NodeGrid}
+            />
             <ProtectedRoute exact isAuth={isAuth} path="/" component={Home} />
-            <ProtectedRoute exact isAuth={isAuth} path="/scopedObject/:scopedObjectType" component={SOEditor} />
-            <ProtectedRoute exact isAuth={isAuth} path={`/scopedObject/${SCOPED_OBJECTS.CONSTANT.name.toLowerCase()}/:scopedObjectId`} component={Constants} />
-            <ProtectedRoute exact isAuth={isAuth} path={`/scopedObject/${SCOPED_OBJECTS.CONSTANT.name.toLowerCase()}/add`} component={Constants} />
-            <ProtectedRoute exact isAuth={isAuth} path={`/scopedObject/${SCOPED_OBJECTS.COUNTER.name.toLowerCase()}/:scopedObjectId`} component={Counters} />
-            <ProtectedRoute exact isAuth={isAuth} path={`/scopedObject/${SCOPED_OBJECTS.COUNTER.name.toLowerCase()}/add`} component={Counters} />
-            <ProtectedRoute exact isAuth={isAuth} path={`/scopedObject/${SCOPED_OBJECTS.FILE.name.toLowerCase()}/:scopedObjectId`} component={Files} />
-            <ProtectedRoute exact isAuth={isAuth} path={`/scopedObject/${SCOPED_OBJECTS.FILE.name.toLowerCase()}/add`} component={Files} />
-            <ProtectedRoute exact isAuth={isAuth} path={`/scopedObject/${SCOPED_OBJECTS.QUESTION.name.toLowerCase()}/:scopedObjectId`} component={Questions} />
-            <ProtectedRoute exact isAuth={isAuth} path={`/scopedObject/${SCOPED_OBJECTS.QUESTION.name.toLowerCase()}/add`} component={Questions} />
-            <ProtectedRoute exact isAuth={isAuth} path={`/scopedObject/${SCOPED_OBJECTS.QUESTIONRESPONSES.name.toLowerCase()}/:scopedObjectId`} component={QuestionResponses} />
-            <ProtectedRoute exact isAuth={isAuth} path={`/scopedObject/${SCOPED_OBJECTS.QUESTIONRESPONSES.name.toLowerCase()}/add`} component={QuestionResponses} />
-            <ProtectedRoute exact isAuth={isAuth} path="*" component={PageNotFound} />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path="/scopedObject/:scopedObjectType"
+              component={SOEditor}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path={`/scopedObject/${SCOPED_OBJECTS.CONSTANT.name.toLowerCase()}/:scopedObjectId`}
+              component={Constants}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path={`/scopedObject/${SCOPED_OBJECTS.CONSTANT.name.toLowerCase()}/add`}
+              component={Constants}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path={`/scopedObject/${SCOPED_OBJECTS.COUNTER.name.toLowerCase()}/:scopedObjectId`}
+              component={Counters}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path={`/scopedObject/${SCOPED_OBJECTS.COUNTER.name.toLowerCase()}/add`}
+              component={Counters}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path={`/scopedObject/${SCOPED_OBJECTS.FILE.name.toLowerCase()}/:scopedObjectId`}
+              component={Files}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path={`/scopedObject/${SCOPED_OBJECTS.FILE.name.toLowerCase()}/add`}
+              component={Files}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path={`/scopedObject/${SCOPED_OBJECTS.QUESTION.name.toLowerCase()}/:scopedObjectId`}
+              component={Questions}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path={`/scopedObject/${SCOPED_OBJECTS.QUESTION.name.toLowerCase()}/add`}
+              component={Questions}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path={`/scopedObject/${SCOPED_OBJECTS.QUESTIONRESPONSES.name.toLowerCase()}/:scopedObjectId`}
+              component={QuestionResponses}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path={`/scopedObject/${SCOPED_OBJECTS.QUESTIONRESPONSES.name.toLowerCase()}/add`}
+              component={QuestionResponses}
+            />
+            <ProtectedRoute
+              exact
+              isAuth={isAuth}
+              path="*"
+              component={PageNotFound}
+            />
           </Switch>
           <Notify />
         </Suspense>
@@ -113,24 +209,24 @@ export class App extends PureComponent<IAppProps> {
   }
 }
 
-const mapStateToProps = ({
-  user: { isAuth },
-  map: { nodes },
-}) => ({
+const mapStateToProps = ({ user: { isAuth }, map: { nodes } }) => ({
   isAuth,
   nodes,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_USER_AUTH_LOGOUT: () => {
     dispatch(authActions.ACTION_USER_AUTH_LOGOUT());
   },
-  ACTION_SYNC_NODE_MIDDLEWARE: (mapId: number, nodeId: number, actionType: string) => {
-    dispatch(wholeMapActions.ACTION_SYNC_NODE_MIDDLEWARE(mapId, nodeId, actionType));
+  ACTION_SYNC_NODE_MIDDLEWARE: (
+    mapId: number,
+    nodeId: number,
+    actionType: string,
+  ) => {
+    dispatch(
+      wholeMapActions.ACTION_SYNC_NODE_MIDDLEWARE(mapId, nodeId, actionType),
+    );
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

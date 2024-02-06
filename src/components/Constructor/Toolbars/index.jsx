@@ -20,13 +20,21 @@ import verticalTreeIcon from '../../../shared/assets/icons/vertical_tree.svg';
 
 import type { IToolbarsProps } from './types';
 
-import { ZOOM_CONTROLS_ID, CONFIRMATION_MODALS, LAYOUT_ENGINE } from '../config';
+import {
+  ZOOM_CONTROLS_ID,
+  CONFIRMATION_MODALS,
+  LAYOUT_ENGINE,
+} from '../config';
 import { MODALS_NAMES } from '../../Modals/config';
 
 import * as constructorActions from '../../../redux/constructor/action';
 import * as modalActions from '../../../redux/modals/action';
 
-import styles, { Block, LabTitleItem, ContainerWithPseudoBlocks } from './styles';
+import styles, {
+  Block,
+  LabTitleItem,
+  ContainerWithPseudoBlocks,
+} from './styles';
 
 export class Toolbars extends PureComponent<IToolbarsProps> {
   componentDidMount() {
@@ -55,18 +63,18 @@ export class Toolbars extends PureComponent<IToolbarsProps> {
     if (fscreen.fullscreenEnabled) {
       fscreen.requestFullscreen(document.body);
     }
-  }
+  };
 
   leaveFullScreen = (): void => {
     if (fscreen.fullscreenEnabled) {
       fscreen.exitFullscreen();
     }
-  }
+  };
 
   detectFullScreen = (): void => {
     const { ACTION_SET_FULLSCREEN } = this.props;
     ACTION_SET_FULLSCREEN(Toolbars.isFullScreenMode);
-  }
+  };
 
   render() {
     const {
@@ -120,13 +128,17 @@ export class Toolbars extends PureComponent<IToolbarsProps> {
             <ToolbarItem
               icon={snapToGridOnIcon}
               label="Snap to Grid"
-              onClick={() => ACTION_SET_LAYOUT_ENGINE(LAYOUT_ENGINE.SNAP_TO_GRID)}
+              onClick={() =>
+                ACTION_SET_LAYOUT_ENGINE(LAYOUT_ENGINE.SNAP_TO_GRID)
+              }
               isActive={currentLayoutEngine === LAYOUT_ENGINE.SNAP_TO_GRID}
             />
             <ToolbarItem
               icon={verticalTreeIcon}
               label="Vertical Tree"
-              onClick={() => ACTION_SET_LAYOUT_ENGINE(LAYOUT_ENGINE.VERTICAL_TREE)}
+              onClick={() =>
+                ACTION_SET_LAYOUT_ENGINE(LAYOUT_ENGINE.VERTICAL_TREE)
+              }
               isActive={currentLayoutEngine === LAYOUT_ENGINE.VERTICAL_TREE}
             />
           </ContainerWithPseudoBlocks>
@@ -155,7 +167,7 @@ const mapStateToProps = ({ constructor }) => ({
   currentLayoutEngine: constructor.layoutEngine,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_TOGGLE_MODAL: () => {
     dispatch(modalActions.ACTION_TOGGLE_MODAL(MODALS_NAMES.SO_PICKER_MODAL));
   },
@@ -173,6 +185,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(
-  withStyles(styles)(Toolbars),
-);
+)(withStyles(styles)(Toolbars));

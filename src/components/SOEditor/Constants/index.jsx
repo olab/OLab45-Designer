@@ -15,9 +15,7 @@ import { EDITORS_FIELDS } from '../config';
 import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../config';
 
 import { FieldLabel } from '../styles';
-import {
-  Title, Outlined, ContainerTitle,
-} from './styles';
+import { Title, Outlined, ContainerTitle } from './styles';
 
 class Constant extends ScopedObjectService {
   constructor(props: IScopedObjectProps) {
@@ -41,7 +39,7 @@ class Constant extends ScopedObjectService {
       scopeLevel,
       isShowModal,
       isFieldsDisabled,
-      scopeLevelObj
+      scopeLevelObj,
     } = this.state;
     const { classes, scopeLevels } = this.props;
     const { iconEven: IconEven, iconOdd: IconOdd } = this.icons;
@@ -54,10 +52,7 @@ class Constant extends ScopedObjectService {
         scopedObject={this.scopedObjectType}
         onSubmit={this.onClickUpdate}
       >
-
-        {(id >= 0) && (
-          <small>{idInfo}</small>
-        )}
+        {id >= 0 && <small>{idInfo}</small>}
 
         <FieldLabel>
           {EDITORS_FIELDS.NAME}
@@ -104,9 +99,7 @@ class Constant extends ScopedObjectService {
         </FieldLabel>
 
         <ContainerTitle>
-          <Title>
-            {EDITORS_FIELDS.PARENT}
-          </Title>
+          <Title>{EDITORS_FIELDS.PARENT}</Title>
         </ContainerTitle>
 
         <Grid container spacing={3}>
