@@ -13,6 +13,8 @@ class TextEditor extends React.Component {
     // this.props.editorRef = React.createRef();
   }
 
+  console.log( `${JSON.stringify(process.env)}`);
+  
   render() {
     const {
       height = 200,
