@@ -85,7 +85,7 @@
     "d3-color": "^3.1.0"
   },
   "scripts": {
-    "build:azure": "webpack --env azure --mode production && node ./postinstall.js",
+    "build:azure": "webpack --env azure --mode production",
     "build:dev": "webpack --env debug --mode development",
     "build": "webpack --mode production",
     "format": "npx prettier --write src",
@@ -95,8 +95,7 @@
     "test-cover": "npm test -- --coverage",
     "test": "jest",
     "version:full": "npm --no-git-tag-version version `date +%y.%m.%d-0`",
-    "version:inc": "npm --no-git-tag-version version prerelease",
-    "postinstall": "node ./postinstall.js"
+    "version:inc": "npm --no-git-tag-version version prerelease"
   },
   "browserslist": [
     ">0.2%",
