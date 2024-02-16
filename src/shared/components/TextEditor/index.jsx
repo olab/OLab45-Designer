@@ -8,14 +8,12 @@ import {
 } from './config';
 
 class TextEditor extends React.Component {
-
   constructor(props) {
     super(props);
-    this.props.editorRef = React.createRef();
+    // this.props.editorRef = React.createRef();
   }
 
   render() {
-
     const {
       height = 200,
       width = 800,
@@ -23,7 +21,7 @@ class TextEditor extends React.Component {
       editorOptions = {},
       handleEditorChange,
       text,
-      editorRef,
+      // editorRef,
     } = this.props;
 
     return (
