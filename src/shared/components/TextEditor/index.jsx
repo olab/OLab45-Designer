@@ -14,8 +14,6 @@ class TextEditor extends React.Component {
   }
 
   render() {
-    console.log(`${JSON.stringify(process.env)}`);
-
     const {
       height = 200,
       width = 800,
@@ -26,9 +24,15 @@ class TextEditor extends React.Component {
       // editorRef,
     } = this.props;
 
+    // handle case where tinymce is directly off the root
+    let url = '/tinymce/tinymce.min.js';
+    if (process.env.PUBLIC_URL != '/') {
+      url = `${process.env.PUBLIC_URL}/tinymce/tinymce.min.js`;
+    }
+
     return (
       <Editor
-        tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
+        tinymceScriptSrc={url}
         zapiKey={EDITOR_API_KEY}
         id={editorId}
         xcloudChannel={EDITOR_VERSION}
