@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
 import {
@@ -8,7 +8,14 @@ import {
 } from './config';
 
 class TextEditor extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.props.editorRef = React.createRef();
+  }
+
   render() {
+
     const {
       height = 200,
       width = 800,
@@ -16,13 +23,15 @@ class TextEditor extends React.Component {
       editorOptions = {},
       handleEditorChange,
       text,
+      editorRef,
     } = this.props;
 
     return (
       <Editor
-        apiKey={EDITOR_API_KEY}
+        tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
+        zapiKey={EDITOR_API_KEY}
         id={editorId}
-        cloudChannel={EDITOR_VERSION}
+        xcloudChannel={EDITOR_VERSION}
         // eslint-disable-next-line
         value={text}
         // eslint-disable-next-line

@@ -20,7 +20,9 @@
     "commandCenter.border": "#e7e7e799"
   },
   "peacock.color": "#b75871",
-  "editor.codeActionsOnSave": { "source.fixAll": true },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
   "editor.formatOnSave": true,
   "editor.formatOnPaste": false,
   // please install and enable Prettier official extension
