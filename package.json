@@ -95,7 +95,8 @@
     "test-cover": "npm test -- --coverage",
     "test": "jest",
     "version:full": "npm --no-git-tag-version version `date +%y.%m.%d-0`",
-    "version:inc": "npm --no-git-tag-version version prerelease"
+    "version:inc": "npm --no-git-tag-version version prerelease",
+    "postinstall": "node ./postinstall.js"
   },
   "browserslist": [
     ">0.2%",
