@@ -25,9 +25,9 @@ class TextEditor extends React.Component {
     } = this.props;
 
     // handle case where tinymce is directly off the root
-    let url = '/tinymce/tinymce.min.js';
+    let url = '/tinymce/tinymce.js';
     if (process.env.PUBLIC_URL != '/') {
-      url = `${process.env.PUBLIC_URL}/tinymce/tinymce.min.js`;
+      url = `${process.env.PUBLIC_URL}/tinymce/tinymce.js`;
     }
 
     return (
