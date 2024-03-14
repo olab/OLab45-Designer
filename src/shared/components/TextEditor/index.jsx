@@ -8,14 +8,12 @@ import {
 } from './config';
 
 class TextEditor extends React.Component {
-
   constructor(props) {
     super(props);
-    this.props.editorRef = React.createRef();
+    // this.props.editorRef = React.createRef();
   }
 
   render() {
-
     const {
       height = 200,
       width = 800,
@@ -23,15 +21,21 @@ class TextEditor extends React.Component {
       editorOptions = {},
       handleEditorChange,
       text,
-      editorRef,
+      // editorRef,
     } = this.props;
+
+    // handle case where tinymce is directly off the root
+    let url = '/tinymce/tinymce.min.js';
+    if (process.env.PUBLIC_URL != '/') {
+      url = `${process.env.PUBLIC_URL}/tinymce/tinymce.min.js`;
+    }
 
     return (
       <Editor
-        tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
-        zapiKey={EDITOR_API_KEY}
+        tinymceScriptSrc={url}
+        xapiKey={EDITOR_API_KEY}
         id={editorId}
-        xcloudChannel={EDITOR_VERSION}
+        cloudChannel={EDITOR_VERSION}
         // eslint-disable-next-line
         value={text}
         // eslint-disable-next-line
