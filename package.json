@@ -2,7 +2,6 @@
   "name": "olab45designer",
   "version": "24.03.18-0",
   "private": true,
-  "homepage": "/designerdebug/",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
@@ -47,6 +46,7 @@
     "tinymce": "^6.8.2"
   },
   "devDependencies": {
+    "@azure/static-web-apps-cli": "^1.1.7",
     "@babel/core": "^7.21.8",
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-flow": "^7.16.7",
