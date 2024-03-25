@@ -121,7 +121,7 @@ class AdvancedNodeEditor extends PureComponent<
 
   render() {
     const { classes, themesNames } = this.props;
-    const { description, notes } = this.state;
+    const { description, devNotes } = this.state;
 
     return (
       <Container>
@@ -168,7 +168,7 @@ class AdvancedNodeEditor extends PureComponent<
                 />,
                 <ContentDetails
                   details={this.state}
-                  text={notes}
+                  text={devNotes}
                   nodes={this.props.nodes}
                   handleEditorChange={this.handleEditorChange}
                   handleCheckBoxChange={this.handleCheckBoxChange}
