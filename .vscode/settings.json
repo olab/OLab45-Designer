@@ -28,5 +28,6 @@
   // please install and enable Prettier official extension
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   // using eslint with flow instead of typescript, discard editor validation errors
-  "javascript.validate.enable": false
+  "javascript.validate.enable": false,
+  "svn.ignoreMissingSvnWarning": true
 }
