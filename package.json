@@ -1,6 +1,6 @@
 {
-  "name": "olab46designer",
-  "version": "23.11.05-1",
+  "name": "olab45designer",
+  "version": "24.03.25-0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
@@ -13,7 +13,6 @@
     "d3": "^5.9.2",
     "dagre": "^0.8.5",
     "dompurify": "^3.0.3",
-    "dotenv-webpack": "^8.0.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.7",
     "formik": "^2.2.9",
@@ -78,7 +77,7 @@
     "mini-css-extract-plugin": "^2.7.5",
     "prettier": "^2.8.8",
     "webpack": "^5.82.0",
-    "webpack-cli": "^5.1.4",
+    "webpack-cli": "^5.1.0",
     "webpack-dev-server": "^4.15.0",
     "workbox-webpack-plugin": "^6.5.4"
   },
@@ -86,17 +85,14 @@
     "d3-color": "^3.1.0"
   },
   "scripts": {
-    "build:azure": "webpack --env azure --mode production",
-    "build:dev": "webpack --env debug --mode development",
-    "build": "webpack --mode production",
-    "format": "npx prettier --write src",
-    "lint": "eslint ./src",
-    "start:prod": "webpack serve --mode production",
     "start": "webpack serve --mode development",
-    "test-cover": "npm test -- --coverage",
+    "start:prod": "webpack serve --mode production",
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development",
+    "lint": "eslint ./src",
     "test": "jest",
-    "version:full": "npm --no-git-tag-version version `date +%y.%m.%d-0`",
-    "version:inc": "npm --no-git-tag-version version prerelease",
+    "test-cover": "npm test -- --coverage",
+    "format": "npx prettier --write src",
     "postinstall": "node ./postinstall.js"
   },
   "browserslist": [

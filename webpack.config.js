@@ -4,30 +4,18 @@ const HtmlWebPackPlugin = require('html-webpack-plugin'),
   path = require('path'),
   WorkboxPlugin = require('workbox-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const Dotenv = require('dotenv-webpack');
 
-// if (process.env.NODE_ENV == "production") {
-//   console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
-//   require('dotenv').config({ path: '.env.production' });
-// }
-// else if (process.env.NODE_ENV == "development") {
-//   console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
-//   require('dotenv').config({ path: '.env.development' });
-// }
-// else if (process.env.NODE_ENV == "azure") {
-//   console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
-//   require('dotenv').config({ path: '.env.azure' });
-// }
-// else {
-//   console.log(`NODE_ENV: ${JSON.stringify(process.env.NODE_ENV)}`);
-// }
+// load .env variables
+require('dotenv').config({
+  path: path.resolve(__dirname, '.env'),
+});
 
 let isAbsoluteUrl = false;
 
 try {
   new URL(process.env.PUBLIC_URL);
   isAbsoluteUrl = true;
-} catch (err) { }
+} catch (err) {}
 
 if (isAbsoluteUrl) {
   // the react router doesn't seem to work well with absolute URLs
@@ -46,7 +34,6 @@ if (process.env.PUBLIC_URL) {
 const devServerHost = process.env.WEBPACK_HOST || 'localhost';
 
 module.exports = (env, options) => ({
-
   entry: {
     main: './src/index.jsx',
   },
@@ -147,14 +134,22 @@ module.exports = (env, options) => ({
       filename: 'index.html',
       publicUrl: `${process.env.PUBLIC_URL || ''}`.replace(/\/{1,}$/g, ''),
     }),
-    new Dotenv({
-      path: `./.env.azure`
-    }),
     // use env variables in react
-    // new webpack.DefinePlugin({
-    //   'process.env': JSON.stringify(process.env),
-    //   'process.env.npm_package_version': JSON.stringify(process.env.npm_package_version)
-    // }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+      'process.env.PROJECT_VERSION': JSON.stringify(
+        process.env.PROJECT_VERSION,
+      ),
+      'process.env.PLAYER_PUBLIC_URL': JSON.stringify(
+        process.env.PLAYER_PUBLIC_URL,
+      ),
+      'process.env.npm_package_version': JSON.stringify(
+        process.env.npm_package_version,
+      ),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL),
+      'process.env.API_URL': JSON.stringify(process.env.API_URL),
+    }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[name].[id].css',
