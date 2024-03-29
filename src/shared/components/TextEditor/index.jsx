@@ -10,7 +10,7 @@ import {
 class TextEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.props.editorRef = React.createRef();
+    // this.props.editorRef = React.createRef();
   }
 
   render() {
@@ -21,27 +21,21 @@ class TextEditor extends React.Component {
       editorOptions,
       handleEditorChange,
       text,
-      editorRef,
+      // editorRef,
     } = this.props;
 
-    console.log(`tinyMCE editor options: ${JSON.stringify(editorOptions)}`);
-
-    const initOptions = {
-      width,
-      height,
-      ...(editorId && { selector: `textarea#${editorId}` }),
-      ...BASIC_TEXT_EDITOR_OPTIONS,
-      ...editorOptions,
-    };
-
-    console.log(`tinyMCE editor options: ${JSON.stringify(initOptions)}`);
+    // handle case where tinymce is directly off the root
+    let url = '/tinymce/tinymce.min.js';
+    if (process.env.PUBLIC_URL != '/') {
+      url = `${process.env.PUBLIC_URL}/tinymce/tinymce.min.js`;
+    }
 
     return (
       <Editor
-        tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
-        zapiKey={EDITOR_API_KEY}
+        tinymceScriptSrc={url}
+        xapiKey={EDITOR_API_KEY}
         id={editorId}
-        xcloudChannel={EDITOR_VERSION}
+        cloudChannel={EDITOR_VERSION}
         // eslint-disable-next-line
         value={text}
         // eslint-disable-next-line

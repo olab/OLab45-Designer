@@ -1,6 +1,6 @@
 {
   "routes": [],
   "navigationFallback": {
-      "rewrite": "/index.html"
+    "rewrite": "/index.html"
   }
 }
