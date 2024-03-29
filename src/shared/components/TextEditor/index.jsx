@@ -18,7 +18,7 @@ class TextEditor extends React.Component {
       height = 200,
       width = 800,
       editorId = '',
-      editorOptions = {},
+      editorOptions,
       handleEditorChange,
       text,
       // editorRef,
@@ -40,13 +40,7 @@ class TextEditor extends React.Component {
         value={text}
         // eslint-disable-next-line
         onEditorChange={handleEditorChange}
-        init={{
-          width,
-          height,
-          ...(editorId && { selector: `textarea#${editorId}` }),
-          ...BASIC_TEXT_EDITOR_OPTIONS,
-          ...editorOptions,
-        }}
+        init={initOptions}
       />
     );
   }

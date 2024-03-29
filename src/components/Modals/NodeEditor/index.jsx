@@ -173,6 +173,21 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
   };
 
   render() {
+
+    const editorOptions = {
+      menubar: false,
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace code fullscreen',
+        'insertdatetime media table paste code help'
+      ],
+      toolbar: 'formatselect | ' +
+      'backcolor | alignleft aligncenter ' +
+      'alignright | bullist numlist | ' +
+      ' help',
+      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    };
+
     const { color, title, isVisitOnce, linkStyle, text, initialAutosave } =
       this.state;
     const {
@@ -264,6 +279,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
               width={440}
               height={300}
               handleEditorChange={this.handleTextChange}
+              editorOptions={editorOptions}
             />
           </article>
         </ModalBody>
