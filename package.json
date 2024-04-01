@@ -7,7 +7,7 @@
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "4.0.0-alpha.56",
-    "@tinymce/tinymce-react": "^3.13.1",
+    "@tinymce/tinymce-react": "^3.14.0",
     "axios": "^0.21.2",
     "classnames": "^2.3.2",
     "connected-react-router": "^6.9.2",
@@ -17,6 +17,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.7",
     "formik": "^2.2.9",
+    "fs-extra": "^11.2.0",
     "fscreen": "^1.2.0",
     "history": "^4.10.1",
     "kld-affine": "^2.1.1",
@@ -42,7 +43,8 @@
     "redux-saga": "^1.2.3",
     "seamless-immutable": "^7.1.4",
     "styled-components": "^5.3.10",
-    "svg-intersections": "^0.4.0"
+    "svg-intersections": "^0.4.0",
+    "tinymce": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
@@ -89,7 +91,8 @@
     "build:dev": "webpack --mode development",
     "lint": "eslint ./src",
     "test": "jest",
-    "test-cover": "npm test -- --coverage"
+    "test-cover": "npm test -- --coverage",
+    "update:tinymce": "node ./postinstall.js"
   },
   "browserslist": [
     ">0.2%",
