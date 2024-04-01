@@ -64,8 +64,7 @@ export class Node extends PureComponent<INodeProps, INodeState> {
       .on('drag', this.handleDragMove)
       .on('end', this.handleDragEnd);
 
-    d3
-      .select(this.nodeRef.current)
+    d3.select(this.nodeRef.current)
       .on('wheel', this.stopImmediatePropagation)
       .on('mousedown', this.handleMouseDown)
       .call(dragFunction);
@@ -76,12 +75,11 @@ export class Node extends PureComponent<INodeProps, INodeState> {
     const {
       isResizingStarted,
       onNodeResizeEnded,
-      data: {
-        id, width, height, isCollapsed,
-      },
+      data: { id, width, height, isCollapsed },
     } = this.props;
 
-    const isResizeForbidden = !this.nodeComponentRef.current || isCollapsed || !isResizeStart;
+    const isResizeForbidden =
+      !this.nodeComponentRef.current || isCollapsed || !isResizeStart;
     const isResizeEnded = prevProps.isResizingStarted && !isResizingStarted;
 
     if (isResizeForbidden) {
@@ -106,14 +104,14 @@ export class Node extends PureComponent<INodeProps, INodeState> {
     onNodeResizeStarted();
 
     this.setState({ isResizeStart: true });
-  }
+  };
 
   calculateNewNodePosition = (data: NodeType): IPointType => {
     const { x, y, height } = data;
     const newY = y + height / 2 + DEFAULT_NODE_INDENT;
 
     return { x, y: newY };
-  }
+  };
 
   callElementAction = (action: string) => {
     const {
@@ -136,10 +134,12 @@ export class Node extends PureComponent<INodeProps, INodeState> {
       case ACTION_COLLAPSE:
         onNodeCollapsed(data.id);
         break;
-      case ACTION_ADD: {
-        const { x, y } = this.calculateNewNodePosition(data);
-        onCreateNodeWithEdge(x, y, data);
-      } break;
+      case ACTION_ADD:
+        {
+          const { x, y } = this.calculateNewNodePosition(data);
+          onCreateNodeWithEdge(x, y, data);
+        }
+        break;
       case ACTION_RESIZE:
         this.startResizing();
         break;
@@ -149,9 +149,10 @@ export class Node extends PureComponent<INodeProps, INodeState> {
       case ACTION_SELECT:
         onNodeSelected(data);
         break;
-      default: break;
+      default:
+        break;
     }
-  }
+  };
 
   getClickedItemAction = () => {
     const { isLinkingStarted } = this.props;
@@ -164,35 +165,41 @@ export class Node extends PureComponent<INodeProps, INodeState> {
     }
 
     const action = activeElement.getAttribute('data-action');
-    const shouldStopPropagation = !shiftKey
-      && !isLinkingStarted
-      && (!action || action !== ACTION_SELECT);
+    const shouldStopPropagation =
+      !shiftKey && !isLinkingStarted && (!action || action !== ACTION_SELECT);
 
     if (shouldStopPropagation) {
       this.stopImmediatePropagation();
     }
 
     return action;
-  }
+  };
 
   handleMouseDown = () => {
-    const { data: { isLocked }, isLinkingStarted } = this.props;
+    const {
+      data: { isLocked },
+      isLinkingStarted,
+    } = this.props;
     const { shiftKey } = d3.event;
     const action = this.getClickedItemAction();
-    const isActionClickedAndAvailable = (!isLocked && action)
-      || (isLocked && action === ACTION_LOCK);
-    const isLinking = (shiftKey && action === ACTION_FOCUS)
-      || (isLinkingStarted && action === ACTION_FOCUS);
+    const isActionClickedAndAvailable =
+      (!isLocked && action) || (isLocked && action === ACTION_LOCK);
+    const isLinking =
+      (shiftKey && action === ACTION_FOCUS) ||
+      (isLinkingStarted && action === ACTION_FOCUS);
 
     if (isActionClickedAndAvailable && !isLinking) {
       this.callElementAction(action);
     }
-  }
+  };
 
   handleDragMove = () => {
     const { deltaMouseX, deltaMouseY } = this.state;
     const {
-      data: { id: dataId, isLocked }, layoutEngine, onNodeMove, isLinkingStarted,
+      data: { id: dataId, isLocked },
+      layoutEngine,
+      onNodeMove,
+      isLinkingStarted,
     } = this.props;
     const { offsetWidth, offsetHeight } = this.nodeComponentRef.current;
     const { x, y } = d3.event;
@@ -217,7 +224,7 @@ export class Node extends PureComponent<INodeProps, INodeState> {
     debounce(() => this.setState(position), 200, {
       trailing: true,
     });
-  }
+  };
 
   handleDragStart = () => {
     const { x: prevX, y: prevY } = this.state;
@@ -228,7 +235,11 @@ export class Node extends PureComponent<INodeProps, INodeState> {
       isLinkingStarted,
       onNodeLink,
     } = this.props;
-    const { shiftKey, offsetX: deltaMouseX, offsetY: deltaMouseY } = d3.event.sourceEvent;
+    const {
+      shiftKey,
+      offsetX: deltaMouseX,
+      offsetY: deltaMouseY,
+    } = d3.event.sourceEvent;
     const { current: currentNodeRef } = this.nodeRef;
     const { parentElement: currentNodeRefParent } = currentNodeRef;
 
@@ -249,12 +260,10 @@ export class Node extends PureComponent<INodeProps, INodeState> {
 
     // Moves child to the end of the element stack to re-arrange the z-index
     currentNodeRefParent.parentElement.appendChild(currentNodeRefParent);
-  }
+  };
 
   handleDragEnd = () => {
-    const {
-      x, y, prevX, prevY,
-    } = this.state;
+    const { x, y, prevX, prevY } = this.state;
     const { data, onNodeUpdate, isLinkingStarted } = this.props;
     const { current: currentNodeRef } = this.nodeRef;
 
@@ -264,21 +273,24 @@ export class Node extends PureComponent<INodeProps, INodeState> {
 
     const action = this.getClickedItemAction();
 
-    const isInappropriateAction = !action || action === ACTION_RESIZE || action === ACTION_SELECT;
-    const shouldUpdateNode = ((!isLinkingStarted && action !== ACTION_FOCUS)
-      && (prevX !== x || prevY !== y))
-      || (isLinkingStarted && isInappropriateAction);
+    const isInappropriateAction =
+      !action || action === ACTION_RESIZE || action === ACTION_SELECT;
+    const shouldUpdateNode =
+      (!isLinkingStarted &&
+        action !== ACTION_FOCUS &&
+        (prevX !== x || prevY !== y)) ||
+      (isLinkingStarted && isInappropriateAction);
 
     if (shouldUpdateNode) {
       onNodeUpdate({ x, y }, data.id);
     }
-  }
+  };
 
   stopImmediatePropagation = () => {
     if (d3.event.stopImmediatePropagation) {
       d3.event.stopImmediatePropagation();
     }
-  }
+  };
 
   renderShape() {
     const {
@@ -332,11 +344,7 @@ export class Node extends PureComponent<INodeProps, INodeState> {
     const { id } = this.props;
 
     return (
-      <g
-        id={id}
-        ref={this.nodeRef}
-        transform={`translate(${x}, ${y})`}
-      >
+      <g id={id} ref={this.nodeRef} transform={`translate(${x}, ${y})`}>
         {this.renderShape()}
       </g>
     );

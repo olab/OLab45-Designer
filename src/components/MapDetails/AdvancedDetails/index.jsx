@@ -10,7 +10,10 @@ import type { AdvancedDetailsProps as IProps } from './types';
 import { ContainerTab } from '../styles';
 import { ContainerCheckBox, CheckBox, ContentText } from './styles';
 
-const AdvancedDetails = ({ details, handleCheckBoxChange }: IProps): React$Element<any> => (
+const AdvancedDetails = ({
+  details,
+  handleCheckBoxChange,
+}: IProps): React$Element<any> => (
   <ContainerTab>
     <ContentText>
       <b>Map Id:</b>

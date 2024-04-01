@@ -86,3 +86,5 @@ yarn-error.log*
 
 #Flow-typed
 flow-typed/
+
+/public/tinymce/

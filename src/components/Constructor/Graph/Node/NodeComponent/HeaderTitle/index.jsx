@@ -10,9 +10,7 @@ import type { IHeaderTitleProps } from './types';
 
 import { TitleContainer, TitleText } from './styles';
 
-const HeaderTitle = ({
-  type, isLocked, title, isEnd,
-}: IHeaderTitleProps) => (
+const HeaderTitle = ({ type, isLocked, title, isEnd }: IHeaderTitleProps) => (
   <TitleContainer>
     <DragableIcon />
     {type === 1 && <StarIcon />}

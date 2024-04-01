@@ -11,18 +11,46 @@ import { ORDINARY_TYPE as ORDINARY_NODE_TYPE } from '../../Constructor/Graph/Nod
 import type { MainTabProps as IProps } from './types';
 
 import {
-  TextContent, OtherContent, NodeContentTitle, Container, NodeContentPosition,
+  TextContent,
+  OtherContent,
+  NodeContentTitle,
+  Container,
+  NodeContentPosition,
 } from './styles';
 
 const MainTab = ({
-  text = '', title = '', type = 0, isEnd = false, isVisitOnce = false,
-  handleTitleChange, handleEditorChange, handleCheckBoxChange, handleKeyDown, x, y, id,
+  text = '',
+  title = '',
+  type = 0,
+  isEnd = false,
+  isVisitOnce = false,
+  handleTitleChange,
+  handleEditorChange,
+  handleCheckBoxChange,
+  handleKeyDown,
+  x,
+  y,
+  id,
 }: IProps) => {
   const checkBoxes = [
     { label: 'Root Node', value: type, name: 'type' },
     { label: 'End Node', value: isEnd, name: 'isEnd' },
     { label: 'Visit Once', value: isVisitOnce, name: 'isVisitOnce' },
   ];
+
+  const editorOptions = {
+    menubar: true,
+    plugins: [
+      'advlist autolink lists link image charmap print preview anchor',
+      'searchreplace code fullscreen',
+      'insertdatetime media table paste code help wordcount'
+    ],
+    toolbar: 'code | undo redo | formatselect | ' +
+    'bold italic image backcolor | alignleft aligncenter ' +
+    'alignright alignjustify | bullist numlist outdent indent | ' +
+    'removeformat | help',
+    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+  };
 
   const positionInfo = `Position: (${Math.round(x)}, ${Math.round(y)})`;
   const idInfo = `Id: ${id}`;
@@ -45,13 +73,15 @@ const MainTab = ({
           text={text}
           handleEditorChange={handleEditorChange}
           handleKeyDown={handleKeyDown}
+          editorOptions={editorOptions}
         />
       </TextContent>
       <OtherContent>
         <Grid container spacing={0}>
           <Grid item xs={9}>
             {checkBoxes.map((item) => {
-              const isChecked = item.value !== ORDINARY_NODE_TYPE && Boolean(item.value);
+              const isChecked =
+                item.value !== ORDINARY_NODE_TYPE && Boolean(item.value);
               return (
                 <Switch
                   name={item.name}

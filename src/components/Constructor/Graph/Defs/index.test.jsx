@@ -9,7 +9,13 @@ const StandardEdgeShape = (
     <circle r="12" transform="matrix(1 0 0 -1 12 12)" fill="#D3DAE1" />
 
     <g transform="translate(18, 11) rotate(90)">
-      <path d="M1 13L1 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M1 13L1 1"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </g>
   </symbol>
 );
@@ -29,11 +35,7 @@ describe('<Defs />', () => {
         shapeId: '#standardEdge2',
       },
     };
-    output = shallow(
-      <Defs
-        edgeTypes={edgeTypes}
-      />,
-    );
+    output = shallow(<Defs edgeTypes={edgeTypes} />);
   });
 
   describe('component is rendered', () => {

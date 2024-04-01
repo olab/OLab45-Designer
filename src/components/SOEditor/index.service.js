@@ -81,9 +81,7 @@ class ScopedObjectService extends PureComponent<
     }
 
     if (isCreatingEnded || isUpdatingEnded) {
-      if (isScopedObjectCreated) {
-        history.push(`/scopedObject/${this.scopedObjectType.toLowerCase()}`);
-      } else {
+      if (!this.props.history.goBack()) {
         this.toggleDisableFields();
       }
     }

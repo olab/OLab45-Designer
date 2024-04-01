@@ -14,7 +14,10 @@ import type { ICopyToClipboardProps, ICopyToClipboardState } from './types';
 
 import styles from './styles';
 
-class CopyToClipboard extends PureComponent<ICopyToClipboardProps, ICopyToClipboardState> {
+class CopyToClipboard extends PureComponent<
+  ICopyToClipboardProps,
+  ICopyToClipboardState,
+> {
   state: ICopyToClipboardState = {
     isCopied: false,
   };
@@ -25,25 +28,24 @@ class CopyToClipboard extends PureComponent<ICopyToClipboardProps, ICopyToClipbo
     setTimeout(() => {
       this.toggleCopy(false);
     }, COPY_TIMEOUT);
-  }
+  };
 
   toggleCopy = (state: boolean): void => {
     this.setState({ isCopied: state });
-  }
+  };
 
   render() {
     const { isCopied } = this.state;
     const { text, classes, medium = false } = this.props;
 
     return (
-      <Clipboard
-        text={text}
-        onCopy={this.handleCopy}
-      >
+      <Clipboard text={text} onCopy={this.handleCopy}>
         <IconButton
           size="small"
           title={isCopied ? 'Copied' : 'Copy'}
-          classes={{ root: classes[medium ? 'iconMediumButton' : 'iconButton'] }}
+          classes={{
+            root: classes[medium ? 'iconMediumButton' : 'iconButton'],
+          }}
         >
           {isCopied ? <CopiedIcon /> : <CopyIcon />}
         </IconButton>

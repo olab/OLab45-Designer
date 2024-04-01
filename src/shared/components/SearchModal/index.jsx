@@ -35,19 +35,22 @@ class SearchModal extends PureComponent<ISearchModalProps, ISearchModalState> {
     const { items } = this.props;
     const scopedObjectsNameFiltered = filterByName(items, query);
     const scopedObjectsIndexFiltered = filterByIndex(items, query);
-    const listFiltered = [...scopedObjectsNameFiltered, ...scopedObjectsIndexFiltered];
+    const listFiltered = [
+      ...scopedObjectsNameFiltered,
+      ...scopedObjectsIndexFiltered,
+    ];
 
     this.setState({ listFiltered });
-  }
+  };
 
   clearSearchInput = (): void => {
     const { items } = this.props;
     this.setState({ listFiltered: items });
-  }
+  };
 
   setListWithSearchRef = (ref: any): void => {
     this.listWithSearchRef = ref;
-  }
+  };
 
   render() {
     const { listFiltered } = this.state;
@@ -66,11 +69,7 @@ class SearchModal extends PureComponent<ISearchModalProps, ISearchModalState> {
     const isHideSearch = isItemsFetching && !items.length;
 
     return (
-      <ConfirmationModal
-        label={label}
-        text={text}
-        onClose={onClose}
-      >
+      <ConfirmationModal label={label} text={text} onClose={onClose}>
         <ListWithSearch
           iconEven={iconEven}
           iconOdd={iconOdd}

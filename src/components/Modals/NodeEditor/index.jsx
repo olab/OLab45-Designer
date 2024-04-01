@@ -29,10 +29,15 @@ import type { INodeEditorProps, INodeEditorState } from './types';
 import type { Node as NodeType } from '../../Constructor/Graph/Node/types';
 
 import {
-  NodeEditorWrapper, ModalHeader, ModalBody,
-  ModalFooter, ArticleItem, ModalHeaderButton,
+  NodeEditorWrapper,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ArticleItem,
+  ModalHeaderButton,
 } from '../styles';
 import styles, { Triangle } from './styles';
+import { NODE_EDITOR_AUTOSAVE_TIMEOUT } from '../../../services/apiConfig';
 
 class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
   constructor(props: INodeEditorProps) {
@@ -43,9 +48,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
   componentDidUpdate(prevProps: INodeEditorProps) {
     const {
       node,
-      node: {
-        id, title, linkStyle, color, isVisitOnce, text, ...restNode
-      },
+      node: { id, title, linkStyle, color, isVisitOnce, text, ...restNode },
     } = this.props;
     const {
       id: idPrev,
@@ -69,44 +72,48 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
   }
 
   handleCloseModal = (): void => {
-    const { node: { id: nodeId }, ACTION_UNFOCUS_NODE } = this.props;
+    const {
+      node: { id: nodeId },
+      ACTION_UNFOCUS_NODE,
+    } = this.props;
     ACTION_UNFOCUS_NODE(nodeId);
-  }
+  };
 
   onInputChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
-    this.setState({ [name]: value });
-  }
+    this.setState({ [name]: value }, this.autosave.bind(this));
+  };
 
   handleStyleChange = (e: Event): void => {
     const { value, name } = (e.target: window.HTMLInputElement);
-    const index = LINK_STYLES.findIndex(style => style === value);
-    this.setState({ [name]: index + 1 });
-  }
+    const index = LINK_STYLES.findIndex((style) => style === value);
+    this.setState({ [name]: index + 1 }, this.autosave.bind(this));
+  };
 
   handleColorChange = (color: string): void => {
-    this.setState({ color });
-  }
+    this.setState({ color }, this.autosave.bind(this));
+  };
 
   handleVisitOnceChange = (e: Event): void => {
     const { checked: isVisitOnce } = (e.target: window.HTMLInputElement);
-    this.setState({ isVisitOnce });
-  }
+    this.setState({ isVisitOnce }, this.autosave.bind(this));
+  };
 
   handleModalMove = (offsetX: number, offsetY: number): void => {
     const { ACTION_ADJUST_POSITION_MODAL } = this.props;
     ACTION_ADJUST_POSITION_MODAL(offsetX, offsetY);
-  }
+  };
 
   toggleScopedObjectModal = (): void => {
     const { ACTION_TOGGLE_SO_PICKER_MODAL } = this.props;
     ACTION_TOGGLE_SO_PICKER_MODAL();
-  }
+  };
 
-  applyChanges = (): void => {
+  applyChanges = (suppressNotifications = false): void => {
     const { ACTION_UPDATE_NODE } = this.props;
-    ACTION_UPDATE_NODE(this.state, true);
-  }
+    clearTimeout(this.autosaveTimeout);
+    ACTION_UPDATE_NODE(this.state, !suppressNotifications);
+  };
 
   deleteNode = (): void => {
     const {
@@ -116,7 +123,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
     } = this.props;
 
     ACTION_DELETE_NODE_MIDDLEWARE(mapId, nodeId, nodeType);
-  }
+  };
 
   handleModalRef = (instance) => {
     const { connectDragPreview } = this.props;
@@ -125,13 +132,11 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
     if (instance) {
       instance.focus();
     }
-  }
+  };
 
   handleTextChange = (text: string): void => {
-    this.setState({ text });
-    // eslint-disable-next-line
-    // console.log(text);
-  }
+    this.setState({ text }, this.autosave.bind(this));
+  };
 
   handleKeyPressed = (e: KeyboardEvent): void => {
     const isSavingCombination = e.keyCode === KEY_S && (e.ctrlKey || e.metaKey);
@@ -140,20 +145,67 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
       e.preventDefault();
       this.applyChanges();
     }
-  }
+  };
+
+  autosaveTimeout: number = 0;
+
+  autosave = (): void => {
+    clearTimeout(this.autosaveTimeout);
+
+    this.autosaveTimeout = setTimeout(
+      () =>
+        this.hasUnsavedChanges() &&
+        (this.applyChanges(true), this.setState({ initialAutosave: true })),
+      NODE_EDITOR_AUTOSAVE_TIMEOUT,
+    );
+  };
+
+  hasUnsavedChanges = (): boolean => {
+    for (const prop in this.props.node) {
+      if (prop in this.state) {
+        if (this.state[prop] !== this.props.node[prop]) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  };
 
   render() {
+
+    const editorOptions = {
+      menubar: false,
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace code fullscreen',
+        'insertdatetime media table paste code help'
+      ],
+      toolbar: 'formatselect | ' +
+      'backcolor | alignleft aligncenter ' +
+      'alignright | bullist numlist | ' +
+      ' help',
+      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    };
+
+    const { color, title, isVisitOnce, linkStyle, text, initialAutosave } =
+      this.state;
     const {
-      color, title, isVisitOnce, linkStyle,
-    } = this.state;
-    const {
-      x, y, isDragging, connectDragSource,
-      classes, node: { id: nodeId, text: initialText }, mapId, isShow,
+      x,
+      y,
+      isDragging,
+      connectDragSource,
+      classes,
+      node: { id: nodeId },
+      mapId,
+      isShow,
     } = this.props;
 
     if (isDragging) {
       return null;
     }
+
+    const hasUnsavedChanges = this.hasUnsavedChanges();
 
     return (
       <NodeEditorWrapper
@@ -163,7 +215,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
         x={x}
         y={y}
       >
-        <ModalHeader ref={instance => connectDragSource(instance)}>
+        <ModalHeader ref={(instance) => connectDragSource(instance)}>
           <h4>Node Editor</h4>
           <Button
             size="small"
@@ -185,10 +237,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
           >
             Object Picker
           </Button>
-          <ModalHeaderButton
-            type="button"
-            onClick={this.handleCloseModal}
-          >
+          <ModalHeaderButton type="button" onClick={this.handleCloseModal}>
             <ScaleIcon />
           </ModalHeaderButton>
         </ModalHeader>
@@ -226,10 +275,11 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
           </ArticleItem>
           <article>
             <TextEditor
-              text={initialText}
+              text={text}
               width={440}
               height={300}
               handleEditorChange={this.handleTextChange}
+              editorOptions={editorOptions}
             />
           </article>
         </ModalBody>
@@ -256,7 +306,9 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
             color="primary"
             onClick={this.applyChanges}
           >
-            Save
+            {hasUnsavedChanges || !initialAutosave
+              ? 'Save Changes'
+              : 'Auto-Saved'}
           </Button>
         </ModalFooter>
       </NodeEditorWrapper>
@@ -269,7 +321,7 @@ const mapStateToProps = ({ modals, mapDetails }) => ({
   mapId: mapDetails.id,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_UPDATE_NODE: (nodeData: NodeType, isShowNotification: boolean) => {
     dispatch(mapActions.ACTION_UPDATE_NODE(nodeData, isShowNotification));
   },
@@ -277,19 +329,25 @@ const mapDispatchToProps = dispatch => ({
     dispatch(mapActions.ACTION_UNFOCUS_NODE(nodeId));
   },
   ACTION_ADJUST_POSITION_MODAL: (offsetX: number, offsetY: number) => {
-    dispatch(modalActions.ACTION_ADJUST_POSITION_MODAL(
-      MODALS_NAMES.NODE_EDITOR_MODAL,
-      offsetX,
-      offsetY,
-    ));
+    dispatch(
+      modalActions.ACTION_ADJUST_POSITION_MODAL(
+        MODALS_NAMES.NODE_EDITOR_MODAL,
+        offsetX,
+        offsetY,
+      ),
+    );
   },
   ACTION_TOGGLE_SO_PICKER_MODAL: () => {
-    dispatch(modalActions.ACTION_TOGGLE_MODAL(
-      MODALS_NAMES.SO_PICKER_MODAL,
-    ));
+    dispatch(modalActions.ACTION_TOGGLE_MODAL(MODALS_NAMES.SO_PICKER_MODAL));
   },
-  ACTION_DELETE_NODE_MIDDLEWARE: (mapId: number, nodeId: number, nodeType: number) => {
-    dispatch(wholeMapActions.ACTION_DELETE_NODE_MIDDLEWARE(mapId, nodeId, nodeType));
+  ACTION_DELETE_NODE_MIDDLEWARE: (
+    mapId: number,
+    nodeId: number,
+    nodeType: number,
+  ) => {
+    dispatch(
+      wholeMapActions.ACTION_DELETE_NODE_MIDDLEWARE(mapId, nodeId, nodeType),
+    );
   },
 });
 
@@ -298,10 +356,6 @@ export default connect(
   mapDispatchToProps,
 )(
   withStyles(styles)(
-    DragSource(
-      DND_CONTEXTS.VIEWPORT,
-      spec,
-      collect,
-    )(NodeEditor),
+    DragSource(DND_CONTEXTS.VIEWPORT, spec, collect)(NodeEditor),
   ),
 );

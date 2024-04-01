@@ -3,11 +3,7 @@ import React, { PureComponent } from 'react';
 import { GithubPicker } from 'react-color';
 import { InputLabel, ClickAwayListener } from '@material-ui/core';
 
-import type {
-  IColorType,
-  IColorPickerProps,
-  IColorPickerState,
-} from './types';
+import type { IColorType, IColorPickerProps, IColorPickerState } from './types';
 
 import {
   LinkColorItem,
@@ -27,17 +23,17 @@ class ColorPicker extends PureComponent<IColorPickerProps, IColorPickerState> {
     onChange(hex);
 
     this.close();
-  }
+  };
 
   toggle = (): void => {
     this.setState(({ isOpen }) => ({
       isOpen: !isOpen,
     }));
-  }
+  };
 
   close = (): void => {
     this.setState({ isOpen: false });
-  }
+  };
 
   render() {
     const { isOpen } = this.state;
@@ -47,17 +43,11 @@ class ColorPicker extends PureComponent<IColorPickerProps, IColorPickerState> {
       <ColorPickerWrapper>
         <InputLabel>{label}</InputLabel>
         <div>
-          <LinkColorItem
-            color={color}
-            onClick={this.toggle}
-          />
+          <LinkColorItem color={color} onClick={this.toggle} />
           {isOpen && (
             <ClickAwayListener onClickAway={this.close}>
               <GithubPickerWrapper>
-                <GithubPicker
-                  color={color}
-                  onChange={this.handleChange}
-                />
+                <GithubPicker color={color} onChange={this.handleChange} />
               </GithubPickerWrapper>
             </ClickAwayListener>
           )}

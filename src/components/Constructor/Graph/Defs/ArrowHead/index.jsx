@@ -31,10 +31,7 @@ export const ArrowHead = ({ edgeArrowSize }: IArrowHeadProps) => {
       refX={edgeArrowSize / 2}
       viewBox={getMarkerViewBox(edgeArrowSize)}
     >
-      <ArrowWrapper
-        d={getPathToBeDrawn(edgeArrowSize)}
-        fill="transparent"
-      />
+      <ArrowWrapper d={getPathToBeDrawn(edgeArrowSize)} fill="transparent" />
     </marker>
   );
 };

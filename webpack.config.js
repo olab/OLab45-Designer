@@ -31,6 +31,8 @@ if (process.env.PUBLIC_URL) {
   process.env.PUBLIC_URL = process.env.PUBLIC_URL.replace(/\/{1,}$/g, '');
 }
 
+const devServerHost = process.env.WEBPACK_HOST || 'localhost';
+
 module.exports = (env, options) => ({
   entry: {
     main: './src/index.jsx',
@@ -54,10 +56,18 @@ module.exports = (env, options) => ({
     },
     compress: true,
     port: 4000,
-    host: 'localhost',
+    host: devServerHost,
     allowedHosts: 'all',
     devMiddleware: {
       writeToDisk: true,
+    },
+    client: {
+      overlay: {
+        warnings: false,
+      },
+    },
+    proxy: {
+      '/olab/api/v3': `http://${devServerHost}:5001`,
     },
   },
 
@@ -155,11 +165,12 @@ module.exports = (env, options) => ({
           warnings: [],
           manifest: entries.map((entry) => ({
             ...entry,
-            url: entry.url.replace(/\/{2,}$/g, '/'),
+            url: entry.url.replace(/\/{2,}/g, '/'),
           })),
         }),
       ],
       importScripts: ['service-worker-offline.js'],
+      disableDevLogs: true,
     }),
   ],
 });

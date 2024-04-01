@@ -14,15 +14,17 @@ describe('ZoomControls component', () => {
   beforeEach(() => {
     zoomToFit = jest.fn();
     modifyZoom = jest.fn();
-    output = mount(<ZoomControls
-      zoomLevel={0}
-      minZoom={0.15}
-      maxZoom={1.5}
-      zoomToFit={zoomToFit}
-      modifyZoom={modifyZoom}
-      className={className}
-      classes={classes}
-    />);
+    output = mount(
+      <ZoomControls
+        zoomLevel={0}
+        minZoom={0.15}
+        maxZoom={1.5}
+        zoomToFit={zoomToFit}
+        modifyZoom={modifyZoom}
+        className={className}
+        classes={classes}
+      />,
+    );
     output.setState({ open: true });
   });
 

@@ -189,7 +189,12 @@ describe('GraphView component', () => {
         target: 'b',
       };
       output.instance().syncRenderEdge(expectedEdge);
-      expect(output.instance().renderEdge).toHaveBeenCalledWith('edge-a-b', 'blah', expectedEdge, false);
+      expect(output.instance().renderEdge).toHaveBeenCalledWith(
+        'edge-a-b',
+        'blah',
+        expectedEdge,
+        false,
+      );
     });
 
     it('uses a custom idVar', () => {
@@ -197,7 +202,12 @@ describe('GraphView component', () => {
         source: 'a',
       };
       output.instance().syncRenderEdge(expectedEdge);
-      expect(output.instance().renderEdge).toHaveBeenCalledWith('edge-custom', 'blah', expectedEdge, false);
+      expect(output.instance().renderEdge).toHaveBeenCalledWith(
+        'edge-custom',
+        'blah',
+        expectedEdge,
+        false,
+      );
     });
   });
 
@@ -222,7 +232,10 @@ describe('GraphView component', () => {
 
       expect(output.instance().edgeTimeouts['edges-a-b']).toBeDefined();
       expect(requestAnimationFrame).toHaveBeenCalledTimes(1);
-      expect(output.instance().syncRenderEdge).toHaveBeenCalledWith(edge, false);
+      expect(output.instance().syncRenderEdge).toHaveBeenCalledWith(
+        edge,
+        false,
+      );
     });
   });
 
@@ -266,10 +279,7 @@ describe('GraphView component', () => {
 
   describe('getEdgeComponent method', () => {
     beforeEach(() => {
-      nodes = [
-        { id: 'a' },
-        { id: 'b' },
-      ];
+      nodes = [{ id: 'a' }, { id: 'b' }];
     });
 
     it('returns an Edge component', () => {
@@ -319,10 +329,7 @@ describe('GraphView component', () => {
   describe('renderNodes method', () => {
     beforeEach(() => {
       jest.spyOn(output.instance(), 'asyncRenderNode');
-      nodes = [
-        { id: 'a' },
-        { id: 'b' },
-      ];
+      nodes = [{ id: 'a' }, { id: 'b' }];
       output.setProps({
         nodes,
       });
@@ -390,7 +397,10 @@ describe('GraphView component', () => {
 
       output.instance().syncRenderNode(node, 0);
 
-      expect(output.instance().renderNode).toHaveBeenCalledWith('node-a', expect.any(Object));
+      expect(output.instance().renderNode).toHaveBeenCalledWith(
+        'node-a',
+        expect.any(Object),
+      );
       expect(output.instance().renderConnectedEdgesFromNode).toHaveBeenCalled();
     });
   });
@@ -423,12 +433,8 @@ describe('GraphView component', () => {
       jest.spyOn(output.instance(), 'asyncRenderEdge');
       node = {
         id: 'a',
-        incomingEdges: [
-          { source: 'b', target: 'a' },
-        ],
-        outgoingEdges: [
-          { source: 'a', target: 'c' },
-        ],
+        incomingEdges: [{ source: 'b', target: 'a' }],
+        outgoingEdges: [{ source: 'a', target: 'c' }],
       };
     });
 
@@ -560,7 +566,12 @@ describe('GraphView component', () => {
 
     it('modifies the zoom', () => {
       output.instance().modifyZoom(0.1, 5, 10, 100);
-      expect(output.instance().setZoom).toHaveBeenCalledWith(0.44000000000000006, 55, 60, 100);
+      expect(output.instance().setZoom).toHaveBeenCalledWith(
+        0.44000000000000006,
+        55,
+        60,
+        100,
+      );
     });
 
     it('does nothing when targetZoom is too small', () => {
@@ -589,20 +600,28 @@ describe('GraphView component', () => {
       // we need to customize the object
       let globalWidth = 0;
       // $FlowFixMe
-      Object.defineProperty(output.instance().viewWrapper.current, 'clientWidth', {
-        get: () => globalWidth,
-        set: (clientWidth) => {
-          globalWidth = clientWidth;
+      Object.defineProperty(
+        output.instance().viewWrapper.current,
+        'clientWidth',
+        {
+          get: () => globalWidth,
+          set: (clientWidth) => {
+            globalWidth = clientWidth;
+          },
         },
-      });
+      );
       let globalHeight = 0;
       // $FlowFixMe
-      Object.defineProperty(output.instance().viewWrapper.current, 'clientHeight', {
-        get: () => globalHeight,
-        set: (clientHeight) => {
-          globalHeight = clientHeight;
+      Object.defineProperty(
+        output.instance().viewWrapper.current,
+        'clientHeight',
+        {
+          get: () => globalHeight,
+          set: (clientHeight) => {
+            globalHeight = clientHeight;
+          },
         },
-      });
+      );
       output.instance().viewWrapper.current.clientWidth = 500;
       output.instance().viewWrapper.current.clientHeight = 500;
       output.instance().setState({
@@ -624,7 +643,12 @@ describe('GraphView component', () => {
     it('modifies the zoom to fit the elements', () => {
       output.instance().handleZoomToFit();
       expect(output.instance().entities.getBBox).toHaveBeenCalled();
-      expect(output.instance().setZoom).toHaveBeenCalledWith(1.125, 19.375, 70, 750);
+      expect(output.instance().setZoom).toHaveBeenCalledWith(
+        1.125,
+        19.375,
+        70,
+        750,
+      );
     });
 
     it('uses defaults for minZoom and maxZoom', () => {
@@ -634,7 +658,12 @@ describe('GraphView component', () => {
         zoomDur: 100,
       });
       output.instance().handleZoomToFit();
-      expect(output.instance().setZoom).toHaveBeenCalledWith(null, 250, 250, 100);
+      expect(output.instance().setZoom).toHaveBeenCalledWith(
+        null,
+        250,
+        250,
+        100,
+      );
     });
 
     it('does not modify the zoom', () => {
@@ -656,7 +685,12 @@ describe('GraphView component', () => {
         y: 5,
       });
       output.instance().handleZoomToFit();
-      expect(output.instance().setZoom).toHaveBeenCalledWith(1.5, 238.75, 238.75, 750);
+      expect(output.instance().setZoom).toHaveBeenCalledWith(
+        1.5,
+        238.75,
+        238.75,
+        750,
+      );
     });
 
     it('uses the minZoom when k is less than min', () => {
@@ -667,7 +701,12 @@ describe('GraphView component', () => {
         y: 5,
       });
       output.instance().handleZoomToFit();
-      expect(output.instance().setZoom).toHaveBeenCalledWith(0.15, -500.75, -500.75, 750);
+      expect(output.instance().setZoom).toHaveBeenCalledWith(
+        0.15,
+        -500.75,
+        -500.75,
+        750,
+      );
     });
   });
 
@@ -677,11 +716,7 @@ describe('GraphView component', () => {
       jest.spyOn(output.instance(), 'syncRenderEdge');
       output.setProps({
         edges: [{ source: 'a', target: 'b' }],
-        nodes: [
-          { id: 'a' },
-          { id: 'b' },
-          { id: 'c' },
-        ],
+        nodes: [{ id: 'a' }, { id: 'b' }, { id: 'c' }],
       });
     });
 
@@ -727,7 +762,10 @@ describe('GraphView component', () => {
         edgeEndNode: { id: 'c' },
       });
       output.instance().handleZoomEnd();
-      expect(output.instance().syncRenderEdge).toHaveBeenCalledWith({ source: 'a', target: 'c' });
+      expect(output.instance().syncRenderEdge).toHaveBeenCalledWith({
+        source: 'a',
+        target: 'c',
+      });
     });
   });
 
@@ -747,7 +785,7 @@ describe('GraphView component', () => {
       expect(output.instance().dragEdge).not.toHaveBeenCalled();
     });
 
-    it('does nothing when the zoom level hasn\'t changed', () => {
+    it("does nothing when the zoom level hasn't changed", () => {
       output.setState({
         viewTransform: 'test',
       });
@@ -859,7 +897,7 @@ describe('GraphView component', () => {
       expect(output.instance().dragEdge).not.toHaveBeenCalled();
     });
 
-    it('does nothing if the arrow wasn\'t clicked', () => {
+    it("does nothing if the arrow wasn't clicked", () => {
       output.instance().isArrowClicked.mockReturnValue(false);
       output.instance().dragEdge = jest.fn();
       output.instance().handleZoomStart();

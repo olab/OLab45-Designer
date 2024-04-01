@@ -2,27 +2,39 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  Paper, Tabs, Tab, Button,
-} from '@material-ui/core';
+import { Paper, Tabs, Tab, Button } from '@material-ui/core';
 
 import Appearance from './Appearance';
 import BasicDetails from './BasicDetails';
 import ContentDetails from './ContentDetails';
+import Permissions from './Permissions';
 import AdvancedDetails from './AdvancedDetails';
 
 import * as mapDetailsActions from '../../redux/mapDetails/action';
+import * as mapActions from '../../redux/map/action';
 
 import { ACCESS } from './config';
 
 import type { MapDetails } from '../../redux/mapDetails/types';
-import type { MapDetailsProps as IProps, MapDetailsState as IState } from './types';
+import type {
+  MapDetailsProps as IProps,
+  MapDetailsState as IState,
+} from './types';
+
+import type { Node as NodeType } from '../Constructor/Graph/Node/types';
 
 import styles, {
-  TabContainer, Container, ScrollingContainer, Title, Header,
+  TabContainer,
+  Container,
+  ScrollingContainer,
+  Title,
+  Header,
 } from './styles';
 
-class AdvancedNodeEditor extends PureComponent<IProps, IState> {
+class AdvancedNodeEditor extends PureComponent<
+  IProps & { nodes: Array<NodeType> },
+  IState,
+> {
   numberTab: number = 0;
 
   constructor(props) {
@@ -30,20 +42,28 @@ class AdvancedNodeEditor extends PureComponent<IProps, IState> {
     const {
       mapIdUrl,
       mapDetails,
+      nodes,
       ACTION_GET_MAP_DETAILS_REQUESTED,
+      ACTION_GET_MAP_REQUESTED,
     } = this.props;
     const isPageRefreshed = mapIdUrl && !mapDetails.id;
 
     if (isPageRefreshed) {
       ACTION_GET_MAP_DETAILS_REQUESTED(mapIdUrl);
+      ACTION_GET_MAP_REQUESTED(mapIdUrl);
     }
 
     this.state = { ...mapDetails };
   }
 
   componentDidUpdate(prevProps: IProps) {
-    const { mapDetails: { id: prevMapId } } = prevProps;
-    const { mapDetails: { id: mapId }, mapDetails } = this.props;
+    const {
+      mapDetails: { id: prevMapId },
+    } = prevProps;
+    const {
+      mapDetails: { id: mapId },
+      mapDetails,
+    } = this.props;
     if (prevMapId !== mapId) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ ...mapDetails });
@@ -67,7 +87,10 @@ class AdvancedNodeEditor extends PureComponent<IProps, IState> {
     this.setState({ [name]: value });
   };
 
-  handleEditorChange = (text: string, { id: editorId }: { editorId: string }): void => {
+  handleEditorChange = (
+    text: string,
+    { id: editorId }: { editorId: string },
+  ): void => {
     this.setState({ [editorId]: text });
   };
 
@@ -76,7 +99,7 @@ class AdvancedNodeEditor extends PureComponent<IProps, IState> {
     const { value, name } = (e.target: window.HTMLInputElement);
 
     const selectMenu = name === 'themeId' ? themesNames : ACCESS;
-    const index = selectMenu.findIndex(style => style === value);
+    const index = selectMenu.findIndex((style) => style === value);
     const isControlled = name === 'securityType' && value === 'Controlled';
 
     if (isControlled) {
@@ -88,12 +111,17 @@ class AdvancedNodeEditor extends PureComponent<IProps, IState> {
     this.setState({ [name]: index + 1 });
   };
 
-  handleCheckBoxChange = (e: Event, checkedVal: boolean, name: string): void => {
+  handleCheckBoxChange = (
+    e: Event,
+    checkedVal: boolean,
+    name: string,
+  ): void => {
     this.setState({ [name]: checkedVal });
   };
 
   render() {
-    const { classes, themesNames, mapDetails } = this.props;
+    const { classes, themesNames } = this.props;
+    const { description, devNotes } = this.state;
 
     return (
       <Container>
@@ -118,35 +146,40 @@ class AdvancedNodeEditor extends PureComponent<IProps, IState> {
             <Tab label="Basic Details" />
             <Tab label="Appearance" />
             <Tab label="Content Details" />
+            <Tab label="Permissions" />
             <Tab label="Advanced Details" />
           </Tabs>
         </Paper>
         <ScrollingContainer>
           <TabContainer>
-            {[
-              <BasicDetails
-                details={this.state}
-                text={mapDetails.description}
-                onInputChange={this.onInputChange}
-                handleEditorChange={this.handleEditorChange}
-                handleSelectChange={this.handleSelectChange}
-              />,
-              <Appearance
-                details={this.state}
-                themes={themesNames}
-                handleSelectChange={this.handleSelectChange}
-              />,
-              <ContentDetails
-                details={this.state}
-                text={mapDetails.notes}
-                handleEditorChange={this.handleEditorChange}
-                handleCheckBoxChange={this.handleCheckBoxChange}
-              />,
-              <AdvancedDetails
-                details={this.state}
-                handleCheckBoxChange={this.handleCheckBoxChange}
-              />,
-            ][this.numberTab]}
+            {
+              [
+                <BasicDetails
+                  details={this.state}
+                  text={description}
+                  onInputChange={this.onInputChange}
+                  handleEditorChange={this.handleEditorChange}
+                  handleSelectChange={this.handleSelectChange}
+                />,
+                <Appearance
+                  details={this.state}
+                  themes={themesNames}
+                  handleSelectChange={this.handleSelectChange}
+                />,
+                <ContentDetails
+                  details={this.state}
+                  text={devNotes}
+                  nodes={this.props.nodes}
+                  handleEditorChange={this.handleEditorChange}
+                  handleCheckBoxChange={this.handleCheckBoxChange}
+                />,
+                <Permissions map={this.state} />,
+                <AdvancedDetails
+                  details={this.state}
+                  handleCheckBoxChange={this.handleCheckBoxChange}
+                />,
+              ][this.numberTab]
+            }
           </TabContainer>
         </ScrollingContainer>
       </Container>
@@ -155,24 +188,32 @@ class AdvancedNodeEditor extends PureComponent<IProps, IState> {
 }
 
 const mapStateToProps = (
-  { mapDetails: { themes = [], ...mapDetails } },
-  { match: { params: { mapId: mapIdUrl } } },
+  { map: { nodes }, mapDetails: { themes = [], ...mapDetails } },
+  {
+    match: {
+      params: { mapId: mapIdUrl },
+    },
+  },
 ) => {
-  const themesNames = themes.map(theme => theme.name);
+  const themesNames = themes.map((theme) => theme.name);
 
   return {
     themesNames,
     mapDetails,
     mapIdUrl,
+    nodes,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_GET_MAP_DETAILS_REQUESTED: (mapId: string) => {
     dispatch(mapDetailsActions.ACTION_GET_MAP_DETAILS_REQUESTED(mapId));
   },
   ACTION_UPDATE_MAP_DETAILS_REQUESTED: (mapDetails: MapDetails) => {
     dispatch(mapDetailsActions.ACTION_UPDATE_MAP_DETAILS_REQUESTED(mapDetails));
+  },
+  ACTION_GET_MAP_REQUESTED: (mapId: string) => {
+    dispatch(mapActions.ACTION_GET_MAP_REQUESTED(mapId));
   },
 });
 

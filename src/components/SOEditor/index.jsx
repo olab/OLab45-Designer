@@ -21,28 +21,29 @@ import type { ISOEditorProps } from './types';
 
 class SOEditor extends PureComponent<ISOEditorProps> {
   componentWillUnmount() {
-    const {
-      ACTION_SCOPE_LEVELS_CLEAR,
-      ACTION_SCOPED_OBJECTS_CLEAR,
-    } = this.props;
+    const { ACTION_SCOPE_LEVELS_CLEAR, ACTION_SCOPED_OBJECTS_CLEAR } =
+      this.props;
 
     ACTION_SCOPE_LEVELS_CLEAR();
     ACTION_SCOPED_OBJECTS_CLEAR();
   }
 
   render() {
-
     // console.log(`${JSON.stringify(SCOPED_OBJECTS, null, 2)}`);
-    
+
     return (
       <Switch>
-        <Route exact path={`/scopedObject/:scopedObjectType`} component={SOList} />
+        <Route
+          exact
+          path={`/scopedObject/:scopedObjectType`}
+          component={SOList}
+        />
       </Switch>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_SCOPE_LEVELS_CLEAR: () => {
     dispatch(scopeLevelsActions.ACTION_SCOPE_LEVELS_CLEAR());
   },
@@ -51,7 +52,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(SOEditor);
+export default connect(null, mapDispatchToProps)(SOEditor);

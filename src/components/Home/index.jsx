@@ -48,12 +48,9 @@ class Home extends PureComponent<IHomeProps, IHomeState> {
   }
 
   componentDidUpdate(prevProps: IHomeProps) {
-    const {
-      mapId, maps, history, isMapDetailsFetching,
-    } = this.props;
-    const {
-      maps: mapsPrev, isMapDetailsFetching: isMapDetailsFetchingPrev,
-    } = prevProps;
+    const { mapId, maps, history, isMapDetailsFetching } = this.props;
+    const { maps: mapsPrev, isMapDetailsFetching: isMapDetailsFetchingPrev } =
+      prevProps;
 
     const isFetchingStopped = isMapDetailsFetchingPrev && !isMapDetailsFetching;
     const isMapRetrieved = isFetchingStopped && mapId;
@@ -77,7 +74,7 @@ class Home extends PureComponent<IHomeProps, IHomeState> {
 
   setPageTitle = (): void => {
     document.title = PAGE_TITLES.HOME;
-  }
+  };
 
   handleTemplateChoose = (template: TemplateType): void => {
     const templateId = template ? template.id : null;
@@ -86,57 +83,57 @@ class Home extends PureComponent<IHomeProps, IHomeState> {
     ACTION_CREATE_MAP_REQUESTED(templateId);
 
     this.toggleDisableButtons();
-  }
+  };
 
   toggleDisableButtons = (): void => {
     this.setState(({ isButtonsDisabled }) => ({
       isButtonsDisabled: !isButtonsDisabled,
     }));
-  }
+  };
 
   showTemplatesListModal = (): void => {
     const { ACTION_TEMPLATES_REQUESTED } = this.props;
     ACTION_TEMPLATES_REQUESTED();
 
     this.setState({ isShowTemplatesListModal: true });
-  }
+  };
 
   closeTemplatesListModal = (): void => {
     this.setState({ isShowTemplatesListModal: false });
-  }
+  };
 
   handleItemsSearch = (query: string): void => {
     const { maps } = this.props;
     const scopedObjectsNameFiltered = filterByName(maps, query);
     const scopedObjectsIndexFiltered = filterByIndex(maps, query);
-    const mapsFiltered = [...scopedObjectsNameFiltered, ...scopedObjectsIndexFiltered];
+    const mapsFiltered = [
+      ...scopedObjectsNameFiltered,
+      ...scopedObjectsIndexFiltered,
+    ];
 
     this.setState({ mapsFiltered });
-  }
+  };
 
   clearSearchInput = (): void => {
     const { maps: mapsFiltered } = this.props;
     this.setState({ mapsFiltered });
-  }
+  };
 
   handleMapItemClick = (scopeLevel: ScopeLevelType): void => {
     const { ACTION_GET_WHOLE_MAP_MIDDLEWARE } = this.props;
     ACTION_GET_WHOLE_MAP_MIDDLEWARE(scopeLevel.id);
 
     this.toggleDisableButtons();
-  }
+  };
 
   setListWithSearchRef = (ref: any): void => {
     this.listWithSearchRef = ref;
-  }
+  };
 
   render() {
-    const {
-      mapsFiltered, isButtonsDisabled, isShowTemplatesListModal,
-    } = this.state;
-    const {
-      templates, isMapsFetching, isTemplatesFetching,
-    } = this.props;
+    const { mapsFiltered, isButtonsDisabled, isShowTemplatesListModal } =
+      this.state;
+    const { templates, isMapsFetching, isTemplatesFetching } = this.props;
 
     return (
       <HomeWrapper>
@@ -182,9 +179,7 @@ class Home extends PureComponent<IHomeProps, IHomeState> {
   }
 }
 
-const mapStateToProps = ({
-  mapDetails, templates, scopeLevels,
-}) => ({
+const mapStateToProps = ({ mapDetails, templates, scopeLevels }) => ({
   mapId: mapDetails.id,
   maps: scopeLevels.maps,
   templates: templates.list,
@@ -193,7 +188,7 @@ const mapStateToProps = ({
   isTemplatesFetching: templates.isFetching,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_CREATE_MAP_REQUESTED: (templateId?: number) => {
     dispatch(mapActions.ACTION_CREATE_MAP_REQUESTED(templateId));
   },
@@ -204,15 +199,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch(templatesActions.ACTION_TEMPLATES_REQUESTED());
   },
   ACTION_MAPS_REQUESTED: () => {
-    dispatch(scopedLevelsActions.ACTION_SCOPE_LEVELS_REQUESTED(
-      SCOPE_LEVELS[0].toLowerCase(),
-    ));
+    dispatch(
+      scopedLevelsActions.ACTION_SCOPE_LEVELS_REQUESTED(
+        SCOPE_LEVELS[0].toLowerCase(),
+      ),
+    );
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(
-  withRouter(Home),
-);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));

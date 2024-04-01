@@ -12,7 +12,11 @@ import type { IUndoRedoButtonsProps } from './types';
 import styles, { Container } from './styles';
 
 export const GraphUndoRedoButtons = ({
-  classes, isUndoAvailable, isRedoAvailable, ACTION_REDO_MAP, ACTION_UNDO_MAP,
+  classes,
+  isUndoAvailable,
+  isRedoAvailable,
+  ACTION_REDO_MAP,
+  ACTION_UNDO_MAP,
 }: IUndoRedoButtonsProps) => (
   <Container>
     <IconButton
@@ -39,7 +43,7 @@ const mapStateToProps = ({ map: { undo, redo } }) => ({
   isRedoAvailable: !!redo.length,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   ACTION_REDO_MAP: () => {
     dispatch(actions.ACTION_REDO_MAP());
   },
