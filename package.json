@@ -1,6 +1,6 @@
 {
   "name": "olab45designer",
-  "version": "24.2.6-0",
+  "version": "2024.4.21-0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
