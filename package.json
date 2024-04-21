@@ -2,7 +2,6 @@
   "name": "olab45designer",
   "version": "24.2.6-0",
   "private": true,
-  "homepage": "/designerdebug/",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
@@ -44,9 +43,10 @@
     "seamless-immutable": "^7.1.4",
     "styled-components": "^5.3.10",
     "svg-intersections": "^0.4.0",
-    "tinymce": "^6.8.2"
+    "tinymce": "^7.0.0"
   },
   "devDependencies": {
+    "@azure/static-web-apps-cli": "^1.1.7",
     "@babel/core": "^7.21.8",
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-flow": "^7.16.7",
@@ -92,8 +92,7 @@
     "lint": "eslint ./src",
     "test": "jest",
     "test-cover": "npm test -- --coverage",
-    "format": "npx prettier --write src",
-    "postinstall": "node ./postinstall.js"
+    "update:tinymce": "node ./postinstall.js"
   },
   "browserslist": [
     ">0.2%",

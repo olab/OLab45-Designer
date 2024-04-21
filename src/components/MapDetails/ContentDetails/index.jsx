@@ -45,7 +45,7 @@ const ContentDetails = ({
     <ContainerTab>
       <ContentTitle>Authoring notes</ContentTitle>
       <TextEditor
-        editorId="notes"
+        editorId="devNotes"
         width={800}
         height={300}
         text={text}
