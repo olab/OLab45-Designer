@@ -15,7 +15,7 @@ let isAbsoluteUrl = false;
 try {
   new URL(process.env.PUBLIC_URL);
   isAbsoluteUrl = true;
-} catch (err) {}
+} catch (err) { }
 
 if (isAbsoluteUrl) {
   // the react router doesn't seem to work well with absolute URLs
@@ -146,7 +146,7 @@ module.exports = (env, options) => ({
       'process.env.npm_package_version': JSON.stringify(
         process.env.npm_package_version,
       ),
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      // 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL),
       'process.env.API_URL': JSON.stringify(process.env.API_URL),
     }),
