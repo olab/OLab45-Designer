@@ -17,6 +17,7 @@ import {
 } from '@material-ui/icons';
 
 import { PANEL_NAMES } from './config';
+import { importFileUpload } from '../../../services/api/importFileUpload';
 
 import type { ExpansionPanelProps, ExpansionPanelState } from './types';
 
@@ -47,24 +48,88 @@ class ExpansionPanel extends PureComponent<
       selectedFile: event.target.files[0],
       loaded: 0,
       isUploadDisabled: false,
+      importMapError: null,
+      importMapDetails: [],
+      showImportDetails: false,
+    });
+  };
+
+  onProgressUpdate = (event) => {
+    const percentCompleted = Math.round(
+      ((event.loaded * 100) / event.total) * 0.9,
+    );
+    this.setState({
+      loaded: percentCompleted,
+    });
+  };
+
+  onFileUploadError = (data) => {
+    console.log(`Map upload error: ${JSON.stringify(data)}`);
+    this.setState({
+      loaded: 100,
+      importMapError: data.message,
+      isUploadDisabled: false,
+    });
+  };
+
+  onFileUploaded = (data) => {
+    console.log(`Map uploaded: ${data.data['id']} ${data.data['name']}`);
+    this.setState({
+      loaded: 100,
+      isUploadDisabled: false,
+      importMapId: data.data['id'],
+      importMapName: data.data['name'],
+      importMapDetails: data.data['logMessages'],
+    });
+  };
+
+  toggleImportDetails = () => {
+    this.setState({
+      showImportDetails: !this.state.showImportDetails,
     });
   };
 
   onFileUpload = () => {
-    const { selectedFile } = this.state;
-    const data = new FormData();
-    data.append('file', selectedFile);
+    const { selectedFile: file } = this.state;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('fileName', file.name);
+
+    // TODO: this should do through the saga/reducer route, but for now
+    // it's calling the API helper directly.
+    var data = importFileUpload(
+      formData,
+      this.onProgressUpdate,
+      this.onFileUploaded,
+      this.onFileUploadError,
+    );
 
     this.setState({
       selectedFile: null,
-      loaded: 10,
+      loaded: 1,
       isUploadDisabled: true,
     });
   };
 
   render() {
-    const { expandedPanel, loaded, isUploadDisabled } = this.state;
+    const {
+      expandedPanel,
+      loaded,
+      isUploadDisabled,
+      importMapId,
+      importMapName,
+      importMapError,
+      importMapDetails,
+      showImportDetails,
+    } = this.state;
     const { classes, showModal, onChoose, isDisabled } = this.props;
+
+    let importDetailRows = '';
+    if (importMapDetails != null && importMapDetails.length > 0) {
+      for (let i = 0; i < importMapDetails.length; i++) {
+        importDetailRows = importDetailRows.concat(importMapDetails[i] + '\n');
+      }
+    }
 
     return (
       <ExpansionPanelWrapper>
@@ -179,13 +244,57 @@ class ExpansionPanel extends PureComponent<
                   />
                 </Button>
               </Grid>
-              {loaded > 0 && (
+              {loaded > 0 && loaded < 100 && (
                 <Grid item xs={12}>
                   <Box sx={{ width: '100%' }}>
                     <LinearProgress variant="determinate" value={loaded} />
                   </Box>
                 </Grid>
               )}
+              {loaded == 100 && importMapError != null && (
+                <Grid item xs={12}>
+                  <Box sx={{ width: '100%' }}>
+                    <div>Map import error: {importMapError}</div>
+                  </Box>
+                </Grid>
+              )}
+              {loaded == 100 && importMapError == null && (
+                <Grid item xs={9}>
+                  <Box sx={{ width: '100%' }}>
+                    <div>
+                      Map imported:
+                      <br />
+                      Id: {importMapId}
+                      <br />
+                      Name: {importMapName}
+                      <br />
+                    </div>
+                  </Box>
+                </Grid>
+              )}
+              <Grid container spacing={2}>
+                <Grid item xs={9}>
+                  {loaded == 100 && showImportDetails && (
+                    <textarea cols="{{50}}" rows="{{4}}">
+                      {importDetailRows}
+                    </textarea>
+                  )}
+                </Grid>
+                <Grid item xs={3}>
+                  {loaded == 100 && (
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      size="small"
+                      aria-label="Create"
+                      classes={{ root: classes.fab }}
+                      onClick={this.toggleImportDetails}
+                    >
+                      Show Details
+                    </Button>
+                  )}
+                </Grid>
+              </Grid>
             </Grid>
           </AccordionDetails>
         </ExpansionPanelMaterialUI>
