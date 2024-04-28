@@ -10,7 +10,7 @@ import {
 class TextEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.props.editorRef = React.createRef();
+    // this.props.editorRef = React.createRef();
   }
 
   render() {
