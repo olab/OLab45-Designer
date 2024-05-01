@@ -43,7 +43,7 @@
     "seamless-immutable": "^7.1.4",
     "styled-components": "^5.3.10",
     "svg-intersections": "^0.4.0",
-    "tinymce": "^7.0.0"
+    "tinymce": "^5.10.9"
   },
   "devDependencies": {
     "@azure/static-web-apps-cli": "^1.1.7",
@@ -91,8 +91,7 @@
     "build:dev": "webpack --mode development",
     "lint": "eslint ./src",
     "test": "jest",
-    "test-cover": "npm test -- --coverage",
-    "update:tinymce": "node ./postinstall.js"
+    "test-cover": "npm test -- --coverage"
   },
   "browserslist": [
     ">0.2%",

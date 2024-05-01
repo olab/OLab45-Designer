@@ -38,8 +38,7 @@ class TextEditor extends React.Component {
 
     return (
       <Editor
-        tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
-        zapiKey={EDITOR_API_KEY}
+        apiKey={EDITOR_API_KEY}
         id={editorId}
         xcloudChannel={EDITOR_VERSION}
         // eslint-disable-next-line
