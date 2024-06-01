@@ -31,7 +31,7 @@ import styles, { SearchWrapper, ListItemContentWrapper } from './styles';
 import styled from 'styled-components';
 
 const MapListWrapper = styled.div`
-  max-height: 75vh;
+  max-height: 60vh;
   overflow: auto;
   padding-right: 5px;
 `;
