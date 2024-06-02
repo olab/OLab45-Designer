@@ -39,6 +39,7 @@ const MainTab = ({
   ];
 
   const editorOptions = {
+    height: 500,
     menubar: true,
     promotion: false,
     plugins: [

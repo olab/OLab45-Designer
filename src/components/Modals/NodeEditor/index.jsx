@@ -174,6 +174,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
 
   render() {
     const editorOptions = {
+      height: 500,
       menubar: false,
       promotion: false,
       plugins: [
