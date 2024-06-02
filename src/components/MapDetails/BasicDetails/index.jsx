@@ -11,17 +11,21 @@ import styles, { ContainerKeywords } from './styles';
 import { ContainerTab, ContentTitle } from '../styles';
 
 const editorOptions = {
+  height: 500,
   menubar: false,
+  promotion: false,
   plugins: [
     'advlist autolink lists link image charmap print preview anchor',
     'searchreplace code fullscreen',
-    'insertdatetime table paste code help'
+    'insertdatetime table paste code help',
   ],
-  toolbar: 'code | formatselect | ' +
-  'backcolor | alignleft aligncenter ' +
-  'alignright alignjustify | bullist numlist outdent indent | ' +
-  'removeformat | help',
-  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+  toolbar:
+    'code | formatselect | ' +
+    'backcolor | alignleft aligncenter ' +
+    'alignright alignjustify | bullist numlist outdent indent | ' +
+    'removeformat | help',
+  content_style:
+    'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
 };
 
 const BasicDetails = ({
