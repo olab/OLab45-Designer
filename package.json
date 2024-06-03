@@ -85,7 +85,7 @@
     "d3-color": "^3.1.0"
   },
   "scripts": {
-    "start": "webpack serve --mode development",
+    "start": "webpack serve --open --mode development",
     "start:prod": "webpack serve --mode production",
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",

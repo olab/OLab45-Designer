@@ -3,62 +3,49 @@ import React from 'react';
 import type { PermissionsProps as IProps } from './types';
 import { ContainerTab, ContentTitle } from '../styles';
 import { ContentParagraph } from './styles';
-import * as mapSecurityUsersActions from '../../../redux/mapSecurityUsers/action';
+import * as mapGroupsActions from '../../../redux/mapGroups/action';
 import { useDispatch, useSelector } from 'react-redux';
-import AclsTable from './AclsTable';
-import { MapSecurityUser } from '../../../redux/mapSecurityUsers/types';
+import GroupsTable from './GroupsTable';
+import { MapGroup } from '../../../redux/mapGroups/types';
 
 const Permissions = ({ map }: IProps): React$Element<any> => {
   const dispatch = useDispatch();
-  const { users, isFetching, mapId } = useSelector(
-    ({ mapSecurityUsers: state }) => {
-      // refresh state when changing between maps
-      return !state?.mapId || map.id == state.mapId
-        ? state
-        : { isFetching: true };
-    },
-  );
+
+  const isFetching = useSelector((state) => state.isFetching);
+  const groups = useSelector((state) => state.groups);
+  const mapGroups = useSelector((state) => state.mapGroups);
+
+  // const { mapGroups, groups, isFetching, mapId } = useSelector(
+  //   ({ mapGroups: state }) => {
+  //     // refresh state when changing between maps
+  //     return !state?.mapId || map.id == state.mapId
+  //       ? state
+  //       : { isFetching: true };
+  //   },
+  // );
 
   React.useEffect(() => {
-    if (!users || 0 == users.length) {
-      dispatch(
-        mapSecurityUsersActions.ACTION_GET_MAP_SECURITY_USERS_REQUESTED(map.id),
-      );
+    if (!groups || 0 == groups.length) {
+      dispatch(mapGroupsActions.ACTION_GET_GROUPS_REQUESTED());
+      dispatch(mapGroupsActions.ACTION_GET_MAP_GROUPS_REQUESTED(map.id));
     }
   }, []);
 
-  const updateAcl = (user: MapSecurityUser) => {
+  const updateGroup = (mapGroups: MapGroups) => {
     dispatch(
-      mapSecurityUsersActions.ACTION_UPDATE_MAP_SECURITY_USERS_REQUESTED(
-        map.id,
-        { users: [user] },
-      ),
-    );
-  };
-
-  const deleteSecurityUser = (user: MapSecurityUser) => {
-    dispatch(
-      mapSecurityUsersActions.ACTION_DELETE_MAP_SECURITY_USERS_REQUESTED(
-        map.id,
-        user.userId,
-      ),
+      mapGroupsActions.ACTION_UPDATE_MAP_GROUPS_REQUESTED(map.id, {
+        mapGroups: [mapGroups],
+      }),
     );
   };
 
   return (
     <ContainerTab>
-      <ContentTitle>Map Permissions Editor</ContentTitle>
-      <ContentParagraph>
-        Invite other authors to help manage this map.
-      </ContentParagraph>
+      <ContentTitle>Map Groups Editor</ContentTitle>
+      <ContentParagraph>Assign groups to this map.</ContentParagraph>
 
-      {(users?.length > 0 || !isFetching) && (
-        <AclsTable
-          users={users}
-          updateAcl={updateAcl}
-          deleteSecurityUser={deleteSecurityUser}
-          mapId={map.id}
-        />
+      {(groups?.length > 0 || !isFetching) && (
+        <GroupsTable mapGroups={mapGroups} groups={groups} mapId={map.id} />
       )}
     </ContainerTab>
   );

@@ -184,6 +184,7 @@ export const mapDetailsFromServer = (mapData: MapDetails): MapDetails => ({
   themes: mapData.themes,
   units: mapData.units,
   reportNodeId: mapData.reportNodeId,
+  mapGroups: mapData.mapGroups
 });
 
 export const mapDetailsToServer = (mapData: MapDetails): MapDetails => ({

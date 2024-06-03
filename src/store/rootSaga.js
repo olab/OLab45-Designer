@@ -6,6 +6,7 @@ import counterGridSaga from '../redux/counterGrid/sagas';
 import defaultsSaga from '../redux/defaults/sagas';
 import edgeSaga from '../redux/map/edge/sagas';
 import mapDetailsSaga from '../redux/mapDetails/sagas';
+import mapGroupsSaga from '../redux/mapGroups/sagas';
 import mapSecurityUsersSaga from '../redux/mapSecurityUsers/sagas';
 import mapSaga from '../redux/map/sagas';
 import nodeGridSaga from '../redux/nodeGrid/sagas';
@@ -22,6 +23,7 @@ export default function* rootSaga(): Generator<any, void, void> {
     defaultsSaga(),
     edgeSaga(),
     mapDetailsSaga(),
+    mapGroupsSaga(),
     mapSecurityUsersSaga(),
     mapSaga(),
     nodeGridSaga(),
