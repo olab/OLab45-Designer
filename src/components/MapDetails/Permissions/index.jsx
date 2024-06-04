@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AclsTable from './AclsTable';
 import { MapSecurityUser } from '../../../redux/mapSecurityUsers/types';
 
-const Permissions = ({ map }: IProps): React$Element<any> => {
+const Permissions = ({ map, groups, roles }: IProps): React$Element<any> => {
   const dispatch = useDispatch();
   const { users, isFetching, mapId } = useSelector(
     ({ mapSecurityUsers: state }) => {
@@ -44,6 +44,14 @@ const Permissions = ({ map }: IProps): React$Element<any> => {
       ),
     );
   };
+
+  // groups.forEach((element) => {
+  //   console.log(JSON.stringify(element));
+  // });
+
+  // roles.forEach((element) => {
+  //   console.log(JSON.stringify(element));
+  // });
 
   return (
     <ContainerTab>

@@ -8,7 +8,7 @@ import type { MapDetails } from '../redux/mapDetails/types';
 import type { CounterActions } from '../redux/counterGrid/types';
 import type { Edge } from '../components/Constructor/Graph/Edge/types';
 import type { Node } from '../components/Constructor/Graph/Node/types';
-import type { DefaultNode, DefaultEdge } from '../redux/defaults/types';
+import type { DefaultNode, DefaultEdge, Groups, Roles } from '../redux/defaults/types';
 import type {
   ScopedObject,
   ScopedObjectListItem,
@@ -215,6 +215,7 @@ export const mapDetailsToServer = (mapData: MapDetails): MapDetails => ({
   typeId: mapData.typeId,
   units: mapData.units,
   reportNodeId: mapData.reportNodeId,
+  mapGroups: mapData.mapGroups
 });
 
 export const mapFromServer = (mapData: MapItem): MapItem => ({
@@ -354,3 +355,13 @@ export const counterGridActionsToServer = ({
   ...restActions,
   visible: Number(isVisible),
 });
+
+// stub for future expansion
+export const groupsFromServer = (groups): Groups => {
+  return groups;
+};
+
+// stub for future expansion
+export const rolesFromServer = (roles): Roles => {
+  return roles;
+};

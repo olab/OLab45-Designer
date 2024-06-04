@@ -43,8 +43,9 @@ class MapDetailsEditor extends PureComponent<
       mapIdUrl,
       mapDetails,
       nodes,
+      groups,
+      roles,
       ACTION_GET_MAP_DETAILS_REQUESTED,
-      ACTION_GET_GROUPS_REQUESTED,
       ACTION_GET_MAP_REQUESTED,
     } = this.props;
     const isPageRefreshed = mapIdUrl && !mapDetails.id;
@@ -52,10 +53,9 @@ class MapDetailsEditor extends PureComponent<
     if (isPageRefreshed) {
       ACTION_GET_MAP_DETAILS_REQUESTED(mapIdUrl);
       ACTION_GET_MAP_REQUESTED(mapIdUrl);
-      ACTION_GET_GROUPS_REQUESTED();
     }
 
-    this.state = { ...mapDetails };
+    this.state = { ...mapDetails, groups, roles };
   }
 
   componentDidUpdate(prevProps: IProps) {
@@ -175,7 +175,11 @@ class MapDetailsEditor extends PureComponent<
                   handleEditorChange={this.handleEditorChange}
                   handleCheckBoxChange={this.handleCheckBoxChange}
                 />,
-                <Permissions map={this.state} />,
+                <Permissions
+                  map={this.state}
+                  groups={this.state.groups}
+                  roles={this.state.roles}
+                />,
                 <AdvancedDetails
                   details={this.state}
                   handleCheckBoxChange={this.handleCheckBoxChange}
@@ -190,7 +194,7 @@ class MapDetailsEditor extends PureComponent<
 }
 
 const mapStateToProps = (
-  { map: { nodes }, mapDetails: { themes = [], ...mapDetails } },
+  { defaults, map: { nodes }, mapDetails: { themes = [], ...mapDetails } },
   {
     match: {
       params: { mapId: mapIdUrl },
@@ -204,6 +208,8 @@ const mapStateToProps = (
     mapDetails,
     mapIdUrl,
     nodes,
+    groups: defaults.groups,
+    roles: defaults.roles,
   };
 };
 

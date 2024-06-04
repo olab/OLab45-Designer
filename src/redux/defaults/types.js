@@ -24,9 +24,24 @@ export type DefaultNode = {
   isCollapsed: boolean | null,
 };
 
+export type IdName = {
+  id: number,
+  name: string
+};
+
+export type Groups = {
+  groups: Array<IdName>
+};
+
+export type Roles = {
+  roles: Array<IdName>
+};
+
 export type Defaults = {
   edgeBody: DefaultEdge,
   nodeBody: DefaultNode,
+  groups: Groups,
+  roles: Roles
 };
 
 export const SET_DEFAULTS = 'SET_DEFAULTS';
@@ -34,6 +49,8 @@ type SetDefaults = {
   type: 'SET_DEFAULTS',
   edgeBody: DefaultEdge,
   nodeBody: DefaultNode,
+  groups: Groups,
+  roles: Roles
 };
 
 export type DefaultsActions = SetDefaults;

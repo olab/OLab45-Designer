@@ -29,6 +29,8 @@ export const initialDefaultsState: DefaultsType = {
     type: null,
     color: '',
   },
+  groups: [],
+  roles: []
 };
 
 const defaults = (
@@ -37,7 +39,7 @@ const defaults = (
 ) => {
   switch (action.type) {
     case SET_DEFAULTS: {
-      const { edgeBody, nodeBody } = action;
+      const { edgeBody, nodeBody, groups, roles } = action;
 
       return {
         edgeBody: {
@@ -48,6 +50,8 @@ const defaults = (
           ...state.nodeBody,
           ...nodeBody,
         },
+        groups: [...state.groups, ...groups],
+        roles: [...state.roles, ...roles]
       };
     }
     default:
