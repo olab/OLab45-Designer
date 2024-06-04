@@ -31,7 +31,7 @@ import styles, {
   Header,
 } from './styles';
 
-class AdvancedNodeEditor extends PureComponent<
+class MapDetailsEditor extends PureComponent<
   IProps & { nodes: Array<NodeType> },
   IState,
 > {
@@ -44,6 +44,7 @@ class AdvancedNodeEditor extends PureComponent<
       mapDetails,
       nodes,
       ACTION_GET_MAP_DETAILS_REQUESTED,
+      ACTION_GET_GROUPS_REQUESTED,
       ACTION_GET_MAP_REQUESTED,
     } = this.props;
     const isPageRefreshed = mapIdUrl && !mapDetails.id;
@@ -51,6 +52,7 @@ class AdvancedNodeEditor extends PureComponent<
     if (isPageRefreshed) {
       ACTION_GET_MAP_DETAILS_REQUESTED(mapIdUrl);
       ACTION_GET_MAP_REQUESTED(mapIdUrl);
+      ACTION_GET_GROUPS_REQUESTED();
     }
 
     this.state = { ...mapDetails };
@@ -220,4 +222,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withStyles(styles)(AdvancedNodeEditor));
+)(withStyles(styles)(MapDetailsEditor));

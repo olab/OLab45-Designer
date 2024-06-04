@@ -5,6 +5,15 @@ export type Themes = {
   description: string,
 };
 
+export type MapGroup = {
+  id: String,
+  name: String
+};
+
+export type Groups = {
+  groups: Array<MapGroup>,
+};
+
 export type MapDetails = {
   id: number,
   themeId: number,
@@ -26,6 +35,8 @@ export type MapDetails = {
   themes: Array<Themes>,
 };
 
+//******/
+
 const GET_MAP_DETAILS_SUCCEEDED = 'GET_MAP_DETAILS_SUCCEEDED';
 type GetMapDetailsSucceeded = {
   type: 'GET_MAP_DETAILS_SUCCEEDED',
@@ -43,6 +54,26 @@ type GetMapDetailsRequested = {
   mapId: string,
 };
 
+//******/
+
+const GET_GROUPS_SUCCEEDED = 'GET_GROUPS_SUCCEEDED';
+type GetGroupsSucceeded = {
+  type: 'GET_GROUPS_SUCCEEDED',
+  groups: Groups,
+};
+
+const GET_GROUPS_FAILED = 'GET_GROUPS_FAILED';
+type GetGroupsFailed = {
+  type: 'GET_GROUPS_FAILED',
+};
+
+const GET_GROUPS_REQUESTED = 'GET_GROUPS_REQUESTED';
+type GetGroupsRequested = {
+  type: 'GET_GROUPS_REQUESTED'
+};
+
+//******/
+
 const UPDATE_MAP_DETAILS_REQUESTED = 'UPDATE_MAP_DETAILS_REQUESTED';
 type UpdateMapDetailsRequested = {
   type: 'UPDATE_MAP_DETAILS_REQUESTED',
@@ -53,11 +84,17 @@ export type MapDetailsActions =
   | GetMapDetailsSucceeded
   | GetMapDetailsFailed
   | GetMapDetailsRequested
+  | GetGroupsSucceeded
+  | GetGroupsFailed
+  | GetGroupsRequested
   | UpdateMapDetailsRequested;
 
 export {
   GET_MAP_DETAILS_FAILED,
   GET_MAP_DETAILS_SUCCEEDED,
   GET_MAP_DETAILS_REQUESTED,
+  GET_GROUPS_FAILED,
+  GET_GROUPS_SUCCEEDED,
+  GET_GROUPS_REQUESTED,
   UPDATE_MAP_DETAILS_REQUESTED,
 };
