@@ -66,9 +66,9 @@ module.exports = (env, options) => ({
         warnings: false,
       },
     },
-    proxy: {
-      '/olab/api/v3': `http://${devServerHost}:5001`,
-    },
+    // proxy: {
+    //   '/olab/api/v3': `http://${devServerHost}:5001`,
+    // },
   },
 
   performance: {

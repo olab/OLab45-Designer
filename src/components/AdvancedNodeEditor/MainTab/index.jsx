@@ -39,14 +39,14 @@ const MainTab = ({
   ];
 
   const editorOptions = {
+    license_key: 'gpl',
     height: 500,
     menubar: true,
     promotion: false,
-    plugins: [
-      'advlist autolink lists link image charmap print preview anchor',
-      'searchreplace code fullscreen',
+    plugins:
+      'advlist autolink lists link image charmap print preview anchor ' +
+      'searchreplace code fullscreen ' +
       'insertdatetime media table paste code help wordcount',
-    ],
     toolbar:
       'code | undo redo | formatselect | ' +
       'bold italic image backcolor | alignleft aligncenter ' +

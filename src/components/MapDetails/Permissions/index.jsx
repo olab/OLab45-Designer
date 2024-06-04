@@ -6,6 +6,7 @@ import { ContentParagraph } from './styles';
 import * as mapSecurityUsersActions from '../../../redux/mapSecurityUsers/action';
 import { useDispatch, useSelector } from 'react-redux';
 import AclsTable from './AclsTable';
+import MapGroupsTable from './MapGroupsTable';
 import { MapSecurityUser } from '../../../redux/mapSecurityUsers/types';
 
 const Permissions = ({ map, groups, roles }: IProps): React$Element<any> => {
@@ -18,6 +19,8 @@ const Permissions = ({ map, groups, roles }: IProps): React$Element<any> => {
         : { isFetching: true };
     },
   );
+
+  let mapGroups = map.mapGroups;
 
   React.useEffect(() => {
     if (!users || 0 == users.length) {
@@ -45,20 +48,22 @@ const Permissions = ({ map, groups, roles }: IProps): React$Element<any> => {
     );
   };
 
-  // groups.forEach((element) => {
-  //   console.log(JSON.stringify(element));
-  // });
-
-  // roles.forEach((element) => {
-  //   console.log(JSON.stringify(element));
-  // });
+  console.log(`# groups ${groups.length}`);
+  console.log(`# roles ${roles.length}`);
 
   return (
     <ContainerTab>
-      <ContentTitle>Map Permissions Editor</ContentTitle>
-      <ContentParagraph>
-        Invite other authors to help manage this map.
-      </ContentParagraph>
+      <ContentTitle>Map Group Editor</ContentTitle>
+      <ContentParagraph>Assign the map to one or more groups.</ContentParagraph>
+
+      <MapGroupsTable
+        groups={groups}
+        map={map}
+        users={users}
+        updateAcl={updateAcl}
+        deleteSecurityUser={deleteSecurityUser}
+        mapId={map.id}
+      />
 
       {(users?.length > 0 || !isFetching) && (
         <AclsTable

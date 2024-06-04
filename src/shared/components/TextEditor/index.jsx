@@ -24,8 +24,6 @@ class TextEditor extends React.Component {
       editorRef,
     } = this.props;
 
-    console.log(`tinyMCE editor options: ${JSON.stringify(editorOptions)}`);
-
     const initOptions = {
       width,
       height,
@@ -33,8 +31,6 @@ class TextEditor extends React.Component {
       ...BASIC_TEXT_EDITOR_OPTIONS,
       ...editorOptions,
     };
-
-    console.log(`tinyMCE editor options: ${JSON.stringify(initOptions)}`);
 
     return (
       <Editor

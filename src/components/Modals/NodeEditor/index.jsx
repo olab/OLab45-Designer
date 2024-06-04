@@ -174,14 +174,14 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
 
   render() {
     const editorOptions = {
+      license_key: 'gpl',
       height: 500,
       menubar: false,
       promotion: false,
-      plugins: [
-        'advlist autolink lists link image charmap print preview anchor',
-        'searchreplace code fullscreen',
+      plugins:
+        'advlist autolink lists link image charmap print preview anchor ' +
+        'searchreplace code fullscreen ' +
         'insertdatetime media table paste code help',
-      ],
       toolbar:
         'formatselect | ' +
         'backcolor | alignleft aligncenter ' +

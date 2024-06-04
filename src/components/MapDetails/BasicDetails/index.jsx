@@ -11,14 +11,14 @@ import styles, { ContainerKeywords } from './styles';
 import { ContainerTab, ContentTitle } from '../styles';
 
 const editorOptions = {
+  license_key: 'gpl',
   height: 500,
   menubar: false,
   promotion: false,
-  plugins: [
-    'advlist autolink lists link image charmap print preview anchor',
-    'searchreplace code fullscreen',
+  plugins:
+    'advlist autolink lists link image charmap print preview anchor ' +
+    'searchreplace code fullscreen ' +
     'insertdatetime table paste code help',
-  ],
   toolbar:
     'code | formatselect | ' +
     'backcolor | alignleft aligncenter ' +
