@@ -54,7 +54,10 @@ const Permissions = ({ map, groups, roles }: IProps): React$Element<any> => {
   return (
     <ContainerTab>
       <ContentTitle>Map Group Editor</ContentTitle>
-      <ContentParagraph>Assign the map to one or more groups.</ContentParagraph>
+      <ContentParagraph>
+        Assign the map to one or more groups. Available groups limited to groups
+        the user is assigned to.
+      </ContentParagraph>
 
       <MapGroupsTable
         groups={groups}

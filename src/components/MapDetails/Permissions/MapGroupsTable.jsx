@@ -59,17 +59,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MapGroupsTable = ({ groups, map }: IProps): React$Element<any> => {
-  const classes = useStyles();
-  const [checked, setChecked] = React.useState([]);
+  // remove map groups from groups list
+  const buildLeftList = (groups, mapGroups) => {
+    let list = [];
 
-  const [left, setLeft] = React.useState(groups);
-  const [right, setRight] = React.useState(map.mapGroups);
+    groups.forEach((outer) => {
+      let found = false;
 
-  const leftChecked = intersection(checked, left);
-  const rightChecked = intersection(checked, right);
+      for (let index = 0; index < mapGroups.length; index++) {
+        const inner = mapGroups[index];
+        if (inner.id == outer.id) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        list.push(outer);
+      }
+    });
+
+    return list;
+  };
 
   const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
+    // const currentIndex = checked.indexOf(value);
+    let currentIndex = -1;
+    if (checked.length > 0) {
+      currentIndex = checked.map((e) => e.id).indexOf(value.id);
+    }
+
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
@@ -118,7 +137,7 @@ const MapGroupsTable = ({ groups, map }: IProps): React$Element<any> => {
             >
               <ListItemIcon>
                 <Checkbox
-                  checked={checked.indexOf(value.id) !== -1}
+                  checked={checked.map((e) => e.id).indexOf(value.id) !== -1}
                   tabIndex={-1}
                   disableRipple
                   inputProps={{ 'aria-labelledby': labelId }}
@@ -132,6 +151,17 @@ const MapGroupsTable = ({ groups, map }: IProps): React$Element<any> => {
       </List>
     </Paper>
   );
+
+  const classes = useStyles();
+  const [checked, setChecked] = React.useState([]);
+
+  var leftList = buildLeftList(groups, map.mapGroups);
+
+  const [left, setLeft] = React.useState(leftList);
+  const [right, setRight] = React.useState(map.mapGroups);
+
+  const leftChecked = intersection(checked, left);
+  const rightChecked = intersection(checked, right);
 
   return (
     <Grid
