@@ -68,14 +68,14 @@ const Permissions = ({ map, groups, roles }: IProps): React$Element<any> => {
         mapId={map.id}
       />
 
-      {(users?.length > 0 || !isFetching) && (
+      {/* {(users?.length > 0 || !isFetching) && (
         <AclsTable
           users={users}
           updateAcl={updateAcl}
           deleteSecurityUser={deleteSecurityUser}
           mapId={map.id}
         />
-      )}
+      )} */}
     </ContainerTab>
   );
 };
