@@ -16,6 +16,7 @@ import * as mapActions from '../../redux/map/action';
 import { ACCESS } from './config';
 
 import type { MapDetails } from '../../redux/mapDetails/types';
+import type { Groups } from '../../redux/defaults/types';
 import type {
   MapDetailsProps as IProps,
   MapDetailsState as IState,
@@ -55,7 +56,7 @@ class MapDetailsEditor extends PureComponent<
       ACTION_GET_MAP_REQUESTED(mapIdUrl);
     }
 
-    this.state = { ...mapDetails, groups, roles };
+    this.state = { ...mapDetails };
   }
 
   componentDidUpdate(prevProps: IProps) {
@@ -96,6 +97,19 @@ class MapDetailsEditor extends PureComponent<
     this.setState({ [editorId]: text });
   };
 
+  handleMapGroupChange = (groups: Groups): void => {
+    const mapId = this.props.mapDetails.id;
+    // ensure that that any added map groups
+    // have a valid map id in the navigation property
+    groups.forEach(function (part, index) {
+      this[index].mapId = mapId;
+    }, groups);
+
+    console.log(JSON.stringify(groups));
+    var { mapGroups } = this.state;
+    this.setState({ mapGroups: groups });
+  };
+
   handleSelectChange = (e: Event): void => {
     const { themesNames } = this.props;
     const { value, name } = (e.target: window.HTMLInputElement);
@@ -122,7 +136,7 @@ class MapDetailsEditor extends PureComponent<
   };
 
   render() {
-    const { classes, themesNames } = this.props;
+    const { classes, themesNames, groups, roles } = this.props;
     const { description, devNotes } = this.state;
 
     return (
@@ -177,8 +191,9 @@ class MapDetailsEditor extends PureComponent<
                 />,
                 <Permissions
                   map={this.state}
-                  groups={this.state.groups}
-                  roles={this.state.roles}
+                  groups={groups}
+                  roles={roles}
+                  handleMapGroupChange={this.handleMapGroupChange}
                 />,
                 <AdvancedDetails
                   details={this.state}

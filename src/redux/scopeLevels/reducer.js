@@ -7,6 +7,9 @@ import {
   SCOPE_LEVELS_REQUEST_SUCCEEDED,
   SCOPE_LEVELS_CLEAR,
 } from './types';
+import {
+  USER_AUTH_LOGOUT,
+} from '../login/types';
 
 export const initialScopeLevelsState: ScopeLevelsType = {
   globals: [],
@@ -21,6 +24,9 @@ const scopeLevels = (
   action: ScopeLevelsActions,
 ) => {
   switch (action.type) {
+    case USER_AUTH_LOGOUT: {
+      return initialScopeLevelsState;
+    }
     case SCOPE_LEVELS_REQUESTED:
       return {
         ...state,

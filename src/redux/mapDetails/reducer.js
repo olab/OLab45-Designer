@@ -12,6 +12,9 @@ import {
   CREATE_MAP_SUCCEEDED,
   CREATE_MAP_FAILED,
 } from '../map/types';
+import {
+  USER_AUTH_LOGOUT,
+} from '../login/types';
 
 export const initialMapDetailsState: MapDetailsType = {
   id: null,
@@ -39,6 +42,9 @@ const mapDetails = (
   action: MapDetailsActions,
 ) => {
   switch (action.type) {
+    case USER_AUTH_LOGOUT: {
+      return initialMapDetailsState;
+    }
     case CREATE_MAP_REQUESTED:
     case GET_MAP_DETAILS_REQUESTED:
       return {

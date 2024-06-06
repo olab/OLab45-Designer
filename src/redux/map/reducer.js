@@ -37,6 +37,10 @@ import {
   UPDATE_NODE_GRID_SUCCEEDED,
   UPDATE_NODE_GRID_FAILED,
 } from '../nodeGrid/types';
+import {
+  USER_AUTH_LOGOUT,
+} from '../login/types';
+
 import { SAVE_MAP_TO_UNDO } from '../../middlewares/core/types';
 
 export const initialMapState: MapType = {
@@ -51,6 +55,9 @@ export const initialMapState: MapType = {
 
 const map = (state: MapType = initialMapState, action: MapActions) => {
   switch (action.type) {
+    case USER_AUTH_LOGOUT: {
+      return initialMapState;
+    }
     case SAVE_MAP_TO_UNDO: {
       const { undo, ...restState } = state;
       const { currentMap } = action;

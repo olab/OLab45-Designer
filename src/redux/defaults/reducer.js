@@ -4,6 +4,9 @@ import {
   type Defaults as DefaultsType,
   SET_DEFAULTS,
 } from './types';
+import {
+  USER_AUTH_LOGOUT,
+} from '../login/types';
 
 export const initialDefaultsState: DefaultsType = {
   edgeBody: {
@@ -38,6 +41,9 @@ const defaults = (
   action: DefaultsActions,
 ) => {
   switch (action.type) {
+    case USER_AUTH_LOGOUT: {
+      return initialDefaultsState;
+    }
     case SET_DEFAULTS: {
       const { edgeBody, nodeBody, groups, roles } = action;
 

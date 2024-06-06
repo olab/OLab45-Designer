@@ -58,7 +58,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MapGroupsTable = ({ groups, map }: IProps): React$Element<any> => {
+const MapGroupsTable = ({
+  groups,
+  map,
+  handleMapGroupChange,
+}: IProps): React$Element<any> => {
   // remove map groups from groups list
   const buildLeftList = (groups, mapGroups) => {
     let list = [];
@@ -103,27 +107,27 @@ const MapGroupsTable = ({ groups, map }: IProps): React$Element<any> => {
   const handleAllRight = () => {
     setRight(right.concat(left));
     setLeft([]);
-    map.mapGroups = right;
+    handleMapGroupChange(right.concat(left));
   };
 
   const handleCheckedRight = () => {
     setRight(right.concat(leftChecked));
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
-    map.mapGroups = right;
+    handleMapGroupChange(right.concat(leftChecked));
   };
 
   const handleCheckedLeft = () => {
     setLeft(left.concat(rightChecked));
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
-    map.mapGroups = right;
+    handleMapGroupChange(not(right, rightChecked));
   };
 
   const handleAllLeft = () => {
     setLeft(left.concat(right));
     setRight([]);
-    map.mapGroups = right;
+    handleMapGroupChange(right);
   };
 
   const customList = (headerText, items) => (
@@ -165,8 +169,8 @@ const MapGroupsTable = ({ groups, map }: IProps): React$Element<any> => {
   const [checked, setChecked] = React.useState([]);
 
   var leftList = buildLeftList(groups, map.mapGroups);
-
   const [left, setLeft] = React.useState(leftList);
+
   const [right, setRight] = React.useState(map.mapGroups);
 
   const leftChecked = intersection(checked, left);

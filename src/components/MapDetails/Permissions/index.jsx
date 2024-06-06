@@ -9,7 +9,12 @@ import AclsTable from './AclsTable';
 import MapGroupsTable from './MapGroupsTable';
 import { MapSecurityUser } from '../../../redux/mapSecurityUsers/types';
 
-const Permissions = ({ map, groups, roles }: IProps): React$Element<any> => {
+const Permissions = ({
+  map,
+  groups,
+  roles,
+  handleMapGroupChange,
+}: IProps): React$Element<any> => {
   const dispatch = useDispatch();
   const { users, isFetching, mapId } = useSelector(
     ({ mapSecurityUsers: state }) => {
@@ -19,8 +24,6 @@ const Permissions = ({ map, groups, roles }: IProps): React$Element<any> => {
         : { isFetching: true };
     },
   );
-
-  let mapGroups = map.mapGroups;
 
   React.useEffect(() => {
     if (!users || 0 == users.length) {
@@ -62,10 +65,7 @@ const Permissions = ({ map, groups, roles }: IProps): React$Element<any> => {
       <MapGroupsTable
         groups={groups}
         map={map}
-        users={users}
-        updateAcl={updateAcl}
-        deleteSecurityUser={deleteSecurityUser}
-        mapId={map.id}
+        handleMapGroupChange={handleMapGroupChange}
       />
 
       {/* {(users?.length > 0 || !isFetching) && (

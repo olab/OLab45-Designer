@@ -20,6 +20,9 @@ import {
   SCOPED_OBJECT_DELETE_SUCCEEDED,
   SCOPED_OBJECT_DELETE_FAILED,
 } from './types';
+import {
+  USER_AUTH_LOGOUT,
+} from '../login/types';
 
 export const initialScopedObjectsState: ScopedObjectsType = {
   constants: [],
@@ -37,6 +40,9 @@ const scopedObjects = (
   action: ScopedObjectsActions,
 ) => {
   switch (action.type) {
+    case USER_AUTH_LOGOUT: {
+      return initialScopedObjectsState;
+    }
     case SCOPED_OBJECTS_REQUEST_SUCCEEDED: {
       const { scopedObjectsData } = action;
 

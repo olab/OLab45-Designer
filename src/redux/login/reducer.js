@@ -47,15 +47,16 @@ const user = (state: UserType = initialUserState, action: UserActions) => {
         isAuth: false,
         isFetching: false,
       };
-    case USER_AUTH_LOGOUT:
-      localStorage.clear();      
+
+    case USER_AUTH_LOGOUT: {
+      localStorage.clear();
       return {
-        ...state,
         isAuth: false,
         authData: {
           token: '',
         },
       };
+    }
     default:
       return state;
   }
