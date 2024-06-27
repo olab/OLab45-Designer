@@ -216,6 +216,19 @@ class QuestionResponses extends ScopedObjectService {
                   <input value={i} type="hidden" />
                   <FullContainerWidth>
                     <FieldLabel>
+                      {i === 0 && <>{EDITORS_FIELDS.NAME}</>}
+                      <OutlinedInput
+                        name={this.buildId('name', i)}
+                        placeholder={EDITORS_FIELDS.NAME}
+                        value={item.name}
+                        onChange={this.onTextChange}
+                        disabled={isFieldsDisabled}
+                        fullWidth
+                      />
+                    </FieldLabel>
+                  </FullContainerWidth>                  
+                  <FullContainerWidth>
+                    <FieldLabel>
                       {i === 0 && <>{EDITORS_FIELDS.RESPONSE}</>}
                       <OutlinedInput
                         name={this.buildId('response', i)}
