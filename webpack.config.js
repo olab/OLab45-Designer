@@ -34,6 +34,9 @@ if (process.env.PUBLIC_URL) {
 const devServerHost = process.env.WEBPACK_HOST || 'localhost';
 
 module.exports = (env, options) => ({
+
+  devtool: false,
+
   entry: {
     main: './src/index.jsx',
   },
@@ -118,6 +121,8 @@ module.exports = (env, options) => ({
   },
 
   plugins: [
+    new webpack.SourceMapDevToolPlugin({}),
+
     // start with copying public to build
     new CopyWebPackPlugin({
       patterns: [
