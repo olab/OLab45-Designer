@@ -2,6 +2,7 @@
 export type UserLoginData = {
   username: string,
   password: string,
+  group: string,
 };
 
 export type ILoginProps = {
@@ -13,6 +14,7 @@ export type ILoginProps = {
   values: UserLoginData,
   isAuth: boolean,
   isFetching: boolean,
+  groups: any
 };
 
 export type PropsAuthAction = {
@@ -20,6 +22,7 @@ export type PropsAuthAction = {
     ACTION_USER_AUTH_REQUESTED: ({
       username: string,
       password: string,
+      group: string,
     }) => void,
   },
 };

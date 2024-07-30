@@ -11,6 +11,8 @@ import {
   InputLabel,
   Paper,
   Typography,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 
 import * as authActions from '../../redux/login/action';
@@ -25,6 +27,7 @@ const Login = ({
   values,
   handleChange,
   history,
+  groups,
 }: ILoginProps) => {
   if (isAuth) {
     history.goBack();
@@ -58,6 +61,16 @@ const Login = ({
               onChange={handleChange}
             />
           </FormControl>
+          {
+            <FormControl margin="normal" fullWidth>
+              <InputLabel htmlFor="group">Group</InputLabel>
+              <Select name="group" value={values.group} onChange={handleChange}>
+                <MenuItem value={1}>olab</MenuItem>
+                <MenuItem value={2}>anonymous</MenuItem>
+                <MenuItem value={3}>external</MenuItem>
+              </Select>
+            </FormControl>
+          }
           <Button
             type="submit"
             fullWidth
