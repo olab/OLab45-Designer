@@ -35,7 +35,9 @@ import {
   UPDATE_EDGE,
   UPDATE_NODE,
   GET_GROUPS_REQUESTED,
-  GET_ROLES_REQUESTED
+  GET_ROLES_REQUESTED,
+  GET_GROUPS_FULLFILLED,
+  GET_ROLES_FULLFILLED
 } from './types';
 
 export const ACTION_GET_GROUPS_REQUESTED = () => ({
@@ -51,6 +53,20 @@ export const ACTION_GET_NODE_REQUESTED = (mapId: number, nodeId: number) => ({
   mapId,
   nodeId,
 });
+
+export const ACTION_GET_GROUPS_FULLFILLED = (groups) => {
+  return {
+    type: GET_GROUPS_FULLFILLED,
+    groups,
+  };
+};
+
+export const ACTION_GET_ROLES_FULLFILLED = (roles) => {
+  return {
+    type: GET_ROLES_FULLFILLED,
+    roles,
+  };
+};
 
 export const ACTION_GET_NODE_FULLFILLED = (initialNode: NodeType) => {
   const {

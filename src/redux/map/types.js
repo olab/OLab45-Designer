@@ -183,6 +183,18 @@ type RedoMap = {
   next: MapItem,
 };
 
+const GET_GROUPS_FULLFILLED = 'GET_GROUPS_FULLFILLED';
+type GetGroupsFullfilled = {
+  type: 'GET_GROUPS_FULLFILLED',
+  groups: Any,
+};
+
+const GET_ROLES_FULLFILLED = 'GET_ROLES_FULLFILLED';
+type GetRolesFullfilled = {
+  type: 'GET_ROLES_FULLFILLED',
+  roles: Any,
+};
+
 const GET_NODE_FULLFILLED = 'GET_NODE_FULLFILLED';
 type GetNodeFullfilled = {
   type: 'GET_NODE_FULLFILLED',
@@ -255,7 +267,11 @@ export type MapActions =
   | GetNodeRequested
   | GetNodeFullfilled
   | DeleteNodeFullFilled
-  | DeleteNodeSync;
+  | DeleteNodeSync
+  | GetGroupsRequested
+  | GetRolesRequested
+  | GetGroupsFullfilled
+  | GetRolesFullfilled;
 
 export {
   CREATE_EDGE,
@@ -287,4 +303,6 @@ export {
   UPDATE_EDGE_VISUAL,
   UPDATE_EDGE,
   UPDATE_NODE,
+  GET_GROUPS_FULLFILLED,
+  GET_ROLES_FULLFILLED
 };

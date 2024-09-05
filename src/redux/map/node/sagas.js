@@ -20,6 +20,8 @@ import {
   ACTION_EXCHANGE_NODE_ID,
   ACTION_EXCHANGE_EDGE_ID,
   ACTION_GET_NODE_FULLFILLED,
+  ACTION_GET_GROUPS_FULLFILLED,
+  ACTION_GET_ROLES_FULLFILLED,
   ACTION_DELETE_NODE_FULLFILLED,
 } from '../action';
 
@@ -29,6 +31,33 @@ import {
 } from '../../notifications/action';
 
 import { MESSAGES, ERROR_MESSAGES } from '../../notifications/config';
+
+function* getGroupsSaga() {
+  try {
+    const node = yield call(getNode, mapId, nodeId);
+
+    yield put(ACTION_GET_NODE_FULLFILLED(node));
+  } catch (error) {
+    const { response, message } = error;
+    const errorMessage = response ? response.statusText : message;
+
+    yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
+  }
+}
+
+function* getRolesSaga() {
+  try {
+    const node = yield call(getNode, mapId, nodeId);
+
+    yield put(ACTION_GET_NODE_FULLFILLED(node));
+  } catch (error) {
+    const { response, message } = error;
+    const errorMessage = response ? response.statusText : message;
+
+    yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
+  }
+}
+
 
 function* getNodeSaga({ mapId, nodeId }) {
   try {
@@ -147,6 +176,8 @@ function* deleteNodeSaga({ nodeId, mapId: mapIdFromURL, type: actionType }) {
 
 function* nodeSaga() {
   yield takeEvery(GET_NODE_REQUESTED, getNodeSaga);
+  yield takeEvery(GET_GROUPS_REQUESTED, getGroupsSaga);
+  yield takeEvery(GET_ROLES_REQUESTED, getRolesSaga);
   yield takeEvery(CREATE_NODE, createNodeSaga);
   yield takeEvery(UPDATE_NODE, updateNodeSaga);
   yield takeEvery(DELETE_NODE_REQUESTED, deleteNodeSaga);
