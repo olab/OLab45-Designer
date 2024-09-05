@@ -34,9 +34,21 @@ type GetGroupsRequested = {
   type: 'GET_GROUPS_REQUESTED'
 };
 
+const GET_GROUPS_FULLFILLED = 'GET_GROUPS_FULLFILLED';
+type GetGroupsFullfilled = {
+  type: 'GET_GROUPS_FULLFILLED',
+  groups: Any,
+};
+
 const GET_ROLES_REQUESTED = 'GET_ROLES_REQUESTED';
 type GetRolesRequested = {
   type: 'GET_ROLES_REQUESTED'
+};
+
+const GET_ROLES_FULLFILLED = 'GET_ROLES_FULLFILLED';
+type GetRolesFullfilled = {
+  type: 'GET_ROLES_FULLFILLED',
+  roles: Any,
 };
 
 const FOCUS_NODE = 'FOCUS_NODE';
@@ -183,18 +195,6 @@ type RedoMap = {
   next: MapItem,
 };
 
-const GET_GROUPS_FULLFILLED = 'GET_GROUPS_FULLFILLED';
-type GetGroupsFullfilled = {
-  type: 'GET_GROUPS_FULLFILLED',
-  groups: Any,
-};
-
-const GET_ROLES_FULLFILLED = 'GET_ROLES_FULLFILLED';
-type GetRolesFullfilled = {
-  type: 'GET_ROLES_FULLFILLED',
-  roles: Any,
-};
-
 const GET_NODE_FULLFILLED = 'GET_NODE_FULLFILLED';
 type GetNodeFullfilled = {
   type: 'GET_NODE_FULLFILLED',
@@ -304,5 +304,7 @@ export {
   UPDATE_EDGE,
   UPDATE_NODE,
   GET_GROUPS_FULLFILLED,
-  GET_ROLES_FULLFILLED
+  GET_GROUPS_REQUESTED,
+  GET_ROLES_FULLFILLED,
+  GET_ROLES_REQUESTED,
 };

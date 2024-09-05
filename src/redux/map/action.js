@@ -34,24 +34,14 @@ import {
   UPDATE_EDGE_VISUAL,
   UPDATE_EDGE,
   UPDATE_NODE,
-  GET_GROUPS_REQUESTED,
-  GET_ROLES_REQUESTED,
   GET_GROUPS_FULLFILLED,
-  GET_ROLES_FULLFILLED
+  GET_GROUPS_REQUESTED,
+  GET_ROLES_FULLFILLED,
+  GET_ROLES_REQUESTED,
 } from './types';
 
 export const ACTION_GET_GROUPS_REQUESTED = () => ({
   type: GET_GROUPS_REQUESTED
-});
-
-export const ACTION_GET_ROLES_REQUESTED = () => ({
-  type: GET_ROLES_REQUESTED
-});
-
-export const ACTION_GET_NODE_REQUESTED = (mapId: number, nodeId: number) => ({
-  type: GET_NODE_REQUESTED,
-  mapId,
-  nodeId,
 });
 
 export const ACTION_GET_GROUPS_FULLFILLED = (groups) => {
@@ -61,12 +51,22 @@ export const ACTION_GET_GROUPS_FULLFILLED = (groups) => {
   };
 };
 
+export const ACTION_GET_ROLES_REQUESTED = () => ({
+  type: GET_ROLES_REQUESTED
+});
+
 export const ACTION_GET_ROLES_FULLFILLED = (roles) => {
   return {
     type: GET_ROLES_FULLFILLED,
     roles,
   };
 };
+
+export const ACTION_GET_NODE_REQUESTED = (mapId: number, nodeId: number) => ({
+  type: GET_NODE_REQUESTED,
+  mapId,
+  nodeId,
+});
 
 export const ACTION_GET_NODE_FULLFILLED = (initialNode: NodeType) => {
   const {

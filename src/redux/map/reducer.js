@@ -31,7 +31,12 @@ import {
   CREATE_MAP_REQUESTED,
   GET_NODE_REQUESTED,
   GET_NODE_FULLFILLED,
+  GET_GROUPS_REQUESTED,
+  GET_GROUPS_FULLFILLED,
+  GET_ROLES_REQUESTED,
+  GET_ROLES_FULLFILLED,
 } from './types';
+
 import {
   UPDATE_NODE_GRID_REQUESTED,
   UPDATE_NODE_GRID_SUCCEEDED,
@@ -48,6 +53,8 @@ export const initialMapState: MapType = {
   edges: [],
   undo: [],
   redo: [],
+  groups: [],
+  roles: []
   isFetching: false,
   isUpdating: false,
   isDeleting: false,
@@ -99,6 +106,8 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
       };
     }
     case GET_NODE_REQUESTED:
+    case GET_GROUPS_REQUESTED:
+    case GET_ROLES_REQUESTED:
     case GET_MAP_REQUESTED:
     case CREATE_MAP_REQUESTED:
     case EXTEND_MAP_REQUESTED:
@@ -159,6 +168,29 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
         isFetching: false,
       };
     }
+
+    case GET_GROUPS_FULLFILLED: {
+      const { groups } = action;
+      const { groups, ...restState } = state;
+
+      return {
+        ...restState,
+        groups,
+        isFetching: false,
+      };
+    }
+
+    case GET_ROLES_FULLFILLED: {
+      const { roles } = action;
+      const { roles, ...restState } = state;
+
+      return {
+        ...restState,
+        roles,
+        isFetching: false,
+      };
+    }
+
     case UPDATE_NODE_GRID_SUCCEEDED: {
       const { nodes } = action;
 
