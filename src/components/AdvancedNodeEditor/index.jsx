@@ -21,7 +21,7 @@ import {
   ORDINARY_TYPE as ORDINARY_NODE_TYPE,
 } from '../Constructor/Graph/Node/config';
 
-import type { AdvancedNodeEditorProps as IProps } from './types';
+import type { AdvancedNodeEditorProps } from './types';
 import type { Node as NodeType } from '../Constructor/Graph/Node/types';
 
 import styles, {
@@ -34,12 +34,16 @@ import styles, {
 } from './styles';
 import { Triangle } from '../Modals/NodeEditor/styles';
 
-class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
+class AdvancedNodeEditor extends PureComponent<
+  AdvancedNodeEditorProps,
+  NodeType,
+> {
   tabNumber: number = 0;
 
   constructor(props) {
     super(props);
-    const { mapId, nodeId, node, ACTION_GET_NODE_REQUESTED } = this.props;
+    const { mapId, nodeId, node, groups, roles, ACTION_GET_NODE_REQUESTED } =
+      this.props;
 
     ACTION_GET_NODE_REQUESTED(mapId, nodeId);
 
@@ -145,7 +149,7 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
       priorityId,
       text,
       info,
-      annotation
+      annotation,
     } = this.state;
     const { classes, nodeId, mapId, node } = this.props;
 
@@ -250,21 +254,37 @@ class AdvancedNodeEditor extends PureComponent<IProps, NodeType> {
   }
 }
 
-const mapStateToProps = (
-  { map: { nodes, isDeleting } },
-  {
-    match: {
-      params: { mapId, nodeId },
-    },
-  },
-) => ({
-  node: nodes[0],
-  mapId: Number(mapId),
-  nodeId: Number(nodeId),
-  isDeleting,
-});
+// const mapStateToProps = (
+//   { defaults, map: { nodes, isDeleting } },
+//   {
+//     match: {
+//       params: { mapId, nodeId },
+//     },
+//   },
+// ) => {
+const mapStateToProps = (state, ownProps) => {
+  console.log(JSON.stringify(state, null, 1));
+  console.log(JSON.stringify(ownProps, null, 1));
+
+  const groups = state.defaults.groups;
+
+  let props = {
+    node: state.map.nodes[0],
+    mapId: Number(ownProps.match.params.mapId),
+    nodeId: Number(ownProps.match.params.nodeId),
+    isDeleting: state.map.isDeleting,
+  };
+
+  return props;
+};
 
 const mapDispatchToProps = (dispatch) => ({
+  ACTION_GET_GROUPS_REQUESTED: () => {
+    dispatch(mapActions.ACTION_GET_GROUPS_REQUESTED());
+  },
+  ACTION_GET_ROLES_REQUESTED: () => {
+    dispatch(mapActions.ACTION_GET_ROLES_REQUESTED());
+  },
   ACTION_GET_NODE_REQUESTED: (mapId: number, nodeId: number) => {
     dispatch(mapActions.ACTION_GET_NODE_REQUESTED(mapId, nodeId));
   },

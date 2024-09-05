@@ -29,6 +29,16 @@ type GetNodeRequested = {
   nodeId: number,
 };
 
+const GET_GROUPS_REQUESTED = 'GET_GROUPS_REQUESTED';
+type GetGroupsRequested = {
+  type: 'GET_GROUPS_REQUESTED'
+};
+
+const GET_ROLES_REQUESTED = 'GET_ROLES_REQUESTED';
+type GetRolesRequested = {
+  type: 'GET_ROLES_REQUESTED'
+};
+
 const FOCUS_NODE = 'FOCUS_NODE';
 type FocusNode = {
   type: 'FOCUS_NODE',

@@ -1,5 +1,8 @@
 // @flow
 import type { Node } from '../Constructor/Graph/Node/types';
+import {
+  IdName
+} from '../../redux/defaults/types';
 
 export type AdvancedNodeEditorProps = {
   classes: {
@@ -14,4 +17,6 @@ export type AdvancedNodeEditorProps = {
   ACTION_UPDATE_NODE: Function,
   ACTION_GET_NODE_REQUESTED: Function,
   ACTION_DELETE_NODE_MIDDLEWARE: Function,
+  groups: Array<IdName>,
+  roles: Array<IdName>,
 };
