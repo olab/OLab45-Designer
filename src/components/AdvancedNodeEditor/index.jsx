@@ -7,6 +7,8 @@ import { Paper, Tabs, Tab, Button } from '@material-ui/core';
 
 import MainTab from './MainTab';
 import SecondaryTab from './SecondaryTab';
+import PermissionsTab from './PermissionsTab';
+
 import CircularSpinnerWithText from '../../shared/components/CircularSpinnerWithText';
 
 import * as mapActions from '../../redux/map/action';
@@ -42,15 +44,14 @@ class AdvancedNodeEditor extends PureComponent<
 
   constructor(props) {
     super(props);
-    const { 
-      mapId, 
-      nodeId, 
-      node, 
-      ACTION_GET_NODE_REQUESTED, 
-      ACTION_GET_ROLES_REQUESTED, 
-      ACTION_GET_GROUPS_REQUESTED
-     } =
-      this.props;
+    const {
+      mapId,
+      nodeId,
+      node,
+      ACTION_GET_NODE_REQUESTED,
+      ACTION_GET_ROLES_REQUESTED,
+      ACTION_GET_GROUPS_REQUESTED,
+    } = this.props;
 
     ACTION_GET_NODE_REQUESTED(mapId, nodeId);
     ACTION_GET_ROLES_REQUESTED();
@@ -224,6 +225,7 @@ class AdvancedNodeEditor extends PureComponent<
           >
             <Tab label="Main" />
             <Tab label="Secondary" />
+            <Tab label="Permissions" />
           </Tabs>
         </Paper>
         <ScrollingContainer>
@@ -254,6 +256,7 @@ class AdvancedNodeEditor extends PureComponent<
                   handleSelectChange={this.handleSelectChange}
                   handleKeyDown={this.handleKeyPressed}
                 />,
+                <PermissionsTab node={node} />,
               ][this.tabNumber]
             }
           </TabContainer>

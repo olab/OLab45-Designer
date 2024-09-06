@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PermissionsTab({ map, node, groups, roles }) {
+export default function PermissionsTab({ node }) {
   const classes = useStyles();
 
   return (
