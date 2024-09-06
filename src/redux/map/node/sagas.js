@@ -6,6 +6,13 @@ import {
   getNode,
   updateNode,
 } from '../../../services/api/node';
+
+import {
+  getGroups,
+  getRoles,
+} from '../../../services/api/defaults';
+
+
 import generateTmpId from '../../../helpers/generateTmpId';
 
 import {
@@ -13,6 +20,8 @@ import {
   CREATE_NODE,
   DELETE_NODE_REQUESTED,
   GET_NODE_REQUESTED,
+  GET_GROUPS_REQUESTED,
+  GET_ROLES_REQUESTED,
   UPDATE_NODE,
 } from '../types';
 
@@ -31,46 +40,6 @@ import {
 } from '../../notifications/action';
 
 import { MESSAGES, ERROR_MESSAGES } from '../../notifications/config';
-
-function* getGroupsSaga() {
-  try {
-    const node = yield call(getNode, mapId, nodeId);
-
-    yield put(ACTION_GET_NODE_FULLFILLED(node));
-  } catch (error) {
-    const { response, message } = error;
-    const errorMessage = response ? response.statusText : message;
-
-    yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
-  }
-}
-
-function* getRolesSaga() {
-  try {
-    const node = yield call(getNode, mapId, nodeId);
-
-    yield put(ACTION_GET_NODE_FULLFILLED(node));
-  } catch (error) {
-    const { response, message } = error;
-    const errorMessage = response ? response.statusText : message;
-
-    yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
-  }
-}
-
-
-function* getNodeSaga({ mapId, nodeId }) {
-  try {
-    const node = yield call(getNode, mapId, nodeId);
-
-    yield put(ACTION_GET_NODE_FULLFILLED(node));
-  } catch (error) {
-    const { response, message } = error;
-    const errorMessage = response ? response.statusText : message;
-
-    yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
-  }
-}
 
 function* createNodeSaga({ node: { id: oldNodeId, x, y } }) {
   try {
@@ -172,6 +141,46 @@ function* deleteNodeSaga({ nodeId, mapId: mapIdFromURL, type: actionType }) {
     yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
   }
   yield put(ACTION_DELETE_NODE_FULLFILLED());
+}
+
+function* getGroupsSaga() {
+  try {
+    const groups = yield call(getGroups);
+
+    yield put(ACTION_GET_GROUPS_FULLFILLED(groups));
+  } catch (error) {
+    const { response, message } = error;
+    const errorMessage = response ? response.statusText : message;
+
+    yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
+  }
+}
+
+function* getRolesSaga() {
+  try {
+    const roles = yield call(getRoles);
+
+    yield put(ACTION_GET_ROLES_FULLFILLED(roles));
+  } catch (error) {
+    const { response, message } = error;
+    const errorMessage = response ? response.statusText : message;
+
+    yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
+  }
+}
+
+
+function* getNodeSaga({ mapId, nodeId }) {
+  try {
+    const node = yield call(getNode, mapId, nodeId);
+
+    yield put(ACTION_GET_NODE_FULLFILLED(node));
+  } catch (error) {
+    const { response, message } = error;
+    const errorMessage = response ? response.statusText : message;
+
+    yield put(ACTION_NOTIFICATION_ERROR(errorMessage));
+  }
 }
 
 function* nodeSaga() {

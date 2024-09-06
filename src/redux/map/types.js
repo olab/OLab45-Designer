@@ -1,6 +1,7 @@
 // @flow
 import type { Edge as EdgeType } from '../../components/Constructor/Graph/Edge/types';
 import type { Node as NodeType } from '../../components/Constructor/Graph/Node/types';
+import type { IdName } from '../../redux/defaults/types';
 
 export type Position = {
   x: number,
@@ -20,35 +21,6 @@ export type Map = {
   isFetching: boolean,
   isUpdating: boolean,
   isDeleting: boolean,
-};
-
-const GET_NODE_REQUESTED = 'GET_NODE_REQUESTED';
-type GetNodeRequested = {
-  type: 'GET_NODE_REQUESTED',
-  mapId: number,
-  nodeId: number,
-};
-
-const GET_GROUPS_REQUESTED = 'GET_GROUPS_REQUESTED';
-type GetGroupsRequested = {
-  type: 'GET_GROUPS_REQUESTED'
-};
-
-const GET_GROUPS_FULLFILLED = 'GET_GROUPS_FULLFILLED';
-type GetGroupsFullfilled = {
-  type: 'GET_GROUPS_FULLFILLED',
-  groups: Any,
-};
-
-const GET_ROLES_REQUESTED = 'GET_ROLES_REQUESTED';
-type GetRolesRequested = {
-  type: 'GET_ROLES_REQUESTED'
-};
-
-const GET_ROLES_FULLFILLED = 'GET_ROLES_FULLFILLED';
-type GetRolesFullfilled = {
-  type: 'GET_ROLES_FULLFILLED',
-  roles: Any,
 };
 
 const FOCUS_NODE = 'FOCUS_NODE';
@@ -195,13 +167,6 @@ type RedoMap = {
   next: MapItem,
 };
 
-const GET_NODE_FULLFILLED = 'GET_NODE_FULLFILLED';
-type GetNodeFullfilled = {
-  type: 'GET_NODE_FULLFILLED',
-  index: number,
-  node: NodeType,
-};
-
 const GET_MAP_SUCCEEDED = 'GET_MAP_SUCCEEDED';
 type GetMapSucceeded = {
   type: 'GET_MAP_SUCCEEDED',
@@ -238,6 +203,42 @@ type CreateMapFromTemplateRequested = {
   templateId?: number,
 };
 
+const GET_NODE_REQUESTED = 'GET_NODE_REQUESTED';
+type GetNodeRequested = {
+  type: 'GET_NODE_REQUESTED',
+  mapId: number,
+  nodeId: number,
+};
+
+const GET_NODE_FULLFILLED = 'GET_NODE_FULLFILLED';
+type GetNodeFullfilled = {
+  type: 'GET_NODE_FULLFILLED',
+  index: number,
+  node: NodeType,
+};
+
+const GET_GROUPS_REQUESTED = 'GET_GROUPS_REQUESTED';
+type GetGroupsRequested = {
+  type: 'GET_GROUPS_REQUESTED'
+};
+
+const GET_GROUPS_FULLFILLED = 'GET_GROUPS_FULLFILLED';
+type GetGroupsFullfilled = {
+  type: 'GET_GROUPS_FULLFILLED',
+  groups: Array<IdName>,
+};
+
+const GET_ROLES_REQUESTED = 'GET_ROLES_REQUESTED';
+type GetRolesRequested = {
+  type: 'GET_ROLES_REQUESTED'
+};
+
+const GET_ROLES_FULLFILLED = 'GET_ROLES_FULLFILLED';
+type GetRolesFullfilled = {
+  type: 'GET_ROLES_FULLFILLED',
+  roles: Array<IdName>,
+};
+
 export type MapActions =
   | SelectNode
   | SelectEdge
@@ -264,10 +265,10 @@ export type MapActions =
   | UpdateEdgeVisual
   | FocusNode
   | UnfocusNode
-  | GetNodeRequested
-  | GetNodeFullfilled
   | DeleteNodeFullFilled
   | DeleteNodeSync
+  | GetNodeRequested
+  | GetNodeFullfilled
   | GetGroupsRequested
   | GetRolesRequested
   | GetGroupsFullfilled
@@ -293,8 +294,6 @@ export {
   GET_MAP_FAILED,
   GET_MAP_REQUESTED,
   GET_MAP_SUCCEEDED,
-  GET_NODE_FULLFILLED,
-  GET_NODE_REQUESTED,
   REDO_MAP,
   SELECT_EDGE,
   SELECT_NODE,
@@ -303,6 +302,8 @@ export {
   UPDATE_EDGE_VISUAL,
   UPDATE_EDGE,
   UPDATE_NODE,
+  GET_NODE_FULLFILLED,
+  GET_NODE_REQUESTED,
   GET_GROUPS_FULLFILLED,
   GET_GROUPS_REQUESTED,
   GET_ROLES_FULLFILLED,

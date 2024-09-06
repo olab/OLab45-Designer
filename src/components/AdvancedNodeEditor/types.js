@@ -16,6 +16,8 @@ export type AdvancedNodeEditorProps = {
   isDeleting: boolean,
   ACTION_UPDATE_NODE: Function,
   ACTION_GET_NODE_REQUESTED: Function,
+  ACTION_GET_ROLES_REQUESTED: Function,
+  ACTION_GET_GROUPS_REQUESTED: Function,
   ACTION_DELETE_NODE_MIDDLEWARE: Function,
   groups: Array<IdName>,
   roles: Array<IdName>,

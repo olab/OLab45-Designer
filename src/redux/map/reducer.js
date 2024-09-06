@@ -54,7 +54,7 @@ export const initialMapState: MapType = {
   undo: [],
   redo: [],
   groups: [],
-  roles: []
+  roles: [],
   isFetching: false,
   isUpdating: false,
   isDeleting: false,
@@ -155,38 +155,6 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
         ...state,
         nodes,
         edges,
-        isFetching: false,
-      };
-    }
-    case GET_NODE_FULLFILLED: {
-      const { index, node } = action;
-      const { nodes, ...restState } = state;
-
-      return {
-        ...restState,
-        nodes: [...nodes.slice(0, index), node, ...nodes.slice(index + 1)],
-        isFetching: false,
-      };
-    }
-
-    case GET_GROUPS_FULLFILLED: {
-      const { groups } = action;
-      const { groups, ...restState } = state;
-
-      return {
-        ...restState,
-        groups,
-        isFetching: false,
-      };
-    }
-
-    case GET_ROLES_FULLFILLED: {
-      const { roles } = action;
-      const { roles, ...restState } = state;
-
-      return {
-        ...restState,
-        roles,
         isFetching: false,
       };
     }
@@ -310,6 +278,36 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
         edges: [...edges.slice(0, index), ...edges.slice(index + 1)],
       };
     }
+
+    case GET_NODE_FULLFILLED: {
+      const { index, node } = action;
+      const { nodes, ...restState } = state;
+
+      return {
+        ...restState,
+        nodes: [...nodes.slice(0, index), node, ...nodes.slice(index + 1)],
+        isFetching: false,
+      };
+    }
+
+    case GET_GROUPS_FULLFILLED: {
+      const { groups } = action;
+      return {
+        ...state,
+        groups,
+        isFetching: false,
+      };
+    }
+
+    case GET_ROLES_FULLFILLED: {
+      const { roles } = action;
+      return {
+        ...state,
+        roles,
+        isFetching: false,
+      };
+    }
+
     default:
       return state;
   }

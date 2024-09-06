@@ -40,54 +40,6 @@ import {
   GET_ROLES_REQUESTED,
 } from './types';
 
-export const ACTION_GET_GROUPS_REQUESTED = () => ({
-  type: GET_GROUPS_REQUESTED
-});
-
-export const ACTION_GET_GROUPS_FULLFILLED = (groups) => {
-  return {
-    type: GET_GROUPS_FULLFILLED,
-    groups,
-  };
-};
-
-export const ACTION_GET_ROLES_REQUESTED = () => ({
-  type: GET_ROLES_REQUESTED
-});
-
-export const ACTION_GET_ROLES_FULLFILLED = (roles) => {
-  return {
-    type: GET_ROLES_FULLFILLED,
-    roles,
-  };
-};
-
-export const ACTION_GET_NODE_REQUESTED = (mapId: number, nodeId: number) => ({
-  type: GET_NODE_REQUESTED,
-  mapId,
-  nodeId,
-});
-
-export const ACTION_GET_NODE_FULLFILLED = (initialNode: NodeType) => {
-  const {
-    map: { nodes },
-  } = store.getState();
-  const { isFocused = false, isSelected = false } =
-    nodes.find((item) => item.id === initialNode.id) || {};
-  const index = nodes.findIndex(({ id }) => id === initialNode.id);
-  const node = {
-    ...initialNode,
-    isFocused,
-    isSelected,
-  };
-
-  return {
-    type: GET_NODE_FULLFILLED,
-    index,
-    node,
-  };
-};
-
 export const ACTION_FOCUS_NODE = (nodeId: number) => {
   const {
     map: { nodes },
@@ -512,3 +464,52 @@ export const ACTION_EXTEND_MAP_SUCCEEDED = (
   nodes,
   edges,
 });
+
+export const ACTION_GET_NODE_REQUESTED = (mapId: number, nodeId: number) => ({
+  type: GET_NODE_REQUESTED,
+  mapId,
+  nodeId,
+});
+
+export const ACTION_GET_NODE_FULLFILLED = (initialNode: NodeType) => {
+  const {
+    map: { nodes },
+  } = store.getState();
+  const { isFocused = false, isSelected = false } =
+    nodes.find((item) => item.id === initialNode.id) || {};
+  const index = nodes.findIndex(({ id }) => id === initialNode.id);
+  const node = {
+    ...initialNode,
+    isFocused,
+    isSelected,
+  };
+
+  return {
+    type: GET_NODE_FULLFILLED,
+    index,
+    node,
+  };
+};
+
+export const ACTION_GET_GROUPS_REQUESTED = () => ({
+  type: GET_GROUPS_REQUESTED
+});
+
+export const ACTION_GET_GROUPS_FULLFILLED = (groups) => {
+  return {
+    type: GET_GROUPS_FULLFILLED,
+    groups,
+  };
+};
+
+export const ACTION_GET_ROLES_REQUESTED = () => ({
+  type: GET_ROLES_REQUESTED
+});
+
+export const ACTION_GET_ROLES_FULLFILLED = (roles) => {
+  return {
+    type: GET_ROLES_FULLFILLED,
+    roles,
+  };
+};
+
