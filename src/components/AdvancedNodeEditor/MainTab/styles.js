@@ -4,7 +4,6 @@ import { DARK_BLUE } from '../../../shared/colors';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 800px;
 `;
 
 export const TextContent = styled.div`

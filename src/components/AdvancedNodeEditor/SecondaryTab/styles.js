@@ -10,7 +10,6 @@ export const TextFieldContainer = styled.h3`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 800px;
   margin-top: 0;
 `;
 
@@ -27,7 +26,6 @@ export const TextEditorBlock = styled.div`
 `;
 
 export const BlockCheckbox = styled.div`
-  width: 800px;
   display: flex;
   justify-content: space-between;
   margin-top: 25px;

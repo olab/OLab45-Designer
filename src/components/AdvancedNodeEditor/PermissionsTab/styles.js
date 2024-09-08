@@ -18,7 +18,6 @@ export const ContentTitle = styled.h3`
 export const muiStyles = {
   table: {
     maxWidth: '100%',
-    width: 800,
   },
   dialogContent: {
     minWidth: 350,

@@ -27,7 +27,6 @@ export const TabContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   margin: 20px 100px;
-  width: 800px;
   box-sizing: border-box;
 
   @media only screen and (max-width: 1199px) {

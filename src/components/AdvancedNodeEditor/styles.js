@@ -21,7 +21,7 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 0 0 0 84px;
+  padding: 0 0 0 10px;
   background-color: ${LIGHT_GREY};
 `;
 
@@ -36,11 +36,7 @@ export const Title = styled.h2`
 export const TabContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  padding: 16px 0 0 100px;
-
-  @media only screen and (max-width: 1199px) {
-    flex-direction: column;
-  }
+  padding: 16px 0 0 10px;
 `;
 
 const styles = () => ({

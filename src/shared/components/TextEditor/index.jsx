@@ -16,7 +16,6 @@ class TextEditor extends React.Component {
   render() {
     const {
       height = 200,
-      width = 800,
       editorId = '',
       editorOptions,
       handleEditorChange,
@@ -25,7 +24,6 @@ class TextEditor extends React.Component {
     } = this.props;
 
     const initOptions = {
-      width,
       height,
       ...(editorId && { selector: `textarea#${editorId}` }),
       ...BASIC_TEXT_EDITOR_OPTIONS,

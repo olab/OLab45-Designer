@@ -21,6 +21,24 @@ import styles, {
   TextFieldContainer,
 } from './styles';
 
+const editorOptions = {
+  license_key: 'gpl',
+  height: 500,
+  menubar: true,
+  promotion: false,
+  plugins:
+    'advlist autolink lists link image charmap preview anchor ' +
+    'searchreplace code fullscreen ' +
+    'insertdatetime media table code help wordcount',
+  toolbar:
+    'code | undo redo | formatselect | ' +
+    'bold italic image backcolor | alignleft aligncenter ' +
+    'alignright alignjustify | bullist numlist outdent indent | ' +
+    'removeformat | help',
+  content_style:
+    'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+};
+
 const SecondaryTab = ({
   classes,
   info = '',
@@ -40,11 +58,11 @@ const SecondaryTab = ({
         <Title>Supporting information</Title>
         <TextEditor
           editorId="info"
-          width={800}
           height={200}
           text={info}
           handleEditorChange={handleEditorChange}
           handleKeyDown={handleKeyDown}
+          editorOptions={editorOptions}
         />
         <TextFieldContainer>
           <TextField
@@ -60,11 +78,11 @@ const SecondaryTab = ({
         <Title>Annotation</Title>
         <TextEditor
           editorId="annotation"
-          width={800}
           height={200}
           text={annotation}
           handleEditorChange={handleEditorChange}
           handleKeyDown={handleKeyDown}
+          editorOptions={editorOptions}
         />
         <BlockCheckbox>
           <CheckBoxContainer>

@@ -73,7 +73,6 @@ const MainTab = ({
         <TextEditor
           editorId="text"
           height={300}
-          width={800}
           text={text}
           handleEditorChange={handleEditorChange}
           handleKeyDown={handleKeyDown}
