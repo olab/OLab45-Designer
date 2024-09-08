@@ -18,13 +18,6 @@ export const TextEditorWrapper = styled.div`
   margin-bottom: 0;
 `;
 
-export const TextEditorBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding-right: 100px;
-`;
-
 export const BlockCheckbox = styled.div`
   display: flex;
   justify-content: space-between;

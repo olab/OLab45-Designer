@@ -18,6 +18,8 @@ import {
   NodeContentPosition,
 } from './styles';
 
+import { TextEditorBlock } from '../styles';
+
 const MainTab = ({
   text = '',
   title = '',
@@ -60,8 +62,9 @@ const MainTab = ({
   const idInfo = `Id: ${id}`;
 
   return (
-    <Container>
+    <TextEditorBlock>
       <TextContent>
+        <NodeContentTitle>Node content</NodeContentTitle>
         <OutlinedInput
           name="title"
           label="Title"
@@ -69,7 +72,6 @@ const MainTab = ({
           onChange={handleTitleChange}
           fullWidth
         />
-        <NodeContentTitle>Node content</NodeContentTitle>
         <TextEditor
           editorId="text"
           height={300}
@@ -106,7 +108,7 @@ const MainTab = ({
           </Grid>
         </Grid>
       </OtherContent>
-    </Container>
+    </TextEditorBlock>
   );
 };
 

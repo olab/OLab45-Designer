@@ -35,6 +35,8 @@ import OutlinedIdNameSelect from '../../../shared/components/OutlinedIdNameSelec
 
 import { ContainerTab, ContentTitle, ContentParagraph } from './styles';
 
+import { TextEditorBlock } from '../styles';
+
 const columns: GridColDef<(typeof rows)[number]>[] = [
   {
     field: 'groupName',
@@ -100,7 +102,7 @@ export default function PermissionsTab({ node }) {
     setSelectedRoleId(value);
   };
   return (
-    <ContainerTab>
+    <TextEditorBlock>
       <ContentTitle>Node Group Role Editor</ContentTitle>
       <ContentParagraph>
         Assign a group and role to a node to control it's visibility to specific
@@ -144,7 +146,7 @@ export default function PermissionsTab({ node }) {
           </Tooltip>
         </Grid>
         <Grid item xs={12}>
-          <Box sx={{ width: '90%', height: 400 }}>
+          <Box sx={{ height: 400 }}>
             <DataGrid
               rows={rows}
               columns={columns}
@@ -155,6 +157,6 @@ export default function PermissionsTab({ node }) {
           </Box>
         </Grid>
       </Grid>
-    </ContainerTab>
+    </TextEditorBlock>
   );
 }

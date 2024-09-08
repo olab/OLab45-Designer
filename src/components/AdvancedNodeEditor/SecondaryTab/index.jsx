@@ -14,12 +14,13 @@ import type { SecondaryTabProps as IProps } from './types';
 
 import styles, {
   Title,
-  TextEditorBlock,
   TextEditorWrapper,
   BlockCheckbox,
   CheckBoxContainer,
   TextFieldContainer,
 } from './styles';
+
+import { TextEditorBlock } from '../styles';
 
 const editorOptions = {
   license_key: 'gpl',

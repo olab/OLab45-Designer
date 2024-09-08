@@ -27,3 +27,5 @@ export const NodeContentPosition = styled.div`
   margin: 0px;
   text-align: right;
 `;
+
+
