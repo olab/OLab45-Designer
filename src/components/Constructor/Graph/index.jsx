@@ -238,13 +238,8 @@ export class Graph extends Component<IGraphProps, IGraphState> {
     } = this.props;
 
     return (
-      <Wrapper
-        id="graph"
-        ref={this.graphViewWrapperRef}
-        isFullScreen={isFullScreen}
-      >
+      <Wrapper id="graph" isFullScreen={isFullScreen}>
         <GraphView
-          ref={this.graphViewRef}
           minZoom={minZoom / 100}
           maxZoom={maxZoom / 100}
           nodes={nodes}

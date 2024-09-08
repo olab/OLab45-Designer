@@ -179,9 +179,9 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
       menubar: false,
       promotion: false,
       plugins:
-        'advlist autolink lists link image charmap print preview anchor ' +
+        'advlist autolink lists link image charmap preview anchor ' +
         'searchreplace code fullscreen ' +
-        'insertdatetime media table paste code help',
+        'insertdatetime media table code help',
       toolbar:
         'formatselect | ' +
         'backcolor | alignleft aligncenter ' +

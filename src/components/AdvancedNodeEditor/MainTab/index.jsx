@@ -44,9 +44,9 @@ const MainTab = ({
     menubar: true,
     promotion: false,
     plugins:
-      'advlist autolink lists link image charmap print preview anchor ' +
+      'advlist autolink lists link image charmap preview anchor ' +
       'searchreplace code fullscreen ' +
-      'insertdatetime media table paste code help wordcount',
+      'insertdatetime media table code help wordcount',
     toolbar:
       'code | undo redo | formatselect | ' +
       'bold italic image backcolor | alignleft aligncenter ' +

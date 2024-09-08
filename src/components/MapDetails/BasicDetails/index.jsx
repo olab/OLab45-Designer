@@ -16,9 +16,9 @@ const editorOptions = {
   menubar: false,
   promotion: false,
   plugins:
-    'advlist autolink lists link image charmap print preview anchor ' +
+    'advlist autolink lists link image charmap preview anchor ' +
     'searchreplace code fullscreen ' +
-    'insertdatetime table paste code help',
+    'insertdatetime table code help',
   toolbar:
     'code | formatselect | ' +
     'backcolor | alignleft aligncenter ' +

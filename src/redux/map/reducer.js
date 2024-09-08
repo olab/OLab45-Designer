@@ -282,30 +282,33 @@ const map = (state: MapType = initialMapState, action: MapActions) => {
     case GET_NODE_FULLFILLED: {
       const { index, node } = action;
       const { nodes, ...restState } = state;
-
-      return {
+      const newState = {
         ...restState,
         nodes: [...nodes.slice(0, index), node, ...nodes.slice(index + 1)],
         isFetching: false,
       };
+      return newState;
     }
 
     case GET_GROUPS_FULLFILLED: {
       const { groups } = action;
-      return {
+      const newState = {
         ...state,
         groups,
         isFetching: false,
       };
+      return newState;
+
     }
 
     case GET_ROLES_FULLFILLED: {
       const { roles } = action;
-      return {
+      const newState = {
         ...state,
         roles,
         isFetching: false,
       };
+      return newState;
     }
 
     default:
