@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Checkbox,
+  Collapse,
   CircularProgress,
   FormControlLabel,
   Grid,
@@ -25,6 +26,9 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import CloseIcon from '@material-ui/icons/Close';
+
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 import { Delete as DeleteIcon } from '@material-ui/icons';
@@ -42,19 +46,26 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
     field: 'groupName',
     headerName: 'Group',
     width: 300,
+    valueGetter: (value, row) => {
+      if (value.row.groupId == 0) {
+        return '*';
+      }
+      return value.row.groupName;
+    },
+    flex: 1,
   },
   {
     field: 'roleName',
     headerName: 'Role',
     width: 300,
+    valueGetter: (value, row) => {
+      if (value.row.roleId == 0) {
+        return '*';
+      }
+      return value.row.roleName;
+    },
+    flex: 1,
   },
-];
-
-const rows = [
-  { id: 1, groupName: 'OLab', roleName: 'Learner' },
-  { id: 2, groupName: 'OLab', roleName: 'Moderator' },
-  { id: 3, groupName: 'OLab', roleName: 'Superuser' },
-  { id: 4, groupName: 'OLab', roleName: 'Author' },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -71,21 +82,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PermissionsTab({ node }) {
+export default function PermissionsTab({ node: nodeProp }) {
   const classes = useStyles();
 
+  const [node, setNode] = useState(nodeProp);
   const [groups, setGroups] = useState([]);
-  const [selectedGroupId, setSelectedGroupId] = useState(0);
-  const [selectedRoleId, setSelectedRoleId] = useState(0);
+  const [selectedGroupId, setSelectedGroupId] = useState(-1);
+  const [selectedRoleId, setSelectedRoleId] = useState(-1);
   const [loading, setLoading] = useState(true);
   const [roles, setRoles] = useState([]);
   const [checked, setChecked] = useState([]);
+  const [nextIndex, setNextIndex] = useState(-1);
+
+  const [openAlert, setOpenAlert] = useState(false);
+  const [isChanged, setIsChanged] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [alertSeverity, setAlertSeverity] = useState('success');
 
   useEffect(() => {
     getGroups().then((data) => {
+      data = [{ id: -1, name: '--Select--' }, { id: 0, name: '*' }, ...data];
       setGroups(data);
 
       getRoles().then((data) => {
+        data = [{ id: -1, name: '--Select--' }, { id: 0, name: '*' }, ...data];
         setRoles(data);
         setLoading(false);
       });
@@ -101,6 +121,62 @@ export default function PermissionsTab({ node }) {
     const { value, name } = (e.target: window.HTMLInputElement);
     setSelectedRoleId(value);
   };
+
+  const onAddClicked = (e: Event): void => {
+    const matchedRow = node.groupRoles.filter(
+      (value) =>
+        value.groupId == selectedGroupId && value.roleId == selectedRoleId,
+    );
+    if (matchedRow.length > 0) {
+      setAlertSeverity('info');
+      setAlertMessage('Group/role already exists');
+      setOpenAlert(true);
+      return;
+    }
+
+    const selectedGroup = groups.filter((grp) => grp.id === selectedGroupId);
+    const selectedRole = roles.filter((role) => role.id === selectedRoleId);
+    const newGroupRoles = [
+      ...node.groupRoles,
+      {
+        id: nextIndex,
+        groupId: selectedGroup[0].id,
+        groupName: selectedGroup[0].name,
+        roleId: selectedRole[0].id,
+        roleName: selectedRole[0].name,
+      },
+    ];
+
+    setNode({ ...node, groupRoles: newGroupRoles });
+    setNextIndex(nextIndex - 1);
+    setIsChanged(true);
+  };
+
+  const onDeleteClicked = (e: Event): void => {
+    const matchedRow = node.groupRoles.filter(
+      (value) =>
+        value.groupId == selectedGroupId && value.roleId == selectedRoleId,
+    );
+    if (matchedRow.length == 0) {
+      setAlertSeverity('error');
+      setAlertMessage('Group/role does not exist');
+      setOpenAlert(true);
+      return;
+    }
+
+    const unmatchedRows = node.groupRoles.filter(
+      (value) =>
+        !(value.groupId == selectedGroupId && value.roleId == selectedRoleId),
+    );
+
+    setNode({ ...node, groupRoles: unmatchedRows });
+    setIsChanged(true);
+  };
+
+  const onRevertClicked = (e: Event): void => {
+    setNode(nodeProp);
+  };
+
   return (
     <TextEditorBlock>
       <ContentTitle>Node Group Role Editor</ContentTitle>
@@ -108,55 +184,108 @@ export default function PermissionsTab({ node }) {
         Assign a group and role to a node to control it's visibility to specific
         users with same group and role.
       </ContentParagraph>
-
-      <Grid
-        container
-        spacing={2}
-        justifyContent="center"
-        alignItems="center"
-        className={classes.root}
-      >
-        <Grid item xs={5}>
-          <OutlinedIdNameSelect
-            label="Groups"
-            name="groups"
-            labelWidth={80}
-            value={selectedGroupId}
-            values={groups}
-            onChange={onSelectedGroup}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={5}>
-          <OutlinedIdNameSelect
-            label="Roles"
-            name="roles"
-            labelWidth={80}
-            value={selectedRoleId}
-            values={roles}
-            onChange={onSelectedRole}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={2}>
-          <Tooltip title="Add" placement="top">
-            <Button variant="outlined" size="small" className={classes.button}>
-              Add
-            </Button>
-          </Tooltip>
-        </Grid>
-        <Grid item xs={12}>
-          <Box sx={{ height: 400 }}>
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              checkboxSelection
-              disableRowSelectionOnClick
-              autoPageSize
+      <Box sx={{ mr: '20px' }}>
+        <Collapse in={openAlert}>
+          <Alert
+            severity={alertSeverity}
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setOpenAlert(false);
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            {alertMessage}
+          </Alert>
+        </Collapse>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          alignItems="center"
+          className={classes.root}
+        >
+          <Grid item xs>
+            <OutlinedIdNameSelect
+              label="Groups"
+              name="groups"
+              labelWidth={80}
+              value={selectedGroupId}
+              values={groups}
+              onChange={onSelectedGroup}
+              fullWidth
             />
-          </Box>
+          </Grid>
+          <Grid item xs>
+            <OutlinedIdNameSelect
+              label="Roles"
+              name="roles"
+              labelWidth={80}
+              value={selectedRoleId}
+              values={roles}
+              onChange={onSelectedRole}
+              fullWidth
+            />
+          </Grid>
+          {selectedGroupId >= 0 && selectedRoleId >= 0 && (
+            <Grid item xs={2}>
+              <>
+                <Tooltip title="Add" placement="top">
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    className={classes.button}
+                    onClick={onAddClicked}
+                  >
+                    Add
+                  </Button>
+                </Tooltip>
+                &nbsp;
+                <Tooltip title="Delete" placement="top">
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    className={classes.button}
+                    onClick={onDeleteClicked}
+                  >
+                    Delete
+                  </Button>
+                </Tooltip>
+              </>
+            </Grid>
+          )}
+          <Grid item xs={12}>
+            <Box sx={{ height: 300 }}>
+              <DataGrid
+                rows={node.groupRoles}
+                columns={columns}
+                disableRowSelectionOnClick
+                autoPageSize
+                fullWidth
+                autoHeight
+              />
+              {isChanged && (
+                <Tooltip title="Delete" placement="top">
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    className={classes.button}
+                    onClick={onRevertClicked}
+                  >
+                    Revert
+                  </Button>
+                </Tooltip>
+              )}
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </TextEditorBlock>
   );
 }

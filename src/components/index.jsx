@@ -1,5 +1,5 @@
 // @flow
-import React, { PureComponent, Suspense, lazy } from 'react';
+import React, { PureComponent, Suspense, lazy, Box } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
@@ -199,8 +199,8 @@ export class App extends PureComponent<IAppProps> {
               component={PageNotFound}
             />
           </Switch>
-          <Notify />
         </Suspense>
+        <Notify />
       </ConnectedRouter>
     );
   }

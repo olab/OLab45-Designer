@@ -136,6 +136,7 @@ export const nodeFromServer = (data: Node): Node => ({
   isFocused: false,
   annotation: data.annotation,
   info: data.info,
+  groupRoles: data.groupRoles
 });
 
 export const nodeDefaultsFromServer = (
