@@ -149,6 +149,10 @@ class AdvancedNodeEditor extends PureComponent<
     }
   };
 
+  handleGroupRolesChange = (newGroupRoles): void => {
+    this.setState({ groupRoles: newGroupRoles });
+  };
+
   render() {
     const {
       isVisitOnce = false,
@@ -256,7 +260,10 @@ class AdvancedNodeEditor extends PureComponent<
                   handleSelectChange={this.handleSelectChange}
                   handleKeyDown={this.handleKeyPressed}
                 />,
-                <PermissionsTab node={node} />,
+                <PermissionsTab
+                  node={node}
+                  handleGroupRolesChange={this.handleGroupRolesChange}
+                />,
               ][this.tabNumber]
             }
           </TabContainer>

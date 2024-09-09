@@ -82,7 +82,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PermissionsTab({ node: nodeProp }) {
+export default function PermissionsTab({
+  node: nodeProp,
+  handleGroupRolesChange,
+}) {
   const classes = useStyles();
 
   const [node, setNode] = useState(nodeProp);
@@ -148,6 +151,7 @@ export default function PermissionsTab({ node: nodeProp }) {
     ];
 
     setNode({ ...node, groupRoles: newGroupRoles });
+    handleGroupRolesChange(newGroupRoles);
     setNextIndex(nextIndex - 1);
     setIsChanged(true);
   };
@@ -170,11 +174,14 @@ export default function PermissionsTab({ node: nodeProp }) {
     );
 
     setNode({ ...node, groupRoles: unmatchedRows });
+    handleGroupRolesChange(unmatchedRows);
+
     setIsChanged(true);
   };
 
   const onRevertClicked = (e: Event): void => {
     setNode(nodeProp);
+    handleGroupRolesChange(nodeProp.groupRoles);
   };
 
   return (

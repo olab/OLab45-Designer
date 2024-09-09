@@ -112,6 +112,7 @@ export const nodeToServer = (data: Node): Node => ({
   linkTypeId: data.linkType,
   annotation: data.annotation,
   info: data.info,
+  groupRoles: data.groupRoles
 });
 
 export const nodeFromServer = (data: Node): Node => ({
