@@ -282,9 +282,6 @@ class AdvancedNodeEditor extends PureComponent<
 //   },
 // ) => {
 const mapStateToProps = (state, ownProps) => {
-  console.log(JSON.stringify(state, null, 1));
-  console.log(JSON.stringify(ownProps, null, 1));
-
   const groups = state.defaults.groups;
 
   let props = {

@@ -43,7 +43,6 @@ class ExpansionPanel extends PureComponent<
     };
 
   onFileSelected = (event) => {
-    console.log(event.target.files[0]);
     this.setState({
       selectedFile: event.target.files[0],
       loaded: 0,
@@ -64,7 +63,6 @@ class ExpansionPanel extends PureComponent<
   };
 
   onFileUploadError = (data) => {
-    console.log(`Map upload error: ${JSON.stringify(data)}`);
     this.setState({
       loaded: 100,
       importMapError: data.message,
@@ -73,7 +71,6 @@ class ExpansionPanel extends PureComponent<
   };
 
   onFileUploaded = (data) => {
-    console.log(`Map uploaded: ${data.data['id']} ${data.data['name']}`);
     this.setState({
       loaded: 100,
       isUploadDisabled: false,

@@ -51,9 +51,6 @@ const Permissions = ({
     );
   };
 
-  console.log(`# groups ${groups.length}`);
-  console.log(`# roles ${roles.length}`);
-
   return (
     <ContainerTab>
       <ContentTitle>Map Group Editor</ContentTitle>

@@ -105,7 +105,6 @@ class MapDetailsEditor extends PureComponent<
       this[index].mapId = mapId;
     }, groups);
 
-    console.log(JSON.stringify(groups));
     var { mapGroups } = this.state;
     this.setState({ mapGroups: groups });
   };

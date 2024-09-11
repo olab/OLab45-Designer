@@ -29,8 +29,6 @@ class SOEditor extends PureComponent<ISOEditorProps> {
   }
 
   render() {
-    // console.log(`${JSON.stringify(SCOPED_OBJECTS, null, 2)}`);
-
     return (
       <Switch>
         <Route
