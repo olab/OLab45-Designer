@@ -147,6 +147,7 @@ export default function PermissionsTab({
         groupName: selectedGroup[0].name,
         roleId: selectedRole[0].id,
         roleName: selectedRole[0].name,
+        nodeId: node.id,
       },
     ];
 
@@ -159,7 +160,8 @@ export default function PermissionsTab({
   const onDeleteClicked = (e: Event): void => {
     const matchedRow = node.groupRoles.filter(
       (value) =>
-        value.groupId == selectedGroupId && value.roleId == selectedRoleId,
+        value.groupId == (selectedGroupId == 0 ? null : selectedGroupId) &&
+        value.roleId == (selectedRoleId == 0 ? null : selectedRoleId),
     );
     if (matchedRow.length == 0) {
       setAlertSeverity('error');
@@ -170,11 +172,17 @@ export default function PermissionsTab({
 
     const unmatchedRows = node.groupRoles.filter(
       (value) =>
-        !(value.groupId == selectedGroupId && value.roleId == selectedRoleId),
+        !(
+          value.groupId == (selectedGroupId == 0 ? null : selectedGroupId) &&
+          value.roleId == (selectedRoleId == 0 ? null : selectedRoleId)
+        ),
     );
 
     setNode({ ...node, groupRoles: unmatchedRows });
     handleGroupRolesChange(unmatchedRows);
+
+    setSelectedGroupId(-1);
+    setSelectedRoleId(-1);
 
     setIsChanged(true);
   };
@@ -182,6 +190,14 @@ export default function PermissionsTab({
   const onRevertClicked = (e: Event): void => {
     setNode(nodeProp);
     handleGroupRolesChange(nodeProp.groupRoles);
+
+    setSelectedGroupId(-1);
+    setSelectedRoleId(-1);
+  };
+
+  const onRowClick = (table) => {
+    setSelectedGroupId(table.row.groupId == null ? 0 : table.row.groupId);
+    setSelectedRoleId(table.row.roleId == null ? 0 : table.row.roleId);
   };
 
   return (
@@ -272,10 +288,10 @@ export default function PermissionsTab({
               <DataGrid
                 rows={node.groupRoles}
                 columns={columns}
-                disableRowSelectionOnClick
                 autoPageSize
                 fullWidth
                 autoHeight
+                onRowClick={onRowClick}
               />
               {isChanged && (
                 <Tooltip title="Delete" placement="top">

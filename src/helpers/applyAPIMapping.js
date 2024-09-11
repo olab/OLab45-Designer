@@ -92,53 +92,82 @@ export const questionResponseFromServer = (
   updated_At: data.updated_At,
 });
 
-export const nodeToServer = (data: Node): Node => ({
-  id: data.id,
-  mapId: data.mapId,
-  title: data.title,
-  text: data.text,
-  typeId: data.type,
-  x: data.x,
-  y: data.y,
-  height: data.height,
-  width: data.width,
-  locked: Number(data.isLocked),
-  collapsed: Number(data.isCollapsed),
-  color: data.color,
-  visitOnce: Number(data.isVisitOnce),
-  isEnd: Number(data.isEnd),
-  linkStyleId: data.linkStyle,
-  priorityId: data.priorityId,
-  linkTypeId: data.linkType,
-  annotation: data.annotation,
-  info: data.info,
-  groupRoles: data.groupRoles
-});
+export const nodeToServer = (data: Node): Node => {
 
-export const nodeFromServer = (data: Node): Node => ({
-  id: data.id,
-  mapId: data.mapId,
-  title: data.title,
-  x: data.x,
-  y: data.y,
-  width: data.width || 0,
-  height: data.height || 0,
-  color: data.color,
-  type: data.typeId,
-  text: data.text,
-  linkStyle: data.linkStyleId,
-  priorityId: data.priorityId,
-  linkType: data.linkTypeId,
-  isCollapsed: Boolean(data.collapsed),
-  isLocked: Boolean(data.locked),
-  isVisitOnce: Boolean(data.visitOnce),
-  isEnd: Boolean(data.isEnd),
-  isSelected: true,
-  isFocused: false,
-  annotation: data.annotation,
-  info: data.info,
-  groupRoles: data.groupRoles
-});
+  let node = { ...data };
+
+  // map negative ids (from creation of new records) to 0
+  // so these records can be added to the DB and not
+  // fail the 'uint' validation check on the backend
+  for (const groupRole of node.groupRoles) {
+    if (groupRole.id < 0) {
+      groupRole.id = 0;
+    }
+  }
+
+  return {
+    id: node.id,
+    mapId: node.mapId,
+    title: node.title,
+    text: node.text,
+    typeId: node.type,
+    x: node.x,
+    y: node.y,
+    height: node.height,
+    width: node.width,
+    locked: Number(node.isLocked),
+    collapsed: Number(node.isCollapsed),
+    color: node.color,
+    visitOnce: Number(node.isVisitOnce),
+    isEnd: Number(node.isEnd),
+    linkStyleId: node.linkStyle,
+    priorityId: node.priorityId,
+    linkTypeId: node.linkType,
+    annotation: node.annotation,
+    info: node.info,
+    groupRoles: node.groupRoles
+  };
+}
+
+export const nodeFromServer = (data: Node): Node => {
+
+  let node = { ...data };
+
+  for (const groupRole of node.groupRoles) {
+    if (groupRole.groupId == null) {
+      groupRole.groupName = "*";
+    }
+    if (groupRole.roleId == null) {
+      groupRole.roleName = "*";
+    }
+
+  }
+
+  return {
+    id: node.id,
+    mapId: node.mapId,
+    title: node.title,
+    x: node.x,
+    y: node.y,
+    width: node.width || 0,
+    height: node.height || 0,
+    color: node.color,
+    type: node.typeId,
+    text: node.text,
+    linkStyle: node.linkStyleId,
+    priorityId: node.priorityId,
+    linkType: node.linkTypeId,
+    isCollapsed: Boolean(node.collapsed),
+    isLocked: Boolean(node.locked),
+    isVisitOnce: Boolean(node.visitOnce),
+    isEnd: Boolean(node.isEnd),
+    isSelected: true,
+    isFocused: false,
+    annotation: node.annotation,
+    info: node.info,
+    groupRoles: node.groupRoles
+  };
+};
 
 export const nodeDefaultsFromServer = (
   nodeDefault: DefaultNode,
