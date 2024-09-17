@@ -8,7 +8,7 @@ import OutlinedInput from '../../../shared/components/OutlinedInput';
 import type { BasicDetailsProps as IProps } from './types';
 
 import styles, { ContainerKeywords } from './styles';
-import { ContainerTab, ContentTitle } from '../styles';
+import { TextEditorBlock, ContentTitle } from '../styles';
 
 const editorOptions = {
   license_key: 'gpl',
@@ -34,7 +34,7 @@ const BasicDetails = ({
   onInputChange,
   handleEditorChange,
 }: IProps): React$Element<any> => (
-  <ContainerTab>
+  <TextEditorBlock>
     <OutlinedInput
       name="name"
       label="Title"
@@ -64,7 +64,7 @@ const BasicDetails = ({
       <b>Creator:</b>
       {` ${details.author}`}
     </div>
-  </ContainerTab>
+  </TextEditorBlock>
 );
 
 export default withStyles(styles)(BasicDetails);

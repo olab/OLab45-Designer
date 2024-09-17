@@ -24,6 +24,7 @@ import {
 } from '@material-ui/core';
 import { getGroups, getRoles } from '../../../services/api/defaults';
 import OutlinedIdNameSelect from '../../../shared/components/OutlinedIdNameSelect';
+import { TextEditorBlock } from '../styles';
 
 const columns: GridColDef<(typeof rows)[number]>[] = [
   {
@@ -71,6 +72,7 @@ const Permissions = ({
   handleGroupRoleChange,
 }: IProps): React$Element<any> => {
   const [groupRoles, setGroupRoles] = useState(map.groupRoles);
+  const [originalGroupRoles, setOriginalGroupRoles] = useState(map.groupRoles);
   const [groups, setGroups] = useState([]);
   const [roles, setRoles] = useState([]);
 
@@ -126,7 +128,8 @@ const Permissions = ({
   const onAddClicked = (e: Event): void => {
     const matchedRow = groupRoles.filter(
       (value) =>
-        value.groupId == selectedGroupId && value.roleId == selectedRoleId,
+        value.groupId == (selectedGroupId == 0 ? null : selectedGroupId) &&
+        value.roleId == (selectedRoleId == 0 ? null : selectedRoleId),
     );
     if (matchedRow.length > 0) {
       setAlertSeverity('info');
@@ -186,8 +189,8 @@ const Permissions = ({
   };
 
   const onRevertClicked = (e: Event): void => {
-    setGroupRoles(map.groupRoles);
-    handleGroupRoleChange(map.groupRoles);
+    setGroupRoles(originalGroupRoles);
+    handleGroupRoleChange(originalGroupRoles);
 
     setSelectedGroupId(-1);
     setSelectedRoleId(-1);
@@ -199,7 +202,7 @@ const Permissions = ({
   };
 
   return (
-    <ContainerTab>
+    <TextEditorBlock>
       <ContentTitle>Map Group Editor</ContentTitle>
       <ContentParagraph>
         Assign the map to one or more group and role. Map access limited to
@@ -307,7 +310,7 @@ const Permissions = ({
           </Grid>
         </Grid>
       </Box>
-    </ContainerTab>
+    </TextEditorBlock>
   );
 };
 

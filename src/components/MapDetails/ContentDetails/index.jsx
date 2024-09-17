@@ -9,7 +9,7 @@ import { CONTENT_DETAILS_CHECKBOXES } from './config';
 import type { ContentDetailsProps as IProps } from './types';
 import type { Node as NodeType } from '../Constructor/Graph/Node/types';
 
-import { ContainerTab, ContentTitle, Title } from '../styles';
+import { TextEditorBlock, ContentTitle, Title } from '../styles';
 import { ContainerCheckBox, CheckBox } from './styles';
 import { ListWithSearchWrapper } from '../../SOEditor/styles';
 import ListWithSearch from '../../../shared/components/ListWithSearch';
@@ -42,7 +42,7 @@ const ContentDetails = ({
   }, [reportNode]);
 
   return (
-    <ContainerTab>
+    <TextEditorBlock>
       <ContentTitle>Authoring notes</ContentTitle>
       <TextEditor
         editorId="devNotes"
@@ -109,7 +109,7 @@ const ContentDetails = ({
         />
       </ListWithSearchWrapper>
       <p>&nbsp;</p>
-    </ContainerTab>
+    </TextEditorBlock>
   );
 };
 

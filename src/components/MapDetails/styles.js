@@ -64,4 +64,11 @@ const styles = () => ({
   },
 });
 
+export const TextEditorBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-right: 10px;
+`;
+
 export default styles;

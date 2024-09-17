@@ -37,9 +37,7 @@ import { useState, useEffect } from 'react';
 import { getGroups, getRoles } from '../../../services/api/defaults';
 import OutlinedIdNameSelect from '../../../shared/components/OutlinedIdNameSelect';
 
-import { ContainerTab, ContentTitle, ContentParagraph } from './styles';
-
-import { TextEditorBlock } from '../styles';
+import { TextEditorBlock, ContentTitle, ContentParagraph } from './styles';
 
 const columns: GridColDef<(typeof rows)[number]>[] = [
   {
