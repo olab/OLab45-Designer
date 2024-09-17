@@ -31,7 +31,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
     headerName: 'Group',
     width: 300,
     valueGetter: (value, row) => {
-      if (value.row.groupId == 0) {
+      if (value.row.groupId == null) {
         return '*';
       }
       return value.row.groupName;
@@ -43,7 +43,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
     headerName: 'Role',
     width: 300,
     valueGetter: (value, row) => {
-      if (value.row.roleId == 0) {
+      if (value.row.roleId == null) {
         return '*';
       }
       return value.row.roleName;
@@ -68,13 +68,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Permissions = ({
   map,
-  handleMapGroupChange,
+  handleGroupRoleChange,
 }: IProps): React$Element<any> => {
+  const [groupRoles, setGroupRoles] = useState(map.groupRoles);
   const [groups, setGroups] = useState([]);
   const [roles, setRoles] = useState([]);
 
   const [selectedGroupId, setSelectedGroupId] = useState(-1);
   const [selectedRoleId, setSelectedRoleId] = useState(-1);
+  const [nextIndex, setNextIndex] = useState(-1);
 
   const [loading, setLoading] = useState(true);
   const [openAlert, setOpenAlert] = useState(false);
@@ -100,11 +102,11 @@ const Permissions = ({
       );
     }
     getGroups().then((data) => {
-      data = [{ id: -1, name: '--Select--' }, { id: 0, name: '*' }, ...data];
+      data = [{ id: 0, name: '*' }, ...data];
       setGroups(data);
 
       getRoles().then((data) => {
-        data = [{ id: -1, name: '--Select--' }, { id: 0, name: '*' }, ...data];
+        data = [{ id: 0, name: '*' }, ...data];
         setRoles(data);
         setLoading(false);
       });
@@ -122,7 +124,7 @@ const Permissions = ({
   };
 
   const onAddClicked = (e: Event): void => {
-    const matchedRow = node.groupRoles.filter(
+    const matchedRow = groupRoles.filter(
       (value) =>
         value.groupId == selectedGroupId && value.roleId == selectedRoleId,
     );
@@ -136,25 +138,25 @@ const Permissions = ({
     const selectedGroup = groups.filter((grp) => grp.id === selectedGroupId);
     const selectedRole = roles.filter((role) => role.id === selectedRoleId);
     const newGroupRoles = [
-      ...node.groupRoles,
+      ...groupRoles,
       {
         id: nextIndex,
         groupId: selectedGroup[0].id,
         groupName: selectedGroup[0].name,
         roleId: selectedRole[0].id,
         roleName: selectedRole[0].name,
-        nodeId: node.id,
+        mapId: map.id,
       },
     ];
 
-    setNode({ ...node, groupRoles: newGroupRoles });
-    handleGroupRolesChange(newGroupRoles);
+    setGroupRoles(newGroupRoles);
+    handleGroupRoleChange(newGroupRoles);
     setNextIndex(nextIndex - 1);
     setIsChanged(true);
   };
 
   const onDeleteClicked = (e: Event): void => {
-    const matchedRow = node.groupRoles.filter(
+    const matchedRow = groupRoles.filter(
       (value) =>
         value.groupId == (selectedGroupId == 0 ? null : selectedGroupId) &&
         value.roleId == (selectedRoleId == 0 ? null : selectedRoleId),
@@ -166,7 +168,7 @@ const Permissions = ({
       return;
     }
 
-    const unmatchedRows = node.groupRoles.filter(
+    const unmatchedRows = groupRoles.filter(
       (value) =>
         !(
           value.groupId == (selectedGroupId == 0 ? null : selectedGroupId) &&
@@ -174,8 +176,8 @@ const Permissions = ({
         ),
     );
 
-    setNode({ ...node, groupRoles: unmatchedRows });
-    handleGroupRolesChange(unmatchedRows);
+    setGroupRoles(unmatchedRows);
+    handleGroupRoleChange(unmatchedRows);
 
     setSelectedGroupId(-1);
     setSelectedRoleId(-1);
@@ -184,8 +186,8 @@ const Permissions = ({
   };
 
   const onRevertClicked = (e: Event): void => {
-    setNode(nodeProp);
-    handleGroupRolesChange(nodeProp.groupRoles);
+    setGroupRoles(map.groupRoles);
+    handleGroupRoleChange(map.groupRoles);
 
     setSelectedGroupId(-1);
     setSelectedRoleId(-1);
@@ -201,7 +203,7 @@ const Permissions = ({
       <ContentTitle>Map Group Editor</ContentTitle>
       <ContentParagraph>
         Assign the map to one or more group and role. Map access limited to
-        group/roles the user is assigned to.
+        group/roles a user is assigned to.
       </ContentParagraph>
       <Box sx={{ mr: '20px' }}>
         <Collapse in={openAlert}>
@@ -282,7 +284,7 @@ const Permissions = ({
           <Grid item xs={12}>
             <Box sx={{ height: 300 }}>
               <DataGrid
-                rows={groups}
+                rows={groupRoles}
                 columns={columns}
                 autoPageSize
                 fullWidth

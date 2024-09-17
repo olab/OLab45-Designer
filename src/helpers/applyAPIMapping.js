@@ -192,6 +192,7 @@ export const mapDetailsFromServer = (mapData: MapDetails): MapDetails => ({
   description: mapData.description,
   devNotes: mapData.devNotes,
   feedback: mapData.feedback,
+  groupRoles: mapData.groupRoles,
   guid: mapData.guid,
   id: mapData.id,
   isEnabled: Boolean(mapData.enabled),
@@ -206,16 +207,15 @@ export const mapDetailsFromServer = (mapData: MapDetails): MapDetails => ({
   name: mapData.name,
   notes: mapData.notes,
   reminderMsg: mapData.reminderMsg,
+  reportNodeId: mapData.reportNodeId,
+  sectionId: mapData.sectionId,
   securityId: mapData.securityId,
   securityType: mapData.securityType,
-  sectionId: mapData.sectionId,
   source: mapData.source,
   themeId: mapData.themeId,
-  typeId: mapData.typeId,
   themes: mapData.themes,
+  typeId: mapData.typeId,
   units: mapData.units,
-  reportNodeId: mapData.reportNodeId,
-  mapGroups: mapData.mapGroups
 });
 
 export const mapDetailsToServer = (mapData: MapDetails): MapDetails => ({
@@ -225,6 +225,7 @@ export const mapDetailsToServer = (mapData: MapDetails): MapDetails => ({
   devNotes: mapData.devNotes,
   enabled: Number(mapData.isEnabled),
   feedback: mapData.feedback,
+  groupRoles: mapData.groupRoles,
   guid: mapData.guid,
   id: mapData.id,
   instructorGuideComplete: Number(mapData.isInstructorGuideComplete),
@@ -237,16 +238,15 @@ export const mapDetailsToServer = (mapData: MapDetails): MapDetails => ({
   nodeContentVerified: Number(mapData.isNodeContentVerified),
   notes: mapData.notes,
   reminderMsg: mapData.reminderMsg,
-  securityType: mapData.securityType,
-  securityId: mapData.securityId,
+  reportNodeId: mapData.reportNodeId,
   sectionId: mapData.sectionId,
+  securityId: mapData.securityId,
+  securityType: mapData.securityType,
   sendXapiStatements: Number(mapData.isSendXapiStatements),
   source: mapData.source,
   themeId: mapData.themeId,
   typeId: mapData.typeId,
   units: mapData.units,
-  reportNodeId: mapData.reportNodeId,
-  mapGroups: mapData.mapGroups
 });
 
 export const mapFromServer = (mapData: MapItem): MapItem => ({

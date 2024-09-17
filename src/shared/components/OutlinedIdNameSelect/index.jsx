@@ -47,6 +47,9 @@ const OutlinedIdNameSelect = ({
         />
       }
     >
+      <MenuItem key={-1} value={-1}>
+        {'-- Select --'}
+      </MenuItem>
       {values.map((val: string) => (
         <MenuItem key={val.id} value={val.id}>
           {val.name}

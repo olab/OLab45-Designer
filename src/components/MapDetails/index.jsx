@@ -97,16 +97,28 @@ class MapDetailsEditor extends PureComponent<
     this.setState({ [editorId]: text });
   };
 
-  handleMapGroupChange = (groups: Groups): void => {
+  handleGroupRoleChange = (groupRoles): void => {
     const mapId = this.props.mapDetails.id;
     // ensure that that any added map groups
     // have a valid map id in the navigation property
-    groups.forEach(function (part, index) {
+    groupRoles.forEach(function (part, index) {
       this[index].mapId = mapId;
-    }, groups);
 
-    var { mapGroups } = this.state;
-    this.setState({ mapGroups: groups });
+      if (this[index].id < 0) {
+        this[index].id = 0;
+      }
+
+      if (this[index].groupId == 0) {
+        this[index].groupId = null;
+      }
+
+      if (this[index].roleId == 0) {
+        this[index].roleId = null;
+      }
+    }, groupRoles);
+
+    var newState = { ...this.state, groupRoles: groupRoles };
+    this.setState(newState);
   };
 
   handleSelectChange = (e: Event): void => {
@@ -192,7 +204,7 @@ class MapDetailsEditor extends PureComponent<
                   map={this.state}
                   groups={groups}
                   roles={roles}
-                  handleMapGroupChange={this.handleMapGroupChange}
+                  handleGroupRoleChange={this.handleGroupRoleChange}
                 />,
                 <AdvancedDetails
                   details={this.state}
