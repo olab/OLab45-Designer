@@ -15,6 +15,13 @@ export const ContentTitle = styled.h3`
   margin: 10px 0;
 `;
 
+export const TextEditorBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-right: 10px;
+`;
+
 export const muiStyles = {
   table: {
     maxWidth: '100%',
