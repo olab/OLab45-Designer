@@ -1,5 +1,7 @@
+import { config } from '../config';
+
 const defaultConfig = {
-  baseURL: process.env.API_URL,
+  baseURL: config.API_URL,
   headers: {
     'Content-Type': 'application/json',
   },

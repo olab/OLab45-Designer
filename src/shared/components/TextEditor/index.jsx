@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import { config } from '../../../config';
 
 import {
   BASIC_TEXT_EDITOR_OPTIONS,
@@ -32,13 +33,11 @@ class TextEditor extends React.Component {
 
     return (
       <Editor
-        tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
+        tinymceScriptSrc={config.APP_BASEPATH + '/tinymce/tinymce.min.js'}
         zapiKey={EDITOR_API_KEY}
         id={editorId}
         xcloudChannel={EDITOR_VERSION}
-        // eslint-disable-next-line
         value={text}
-        // eslint-disable-next-line
         onEditorChange={handleEditorChange}
         init={initOptions}
       />

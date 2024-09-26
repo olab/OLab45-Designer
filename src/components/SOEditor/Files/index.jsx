@@ -21,7 +21,7 @@ import ScopedObjectService, { withSORedux } from '../index.service';
 
 import { EDITORS_FIELDS } from '../config';
 import { TYPES, IMAGE_TYPES } from './config';
-import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../config';
+import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../../config';
 
 import type { IScopedObjectProps as IProps } from '../types';
 

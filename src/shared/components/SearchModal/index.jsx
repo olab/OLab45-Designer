@@ -25,8 +25,6 @@ class SearchModal extends PureComponent<ISearchModalProps, ISearchModalState> {
 
     if (items !== prevProps.items) {
       const listFiltered = filterByName(items, query);
-
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ listFiltered });
     }
   }

@@ -12,7 +12,7 @@ import SearchModal from '../../../shared/components/SearchModal';
 import type { IScopedObjectProps } from '../types';
 
 import { EDITORS_FIELDS } from '../config';
-import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../config';
+import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../../config';
 
 import { FieldLabel } from '../styles';
 import { Title, Outlined, ContainerTitle } from './styles';

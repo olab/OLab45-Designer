@@ -14,7 +14,7 @@ import { withRouter } from 'react-router-dom';
 
 import * as scopedObjectsActions from '../../../redux/scopedObjects/action';
 import { ListWithSearchWrapper } from '../styles';
-import { PAGE_TITLES, SCOPED_OBJECTS } from '../../config';
+import { PAGE_TITLES, SCOPED_OBJECTS } from '../../../config';
 import { toLowerCaseAndPlural, toUpperCaseAndPlural } from '../utils';
 import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
 import CircularSpinnerWithText from '../../../shared/components/CircularSpinnerWithText';
@@ -93,7 +93,6 @@ class SOList extends PureComponent<ISOListProps, ISOListState> {
         ...scopedObjectsIndexFiltered,
       ];
 
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ scopedObjectsFiltered });
     }
   }

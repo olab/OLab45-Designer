@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable react/no-unused-state */
 /*
 The top-level component digraph component.
 Here it is possible to manipilate with nodes and edges.
@@ -238,7 +237,6 @@ export class GraphView extends React.Component<
 
       const newNodes = this.layoutEngine.adjustNodes(stateNodes, nodesMap);
       if (!isEqual(stateNodes, newNodes)) {
-        // eslint-disable-next-line react/no-did-update-set-state
         this.setState({
           nodes: newNodes,
         });
@@ -288,7 +286,6 @@ export class GraphView extends React.Component<
     }
 
     if (!componentUpToDate) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         componentUpToDate: true,
       });
@@ -440,7 +437,6 @@ export class GraphView extends React.Component<
       for (let i = 0; i < edges.length; i += 1) {
         edge = edges[i];
         if (!edge.source || !edge.target) {
-          // eslint-disable-next-line no-continue
           continue;
         }
 

@@ -20,7 +20,7 @@ import * as mapActions from '../../../redux/map/action';
 
 import { spec, collect } from '../utils';
 import { LAYOUT_ENGINE } from '../../Constructor/config';
-import { LINK_STYLES } from '../../config';
+import { LINK_STYLES } from '../../../config';
 import { DND_CONTEXTS, MODALS_NAMES } from '../config';
 import {
   THICKNESS_MIN,
@@ -60,7 +60,6 @@ class LinkEditor extends PureComponent<ILinkEditorProps, ILinkEditorState> {
     this.isLinkHasSibling = this.checkIfLinkHasSibling(props.link);
   }
 
-  // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps: ILinkEditorProps) {
     const { link } = nextProps;
     const { ACTION_UPDATE_EDGE, link: prevLink } = this.props;

@@ -12,7 +12,7 @@ import Questions from './Questions';
 import Files from './Files';
 import Constants from './Constants';
 import Counters from './Counters';
-import { SCOPED_OBJECTS } from '../config';
+import { SCOPED_OBJECTS } from '../../config';
 
 import * as scopeLevelsActions from '../../redux/scopeLevels/action';
 import * as scopedObjectsActions from '../../redux/scopedObjects/action';

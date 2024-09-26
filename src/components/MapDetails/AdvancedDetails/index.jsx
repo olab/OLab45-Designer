@@ -9,6 +9,7 @@ import type { AdvancedDetailsProps as IProps } from './types';
 
 import { ContainerTab } from '../styles';
 import { ContainerCheckBox, CheckBox, ContentText } from './styles';
+import { config } from '../../../config';
 
 const AdvancedDetails = ({
   details,
@@ -21,7 +22,7 @@ const AdvancedDetails = ({
     </ContentText>
     <ContentText>
       <b>OLab version:</b>
-      {` ${process.env.PROJECT_VERSION}`}
+      {` ${config.APP_VERSION}`}
     </ContentText>
     <ContainerCheckBox>
       {ADVANCED_DETAILS_CHECKBOXES.map(({ label, name }, index) => {

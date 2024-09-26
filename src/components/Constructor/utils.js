@@ -2,7 +2,7 @@
 import type { Node as NodeType } from './Graph/Node/types';
 import type { Edge as EdgeType } from './Graph/Edge/types';
 
-import { PAGE_TITLES } from '../config';
+import { PAGE_TITLES } from '../../config';
 
 export const getFocusedNode = (nodes: Array<NodeType>): NodeType | null => {
   const focusedNode = nodes.find(({ isFocused }) => isFocused);

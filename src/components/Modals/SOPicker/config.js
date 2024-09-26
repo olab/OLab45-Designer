@@ -1,4 +1,4 @@
-import { SCOPE_LEVELS } from '../../config';
+import { SCOPE_LEVELS } from '../../../config';
 
 export const SO_TYPES = ['Questions', 'Constants', 'Counters', 'Files'];
 

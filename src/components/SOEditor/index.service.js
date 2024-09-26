@@ -8,7 +8,7 @@ import type { IScopedObjectProps, IScopedObjectState, Icons } from './types';
 import type { ScopeLevel as ScopeLevelType } from '../../redux/scopeLevels/types';
 import type { ScopedObjectBase as ScopedObjectBaseType } from '../../redux/scopedObjects/types';
 
-import { SCOPE_LEVELS, PAGE_TITLES } from '../config';
+import { SCOPE_LEVELS, PAGE_TITLES } from '../../config';
 import { getIconsByScopeLevel, toLowerCaseAndPlural } from './utils';
 
 import * as scopedObjectsActions from '../../redux/scopedObjects/action';
@@ -96,7 +96,6 @@ class ScopedObjectService extends PureComponent<
         ({ id }) => id === Number(scopedObjectId),
       );
 
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ ...scopedObject });
     }
   }

@@ -12,7 +12,7 @@ import {
   FilterVintageOutlined as DefaultOutlinedIcon,
 } from '@material-ui/icons';
 
-import { SCOPE_LEVELS } from '../config';
+import { SCOPE_LEVELS } from '../../config';
 
 import type { Icons } from './types';
 

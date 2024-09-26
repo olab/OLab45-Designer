@@ -32,7 +32,6 @@ class EyeComponent extends PureComponent<
     eyeIconRef: null,
   };
 
-  // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps: IEyeComponentProps) {
     const { additionalInfo } = this.props;
     const isAdditionalInfoFetched = !additionalInfo && nextProps.additionalInfo;

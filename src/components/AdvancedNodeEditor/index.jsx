@@ -16,7 +16,7 @@ import * as wholeMapActions from '../../middlewares/app/action';
 
 import { redirectToPlayer } from '../utils';
 
-import { LINK_STYLES, KEY_S } from '../config';
+import { LINK_STYLES, KEY_S } from '../../config';
 import { NODE_PRIORITIES } from './SecondaryTab/config';
 import {
   ROOT_TYPE as ROOT_NODE_TYPE,
@@ -76,7 +76,6 @@ class AdvancedNodeEditor extends PureComponent<
     const isNodeDeleted = !node && nodeIdPage;
 
     if (isDataChanged) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ ...node });
     }
 

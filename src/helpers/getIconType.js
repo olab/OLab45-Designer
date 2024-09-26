@@ -71,9 +71,9 @@ export const getQuestionIconType = (questionTypeId: Number) => {
     case 7:
       return SCTQuestionIcon;
     case 8:
-      UnknownQuestionIcon;
+      return UnknownQuestionIcon;
     case 9:
-      UnknownQuestionIcon;
+      return UnknownQuestionIcon;
     case 10:
       return RichTextQuestionIcon;
     case 11:

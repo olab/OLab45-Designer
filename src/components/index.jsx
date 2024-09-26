@@ -29,7 +29,7 @@ import Questions from './SOEditor/Questions';
 import Files from './SOEditor/Files';
 import Constants from './SOEditor/Constants';
 import Counters from './SOEditor/Counters';
-import { SCOPED_OBJECTS } from './config';
+import { SCOPED_OBJECTS, config } from '../config';
 import * as authActions from '../redux/login/action';
 
 import * as wholeMapActions from '../middlewares/app/action';
@@ -50,7 +50,7 @@ const ProtectedRoute = ({
       isAuth ? (
         <Component {...props} {...rest} />
       ) : (
-        <Redirect push to="/login" />
+        <Redirect push to={`${config.APP_BASEPATH}/login`} />
       )
     }
   />
@@ -75,7 +75,6 @@ export class App extends PureComponent<IAppProps> {
       ACTION_SYNC_NODE_MIDDLEWARE(mapId, nodeId, actionType);
     } catch (error) {
       if (error && error.message) {
-        // eslint-disable-next-line no-console
         console.log(error.message);
       }
     }
@@ -94,102 +93,126 @@ export class App extends PureComponent<IAppProps> {
         <Suspense fallback={<div>Loading...</div>}>
           {isAuth && <Header handleLogout={this.handleLogout} />}
           <Switch>
-            <Route exact path="/login" component={Login} />
+            <Route
+              exact
+              path={`${config.APP_BASEPATH}/login`}
+              component={Login}
+            />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path="/:mapId"
+              path={`${config.APP_BASEPATH}/:mapId`}
               component={Constructor}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path="/:mapId/:nodeId/ane"
+              path={`${config.APP_BASEPATH}/:mapId/:nodeId/ane`}
               component={AdvancedNodeEditor}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path="/:mapId/countergrid"
+              path={`${config.APP_BASEPATH}/:mapId/countergrid`}
               component={CounterGrid}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path="/:mapId/mapdetails"
+              path={`${config.APP_BASEPATH}/:mapId/mapdetails`}
               component={MapDetails}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path="/:mapId/nodegrid"
+              path={`${config.APP_BASEPATH}/:mapId/nodegrid`}
               component={NodeGrid}
             />
             <ProtectedRoute exact isAuth={isAuth} path="/" component={Home} />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path="/scopedObject/:scopedObjectType"
+              path={`${config.APP_BASEPATH}/scopedObject/:scopedObjectType`}
               component={SOEditor}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path={`/scopedObject/${SCOPED_OBJECTS.CONSTANT.name.toLowerCase()}/:scopedObjectId`}
+              path={`${
+                config.APP_BASEPATH
+              }/scopedObject/${SCOPED_OBJECTS.CONSTANT.name.toLowerCase()}/:scopedObjectId`}
               component={Constants}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path={`/scopedObject/${SCOPED_OBJECTS.CONSTANT.name.toLowerCase()}/add`}
+              path={`${
+                config.APP_BASEPATH
+              }/scopedObject/${SCOPED_OBJECTS.CONSTANT.name.toLowerCase()}/add`}
               component={Constants}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path={`/scopedObject/${SCOPED_OBJECTS.COUNTER.name.toLowerCase()}/:scopedObjectId`}
+              path={`${
+                config.APP_BASEPATH
+              }/scopedObject/${SCOPED_OBJECTS.COUNTER.name.toLowerCase()}/:scopedObjectId`}
               component={Counters}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path={`/scopedObject/${SCOPED_OBJECTS.COUNTER.name.toLowerCase()}/add`}
+              path={`${
+                config.APP_BASEPATH
+              }/scopedObject/${SCOPED_OBJECTS.COUNTER.name.toLowerCase()}/add`}
               component={Counters}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path={`/scopedObject/${SCOPED_OBJECTS.FILE.name.toLowerCase()}/:scopedObjectId`}
+              path={`${
+                config.APP_BASEPATH
+              }/scopedObject/${SCOPED_OBJECTS.FILE.name.toLowerCase()}/:scopedObjectId`}
               component={Files}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path={`/scopedObject/${SCOPED_OBJECTS.FILE.name.toLowerCase()}/add`}
+              path={`${
+                config.APP_BASEPATH
+              }/scopedObject/${SCOPED_OBJECTS.FILE.name.toLowerCase()}/add`}
               component={Files}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path={`/scopedObject/${SCOPED_OBJECTS.QUESTION.name.toLowerCase()}/:scopedObjectId`}
+              path={`${
+                config.APP_BASEPATH
+              }/scopedObject/${SCOPED_OBJECTS.QUESTION.name.toLowerCase()}/:scopedObjectId`}
               component={Questions}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path={`/scopedObject/${SCOPED_OBJECTS.QUESTION.name.toLowerCase()}/add`}
+              path={`${
+                config.APP_BASEPATH
+              }/scopedObject/${SCOPED_OBJECTS.QUESTION.name.toLowerCase()}/add`}
               component={Questions}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path={`/scopedObject/${SCOPED_OBJECTS.QUESTIONRESPONSES.name.toLowerCase()}/:scopedObjectId`}
+              path={`${
+                config.APP_BASEPATH
+              }/scopedObject/${SCOPED_OBJECTS.QUESTIONRESPONSES.name.toLowerCase()}/:scopedObjectId`}
               component={QuestionResponses}
             />
             <ProtectedRoute
               exact
               isAuth={isAuth}
-              path={`/scopedObject/${SCOPED_OBJECTS.QUESTIONRESPONSES.name.toLowerCase()}/add`}
+              path={`${
+                config.APP_BASEPATH
+              }/scopedObject/${SCOPED_OBJECTS.QUESTIONRESPONSES.name.toLowerCase()}/add`}
               component={QuestionResponses}
             />
             <ProtectedRoute

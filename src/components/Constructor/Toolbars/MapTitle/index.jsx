@@ -30,7 +30,6 @@ class MapTitle extends PureComponent<IMapTitleProps, IMapTitleState> {
     };
   }
 
-  // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps: IMapTitleProps) {
     this.setState({
       title: nextProps.title,
@@ -100,7 +99,6 @@ class MapTitle extends PureComponent<IMapTitleProps, IMapTitleState> {
   };
 
   render() {
-    // eslint-disable-next-line no-unused-vars
     const { title, isFocused, isError } = this.state;
     const { classes } = this.props;
 

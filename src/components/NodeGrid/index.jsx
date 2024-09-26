@@ -14,7 +14,7 @@ import * as wholeMapActions from '../../middlewares/app/action';
 import { isBoolean } from '../../helpers/dataTypes';
 import { getNodesReduced, unEscapeNodes } from './utils';
 
-import { KEY_S } from '../config';
+import { KEY_S } from '../../config';
 import { FIELDS_TO_SEARCH } from './config';
 
 import type {
@@ -54,7 +54,6 @@ class NodeGrid extends Component<IProps, IState> {
     const shouldUpdateState = prevPropsNodes !== propsNodes;
 
     if (shouldUpdateState) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState(getNodesReduced(propsNodes));
     }
   }

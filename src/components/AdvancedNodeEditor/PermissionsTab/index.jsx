@@ -202,7 +202,7 @@ export default function PermissionsTab({
     <TextEditorBlock>
       <ContentTitle>Node Group Role Editor</ContentTitle>
       <ContentParagraph>
-        Assign a group and role to a node to control it's visibility to specific
+        Assign a group and role to a node to control it&apos;s visibility to specific
         users with same group and role.
       </ContentParagraph>
       <Box sx={{ mr: '20px' }}>

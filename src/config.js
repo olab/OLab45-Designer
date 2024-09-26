@@ -37,4 +37,13 @@ export const LINK_STYLES = [
   'Buttons',
 ];
 
+export const config = {
+  API_RETRY_COUNT: import.meta.env.VITE_APP_API_RETRY_COUNT,
+  API_URL: import.meta.env.VITE_APP_API_URL,
+  APP_BASEPATH: import.meta.env.VITE_APP_BASEPATH,
+  PLAYER_PUBLIC_URL: import.meta.env.VITE_APP_PLAYER_PUBLIC_URL,
+  APP_VERSION: import.meta.env.VITE_APP_VERSION
+
+};
+
 export const KEY_S = 83;

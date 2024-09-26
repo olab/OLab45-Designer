@@ -15,12 +15,10 @@ class LayoutEngine {
 
   graphViewProps: IGraphViewProps;
 
-  // eslint-disable-next-line class-methods-use-this
   calculatePosition(node: IPosition) {
     return node;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   adjustNodes(nodes: Array<NodeType>): Array<NodeType> {
     for (let i = 0; i < nodes.length; i += 1) {
       const node = nodes[i];

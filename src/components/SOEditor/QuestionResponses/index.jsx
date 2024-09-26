@@ -8,7 +8,7 @@ import { EDITORS_FIELDS, QUESTION_TYPES, CORRECTNESS_TYPES } from '../config';
 import { FieldLabel } from '../styles';
 import { isPositiveInteger } from '../../../helpers/dataTypes';
 import { OtherContent, FullContainerWidth } from './styles';
-import { SCOPED_OBJECTS } from '../../config';
+import { SCOPED_OBJECTS } from '../../../config';
 import { withQuestionResponseRedux } from './index.service';
 import CircularSpinnerWithText from '../../../shared/components/CircularSpinnerWithText';
 import EditorWrapper from '../../../shared/components/EditorWrapper';
@@ -226,7 +226,7 @@ class QuestionResponses extends ScopedObjectService {
                         fullWidth
                       />
                     </FieldLabel>
-                  </FullContainerWidth>                  
+                  </FullContainerWidth>
                   <FullContainerWidth>
                     <FieldLabel>
                       {i === 0 && <>{EDITORS_FIELDS.RESPONSE}</>}

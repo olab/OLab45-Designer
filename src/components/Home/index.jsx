@@ -22,7 +22,7 @@ import type { IHomeProps, IHomeState } from './types';
 import type { Template as TemplateType } from '../../redux/templates/types';
 import type { ScopeLevel as ScopeLevelType } from '../../redux/scopeLevels/types';
 
-import { PAGE_TITLES, SCOPE_LEVELS } from '../config';
+import { PAGE_TITLES, SCOPE_LEVELS } from '../../config';
 
 import filterByName from '../../helpers/filterByName';
 import filterByIndex from '../../helpers/filterByIndex';
@@ -62,8 +62,6 @@ class Home extends PureComponent<IHomeProps, IHomeState> {
     if (maps !== mapsPrev) {
       const { query } = this.listWithSearchRef.state;
       const mapsFiltered = filterByName(maps, query);
-
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ mapsFiltered });
     }
 

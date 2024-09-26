@@ -8,6 +8,7 @@ import NavigationBar from './NavigationBar';
 import LogoIcon from '../../shared/assets/icons/olab4_logo.svg';
 
 import type { IHeaderProps } from './types';
+import { config } from '../../config';
 
 import { Logo, HeaderWrapper, FakeProgress, VersionWrapper } from './styles';
 
@@ -22,7 +23,7 @@ const Header = ({ handleLogout, isDataFetching }: IHeaderProps) => (
       </Link>
       <NavigationBar />
       <VersionWrapper>
-        <small>{process.env.npm_package_version}</small>
+        <small>{config.APP_VERSION}</small>
       </VersionWrapper>
       <Button
         variant="outlined"

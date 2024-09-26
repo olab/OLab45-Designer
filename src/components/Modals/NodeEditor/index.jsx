@@ -22,7 +22,7 @@ import * as mapActions from '../../../redux/map/action';
 import * as wholeMapActions from '../../../middlewares/app/action';
 
 // import { EDITOR_OPTIONS } from './config';
-import { LINK_STYLES, KEY_S } from '../../config';
+import { LINK_STYLES, KEY_S } from '../../../config';
 import { DND_CONTEXTS, MODALS_NAMES } from '../config';
 
 import type { INodeEditorProps, INodeEditorState } from './types';
@@ -61,12 +61,10 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
     } = this.state;
 
     if (id !== idPrev || prevProps.node !== node) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ ...node });
     }
 
     if (!isEqual(restNode, restNodePrev)) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ ...restNode });
     }
   }

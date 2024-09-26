@@ -63,7 +63,6 @@ class CustomCtrlH extends Component<IProps, IState> {
     );
 
     if (!isHighlightedItemsChange) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ highlightedItems });
     }
 
@@ -74,7 +73,6 @@ class CustomCtrlH extends Component<IProps, IState> {
     }
 
     if (prevData !== data) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         data,
         search: '',

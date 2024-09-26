@@ -68,7 +68,6 @@ class MapDetailsEditor extends PureComponent<
       mapDetails,
     } = this.props;
     if (prevMapId !== mapId) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ ...mapDetails });
     }
   }

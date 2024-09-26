@@ -1,4 +1,4 @@
-import { SCOPED_OBJECTS } from '../config';
+import { SCOPED_OBJECTS } from '../../config';
 
 import Files from './Files';
 import Counters from './Counters';

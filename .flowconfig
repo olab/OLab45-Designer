@@ -1,13 +1,16 @@
 [ignore]
+<PROJECT_ROOT>/node_modules
 
 [include]
+./src
 
 [libs]
-flow-typed
 
 [lints]
+all=warn
 
 [options]
+include_warnings=false
 module.file_ext=.js
 module.file_ext=.jsx
 module.file_ext=.mjs

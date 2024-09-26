@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@material-ui/core';
@@ -7,6 +7,9 @@ import { ACTION_USER_AUTH_SUCCEEDED } from './redux/login/action';
 
 import App from './components';
 import GlobalStyles from './styles';
+import { config } from './config';
+
+console.log(`config: ${JSON.stringify(config, null, 1)}`);
 
 const token = localStorage.getItem('token');
 if (token) {
@@ -23,17 +26,25 @@ const Root = (
   </Provider>
 );
 
-ReactDOM.render(Root, target);
+createRoot(document.getElementById('root')).render(Root);
 
 if ('serviceWorker' in navigator) {
   window.addEventListener(
     'load',
     () =>
       void navigator.serviceWorker.register(
-        `${process.env.PUBLIC_URL || ''}/service-worker.js`.replace(
+        `${config.APP_BASEPATH || ''}/service-worker.js`.replace(
           /(:\/\/)|(\/)+/g,
           '$1$2',
         ),
       ),
   );
 }
+
+
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)

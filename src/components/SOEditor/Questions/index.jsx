@@ -15,7 +15,7 @@ import {
   TTALK_QUESTION_TYPES,
 } from '../config';
 
-import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../config';
+import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../../config';
 import EditorWrapper from '../../../shared/components/EditorWrapper';
 import OutlinedInput from '../../../shared/components/OutlinedInput';
 import OutlinedSelect from '../../../shared/components/OutlinedSelect';

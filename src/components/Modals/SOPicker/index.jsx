@@ -54,7 +54,6 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
     this.modalBodyRef = React.createRef();
   }
 
-  // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps: ISOPickerProps) {
     if (this.searchBoxRef.current) {
       const { type, level } = this.state;
@@ -71,7 +70,6 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
     const isScrollbarVisible = this.checkIfScrollbarVisible();
 
     if (prevState.isScrollbarVisible !== isScrollbarVisible) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ isScrollbarVisible });
     }
   }

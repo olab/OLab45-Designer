@@ -94,7 +94,6 @@ export class Node extends PureComponent<INodeProps, INodeState> {
       if (newWidth !== width || newHeight !== height) {
         onNodeResizeEnded(id, newWidth, newHeight);
       }
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ isResizeStart: false });
     }
   }

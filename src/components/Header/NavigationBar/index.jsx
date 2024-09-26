@@ -10,7 +10,7 @@ import type { INavigationProps, INavigationState } from './types';
 
 import { getStringToUrlPath } from './utils';
 
-import { SCOPED_OBJECTS, MAP_MENU_ITEMS } from '../../config';
+import { SCOPED_OBJECTS, MAP_MENU_ITEMS, config } from '../../../config';
 
 import styles from './styles';
 
@@ -54,9 +54,7 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
   render() {
     const { anchorEl, anchorElMapMenu, anchorElToolsMenu } = this.state;
     const { classes, mapId } = this.props;
-
-    // eslint-disable-next-line no-unused-vars
-    const processEnv = process.env;
+    const processEnv = config;
 
     return (
       <>
@@ -66,7 +64,7 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
               <Button
                 className={classes.link}
                 component={Link}
-                to={`/${mapId}`}
+                to={`${config.APP_BASEPATH}/${mapId}`}
               >
                 My Map
                 <ExpandMoreIcon
@@ -88,7 +86,9 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
                     onClick={this.handleClose}
                     className={classes.menuItem}
                     component={Link}
-                    to={`/${mapId}/${getStringToUrlPath(item)}`}
+                    to={`${config.APP_BASEPATH}/${mapId}/${getStringToUrlPath(
+                      item,
+                    )}`}
                   >
                     {item}
                   </MenuItem>
@@ -121,7 +121,9 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
                   onClick={this.handleClose}
                   className={classes.menuItem}
                   component={Link}
-                  to={`/scopedObject/${SOName.name.toLowerCase()}`}
+                  to={`${
+                    config.APP_BASEPATH
+                  }/scopedObject/${SOName.name.toLowerCase()}`}
                 >
                   {`${SOName.name}s`}
                 </MenuItem>

@@ -13,7 +13,7 @@ import type { IScopedObjectProps } from '../types';
 
 import { VISIBILITY, COUNTER_STATUSES } from './config';
 import { EDITORS_FIELDS } from '../config';
-import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../config';
+import { SCOPE_LEVELS, SCOPED_OBJECTS } from '../../../config';
 
 import { FieldLabel } from '../styles';
 import { Title, Outlined, ContainerTitle } from './styles';

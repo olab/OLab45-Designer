@@ -8,7 +8,7 @@ import OutlinedSelect from '../../../shared/components/OutlinedSelect';
 import CopyToClipboard from '../../../shared/components/CopyToClipboard';
 
 import { NODE_PRIORITIES } from './config';
-import { LINK_STYLES } from '../../config';
+import { LINK_STYLES } from '../../../config';
 
 import type { SecondaryTabProps as IProps } from './types';
 
