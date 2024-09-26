@@ -22,7 +22,7 @@ import styles, { ZoomContainer, ZoomWrapper, ScaleIconWrapper } from './styles';
 
 export class ZoomControls extends React.Component<
   IGraphControlProps,
-  IGraphControlState,
+  IGraphControlState
 > {
   constructor(props: IGraphControlProps) {
     super(props);

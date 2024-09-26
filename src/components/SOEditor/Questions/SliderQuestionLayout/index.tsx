@@ -53,7 +53,7 @@ function SliderQuestionLayout({
   const settingsObject = JSON.parse(settings);
 
   const onLayoutTypeChange = (e: Event): void => {
-    const { value } = (e.target: window.HTMLInputElement);
+    const { value } = e.target;
     e.target.name = 'orientation';
     e.target.value = layoutToOrientation(value);
     onSettingsChange(e);

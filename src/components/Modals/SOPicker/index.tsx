@@ -97,7 +97,7 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
 
   handleTypeChange = (e: Event): void => {
     const { level } = this.state;
-    const { value: type } = (e.target: window.HTMLInputElement);
+    const { value: type } = e.target;
     const queryStr = this.searchBoxRef.current.state.value;
     const scopedObjectsFiltered = this.getFilteredScopedObjects(
       level,
@@ -115,7 +115,7 @@ export class SOPicker extends PureComponent<ISOPickerProps, ISOPickerState> {
 
   handleLevelChange = (e: Event): void => {
     const { type } = this.state;
-    const { value: level } = (e.target: window.HTMLInputElement);
+    const { value: level } = (e.target);
     const queryStr = this.searchBoxRef.current.state.value;
     const scopedObjectsFiltered = this.getFilteredScopedObjects(
       level,

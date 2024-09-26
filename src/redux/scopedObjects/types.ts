@@ -45,7 +45,37 @@ export type ScopedObjectDetails = {
 
 export type ScopedObjectListItem = {
   id: number,
-  ...ScopedObjectBase,
+  // ...ScopedObjectBase,
+  width?: number,
+  height?: number,
+  status?: number,
+  visible?: number,
+  fileSize?: number,
+  layoutType?: number,
+  questionType?: number,
+  parentId: number | null,
+  url?: string,
+  name: string,
+  stem?: string,
+  path?: string,
+  mime?: string,
+  wiki?: string,
+  value?: string,
+  contents?: string,
+  feedback?: string,
+  widthType?: string,
+  copyright?: string,
+  scopeLevel: string,
+  originUrl?: string,
+  heightType?: string,
+  startValue?: string,
+  description: string,
+  resourceUrl?: string,
+  placeholder?: string,
+  isEmbedded?: boolean,
+  showAnswer?: boolean,
+  showSubmit?: boolean,
+  isPrivate?: Boolean,  
 };
 
 export type ScopedObject = {
@@ -65,7 +95,8 @@ export type ScopedObjects = {
 };
 
 export type ScopedObjectsState = {
-  ...ScopedObjects,
+  // ...ScopedObjects,
+  [type: string]: Array<ScopedObject | ScopedObjectListItem>,  
   isFetching: boolean,
   isCreating: boolean,
   isUpdating: boolean,

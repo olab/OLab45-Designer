@@ -1,5 +1,5 @@
-import { React, StrictMode } from 'react';
-import ReactDOM from 'react-dom';
+import { StrictMode } from 'react';
+import { createRoot } from "react-dom/client";
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@material-ui/core';
 import store, { history } from './store/store';

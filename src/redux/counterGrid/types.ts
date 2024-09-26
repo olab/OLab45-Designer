@@ -9,7 +9,13 @@ export type Counter = {
 };
 
 export type CounterGridNode = {
-  ...Counter,
+  // ...Counter,
+  id: number,
+  name: string,
+  expression: string,
+  description: string,
+  counterId: number,
+  isVisible: boolean,  
   nodeId: number,
   title: string,
 };

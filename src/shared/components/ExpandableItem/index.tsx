@@ -7,7 +7,7 @@ import { ExpandableItemStyle } from './styles';
 
 class ExpandableItem extends PureComponent<
   IExpandableItemProps,
-  IExpandableItemState,
+  IExpandableItemState
 > {
   expandableItemRef: { current: null | Element };
 

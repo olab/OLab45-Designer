@@ -34,7 +34,7 @@ import styles, {
 
 class MapDetailsEditor extends PureComponent<
   IProps & { nodes: Array<NodeType> },
-  IState,
+  IState
 > {
   numberTab: number = 0;
 

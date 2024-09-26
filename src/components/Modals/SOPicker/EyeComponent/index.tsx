@@ -25,7 +25,7 @@ import styles from './styles';
 
 class EyeComponent extends PureComponent<
   IEyeComponentProps,
-  IEyeComponentState,
+  IEyeComponentState
 > {
   state: IEyeComponentState = {
     isShowTooltip: false,

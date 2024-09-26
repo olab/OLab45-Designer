@@ -23,7 +23,8 @@ export type ScopedObjects = {
 };
 
 export type ScopedObjectsState = {
-  ...ScopedObjects,
+  // ...ScopedObjects,
+  [type: string]: Array<ScopedObject | ScopedObjectListItem>,
   isFetching: boolean,
   isCreating: boolean,
   isUpdating: boolean,

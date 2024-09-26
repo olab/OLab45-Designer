@@ -93,7 +93,7 @@ class NodeEditor extends PureComponent<INodeEditorProps, INodeEditorState> {
   };
 
   handleVisitOnceChange = (e: Event): void => {
-    const { checked: isVisitOnce } = (e.target: window.HTMLInputElement);
+    const { checked: isVisitOnce } = (e.target);
     this.setState({ isVisitOnce }, this.autosave.bind(this));
   };
 

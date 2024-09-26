@@ -50,7 +50,7 @@ import { View, ViewWrapper, GraphWrapper } from './styles';
 
 export class GraphView extends React.Component<
   IGraphViewProps,
-  IGraphViewState,
+  IGraphViewState
 > {
   constructor(props: IGraphViewProps) {
     super(props);

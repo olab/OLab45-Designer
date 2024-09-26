@@ -24,7 +24,7 @@ class SearchBox extends PureComponent<ISearchBoxProps, ISearchBoxState> {
 
   handleValueChange = (e: Event): void => {
     const { onSearch } = this.props;
-    const { value } = (e.target: window.HTMLInputElement);
+    const { value } = e.target;
 
     onSearch(value);
     this.setState({ value });

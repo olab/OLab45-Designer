@@ -89,7 +89,7 @@ class CounterGridTable extends Component<IProps, IState> {
   handleColumnCheck =
     (index: number): Function =>
     (e: Event): void => {
-      const { checked } = (e.target: window.HTMLInputElement);
+      const { checked } = (e.target);
       this.setState((prevState) =>
         this.changeMultipleValues(prevState, index, checked),
       );
@@ -98,7 +98,7 @@ class CounterGridTable extends Component<IProps, IState> {
   onInputChange =
     (i: number, j: number): Function =>
     (e: Event): void => {
-      const { value } = (e.target: window.HTMLInputElement);
+      const { value } = e.target;
       this.setState((prevState) =>
         this.updateStateAfterCheck(prevState, i, j, 'expression', value),
       );
@@ -107,7 +107,7 @@ class CounterGridTable extends Component<IProps, IState> {
   handleCheckboxChange =
     (i: number, j: number): Function =>
     (e: Event): void => {
-      const { checked } = (e.target: window.HTMLInputElement);
+      const { checked } = (e.target);
       this.setState((prevState) =>
         this.updateStateAfterCheck(prevState, i, j, 'isVisible', checked),
       );

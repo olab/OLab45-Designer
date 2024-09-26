@@ -17,10 +17,7 @@ import * as notificationActions from '../../redux/notifications/action';
 
 import styles from './styles';
 
-class ScopedObjectService extends PureComponent<
-  IScopedObjectProps,
-  IScopedObjectState,
-> {
+class ScopedObjectService extends PureComponent<IScopedObjectProps, IScopedObjectState> {
   parentIdRef: HTMLElement | null;
   isEditMode: boolean = false;
   scopeLevelObj: ScopeLevelType | null;
@@ -142,9 +139,9 @@ class ScopedObjectService extends PureComponent<
   };
 
   onToggleButtonChange = (e: Event): void => {
-    let { value } = (e.target.parentNode: window.HTMLInputElement);
+    let { value } = e.target.parentNode;
     const { attributes } = (e.target.parentNode
-      .parentNode: window.HTMLInputElement);
+      .parentNode);
     const { value: name } = attributes.name;
     value = Number(value);
     this.setState({ [name]: value });

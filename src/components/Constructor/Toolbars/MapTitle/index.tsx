@@ -37,7 +37,7 @@ class MapTitle extends PureComponent<IMapTitleProps, IMapTitleState> {
   }
 
   handleChange = (e: Event): void => {
-    const { value } = (e.target: window.HTMLInputElement);
+    const { value } = e.target;
     this.setState({
       title: value,
       isError: !value,

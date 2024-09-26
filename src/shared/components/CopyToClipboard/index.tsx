@@ -14,10 +14,7 @@ import type { ICopyToClipboardProps, ICopyToClipboardState } from './types';
 
 import styles from './styles';
 
-class CopyToClipboard extends PureComponent<
-  ICopyToClipboardProps,
-  ICopyToClipboardState,
-> {
+class CopyToClipboard extends PureComponent<ICopyToClipboardProps, ICopyToClipboardState> {
   state: ICopyToClipboardState = {
     isCopied: false,
   };

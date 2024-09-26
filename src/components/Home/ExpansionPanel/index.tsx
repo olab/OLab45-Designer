@@ -25,7 +25,7 @@ import styles, { ExpansionPanelWrapper } from './styles';
 
 class ExpansionPanel extends PureComponent<
   ExpansionPanelProps,
-  ExpansionPanelState,
+  ExpansionPanelState
 > {
   state: ExpansionPanelState = {
     expandedPanel: null,
