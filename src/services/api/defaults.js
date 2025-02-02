@@ -27,7 +27,7 @@ export const getNodeDefaults = () =>
     });
 
 export const getGroups = () =>
-  API.get('/auth/user/groups')
+  API.get('/groups')
     .then(({ data: { data: groups } }) =>
       groupsFromServer(groups),
     )
