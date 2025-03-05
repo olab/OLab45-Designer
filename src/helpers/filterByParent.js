@@ -8,7 +8,10 @@ const filterByParent = (items: Array<any>, queryStr: string): Array<any> => {
   }
 
   for (const item of items) {
-    if (item.scopeLevelObj && item.scopeLevelObj.name) {
+    if (item.scopeLevel.toLowerCase() == queryStr.toLowerCase()) {
+      itemsFiltered.push(item);
+    }
+    else if (item.scopeLevelObj && item.scopeLevelObj.name) {
       if (item.scopeLevelObj.name.toLowerCase().includes(queryStrClear)) {
         itemsFiltered.push(item);
       }
