@@ -58,7 +58,7 @@ module.exports = (env, options) => ({
       directory: path.join(__dirname, 'build'),
     },
     compress: true,
-    port: 4000,
+    port: 3000,
     host: devServerHost,
     allowedHosts: 'all',
     devMiddleware: {

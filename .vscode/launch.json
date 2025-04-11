@@ -9,14 +9,14 @@
       "type": "firefox",
       "request": "launch",
       "reAttach": true,
-      "url": "http://localhost:4000",
+      "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/build"
     },
     {
       "name": "Chrome",
       "request": "launch",
       "type": "chrome",
-      "url": "http://localhost:4000",
+      "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/build"
     }
   ]
