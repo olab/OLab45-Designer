@@ -1,3 +1,4 @@
+const Dotenv = require('dotenv-webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin'),
   CopyWebPackPlugin = require('copy-webpack-plugin'),
   webpack = require('webpack'),
@@ -121,6 +122,11 @@ module.exports = (env, options) => ({
   },
 
   plugins: [
+
+    new Dotenv({
+      path: `.env.${process.env.ENV_FILE}`, // resolves to .env.azure or .env.azure.dev
+    }),
+
     new webpack.SourceMapDevToolPlugin({}),
 
     // start with copying public to build
@@ -139,22 +145,24 @@ module.exports = (env, options) => ({
       filename: 'index.html',
       publicUrl: `${process.env.PUBLIC_URL || ''}`.replace(/\/{1,}$/g, ''),
     }),
+
     // use env variables in react
-    new webpack.DefinePlugin({
-      'process.env': JSON.stringify(process.env),
-      'process.env.PROJECT_VERSION': JSON.stringify(
-        process.env.PROJECT_VERSION,
-      ),
-      'process.env.PLAYER_PUBLIC_URL': JSON.stringify(
-        process.env.PLAYER_PUBLIC_URL,
-      ),
-      'process.env.npm_package_version': JSON.stringify(
-        process.env.npm_package_version,
-      ),
-      // 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL),
-      'process.env.API_URL': JSON.stringify(process.env.API_URL),
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env': JSON.stringify(process.env),
+    //   'process.env.PROJECT_VERSION': JSON.stringify(
+    //     process.env.PROJECT_VERSION,
+    //   ),
+    //   'process.env.PLAYER_PUBLIC_URL': JSON.stringify(
+    //     process.env.PLAYER_PUBLIC_URL,
+    //   ),
+    //   'process.env.npm_package_version': JSON.stringify(
+    //     process.env.npm_package_version,
+    //   ),
+    //   // 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    //   'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL),
+    //   'process.env.API_URL': JSON.stringify(process.env.API_URL),
+    // }),
+
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[name].[id].css',

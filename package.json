@@ -60,8 +60,10 @@
     "babel-polyfill": "^6.26.0",
     "blob": "^0.1.0",
     "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^10.1.0",
     "css-loader": "^6.7.3",
     "dotenv": "^16.0.3",
+    "dotenv-webpack": "^8.1.1",
     "eslint": "^8.40.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^8.8.0",
@@ -87,13 +89,17 @@
   },
   "scripts": {
     "start": "webpack serve --open --mode development",
-    "start:prod": "webpack serve --mode production",
+    "start:dev": "webpack serve --mode development",
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
     "lint": "eslint ./src",
     "test": "jest",
     "test-cover": "npm test -- --coverage",
-    "update:tinymce": "node ./postinstall.js"
+    "update:tinymce": "node ./postinstall.js",
+    "build:azure": "cross-env ENV_FILE=azure webpack --mode production",
+    "build:azure:dev": "cross-env ENV_FILE=azure.dev webpack --mode development",
+    "start:azure": "cross-env ENV_FILE=azure webpack serve --open --mode production",
+    "start:azure:dev": "cross-env ENV_FILE=azure.dev webpack serve --mode development"
   },
   "browserslist": [
     ">0.2%",
