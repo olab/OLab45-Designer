@@ -32,6 +32,10 @@ jobs:
             const coredemo = require('@actions/core')
             return await coredemo.getIDToken()
           result-encoding: string
+      - name: Copy TinyMCE assets
+        run: |
+          mkdir -p build/tinymce
+          cp -R public/tinymce/* build/tinymce/
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
