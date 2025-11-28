@@ -34,8 +34,8 @@ jobs:
           result-encoding: string
       - name: Copy TinyMCE assets
         run: |
-          mkdir -p build/public/tinymce
-          cp -R public/tinymce/* build/public/tinymce/
+          mkdir -p build/tinymce
+          cp -R public/tinymce/* build/tinymce/
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -50,7 +50,12 @@ jobs:
           app_build_command: 'npm run build:azure:dev' # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
       - name: List build directory (recursive)
-        run: ls -lR build
+        run: |
+          if command -v tree >/dev/null 2>&1; then
+            tree build
+          else
+            ls -lR build
+          fi
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
