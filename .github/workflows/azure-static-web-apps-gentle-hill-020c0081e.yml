@@ -50,7 +50,7 @@ jobs:
           app_build_command: 'npm run build:azure:dev' # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
       - name: List build directory (recursive)
-        run: ls -R build
+        run: ls -lR build
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
