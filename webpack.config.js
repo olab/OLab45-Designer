@@ -146,23 +146,6 @@ module.exports = (env, options) => ({
       publicUrl: `${process.env.PUBLIC_URL || ''}`.replace(/\/{1,}$/g, ''),
     }),
 
-    // use env variables in react
-    // new webpack.DefinePlugin({
-    //   'process.env': JSON.stringify(process.env),
-    //   'process.env.PROJECT_VERSION': JSON.stringify(
-    //     process.env.PROJECT_VERSION,
-    //   ),
-    //   'process.env.PLAYER_PUBLIC_URL': JSON.stringify(
-    //     process.env.PLAYER_PUBLIC_URL,
-    //   ),
-    //   'process.env.npm_package_version': JSON.stringify(
-    //     process.env.npm_package_version,
-    //   ),
-    //   // 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    //   'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL),
-    //   'process.env.API_URL': JSON.stringify(process.env.API_URL),
-    // }),
-
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[name].[id].css',

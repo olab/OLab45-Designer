@@ -32,7 +32,7 @@ class TextEditor extends React.Component {
 
     return (
       <Editor
-        tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
+        tinymceScriptSrc={`${window.location.protocol}${window.location.host}/tinymce/tinymce.min.js`}
         zapiKey={EDITOR_API_KEY}
         id={editorId}
         xcloudChannel={EDITOR_VERSION}
