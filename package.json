@@ -7,13 +7,13 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "4.0.0-alpha.56",
     "@mui/x-data-grid": "^4.0.2",
-    "@tinymce/tinymce-react": "^3.14.0",
-    "axios": "^0.21.2",
+    "@tinymce/tinymce-react": "^6.3.0npm ls tmp",
+    "axios": "^0.30.2",
     "classnames": "^2.3.2",
     "connected-react-router": "^6.9.2",
     "d3": "^5.9.2",
     "dagre": "^0.8.5",
-    "dompurify": "^3.0.3",
+    "dompurify": "^3.3.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.7",
     "formik": "^2.2.9",
@@ -47,7 +47,6 @@
     "tinymce": "^7.0.0"
   },
   "devDependencies": {
-    "@azure/static-web-apps-cli": "^1.1.7",
     "@babel/core": "^7.21.8",
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-flow": "^7.16.7",
@@ -81,8 +80,8 @@
     "prettier": "^2.8.8",
     "webpack": "^5.82.0",
     "webpack-cli": "^5.1.0",
-    "webpack-dev-server": "^4.15.0",
-    "workbox-webpack-plugin": "^6.5.4"
+    "webpack-dev-server": "^5.2.2",
+    "workbox-webpack-plugin": "^7.4.0"
   },
   "overrides": {
     "d3-color": "^3.1.0"

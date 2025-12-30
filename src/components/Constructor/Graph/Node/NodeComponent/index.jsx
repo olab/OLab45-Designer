@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import classNames from 'classnames';
-import { sanitize } from 'dompurify';
+import DOMPurify from 'dompurify';
 import { withStyles } from '@material-ui/core/styles';
 import { Card, CardHeader, RootRef } from '@material-ui/core';
 
@@ -87,7 +87,7 @@ const NodeComponent = ({
                 data-action={ACTION_FOCUS}
                 style={{ minHeight: cardTextHeight }}
                 className={classes.cardContentText}
-                dangerouslySetInnerHTML={{ __html: sanitize(text) }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(text) }}
               />
             </CardContent>
             <div className={classes.resizer}>

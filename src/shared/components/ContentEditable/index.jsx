@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { sanitize } from 'dompurify';
+import DOMPurify from 'dompurify';
 
 import type { ContentEditableProps as IProps } from './types';
 
@@ -35,7 +35,7 @@ class ContentEditable extends Component<IProps> {
         ref={this.contentEditableRef}
         onInput={this.emitChange}
         onFocus={onFocus}
-        dangerouslySetInnerHTML={{ __html: sanitize(html) }}
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(text) }}
         contentEditable
       />
     );
