@@ -9,7 +9,7 @@ export const TOOLS_MENU_ITEMS = {
 export const MAP_MENU_ITEMS = {
   NODE_GRID: 'Node Grid',
   MAP_DETAILS: 'Map Details ',
-  COUNTER_GRID: 'Counter Grid',
+  COUNTER_GRID: 'Counter Grid'
 };
 
 export const SCOPED_OBJECTS = {

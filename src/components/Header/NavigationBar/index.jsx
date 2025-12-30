@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { MenuItem, Menu, Button } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
+import { exportFileDownload } from '../../../services/api/exportFileDownload';
 
 import type { INavigationProps, INavigationState } from './types';
 
@@ -21,6 +22,11 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
     anchorElToolsMenu: null,
   };
 
+  buildFileName = (base: string, extension: string): string => {
+    const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
+    return `${base}_${timestamp}.${extension}`;
+  };
+
   handleClick = (event: Event): void => {
     this.setState({ anchorEl: event.currentTarget });
   };
@@ -32,6 +38,30 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
 
   handleToolsClick = (event: Event): void => {
     this.setState({ anchorElToolsMenu: event.currentTarget });
+  };
+
+  handleExport = async () => {
+    this.handleClose();
+
+    const { mapId } = this.props;
+
+    try {
+      const response = await exportFileDownload(mapId);
+      const filename = this.buildFileName(`map_export(${mapId})`, 'zip');
+
+      const url = window.URL.createObjectURL(response.data);
+      const a = document.createElement('a');
+
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Export failed', err);
+    }
   };
 
   handleClose = (): void => {
@@ -93,6 +123,13 @@ class NavigationBar extends PureComponent<INavigationProps, INavigationState> {
                     {item}
                   </MenuItem>
                 ))}
+                <MenuItem
+                  key={'Export'}
+                  onClick={this.handleExport}
+                  className={classes.menuItem}
+                >
+                  Export
+                </MenuItem>
               </Menu>
             </>
           )}
