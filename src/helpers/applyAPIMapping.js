@@ -96,12 +96,14 @@ export const nodeToServer = (data: Node): Node => {
 
   let node = { ...data };
 
-  // map negative ids (from creation of new records) to 0
-  // so these records can be added to the DB and not
-  // fail the 'uint' validation check on the backend
-  for (const groupRole of node.groupRoles) {
-    if (groupRole.id < 0) {
-      groupRole.id = 0;
+  if ( node?.groupRoles ) {
+    // map negative ids (from creation of new records) to 0
+    // so these records can be added to the DB and not
+    // fail the 'uint' validation check on the backend
+    for (const groupRole of node.groupRoles) {
+      if (groupRole.id < 0) {
+        groupRole.id = 0;
+      }
     }
   }
 
